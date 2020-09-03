@@ -8,7 +8,7 @@ import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import { renderRoutes } from 'react-router-config';
 
 import theme from './theme';
-import { configureStore } from './store';
+import { store } from './redux/store';
 import routes from './routes';
 import {
   ScrollReset,
@@ -23,7 +23,6 @@ import './mock';
 import './assets/scss/index.scss';
 
 const history = createBrowserHistory();
-const store = configureStore();
 
 const App = () => {
   return (
