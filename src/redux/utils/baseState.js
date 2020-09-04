@@ -10,9 +10,3 @@ export const baseState = (key, value) => {
     [key]: value
   };
 };
-export const loginState = {
-  loggingIn: false,
-  loggedIn: false,
-  isAuthenticated: false,
-  userInfo: {}
-};

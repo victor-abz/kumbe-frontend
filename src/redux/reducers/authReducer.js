@@ -2,7 +2,17 @@ import { pending, fulfilled, rejected, baseState } from 'redux/utils';
 import { LOGIN_USER, SET_AUTH_USER } from 'redux/actions/actionTypes';
 
 const initialState = baseState('user', {});
-const authState = { loggedIn: false, user: {} };
+const authState = {
+  loggedIn: false,
+  user: {
+    first_name: 'Shen',
+    last_name: 'Zhi',
+    email: 'demo@devias.io',
+    avatar: '/images/avatars/avatar_11.png',
+    bio: 'Brain Director',
+    role: 'ADMIN'
+  }
+};
 export const loginReducer = (state = initialState, action) => {
   switch (action.type) {
     case pending(LOGIN_USER): {

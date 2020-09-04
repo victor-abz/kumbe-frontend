@@ -32,7 +32,6 @@ import SearchIcon from '@material-ui/icons/Search';
 import axios from 'utils/axios';
 import useRouter from 'utils/useRouter';
 import { PricingModal, NotificationsPopover } from 'components';
-import { logout } from 'actions';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -95,7 +94,7 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
     color: '#ffffff',
     fontWeight: 900
-  },
+  }
 }));
 
 const TopBar = props => {
@@ -176,17 +175,10 @@ const TopBar = props => {
   ];
 
   return (
-    <AppBar
-      {...rest}
-      className={clsx(classes.root, className)}
-      color="primary"
-    >
+    <AppBar {...rest} className={clsx(classes.root, className)} color="primary">
       <Toolbar>
         <RouterLink to="/">
-          <Typography 
-            className={classes.title}
-            variant="h2" 
-          >
+          <Typography className={classes.title} variant="h2">
             Kumbe!
           </Typography>
           {/* <img
@@ -196,10 +188,7 @@ const TopBar = props => {
         </RouterLink>
         <div className={classes.flexGrow} />
         <Hidden smDown>
-          <div
-            className={classes.search}
-            ref={searchRef}
-          >
+          <div className={classes.search} ref={searchRef}>
             <SearchIcon className={classes.searchIcon} />
             <Input
               className={classes.searchInput}
@@ -213,20 +202,15 @@ const TopBar = props => {
             anchorEl={searchRef.current}
             className={classes.searchPopper}
             open={openSearchPopover}
-            transition
-          >
+            transition>
             <ClickAwayListener onClickAway={handleSearchPopverClose}>
-              <Paper
-                className={classes.searchPopperContent}
-                elevation={3}
-              >
+              <Paper className={classes.searchPopperContent} elevation={3}>
                 <List>
                   {popularSearches.map(search => (
                     <ListItem
                       button
                       key={search}
-                      onClick={handleSearchPopverClose}
-                    >
+                      onClick={handleSearchPopverClose}>
                       <ListItemIcon>
                         <SearchIcon />
                       </ListItemIcon>
@@ -240,8 +224,7 @@ const TopBar = props => {
           <Button
             className={classes.trialButton}
             onClick={handlePricingOpen}
-            variant="contained"
-          >
+            variant="contained">
             <LockIcon className={classes.trialIcon} />
             Trial expired
           </Button>
@@ -251,38 +234,29 @@ const TopBar = props => {
             className={classes.notificationsButton}
             color="inherit"
             onClick={handleNotificationsOpen}
-            ref={notificationsRef}
-          >
+            ref={notificationsRef}>
             <Badge
               badgeContent={notifications.length}
               classes={{ badge: classes.notificationsBadge }}
-              variant="dot"
-            >
+              variant="dot">
               <NotificationsIcon />
             </Badge>
           </IconButton>
           <Button
             className={classes.logoutButton}
             color="inherit"
-            onClick={handleLogout}
-          >
+            onClick={handleLogout}>
             <InputIcon className={classes.logoutIcon} />
             Sign out
           </Button>
         </Hidden>
         <Hidden lgUp>
-          <IconButton
-            color="inherit"
-            onClick={onOpenNavBarMobile}
-          >
+          <IconButton color="inherit" onClick={onOpenNavBarMobile}>
             <MenuIcon />
           </IconButton>
         </Hidden>
       </Toolbar>
-      <PricingModal
-        onClose={handlePricingClose}
-        open={pricingModalOpen}
-      />
+      <PricingModal onClose={handlePricingClose} open={pricingModalOpen} />
       <NotificationsPopover
         anchorEl={notificationsRef.current}
         notifications={notifications}
