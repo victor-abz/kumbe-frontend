@@ -125,6 +125,21 @@ mock.onGet('/api/account/notifications').reply(200, {
   ]
 });
 
+mock.onGet('/api/languages').reply(200, {
+  languages: [
+    {
+      id: uuid(),
+      name: 'English',
+      shortName: 'en',
+    },
+    {
+      id: uuid(),
+      name: 'Kinyarwanda',
+      shortName: 'kin'
+    }
+  ]
+});
+
 mock.onGet('/api/account/subscription').reply(200, {
   subscription: {
     name: 'Freelancer',
