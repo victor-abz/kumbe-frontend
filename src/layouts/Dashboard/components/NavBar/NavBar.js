@@ -10,6 +10,7 @@ import { Hidden } from '@material-ui/core';
 import useRouter from 'utils/useRouter';
 import { Navigation } from 'components';
 import navigationConfig from './navigationConfig';
+import { toUserAccess } from 'utils/constants';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -51,6 +52,7 @@ const NavBar = props => {
     if (openMobile) {
       onMobileClose && onMobileClose();
     }
+    // eslint-disable-next-line
   }, [router.location.pathname]);
 
   const navbarContent = (
@@ -64,9 +66,11 @@ const NavBar = props => {
           to="/profile/1/timeline"
         />
         <Typography className={classes.name} variant="h4">
-          {user.first_name} {user.last_name}
+          {user.names}
         </Typography>
-        <Typography variant="body2">{user.bio}</Typography>
+        <Typography variant="body2">
+          {toUserAccess(user.accessLevel)}
+        </Typography>
       </div>
       <Divider className={classes.divider} />
       <nav className={classes.navigation}>

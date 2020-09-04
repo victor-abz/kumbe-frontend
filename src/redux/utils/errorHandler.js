@@ -1,4 +1,5 @@
 import isPromise from 'is-promise';
+import { notifier } from 'utils/notifier';
 
 export const errorHandler = () => {
   return next => action => {
@@ -15,7 +16,7 @@ export const errorHandler = () => {
         } else {
           errorMessage = error.message;
         }
-        console.log('Error look out', errorMessage);
+        notifier.error(errorMessage);
       });
     }
 

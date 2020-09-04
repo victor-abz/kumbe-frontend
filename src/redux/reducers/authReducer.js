@@ -1,17 +1,10 @@
 import { pending, fulfilled, rejected, baseState } from 'redux/utils';
-import { LOGIN_USER, SET_AUTH_USER } from 'redux/actions/actionTypes';
+import { LOGIN_USER, GET_USER_PROFILE } from 'redux/actions/actionTypes';
 
 const initialState = baseState('user', {});
 const authState = {
   loggedIn: false,
-  user: {
-    first_name: 'Shen',
-    last_name: 'Zhi',
-    email: 'demo@devias.io',
-    avatar: '/images/avatars/avatar_11.png',
-    bio: 'Brain Director',
-    role: 'ADMIN'
-  }
+  user: {}
 };
 export const loginReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -38,11 +31,11 @@ export const loginReducer = (state = initialState, action) => {
 };
 export const authReducer = (state = authState, action) => {
   switch (action.type) {
-    case SET_AUTH_USER:
+    case fulfilled(GET_USER_PROFILE):
       return {
         ...state,
         loggedIn: true,
-        user: action.payload
+        user: action.payload.data.data
       };
     default: {
       return state;
