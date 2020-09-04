@@ -8,7 +8,7 @@ import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import { renderRoutes } from 'react-router-config';
 
 import theme from './theme';
-import { configureStore } from './store';
+import { store } from './redux/store';
 import routes from './routes';
 import {
   ScrollReset,
@@ -21,9 +21,9 @@ import './mixins/validate';
 import './mixins/prismjs';
 import './mock';
 import './assets/scss/index.scss';
+import { ToastContainer } from 'react-toastify';
 
 const history = createBrowserHistory();
-const store = configureStore();
 
 const App = () => {
   return (
@@ -31,6 +31,7 @@ const App = () => {
       <ThemeProvider theme={theme}>
         <MuiPickersUtilsProvider utils={MomentUtils}>
           <Router history={history}>
+            <ToastContainer />
             <ScrollReset />
             <GoogleAnalytics />
             <CookiesNotification />
