@@ -1,14 +1,12 @@
-/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import validate from 'validate.js';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/styles';
 import { Button, TextField } from '@material-ui/core';
 
 import useRouter from 'utils/useRouter';
-import { login } from 'actions';
+import { notifier } from 'utils/notifier';
 
 const schema = {
   email: {
@@ -42,7 +40,6 @@ const LoginForm = props => {
 
   const classes = useStyles();
   const router = useRouter();
-  const dispatch = useDispatch();
 
   const [formState, setFormState] = useState({
     isValid: false,
@@ -83,6 +80,7 @@ const LoginForm = props => {
   const handleSubmit = async event => {
     event.preventDefault();
     // dispatch(login());
+    notifier.success('It is working');
     router.history.push('/');
   };
 
@@ -93,8 +91,7 @@ const LoginForm = props => {
     <form
       {...rest}
       className={clsx(classes.root, className)}
-      onSubmit={handleSubmit}
-    >
+      onSubmit={handleSubmit}>
       <div className={classes.fields}>
         <TextField
           error={hasError('email')}
@@ -126,8 +123,7 @@ const LoginForm = props => {
         disabled={!formState.isValid}
         size="large"
         type="submit"
-        variant="contained"
-      >
+        variant="contained">
         Sign in
       </Button>
     </form>
