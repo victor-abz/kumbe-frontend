@@ -11,7 +11,7 @@ import { http } from 'utils/http';
 export const loginUser = userInfo => {
   store.dispatch({
     type: LOGIN_USER,
-    payload: http.post('/users/signin', userInfo)
+    payload: http.post('/users/login', userInfo)
   });
 };
 export const registerUser = user => {

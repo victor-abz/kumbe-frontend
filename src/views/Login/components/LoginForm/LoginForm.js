@@ -38,7 +38,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const LoginForm = props => {
-  const { className, ...rest } = props;
+  const { className, t,  ...rest } = props;
   const classes = useStyles();
   const router = useRouter();
   const login = useSelector(({ login }) => login);
@@ -108,8 +108,8 @@ const LoginForm = props => {
           helperText={
             hasError('username') ? formState.errors.username[0] : null
           }
-          label="User name"
-          name="username"
+          label={t('auth:title')}
+          name="username" 
           onChange={handleChange}
           value={formState.values.username || ''}
           variant="outlined"
@@ -120,7 +120,7 @@ const LoginForm = props => {
           helperText={
             hasError('password') ? formState.errors.password[0] : null
           }
-          label="Password"
+          label={t('auth:password')}
           name="password"
           onChange={handleChange}
           type="password"
@@ -135,14 +135,15 @@ const LoginForm = props => {
         size="large"
         type="submit"
         variant="contained">
-        {login.loading ? 'Loading ...' : 'Sign in'}
+        {login.loading ? t('auth:loading') : t('auth:login_button')}
       </Button>
     </form>
   );
 };
 
 LoginForm.propTypes = {
-  className: PropTypes.string
+  className: PropTypes.string,
+  t: PropTypes.func
 };
 
 export default LoginForm;

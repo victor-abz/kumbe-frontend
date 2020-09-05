@@ -25,6 +25,8 @@ import './assets/scss/index.scss';
 import { ToastContainer } from 'react-toastify';
 import { AUTH_TOKEN } from 'utils/constants';
 import { getUserProfile } from 'redux/actions';
+import './i18n';
+import { useTranslation } from 'react-i18next';
 
 const history = createBrowserHistory();
 const authToken = localStorage.getItem(AUTH_TOKEN);
@@ -37,6 +39,7 @@ if (authToken) {
   }
 }
 const App = () => {
+  const { t } = useTranslation(['top_bar', 'auth']);
   return (
     <StoreProvider store={store}>
       <ThemeProvider theme={theme}>
@@ -45,8 +48,8 @@ const App = () => {
             <ToastContainer />
             <ScrollReset />
             <GoogleAnalytics />
-            <CookiesNotification />
-            {renderRoutes(routes)}
+            <CookiesNotification />     
+            {renderRoutes(routes, { t })}
           </Router>
         </MuiPickersUtilsProvider>
       </ThemeProvider>

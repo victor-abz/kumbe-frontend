@@ -1,32 +1,23 @@
 import React, { Fragment, Suspense } from 'react';
 import { renderRoutes } from 'react-router-config';
 import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/styles';
 import { LinearProgress } from '@material-ui/core';
 
 import { Topbar } from './components';
+import { useStyles } from './styles';
 
-const useStyles = makeStyles(theme => ({
-  content: {
-    height: '100%',
-    paddingTop: 56,
-    [theme.breakpoints.up('sm')]: {
-      paddingTop: 64
-    }
-  }
-}));
-
+      
 const Auth = props => {
-  const { route } = props;
+  const { route, t } = props;
 
   const classes = useStyles();
 
   return (
     <Fragment>
-      <Topbar />
+      <Topbar t={t}/>
       <main className={classes.content}>
         <Suspense fallback={<LinearProgress />}>
-          {renderRoutes(route.routes)}
+          {renderRoutes(route.routes, { t })}
         </Suspense>
       </main>
     </Fragment>
@@ -34,7 +25,8 @@ const Auth = props => {
 };
 
 Auth.propTypes = {
-  route: PropTypes.object
+  route: PropTypes.object,
+  t: PropTypes.func
 };
 
 export default Auth;
