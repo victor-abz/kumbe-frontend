@@ -7,11 +7,13 @@ import { Button, TextField } from '@material-ui/core';
 
 import useRouter from 'utils/useRouter';
 import { notifier } from 'utils/notifier';
+import { useSelector } from 'react-redux';
+import { loginUser } from 'redux/actions';
+import { AUTH_TOKEN } from 'utils/constants';
 
 const schema = {
-  email: {
-    presence: { allowEmpty: false, message: 'is required' },
-    email: true
+  username: {
+    presence: { allowEmpty: false, message: 'is required' }
   },
   password: {
     presence: { allowEmpty: false, message: 'is required' }
@@ -37,9 +39,9 @@ const useStyles = makeStyles(theme => ({
 
 const LoginForm = props => {
   const { className, ...rest } = props;
-
   const classes = useStyles();
   const router = useRouter();
+  const login = useSelector(({ login }) => login);
 
   const [formState, setFormState] = useState({
     isValid: false,
@@ -57,7 +59,16 @@ const LoginForm = props => {
       errors: errors || {}
     }));
   }, [formState.values]);
-
+  useEffect(() => {
+    if (login.loaded) {
+      localStorage.setItem(AUTH_TOKEN, login.user.token);
+      notifier.success(login.message);
+      setTimeout(() => {
+        router.history.push('/');
+      }, 5000);
+    }
+    // eslint-disable-next-line
+  }, [login.loaded]);
   const handleChange = event => {
     event.persist();
 
@@ -79,9 +90,7 @@ const LoginForm = props => {
 
   const handleSubmit = async event => {
     event.preventDefault();
-    // dispatch(login());
-    notifier.success('It is working');
-    router.history.push('/');
+    loginUser(formState.values);
   };
 
   const hasError = field =>
@@ -94,13 +103,15 @@ const LoginForm = props => {
       onSubmit={handleSubmit}>
       <div className={classes.fields}>
         <TextField
-          error={hasError('email')}
+          error={hasError('username')}
           fullWidth
-          helperText={hasError('email') ? formState.errors.email[0] : null}
-          label="Email address"
-          name="email"
+          helperText={
+            hasError('username') ? formState.errors.username[0] : null
+          }
+          label="User name"
+          name="username"
           onChange={handleChange}
-          value={formState.values.email || ''}
+          value={formState.values.username || ''}
           variant="outlined"
         />
         <TextField
@@ -124,7 +135,7 @@ const LoginForm = props => {
         size="large"
         type="submit"
         variant="contained">
-        Sign in
+        {login.loading ? 'Loading ...' : 'Sign in'}
       </Button>
     </form>
   );
