@@ -3,50 +3,26 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/styles';
 import {
   AppBar,
-  Badge,
   Button,
   IconButton,
   Toolbar,
   Hidden,
-  Input,
   colors,
-  Popper,
-  Paper,
-  List,
-  ListItem,
   ListItemIcon,
-  ListItemText,
-  ClickAwayListener,
   Typography,
-  TextField,
-  InputAdornment,
   FormControl,
   Select,
   MenuItem,
-  InputLabel
 } from '@material-ui/core';
 import LockIcon from '@material-ui/icons/LockOutlined';
-import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
-import InputIcon from '@material-ui/icons/Input';
 import MenuIcon from '@material-ui/icons/Menu';
-import SearchIcon from '@material-ui/icons/Search';
 import TranslateIcon from '@material-ui/icons/Translate';
 
 import ExpandMoreRoundedIcon from '@material-ui/icons/ExpandMoreRounded';
-
-import AccountCircle from '@material-ui/icons/AccountCircle';
-
 import axios from 'utils/axios';
-import useRouter from 'utils/useRouter';
-import { PricingModal, LanguagesPopover } from 'components';
-import { logout } from 'actions';
-import SortIcon from '@material-ui/icons/Sort';
-import { blue } from '@material-ui/core/colors';
-import { grey } from '@material-ui/core/colors';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -55,48 +31,7 @@ const useStyles = makeStyles(theme => ({
   flexGrow: {
     flexGrow: 1
   },
-  // search: {
-  //   backgroundColor: 'rgba(255,255,255, 0.1)',
-  //   borderRadius: 4,
-  //   flexBasis: 300,
-  //   height: 36,
-  //   padding: theme.spacing(0, 2),
-  //   display: 'flex',
-  //   alignItems: 'center'
-  // },
-  search: {
-    position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    // backgroundColor: fade(theme.palette.common.white, 0.15),
-    // '&:hover': {
-    //   backgroundColor: fade(theme.palette.common.white, 0.25),
-    // },
-    marginRight: theme.spacing(8),
-    marginLeft: 0,
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing(3),
-      width: 'auto',
-    },
-  },
-  searchIcon: {
-    marginRight: theme.spacing(2),
-    color: 'inherit'
-  },
-  searchInput: {
-    flexGrow: 1,
-    color: 'inherit',
-    '& input::placeholder': {
-      opacity: 1,
-      color: 'inherit'
-    }
-  },
-  searchPopper: {
-    zIndex: theme.zIndex.appBar + 100
-  },
-  searchPopperContent: {
-    marginTop: theme.spacing(1)
-  },
+
   forumButton: {
     marginLeft: theme.spacing(2),
     color: theme.palette.white,
@@ -105,21 +40,10 @@ const useStyles = makeStyles(theme => ({
       backgroundColor: colors.purple['A700']
     }
   },
-  trialIcon: {
+  forumIcon: {
     marginRight: theme.spacing(1)
   },
-  notificationsButton: {
-    marginLeft: theme.spacing(1)
-  },
-  notificationsBadge: {
-    backgroundColor: colors.orange[600]
-  },
-  logoutButton: {
-    marginLeft: theme.spacing(1)
-  },
-  logoutIcon: {
-    marginRight: theme.spacing(1)
-  },
+
   title: {
     flexGrow: 1,
     color: '#ffffff',
@@ -197,17 +121,8 @@ const TopBar = props => {
   const { onOpenNavBarMobile, className, ...rest } = props;
 
   const classes = useStyles();
-  const { history } = useRouter();
-  const searchRef = useRef(null);
-  const dispatch = useDispatch();
-  const languagesRef = useRef(null);
-  const [pricingModalOpen, setPricingModalOpen] = useState(false);
-  const [openSearchPopover, setOpenSearchPopover] = useState(false);
-  const [searchValue, setSearchValue] = useState('');
   const [language, setLanguage] = useState('en');
-  const [openNotifications, setOpenNotifications] = useState(false);
-
-  let Languages
+  const [languages, setLanguages] = useState([])
 
   const handleChange = (event) => {
     setLanguage(event.target.value);
@@ -216,57 +131,21 @@ const TopBar = props => {
   useEffect(() => {
     let mounted = true;
 
-    const fetchNotifications = () => {
+    const fetchLanguages = () => {
       axios.get('/api/languages').then(response => {
         if (mounted) {
-          Languages= response.data.languages;
+          setLanguages(response.data.languages);
         }
       });
     };
 
-    fetchNotifications();
+    fetchLanguages();
 
     return () => {
       mounted = false;
     };
   }, []);
 
-  const handleLogout = () => {
-    history.push('/auth/login');
-    // dispatch(logout());
-  };
-
-  const handlePricingOpen = () => {
-    setPricingModalOpen(true);
-  };
-
-  const handlePricingClose = () => {
-    setPricingModalOpen(false);
-  };
-
-  const handleNotificationsOpen = () => {
-    setOpenNotifications(true);
-  };
-
-  const handleNotificationsClose = () => {
-    setOpenNotifications(false);
-  };
-
-  const handleSearchChange = event => {
-    setSearchValue(event.target.value);
-
-    if (event.target.value) {
-      if (!openSearchPopover) {
-        setOpenSearchPopover(true);
-      }
-    } else {
-      setOpenSearchPopover(false);
-    }
-  };
-
-  const handleSearchPopverClose = () => {
-    setOpenSearchPopover(false);
-  };
 
   // eslint-disable-next-line react/no-multi-comp
   const iconComponent = (props) => {
@@ -274,13 +153,6 @@ const TopBar = props => {
       <ExpandMoreRoundedIcon className={props.className + ' ' + classes.icon}/>
     )};
 
-  const popularSearches = [
-    'Devias React Dashboard',
-    'Devias',
-    'Admin Pannel',
-    'Project',
-    'Pages'
-  ];
   const menuProps = {
     classes: {
       paper: classes.paper,
@@ -315,24 +187,13 @@ const TopBar = props => {
             src="/images/logos/logo--white.svg"
           /> */}
         </RouterLink>
-        <div className={classes.search}>
-          <RouterLink to="/">
-            <Typography 
-              className={classes.title}
-              variant="h4"
-            >
-            Kumbe!
-            </Typography>
-          </RouterLink>
-        </div>
         <div className={classes.flexGrow}/>
         <Hidden smDown>
           <Button
             className={classes.forumButton}
-            onClick={handlePricingOpen}
             variant="contained"
           >
-            <LockIcon className={classes.trialIcon} />
+            <LockIcon className={classes.forumIcon} />
             Let's Talk
           </Button>
         </Hidden>
@@ -346,13 +207,13 @@ const TopBar = props => {
               onChange={handleChange}
               value={language}
             >
-              {currencies.map((option) => (
-                <MenuItem value={option.value}>
+              {languages.map((option) => (
+                <MenuItem value={option.shortName}>
                   <ListItemIcon classes={{ root: classes.listIcon }}>
                     <TranslateIcon/>
                   </ListItemIcon>
                   <span style={{marginTop:3}}>
-                    {option.label}
+                    {option.name}
                   </span>
                 </MenuItem>
               ))}

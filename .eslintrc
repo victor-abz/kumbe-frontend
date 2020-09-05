@@ -51,13 +51,8 @@
     "jsx": true,
     "experimentalObjectRestSpread": true
   },
-<<<<<<< HEAD
-  "plugins": ["react"]
-}
-=======
   "plugins": [
     "react",
     "react-hooks"
   ]
 }
->>>>>>> language-bar
