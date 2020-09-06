@@ -39,7 +39,7 @@ if (authToken) {
   }
 }
 const App = () => {
-  const { t } = useTranslation(['top_bar', 'auth']);
+  const { t } = useTranslation(['top_bar', 'auth', 'error']);
   return (
     <StoreProvider store={store}>
       <ThemeProvider theme={theme}>

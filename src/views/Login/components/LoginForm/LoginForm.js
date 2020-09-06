@@ -11,15 +11,6 @@ import { useSelector } from 'react-redux';
 import { loginUser } from 'redux/actions';
 import { AUTH_TOKEN } from 'utils/constants';
 
-const schema = {
-  username: {
-    presence: { allowEmpty: false, message: 'is required' }
-  },
-  password: {
-    presence: { allowEmpty: false, message: 'is required' }
-  }
-};
-
 const useStyles = makeStyles(theme => ({
   root: {},
   fields: {
@@ -49,6 +40,14 @@ const LoginForm = props => {
     touched: {},
     errors: {}
   });
+  const schema = {
+    username: {
+      presence: { allowEmpty: false, message: t('error:is_required') }
+    },
+    password: {
+      presence: { allowEmpty: false, message: t('error:is_required') }
+    }
+  };
 
   useEffect(() => {
     const errors = validate(formState.values, schema);

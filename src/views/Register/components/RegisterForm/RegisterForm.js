@@ -10,42 +10,15 @@ import {
   FormHelperText,
   TextField,
   Typography,
-  Link
+  Link,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem
 } from '@material-ui/core';
+import { loginUser } from 'redux/actions';
 
 import useRouter from 'utils/useRouter';
-
-const schema = {
-  firstName: {
-    presence: { allowEmpty: false, message: 'is required' },
-    length: {
-      maximum: 32
-    }
-  },
-  lastName: {
-    presence: { allowEmpty: false, message: 'is required' },
-    length: {
-      maximum: 32
-    }
-  },
-  email: {
-    presence: { allowEmpty: false, message: 'is required' },
-    email: true,
-    length: {
-      maximum: 64
-    }
-  },
-  password: {
-    presence: { allowEmpty: false, message: 'is required' },
-    length: {
-      maximum: 128
-    }
-  },
-  policy: {
-    presence: { allowEmpty: false, message: 'is required' },
-    checked: true
-  }
-};
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -72,7 +45,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const RegisterForm = props => {
-  const { className, ...rest } = props;
+  const { className, t, ...rest } = props;
 
   const classes = useStyles();
   const { history } = useRouter();
@@ -83,6 +56,37 @@ const RegisterForm = props => {
     touched: {},
     errors: {}
   });
+
+  const schema = {
+    username: {
+      presence: { allowEmpty: false, message: t('error:is_required') },
+      length: {
+        maximum: 32
+      }
+    },
+    names: {
+      presence: { allowEmpty: false, message: t('error:is_required') },
+      length: {
+        maximum: 64
+      }
+    },
+    gender: {
+      presence: { allowEmpty: false, message: t('error:is_required') },
+      length: {
+        maximum: 32
+      }
+    },
+    password: {
+      presence: { allowEmpty: false, message: t('error:is_required') },
+      length: {
+        maximum: 128
+      }
+    },
+    policy: {
+      presence: { allowEmpty: false, message: t('error:is_required') },
+      checked: true
+    }
+  };
 
   useEffect(() => {
     const errors = validate(formState.values, schema);
@@ -115,7 +119,7 @@ const RegisterForm = props => {
 
   const handleSubmit = async event => {
     event.preventDefault();
-    history.push('/');
+    // loginUser(formState.values);
   };
 
   const hasError = field =>
@@ -129,50 +133,56 @@ const RegisterForm = props => {
     >
       <div className={classes.fields}>
         <TextField
-          error={hasError('firstName')}
+          error={hasError('username')}
           helperText={
-            hasError('firstName') ? formState.errors.firstName[0] : null
+            hasError('username') ? formState.errors.username[0] : null
           }
-          label="First name"
-          name="firstName"
+          label= {t('auth:user_name')}
+          name="username"
           onChange={handleChange}
-          value={formState.values.firstName || ''}
+          value={formState.values.username || ''}
           variant="outlined"
         />
         <TextField
-          error={hasError('lastName')}
-          helperText={
-            hasError('lastName') ? formState.errors.lastName[0] : null
-          }
-          label="Last name"
-          name="lastName"
-          onChange={handleChange}
-          value={formState.values.lastName || ''}
-          variant="outlined"
-        />
-        <TextField
-          error={hasError('email')}
+          error={hasError('names')}
           fullWidth
-          helperText={hasError('email') ? formState.errors.email[0] : null}
-          label="Email address"
-          name="email"
+          helperText={hasError('names') ? formState.errors.names[0] : null}
+          label={t('auth:names')}
+          name="names"
           onChange={handleChange}
-          value={formState.values.email || ''}
+          value={formState.values.names || ''}
           variant="outlined"
         />
+
         <TextField
           error={hasError('password')}
           fullWidth
           helperText={
             hasError('password') ? formState.errors.password[0] : null
           }
-          label="Password"
+          label={t('auth:password')}
           name="password"
           onChange={handleChange}
           type="password"
           value={formState.values.password || ''}
           variant="outlined"
         />
+        <FormControl className={classes.formControl} error={hasError('gender')} variant="outlined">
+          <InputLabel id="gender-selector">{t('auth:gender')}</InputLabel>
+          <Select     
+            fullWidth
+            id="gender"
+            label={t('auth:gender')}
+            labelId="gender-selector"
+            name="gender"
+            onChange={handleChange}
+            value={formState.values.gender || ''}
+          >
+            <MenuItem value={'Male'}>Male</MenuItem>
+            <MenuItem value={'Female'}>Female</MenuItem>
+          </Select>
+        </FormControl>
+
         <div>
           <div className={classes.policy}>
             <Checkbox
@@ -186,7 +196,7 @@ const RegisterForm = props => {
               color="textSecondary"
               variant="body1"
             >
-              I have read the{' '}
+              {t('auth:read_ag')}{' '}
               <Link
                 color="secondary"
                 component={RouterLink}
@@ -194,7 +204,7 @@ const RegisterForm = props => {
                 underline="always"
                 variant="h6"
               >
-                Terms and Conditions
+                {t('auth:terms_name')}
               </Link>
             </Typography>
           </div>
@@ -211,7 +221,7 @@ const RegisterForm = props => {
         type="submit"
         variant="contained"
       >
-        Create account
+        {t('auth:register')}
       </Button>
     </form>
   );

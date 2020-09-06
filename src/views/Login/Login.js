@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import {
   Card,
@@ -6,8 +6,7 @@ import {
   CardMedia,
   Typography,
   Divider,
-  Link,
-  Avatar
+  Link
 } from '@material-ui/core';
 import LockIcon from '@material-ui/icons/Lock';
 import PropTypes from 'prop-types';
@@ -18,6 +17,27 @@ import { LoginForm, useStyles } from './components';
 const Login = (props) => {
   const { t } = props;
   const classes = useStyles();
+
+  const [quote, setQuote] = useState({
+    quote: 'Hella narvwhal Cosby sweater McSweeney\'s, salvia kitsch before they sold out High Life.',
+    background: '/images/auth.png',
+  });
+
+  useEffect(() => {
+    let mounted = true;
+    fetch('https://quotes.rest/qod?category=inspire&language=en')
+      .then(res => res.json())
+      .then((data) => {
+        if (mounted) {
+          const qt = data.contents.quotes[0]
+          setQuote({ quote: qt.quote, background: qt.background, author: qt.author })
+        }
+      })
+      .catch(console.log)
+    return () => {
+      mounted = false;
+    };
+  }, [])
 
   return (
     <Page
@@ -51,34 +71,22 @@ const Login = (props) => {
         </CardContent>
         <CardMedia
           className={classes.media}
-          image="/images/auth.png"
+          image={quote.background}
           title="Cover"
         >
           <Typography
             color="inherit"
             variant="subtitle1"
           >
-            Hella narvwhal Cosby sweater McSweeney's, salvia kitsch before they
-            sold out High Life.
+            {quote.quote}
           </Typography>
           <div className={classes.person}>
-            <Avatar
-              alt="Person"
-              className={classes.avatar}
-              src="/images/avatars/avatar_2.png"
-            />
             <div>
               <Typography
                 color="inherit"
                 variant="body1"
               >
-                Ekaterina Tankova
-              </Typography>
-              <Typography
-                color="inherit"
-                variant="body2"
-              >
-                Manager at inVision
+                {quote.author}
               </Typography>
             </div>
           </div>
