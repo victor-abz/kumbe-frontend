@@ -1,85 +1,43 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import { makeStyles } from '@material-ui/styles';
 import {
   Card,
   CardContent,
   CardMedia,
   Typography,
   Divider,
-  Link,
-  Avatar
+  Link
 } from '@material-ui/core';
 import LockIcon from '@material-ui/icons/Lock';
+import PropTypes from 'prop-types';
 
 import { Page } from 'components';
-import gradients from 'utils/gradients';
-import { LoginForm } from './components';
+import { LoginForm, useStyles } from './components';
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    height: '100%',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: theme.spacing(6, 2)
-  },
-  card: {
-    width: theme.breakpoints.values.md,
-    maxWidth: '100%',
-    overflow: 'unset',
-    display: 'flex',
-    position: 'relative',
-    '& > *': {
-      flexGrow: 1,
-      flexBasis: '50%',
-      width: '50%'
-    }
-  },
-  content: {
-    padding: theme.spacing(8, 4, 3, 4)
-  },
-  media: {
-    borderTopRightRadius: 4,
-    borderBottomRightRadius: 4,
-    padding: theme.spacing(3),
-    color: theme.palette.white,
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'flex-end',
-    [theme.breakpoints.down('md')]: {
-      display: 'none'
-    }
-  },
-  icon: {
-    backgroundImage: gradients.green,
-    color: theme.palette.white,
-    borderRadius: theme.shape.borderRadius,
-    padding: theme.spacing(1),
-    position: 'absolute',
-    top: -32,
-    left: theme.spacing(3),
-    height: 64,
-    width: 64,
-    fontSize: 32
-  },
-  loginForm: {
-    marginTop: theme.spacing(3)
-  },
-  divider: {
-    margin: theme.spacing(2, 0)
-  },
-  person: {
-    marginTop: theme.spacing(2),
-    display: 'flex'
-  },
-  avatar: {
-    marginRight: theme.spacing(2)
-  }
-}));
-
-const Login = () => {
+const Login = (props) => {
+  const { t } = props;
   const classes = useStyles();
+
+  const [quote, setQuote] = useState({
+    quote: 'Hella narvwhal Cosby sweater McSweeney\'s, salvia kitsch before they sold out High Life.',
+    background: '/images/auth.png',
+  });
+
+  useEffect(() => {
+    let mounted = true;
+    fetch('https://quotes.rest/qod?category=inspire&language=en')
+      .then(res => res.json())
+      .then((data) => {
+        if (mounted) {
+          const qt = data.contents.quotes[0]
+          setQuote({ quote: qt.quote, background: qt.background, author: qt.author })
+        }
+      })
+      .catch(console.log)
+    return () => {
+      mounted = false;
+    };
+  }, [])
 
   return (
     <Page
@@ -93,12 +51,12 @@ const Login = () => {
             gutterBottom
             variant="h3"
           >
-            Sign in
+            {t('auth:title')}
           </Typography>
           <Typography variant="subtitle2">
-            Sign in on the internal platform
+            {t('auth:sub_title')}
           </Typography>
-          <LoginForm className={classes.loginForm} />
+          <LoginForm className={classes.loginForm} t={t} />
           <Divider className={classes.divider} />
           <Link
             align="center"
@@ -108,39 +66,27 @@ const Login = () => {
             underline="always"
             variant="subtitle2"
           >
-            Don't have an account?
+            {t('auth:no_account')}
           </Link>
         </CardContent>
         <CardMedia
           className={classes.media}
-          image="/images/auth.png"
+          image={quote.background}
           title="Cover"
         >
           <Typography
             color="inherit"
             variant="subtitle1"
           >
-            Hella narvwhal Cosby sweater McSweeney's, salvia kitsch before they
-            sold out High Life.
+            {quote.quote}
           </Typography>
           <div className={classes.person}>
-            <Avatar
-              alt="Person"
-              className={classes.avatar}
-              src="/images/avatars/avatar_2.png"
-            />
             <div>
               <Typography
                 color="inherit"
                 variant="body1"
               >
-                Ekaterina Tankova
-              </Typography>
-              <Typography
-                color="inherit"
-                variant="body2"
-              >
-                Manager at inVision
+                {quote.author}
               </Typography>
             </div>
           </div>
@@ -149,5 +95,10 @@ const Login = () => {
     </Page>
   );
 };
+
+Login.propTypes = {
+  t: PropTypes.func
+};
+
 
 export default Login;

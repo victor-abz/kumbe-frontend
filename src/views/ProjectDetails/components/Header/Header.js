@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
-import { makeStyles } from '@material-ui/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Grid, Button, colors } from '@material-ui/core';
 import ShareIcon from '@material-ui/icons/Share';
 

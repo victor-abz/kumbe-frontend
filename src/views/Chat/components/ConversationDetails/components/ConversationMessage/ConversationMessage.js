@@ -3,7 +3,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import moment from 'moment';
-import { makeStyles } from '@material-ui/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Link, Avatar, colors } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({

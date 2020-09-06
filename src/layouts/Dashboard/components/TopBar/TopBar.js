@@ -4,7 +4,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { makeStyles } from '@material-ui/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import {
   AppBar,
   Badge,
@@ -21,81 +21,88 @@ import {
   ListItemIcon,
   ListItemText,
   ClickAwayListener,
-  Typography
+  Typography,
+  FormControl,
+  Select,
+  MenuItem
 } from '@material-ui/core';
 import LockIcon from '@material-ui/icons/LockOutlined';
 import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
 import InputIcon from '@material-ui/icons/Input';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
+import TranslateIcon from '@material-ui/icons/Translate';
+import ExpandMoreRoundedIcon from '@material-ui/icons/ExpandMoreRounded';
 
 import axios from 'utils/axios';
 import useRouter from 'utils/useRouter';
 import { PricingModal, NotificationsPopover } from 'components';
+import { useTranslation } from 'react-i18next';
+import { useStyles } from './styles';
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    boxShadow: 'none'
-  },
-  flexGrow: {
-    flexGrow: 1
-  },
-  search: {
-    backgroundColor: 'rgba(255,255,255, 0.1)',
-    borderRadius: 4,
-    flexBasis: 300,
-    height: 36,
-    padding: theme.spacing(0, 2),
-    display: 'flex',
-    alignItems: 'center'
-  },
-  searchIcon: {
-    marginRight: theme.spacing(2),
-    color: 'inherit'
-  },
-  searchInput: {
-    flexGrow: 1,
-    color: 'inherit',
-    '& input::placeholder': {
-      opacity: 1,
-      color: 'inherit'
-    }
-  },
-  searchPopper: {
-    zIndex: theme.zIndex.appBar + 100
-  },
-  searchPopperContent: {
-    marginTop: theme.spacing(1)
-  },
-  trialButton: {
-    marginLeft: theme.spacing(2),
-    color: theme.palette.white,
-    backgroundColor: colors.purple['A400'],
-    '&:hover': {
-      backgroundColor: colors.purple['A700']
-    }
-  },
-  trialIcon: {
-    marginRight: theme.spacing(1)
-  },
-  notificationsButton: {
-    marginLeft: theme.spacing(1)
-  },
-  notificationsBadge: {
-    backgroundColor: colors.orange[600]
-  },
-  logoutButton: {
-    marginLeft: theme.spacing(1)
-  },
-  logoutIcon: {
-    marginRight: theme.spacing(1)
-  },
-  title: {
-    flexGrow: 1,
-    color: '#ffffff',
-    fontWeight: 900
-  }
-}));
+// const useStyles = makeStyles(theme => ({
+//   root: {
+//     boxShadow: 'none'
+//   },
+//   flexGrow: {
+//     flexGrow: 1
+//   },
+//   search: {
+//     backgroundColor: 'rgba(255,255,255, 0.1)',
+//     borderRadius: 4,
+//     flexBasis: 300,
+//     height: 36,
+//     padding: theme.spacing(0, 2),
+//     display: 'flex',
+//     alignItems: 'center'
+//   },
+//   searchIcon: {
+//     marginRight: theme.spacing(2),
+//     color: 'inherit'
+//   },
+//   searchInput: {
+//     flexGrow: 1,
+//     color: 'inherit',
+//     '& input::placeholder': {
+//       opacity: 1,
+//       color: 'inherit'
+//     }
+//   },
+//   searchPopper: {
+//     zIndex: theme.zIndex.appBar + 100
+//   },
+//   searchPopperContent: {
+//     marginTop: theme.spacing(1)
+//   },
+//   trialButton: {
+//     marginLeft: theme.spacing(2),
+//     color: theme.palette.white,
+//     backgroundColor: colors.purple['A400'],
+//     '&:hover': {
+//       backgroundColor: colors.purple['A700']
+//     }
+//   },
+//   trialIcon: {
+//     marginRight: theme.spacing(1)
+//   },
+//   notificationsButton: {
+//     marginLeft: theme.spacing(1)
+//   },
+//   notificationsBadge: {
+//     backgroundColor: colors.orange[600]
+//   },
+//   logoutButton: {
+//     marginLeft: theme.spacing(1)
+//   },
+//   logoutIcon: {
+//     marginRight: theme.spacing(1)
+//   },
+//   title: {
+//     flexGrow: 1,
+//     color: '#ffffff',
+//     fontWeight: 900
+//   }
+// }));
 
 const TopBar = props => {
   const { onOpenNavBarMobile, className, ...rest } = props;
@@ -110,6 +117,23 @@ const TopBar = props => {
   const [searchValue, setSearchValue] = useState('');
   const [notifications, setNotifications] = useState([]);
   const [openNotifications, setOpenNotifications] = useState(false);
+  const { i18n } = useTranslation();
+
+  const defaultLng = 'en';
+  let lng = defaultLng;
+  
+  const storageLanguage = localStorage.getItem('language');
+  lng = storageLanguage;
+
+  const [language, setLanguage] = useState(lng);
+  const [languages, setLanguages] = useState(['en', 'kin'])
+  
+  const handleChange = (event) => {
+    setLanguage(event.target.value);
+    localStorage.setItem('language', event.target.value);
+    i18n.changeLanguage(event.target.value);
+  };
+
 
   useEffect(() => {
     let mounted = true;
@@ -123,6 +147,16 @@ const TopBar = props => {
     };
 
     fetchNotifications();
+
+    const fetchLanguages = () => {
+      axios.get('/api/languages').then(response => {
+        if (mounted) {
+          setLanguages(response.data.languages);
+        }
+      });
+    };
+
+    fetchLanguages();
 
     return () => {
       mounted = false;
@@ -174,6 +208,28 @@ const TopBar = props => {
     'Pages'
   ];
 
+  // eslint-disable-next-line react/no-multi-comp
+  const iconComponent = (props) => {
+    return (
+      <ExpandMoreRoundedIcon className={props.className + ' ' + classes.icon}/>
+    )};
+
+  const menuProps = {
+    classes: {
+      paper: classes.paper,
+      list: classes.list
+    },
+    anchorOrigin: {
+      vertical: 'bottom',
+      horizontal: 'left'
+    },
+    transformOrigin: {
+      vertical: 'top',
+      horizontal: 'left'
+    },
+    getContentAnchorEl: null
+  };
+
   return (
     <AppBar {...rest} className={clsx(classes.root, className)} color="primary">
       <Toolbar>
@@ -221,13 +277,13 @@ const TopBar = props => {
               </Paper>
             </ClickAwayListener>
           </Popper>
-          <Button
+          {/* <Button
             className={classes.trialButton}
             onClick={handlePricingOpen}
             variant="contained">
             <LockIcon className={classes.trialIcon} />
             Trial expired
-          </Button>
+          </Button> */}
         </Hidden>
         <Hidden mdDown>
           <IconButton
@@ -250,6 +306,27 @@ const TopBar = props => {
             Sign out
           </Button>
         </Hidden>
+        <FormControl>
+          <Select
+            classes={{ root: classes.select }}
+            disableUnderline
+            IconComponent={iconComponent}
+            MenuProps={menuProps}
+            onChange={handleChange}
+            value={language}
+          >
+            {languages.map((option, index) => (
+              <MenuItem key={index} value={option.shortName}>
+                <ListItemIcon classes={{ root: classes.listIcon }}>
+                  <TranslateIcon/>
+                </ListItemIcon>
+                <span style={{marginTop:3}}>
+                  {option.name}
+                </span>
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
         <Hidden lgUp>
           <IconButton color="inherit" onClick={onOpenNavBarMobile}>
             <MenuIcon />

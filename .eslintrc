@@ -51,5 +51,8 @@
     "jsx": true,
     "experimentalObjectRestSpread": true
   },
-  "plugins": ["react"]
+  "plugins": [
+    "react",
+    "react-hooks"
+  ]
 }

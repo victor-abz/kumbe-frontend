@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import validate from 'validate.js';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import { Button, TextField } from '@material-ui/core';
 
 import useRouter from 'utils/useRouter';
@@ -10,15 +10,6 @@ import { notifier } from 'utils/notifier';
 import { useSelector } from 'react-redux';
 import { loginUser } from 'redux/actions';
 import { AUTH_TOKEN } from 'utils/constants';
-
-const schema = {
-  username: {
-    presence: { allowEmpty: false, message: 'is required' }
-  },
-  password: {
-    presence: { allowEmpty: false, message: 'is required' }
-  }
-};
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -38,7 +29,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const LoginForm = props => {
-  const { className, ...rest } = props;
+  const { className, t,  ...rest } = props;
   const classes = useStyles();
   const router = useRouter();
   const login = useSelector(({ login }) => login);
@@ -49,6 +40,14 @@ const LoginForm = props => {
     touched: {},
     errors: {}
   });
+  const schema = {
+    username: {
+      presence: { allowEmpty: false, message: t('error:is_required') }
+    },
+    password: {
+      presence: { allowEmpty: false, message: t('error:is_required') }
+    }
+  };
 
   useEffect(() => {
     const errors = validate(formState.values, schema);
@@ -64,7 +63,7 @@ const LoginForm = props => {
       localStorage.setItem(AUTH_TOKEN, login.user.token);
       notifier.success(login.message);
       setTimeout(() => {
-        router.history.push('/');
+        router.history.push('/dashboards/default');
       }, 5000);
     }
     // eslint-disable-next-line
@@ -108,9 +107,10 @@ const LoginForm = props => {
           helperText={
             hasError('username') ? formState.errors.username[0] : null
           }
-          label="User name"
-          name="username"
+          label={t('auth:title')}
+          name="username" 
           onChange={handleChange}
+          size="small"
           value={formState.values.username || ''}
           variant="outlined"
         />
@@ -120,9 +120,10 @@ const LoginForm = props => {
           helperText={
             hasError('password') ? formState.errors.password[0] : null
           }
-          label="Password"
+          label={t('auth:password')}
           name="password"
           onChange={handleChange}
+          size="small"
           type="password"
           value={formState.values.password || ''}
           variant="outlined"
@@ -135,14 +136,15 @@ const LoginForm = props => {
         size="large"
         type="submit"
         variant="contained">
-        {login.loading ? 'Loading ...' : 'Sign in'}
+        {login.loading ? t('auth:loading') : t('auth:login_button')}
       </Button>
     </form>
   );
 };
 
 LoginForm.propTypes = {
-  className: PropTypes.string
+  className: PropTypes.string,
+  t: PropTypes.func
 };
 
 export default LoginForm;

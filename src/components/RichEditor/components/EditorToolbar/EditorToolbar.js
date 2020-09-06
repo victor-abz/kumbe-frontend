@@ -3,7 +3,7 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import PerfectScrollbar from 'react-perfect-scrollbar';
-import { makeStyles } from '@material-ui/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import { Tooltip, Button } from '@material-ui/core';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import CodeIcon from '@material-ui/icons/Code';

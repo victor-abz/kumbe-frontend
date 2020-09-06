@@ -8,7 +8,7 @@ import {
   Modifier,
   getDefaultKeyBinding
 } from 'draft-js';
-import { makeStyles } from '@material-ui/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import { Paper, Divider } from '@material-ui/core';
 
 import { EditorToolbar } from './components';

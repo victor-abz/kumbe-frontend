@@ -1,51 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
 import validate from 'validate.js';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/styles';
+import { makeStyles } from '@material-ui/core/styles';
+import { useSelector } from 'react-redux';
+import { notifier } from 'utils/notifier';
 import {
   Button,
-  Checkbox,
-  FormHelperText,
   TextField,
-  Typography,
-  Link
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  Grid
 } from '@material-ui/core';
+import { registerUser } from 'redux/actions';
 
 import useRouter from 'utils/useRouter';
-
-const schema = {
-  firstName: {
-    presence: { allowEmpty: false, message: 'is required' },
-    length: {
-      maximum: 32
-    }
-  },
-  lastName: {
-    presence: { allowEmpty: false, message: 'is required' },
-    length: {
-      maximum: 32
-    }
-  },
-  email: {
-    presence: { allowEmpty: false, message: 'is required' },
-    email: true,
-    length: {
-      maximum: 64
-    }
-  },
-  password: {
-    presence: { allowEmpty: false, message: 'is required' },
-    length: {
-      maximum: 128
-    }
-  },
-  policy: {
-    presence: { allowEmpty: false, message: 'is required' },
-    checked: true
-  }
-};
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -72,10 +43,12 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const RegisterForm = props => {
-  const { className, ...rest } = props;
+  const { className, t, ...rest } = props;
 
   const classes = useStyles();
-  const { history } = useRouter();
+  // const { history } = useRouter();
+  const register = useSelector(({ register }) => register);
+  const router = useRouter();
 
   const [formState, setFormState] = useState({
     isValid: false,
@@ -83,6 +56,45 @@ const RegisterForm = props => {
     touched: {},
     errors: {}
   });
+
+  const schema = {
+    username: {
+      presence: { allowEmpty: false, message: t('error:is_required') },
+      length: {
+        maximum: 32
+      }
+    },
+    firstName: {
+      presence: { allowEmpty: false, message: t('error:is_required') },
+      length: {
+        maximum: 64
+      }
+    },
+    lastName: {
+      presence: { allowEmpty: false, message: t('error:is_required') },
+      length: {
+        maximum: 64
+      }
+    },
+    gender: {
+      presence: { allowEmpty: false, message: t('error:is_required') },
+      length: {
+        maximum: 32
+      }
+    },
+    phone: {
+      presence: { allowEmpty: false, message: t('error:is_required') },
+      length: {
+        maximum: 128
+      }
+    },
+    password: {
+      presence: { allowEmpty: false, message: t('error:is_required') },
+      length: {
+        maximum: 128
+      }
+    }
+  };
 
   useEffect(() => {
     const errors = validate(formState.values, schema);
@@ -93,6 +105,16 @@ const RegisterForm = props => {
       errors: errors || {}
     }));
   }, [formState.values]);
+
+  useEffect(() => {
+    if (register.loaded) {
+      notifier.success(register.message);
+      setTimeout(() => {
+        router.history.push('/auth/login');
+      }, 5000);
+    }
+    // eslint-disable-next-line
+  }, [register.loaded]);
 
   const handleChange = event => {
     event.persist();
@@ -115,7 +137,7 @@ const RegisterForm = props => {
 
   const handleSubmit = async event => {
     event.preventDefault();
-    history.push('/');
+    registerUser(formState.values);
   };
 
   const hasError = field =>
@@ -127,82 +149,115 @@ const RegisterForm = props => {
       className={clsx(classes.root, className)}
       onSubmit={handleSubmit}
     >
-      <div className={classes.fields}>
-        <TextField
-          error={hasError('firstName')}
-          helperText={
-            hasError('firstName') ? formState.errors.firstName[0] : null
-          }
-          label="First name"
-          name="firstName"
-          onChange={handleChange}
-          value={formState.values.firstName || ''}
-          variant="outlined"
-        />
-        <TextField
-          error={hasError('lastName')}
-          helperText={
-            hasError('lastName') ? formState.errors.lastName[0] : null
-          }
-          label="Last name"
-          name="lastName"
-          onChange={handleChange}
-          value={formState.values.lastName || ''}
-          variant="outlined"
-        />
-        <TextField
-          error={hasError('email')}
-          fullWidth
-          helperText={hasError('email') ? formState.errors.email[0] : null}
-          label="Email address"
-          name="email"
-          onChange={handleChange}
-          value={formState.values.email || ''}
-          variant="outlined"
-        />
-        <TextField
-          error={hasError('password')}
-          fullWidth
-          helperText={
-            hasError('password') ? formState.errors.password[0] : null
-          }
-          label="Password"
-          name="password"
-          onChange={handleChange}
-          type="password"
-          value={formState.values.password || ''}
-          variant="outlined"
-        />
-        <div>
-          <div className={classes.policy}>
-            <Checkbox
-              checked={formState.values.policy || false}
-              className={classes.policyCheckbox}
-              color="primary"
-              name="policy"
+      <Grid container spacing={1}>
+        <Grid item md={12} sm={12}>
+          <TextField
+            error={hasError('username')}
+            fullWidth
+            helperText={
+              hasError('username') ? formState.errors.username[0] : null
+            }
+            label= {t('auth:user_name')}
+            name="username"
+            onChange={handleChange}
+            size="small"
+            value={formState.values.username || ''}
+            variant="outlined"
+          />
+        </Grid>
+        <Grid item md={6} sm={12}>
+          <TextField
+            error={hasError('firstName')}
+            fullWidth
+            helperText={hasError('firstName') ? formState.errors.firstName[0] : null}
+            label={t('auth:firstName')}
+            name="firstName"
+            onChange={handleChange}
+            size="small"
+            value={formState.values.firstName || ''}
+            variant="outlined"
+          />
+        </Grid>
+        <Grid item md={6} sm={12}>
+          <TextField
+            error={hasError('lastName')}
+            fullWidth
+            helperText={hasError('lastName') ? formState.errors.lastName[0] : null}
+            label={t('auth:lastName')}
+            name="lastName"
+            onChange={handleChange}
+            size="small"
+            value={formState.values.lastName || ''}
+            variant="outlined"
+          />
+        </Grid>
+        <Grid item md={12} sm={12}>
+          <TextField
+            error={hasError('phone')}
+            fullWidth
+            helperText={
+              hasError('phone') ? formState.errors.phone[0] : null
+            }
+            label={t('auth:phone')}
+            name="phone"
+            onChange={handleChange}
+            size="small"
+            value={formState.values.phone || ''}
+            variant="outlined"
+          />
+        </Grid>
+        <Grid item md={6} sm={12}>
+          <TextField
+            error={hasError('password')}
+            fullWidth
+            helperText={
+              hasError('password') ? formState.errors.password[0] : null
+            }
+            label={t('auth:password')}
+            name="password"
+            onChange={handleChange}
+            size="small"
+            type="password"
+            value={formState.values.password || ''}
+            variant="outlined"
+          />
+        </Grid>
+        <Grid item md={6} sm={12}>
+          <TextField
+            error={hasError('confirmPassword')}
+            fullWidth
+            helperText={
+              hasError('confirmPassword') ? formState.errors.confirmPassword[0] : null
+            }
+            label={t('auth:confirmPassword')}
+            name="confirmPassword"
+            onChange={handleChange}
+            size="small"
+            type="password"
+            value={formState.values.confirmPassword || ''}
+            variant="outlined"
+          />
+        </Grid>
+        <Grid item md={12} sm={12}>
+
+          <FormControl className={classes.formControl} error={hasError('gender')} fullWidth size="small" variant="outlined">
+            <InputLabel id="gender-selector">{t('auth:gender')}</InputLabel>
+            <Select     
+              fullWidth
+              id="gender"
+              label={t('auth:gender')}
+              labelId="gender-selector"
+              name="gender"
               onChange={handleChange}
-            />
-            <Typography
-              color="textSecondary"
-              variant="body1"
+              value={formState.values.gender || ''}
             >
-              I have read the{' '}
-              <Link
-                color="secondary"
-                component={RouterLink}
-                to="#"
-                underline="always"
-                variant="h6"
-              >
-                Terms and Conditions
-              </Link>
-            </Typography>
-          </div>
-          {hasError('policy') && (
-            <FormHelperText error>{formState.errors.policy[0]}</FormHelperText>
-          )}
-        </div>
-      </div>
+              <MenuItem value={'Male'}>Male</MenuItem>
+              <MenuItem value={'Female'}>Female</MenuItem>
+            </Select>
+          </FormControl>
+        </Grid>
+        {/* </div> */}
+      </Grid>
       <Button
         className={classes.submitButton}
         color="secondary"
@@ -211,7 +266,7 @@ const RegisterForm = props => {
         type="submit"
         variant="contained"
       >
-        Create account
+        {t('auth:register')}
       </Button>
     </form>
   );
