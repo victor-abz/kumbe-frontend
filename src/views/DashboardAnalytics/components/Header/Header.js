@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import moment from 'moment';
-import { makeStyles } from '@material-ui/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Grid, Button, ButtonGroup } from '@material-ui/core';
 import { DatePicker } from '@material-ui/pickers';
 import CalendarTodayIcon from '@material-ui/icons/CalendarTodayOutlined';

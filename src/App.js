@@ -4,7 +4,7 @@ import { createBrowserHistory } from 'history';
 import jwtDecode from 'jwt-decode';
 import MomentUtils from '@date-io/moment';
 import { Provider as StoreProvider } from 'react-redux';
-import { ThemeProvider } from '@material-ui/styles';
+import { ThemeProvider } from '@material-ui/core/styles';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import { renderRoutes } from 'react-router-config';
 

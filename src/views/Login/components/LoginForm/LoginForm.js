@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import validate from 'validate.js';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import { Button, TextField } from '@material-ui/core';
 
 import useRouter from 'utils/useRouter';

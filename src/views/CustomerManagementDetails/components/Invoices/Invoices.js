@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import PerfectScrollbar from 'react-perfect-scrollbar';
-import { makeStyles } from '@material-ui/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import {
   Button,
   Card,

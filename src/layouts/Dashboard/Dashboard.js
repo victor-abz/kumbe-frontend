@@ -1,7 +1,7 @@
 import React, { Suspense, useState } from 'react';
 import { renderRoutes } from 'react-router-config';
 import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import { LinearProgress } from '@material-ui/core';
 
 import { NavBar, TopBar, ChatBar } from './components';

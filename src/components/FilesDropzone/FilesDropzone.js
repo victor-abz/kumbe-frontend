@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import uuid from 'uuid/v1';
 import { useDropzone } from 'react-dropzone';
 import PerfectScrollbar from 'react-perfect-scrollbar';
-import { makeStyles } from '@material-ui/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import {
   Button,
   IconButton,

@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import uuid from 'uuid/v1';
-import { makeStyles } from '@material-ui/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import { Tooltip, Avatar } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
