@@ -7,8 +7,7 @@ import {
   CardMedia,
   Typography,
   Divider,
-  Link,
-  Avatar
+  Link
 } from '@material-ui/core';
 import PersonAddIcon from '@material-ui/icons/PersonAddOutlined';
 
@@ -93,7 +92,6 @@ const Register = (props) => {
     fetch('https://quotes.rest/qod?category=inspire&language=en')
       .then(res => res.json())
       .then((data) => {
-        console.log(data.contents.quotes[0]);
         if (mounted) {
           const qt = data.contents.quotes[0]
           setQuote({ quote: qt.quote, background: qt.background, author: qt.author })

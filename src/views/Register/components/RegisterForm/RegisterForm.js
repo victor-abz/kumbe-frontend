@@ -1,22 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
 import validate from 'validate.js';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
+import { useSelector } from 'react-redux';
+import { notifier } from 'utils/notifier';
 import {
   Button,
-  Checkbox,
-  FormHelperText,
   TextField,
-  Typography,
-  Link,
   FormControl,
   InputLabel,
   Select,
-  MenuItem
+  MenuItem,
+  Grid
 } from '@material-ui/core';
-import { loginUser } from 'redux/actions';
+import { registerUser } from 'redux/actions';
 
 import useRouter from 'utils/useRouter';
 
@@ -48,7 +46,9 @@ const RegisterForm = props => {
   const { className, t, ...rest } = props;
 
   const classes = useStyles();
-  const { history } = useRouter();
+  // const { history } = useRouter();
+  const register = useSelector(({ register }) => register);
+  const router = useRouter();
 
   const [formState, setFormState] = useState({
     isValid: false,
@@ -64,7 +64,13 @@ const RegisterForm = props => {
         maximum: 32
       }
     },
-    names: {
+    firstName: {
+      presence: { allowEmpty: false, message: t('error:is_required') },
+      length: {
+        maximum: 64
+      }
+    },
+    lastName: {
       presence: { allowEmpty: false, message: t('error:is_required') },
       length: {
         maximum: 64
@@ -76,15 +82,17 @@ const RegisterForm = props => {
         maximum: 32
       }
     },
-    password: {
+    phone: {
       presence: { allowEmpty: false, message: t('error:is_required') },
       length: {
         maximum: 128
       }
     },
-    policy: {
+    password: {
       presence: { allowEmpty: false, message: t('error:is_required') },
-      checked: true
+      length: {
+        maximum: 128
+      }
     }
   };
 
@@ -97,6 +105,16 @@ const RegisterForm = props => {
       errors: errors || {}
     }));
   }, [formState.values]);
+
+  useEffect(() => {
+    if (register.loaded) {
+      notifier.success(register.message);
+      setTimeout(() => {
+        router.history.push('/auth/login');
+      }, 5000);
+    }
+    // eslint-disable-next-line
+  }, [register.loaded]);
 
   const handleChange = event => {
     event.persist();
@@ -119,7 +137,7 @@ const RegisterForm = props => {
 
   const handleSubmit = async event => {
     event.preventDefault();
-    // loginUser(formState.values);
+    registerUser(formState.values);
   };
 
   const hasError = field =>
@@ -131,88 +149,115 @@ const RegisterForm = props => {
       className={clsx(classes.root, className)}
       onSubmit={handleSubmit}
     >
-      <div className={classes.fields}>
-        <TextField
-          error={hasError('username')}
-          helperText={
-            hasError('username') ? formState.errors.username[0] : null
-          }
-          label= {t('auth:user_name')}
-          name="username"
-          onChange={handleChange}
-          value={formState.values.username || ''}
-          variant="outlined"
-        />
-        <TextField
-          error={hasError('names')}
-          fullWidth
-          helperText={hasError('names') ? formState.errors.names[0] : null}
-          label={t('auth:names')}
-          name="names"
-          onChange={handleChange}
-          value={formState.values.names || ''}
-          variant="outlined"
-        />
-
-        <TextField
-          error={hasError('password')}
-          fullWidth
-          helperText={
-            hasError('password') ? formState.errors.password[0] : null
-          }
-          label={t('auth:password')}
-          name="password"
-          onChange={handleChange}
-          type="password"
-          value={formState.values.password || ''}
-          variant="outlined"
-        />
-        <FormControl className={classes.formControl} error={hasError('gender')} variant="outlined">
-          <InputLabel id="gender-selector">{t('auth:gender')}</InputLabel>
-          <Select     
+      <Grid container spacing={1}>
+        <Grid item md={12} sm={12}>
+          <TextField
+            error={hasError('username')}
             fullWidth
-            id="gender"
-            label={t('auth:gender')}
-            labelId="gender-selector"
-            name="gender"
+            helperText={
+              hasError('username') ? formState.errors.username[0] : null
+            }
+            label= {t('auth:user_name')}
+            name="username"
             onChange={handleChange}
-            value={formState.values.gender || ''}
-          >
-            <MenuItem value={'Male'}>Male</MenuItem>
-            <MenuItem value={'Female'}>Female</MenuItem>
-          </Select>
-        </FormControl>
+            size="small"
+            value={formState.values.username || ''}
+            variant="outlined"
+          />
+        </Grid>
+        <Grid item md={6} sm={12}>
+          <TextField
+            error={hasError('firstName')}
+            fullWidth
+            helperText={hasError('firstName') ? formState.errors.firstName[0] : null}
+            label={t('auth:firstName')}
+            name="firstName"
+            onChange={handleChange}
+            size="small"
+            value={formState.values.firstName || ''}
+            variant="outlined"
+          />
+        </Grid>
+        <Grid item md={6} sm={12}>
+          <TextField
+            error={hasError('lastName')}
+            fullWidth
+            helperText={hasError('lastName') ? formState.errors.lastName[0] : null}
+            label={t('auth:lastName')}
+            name="lastName"
+            onChange={handleChange}
+            size="small"
+            value={formState.values.lastName || ''}
+            variant="outlined"
+          />
+        </Grid>
+        <Grid item md={12} sm={12}>
+          <TextField
+            error={hasError('phone')}
+            fullWidth
+            helperText={
+              hasError('phone') ? formState.errors.phone[0] : null
+            }
+            label={t('auth:phone')}
+            name="phone"
+            onChange={handleChange}
+            size="small"
+            value={formState.values.phone || ''}
+            variant="outlined"
+          />
+        </Grid>
+        <Grid item md={6} sm={12}>
+          <TextField
+            error={hasError('password')}
+            fullWidth
+            helperText={
+              hasError('password') ? formState.errors.password[0] : null
+            }
+            label={t('auth:password')}
+            name="password"
+            onChange={handleChange}
+            size="small"
+            type="password"
+            value={formState.values.password || ''}
+            variant="outlined"
+          />
+        </Grid>
+        <Grid item md={6} sm={12}>
+          <TextField
+            error={hasError('confirmPassword')}
+            fullWidth
+            helperText={
+              hasError('confirmPassword') ? formState.errors.confirmPassword[0] : null
+            }
+            label={t('auth:confirmPassword')}
+            name="confirmPassword"
+            onChange={handleChange}
+            size="small"
+            type="password"
+            value={formState.values.confirmPassword || ''}
+            variant="outlined"
+          />
+        </Grid>
+        <Grid item md={12} sm={12}>
 
-        <div>
-          <div className={classes.policy}>
-            <Checkbox
-              checked={formState.values.policy || false}
-              className={classes.policyCheckbox}
-              color="primary"
-              name="policy"
+          <FormControl className={classes.formControl} error={hasError('gender')} fullWidth size="small" variant="outlined">
+            <InputLabel id="gender-selector">{t('auth:gender')}</InputLabel>
+            <Select     
+              fullWidth
+              id="gender"
+              label={t('auth:gender')}
+              labelId="gender-selector"
+              name="gender"
               onChange={handleChange}
-            />
-            <Typography
-              color="textSecondary"
-              variant="body1"
+              value={formState.values.gender || ''}
             >
-              {t('auth:read_ag')}{' '}
-              <Link
-                color="secondary"
-                component={RouterLink}
-                to="#"
-                underline="always"
-                variant="h6"
-              >
-                {t('auth:terms_name')}
-              </Link>
-            </Typography>
-          </div>
-          {hasError('policy') && (
-            <FormHelperText error>{formState.errors.policy[0]}</FormHelperText>
-          )}
-        </div>
-      </div>
+              <MenuItem value={'Male'}>Male</MenuItem>
+              <MenuItem value={'Female'}>Female</MenuItem>
+            </Select>
+          </FormControl>
+        </Grid>
+        {/* </div> */}
+      </Grid>
       <Button
         className={classes.submitButton}
         color="secondary"

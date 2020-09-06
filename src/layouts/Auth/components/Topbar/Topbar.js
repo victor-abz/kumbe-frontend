@@ -40,7 +40,7 @@ const TopBar = props => {
   lng = storageLanguage;
 
   const [language, setLanguage] = useState(lng);
-  const [languages, setLanguages] = useState([])
+  const [languages, setLanguages] = useState(['en', 'kin'])
   
   const handleChange = (event) => {
     setLanguage(event.target.value);

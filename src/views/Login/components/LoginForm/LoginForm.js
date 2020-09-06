@@ -63,7 +63,7 @@ const LoginForm = props => {
       localStorage.setItem(AUTH_TOKEN, login.user.token);
       notifier.success(login.message);
       setTimeout(() => {
-        router.history.push('/');
+        router.history.push('/dashboards/default');
       }, 5000);
     }
     // eslint-disable-next-line
@@ -110,6 +110,7 @@ const LoginForm = props => {
           label={t('auth:title')}
           name="username" 
           onChange={handleChange}
+          size="small"
           value={formState.values.username || ''}
           variant="outlined"
         />
@@ -122,6 +123,7 @@ const LoginForm = props => {
           label={t('auth:password')}
           name="password"
           onChange={handleChange}
+          size="small"
           type="password"
           value={formState.values.password || ''}
           variant="outlined"
