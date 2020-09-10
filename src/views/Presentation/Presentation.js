@@ -7,7 +7,8 @@ import {
   FAQ,
   PluginsSupport,
   SourceFiles,
-  UserFlows
+  UserFlows,
+  Slider
 } from './components';
 
 const useStyles = makeStyles(() => ({
@@ -22,6 +23,7 @@ const Presentation = () => {
       className={classes.root}
       title="Presentation"
     >
+      <Slider />
       <Header />
       <UserFlows />
       <PluginsSupport />
