@@ -1,4 +1,4 @@
-@import './global.scss';
+@import './global';
 
 .Banner
 {
@@ -84,6 +84,7 @@
         {
             font-size: $huge-font-size;
             font-weight: 500;
+            color: white;
         }
 
         .Caption

@@ -279,7 +279,8 @@ const RegisterForm = props => {
 };
 
 RegisterForm.propTypes = {
-  className: PropTypes.string
+  className: PropTypes.string,
+  t: PropTypes.object
 };
 
 export default RegisterForm;
