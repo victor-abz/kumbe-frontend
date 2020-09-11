@@ -1,5 +1,9 @@
 import { pending, fulfilled, rejected, baseState } from 'redux/utils';
-import { LOGIN_USER, GET_USER_PROFILE, REGISTER_USER } from 'redux/actions/actionTypes';
+import {
+  LOGIN_USER,
+  GET_USER_PROFILE,
+  REGISTER_USER
+} from 'redux/actions/actionTypes';
 
 const initialState = baseState('user', {});
 const authState = {
@@ -24,9 +28,11 @@ export const loginReducer = (state = initialState, action) => {
       };
     }
     case rejected(LOGIN_USER):
-    default: {
-      return state;
-    }
+    default:
+      return {
+        ...state,
+        loading: false
+      };
   }
 };
 export const registerReducer = (state = initialState, action) => {
@@ -42,14 +48,16 @@ export const registerReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         loaded: true,
-        message: action.payload.data.message,
+        message: action.payload.data.message
         // user: action.payload.data.data
       };
     }
     case rejected(REGISTER_USER):
-    default: {
-      return state;
-    }
+    default:
+      return {
+        ...state,
+        loading: false
+      };
   }
 };
 export const authReducer = (state = authState, action) => {
