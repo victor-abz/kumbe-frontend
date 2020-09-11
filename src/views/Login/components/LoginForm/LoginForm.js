@@ -8,7 +8,7 @@ import { Button, TextField } from '@material-ui/core';
 import useRouter from 'utils/useRouter';
 import { notifier } from 'utils/notifier';
 import { useSelector } from 'react-redux';
-import { loginUser } from 'redux/actions';
+import { getUserProfile, loginUser } from 'redux/actions';
 import { AUTH_TOKEN } from 'utils/constants';
 
 const useStyles = makeStyles(theme => ({
@@ -29,7 +29,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const LoginForm = props => {
-  const { className, t,  ...rest } = props;
+  const { className, t, ...rest } = props;
   const classes = useStyles();
   const router = useRouter();
   const login = useSelector(({ login }) => login);
@@ -62,6 +62,7 @@ const LoginForm = props => {
     if (login.loaded) {
       localStorage.setItem(AUTH_TOKEN, login.user.token);
       notifier.success(login.message);
+      getUserProfile();
       setTimeout(() => {
         router.history.push('/dashboards/default');
       }, 5000);
@@ -108,7 +109,7 @@ const LoginForm = props => {
             hasError('username') ? formState.errors.username[0] : null
           }
           label={t('auth:title')}
-          name="username" 
+          name="username"
           onChange={handleChange}
           size="small"
           value={formState.values.username || ''}

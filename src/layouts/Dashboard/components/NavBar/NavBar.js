@@ -66,7 +66,7 @@ const NavBar = props => {
           to="/profile/1/timeline"
         />
         <Typography className={classes.name} variant="h4">
-          {user.names}
+          {user.firstName} {user.lastName}
         </Typography>
         <Typography variant="body2">
           {toUserAccess(user.accessLevel)}

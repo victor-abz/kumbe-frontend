@@ -15,6 +15,7 @@ import gradients from 'utils/gradients';
 import { Page } from 'components';
 import { RegisterForm } from './components';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -78,49 +79,53 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Register = (props) => {
-  const { t } = props;
+const Register = props => {
+  const { t, history } = props;
   const classes = useStyles();
+  const { loggedIn } = useSelector(({ auth }) => auth);
 
   const [quote, setQuote] = useState({
-    quote: 'Hella narvwhal Cosby sweater McSweeney\'s, salvia kitsch before they sold out High Life.',
-    background: '/images/auth.png',
+    quote:
+      "Hella narvwhal Cosby sweater McSweeney's, salvia kitsch before they sold out High Life.",
+    background: '/images/auth.png'
   });
 
   useEffect(() => {
     let mounted = true;
     fetch('https://quotes.rest/qod?category=inspire&language=en')
       .then(res => res.json())
-      .then((data) => {
+      .then(data => {
         if (mounted) {
-          const qt = data.contents.quotes[0]
-          setQuote({ quote: qt.quote, background: qt.background, author: qt.author })
+          const qt = data.contents.quotes[0];
+          setQuote({
+            quote: qt.quote,
+            background: qt.background,
+            author: qt.author
+          });
         }
       })
-      .catch(console.log)
+      .catch(console.log);
     return () => {
       mounted = false;
     };
-  }, [])
-
+  }, []);
+  useEffect(() => {
+    if (loggedIn) {
+      history.goBack();
+    }
+  }, [loggedIn]);
   return (
-    <Page
-      className={classes.root}
-      title= {t('auth:register_title')}
-    >
+    <Page className={classes.root} title={t('auth:register_title')}>
       <Card className={classes.card}>
         <CardContent className={classes.content}>
           <PersonAddIcon className={classes.icon} />
-          <Typography
-            gutterBottom
-            variant="h3"
-          >
+          <Typography gutterBottom variant="h3">
             {t('auth:register_form_title')}
           </Typography>
           <Typography variant="subtitle2">
             {t('auth:register_form_subtitle')}
           </Typography>
-          <RegisterForm className={classes.registerForm} t={t}/>
+          <RegisterForm className={classes.registerForm} t={t} />
           <Divider className={classes.divider} />
           <Link
             align="center"
@@ -128,28 +133,20 @@ const Register = (props) => {
             component={RouterLink}
             to="/auth/login"
             underline="always"
-            variant="subtitle2"
-          >
+            variant="subtitle2">
             {t('auth:have_account')}
           </Link>
         </CardContent>
         <CardMedia
           className={classes.media}
           image={quote.background}
-          title="Cover"
-        >
-          <Typography
-            color="inherit"
-            variant="subtitle1"
-          >
+          title="Cover">
+          <Typography color="inherit" variant="subtitle1">
             {quote.quote}
           </Typography>
           <div className={classes.person}>
             <div>
-              <Typography
-                color="inherit"
-                variant="body1"
-              >
+              <Typography color="inherit" variant="body1">
                 {quote.author}
               </Typography>
             </div>
@@ -160,6 +157,7 @@ const Register = (props) => {
   );
 };
 Register.propTypes = {
+  history: PropTypes.func,
   t: PropTypes.func
 };
 

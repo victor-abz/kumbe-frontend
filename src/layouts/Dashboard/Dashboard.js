@@ -1,10 +1,12 @@
-import React, { Suspense, useState } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import { renderRoutes } from 'react-router-config';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import { LinearProgress } from '@material-ui/core';
 
 import { NavBar, TopBar, ChatBar } from './components';
+import { useSelector } from 'react-redux';
+import useRouter from 'utils/useRouter';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -39,6 +41,8 @@ const Dashboard = props => {
   const { route } = props;
 
   const classes = useStyles();
+  const router = useRouter();
+  const { loggedIn } = useSelector(({ auth }) => auth);
   const [openNavBarMobile, setOpenNavBarMobile] = useState(false);
 
   const handleNavBarMobileOpen = () => {
@@ -48,7 +52,11 @@ const Dashboard = props => {
   const handleNavBarMobileClose = () => {
     setOpenNavBarMobile(false);
   };
-
+  useEffect(() => {
+    if (!loggedIn) {
+      router.history.push('/auth/login');
+    }
+  }, [loggedIn]);
   return (
     <div className={classes.root}>
       <TopBar

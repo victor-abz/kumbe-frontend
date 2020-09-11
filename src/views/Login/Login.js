@@ -13,49 +13,52 @@ import PropTypes from 'prop-types';
 
 import { Page } from 'components';
 import { LoginForm, useStyles } from './components';
+import { useSelector } from 'react-redux';
 
-const Login = (props) => {
-  const { t } = props;
+const Login = props => {
+  const { t, history } = props;
   const classes = useStyles();
+  const { loggedIn } = useSelector(({ auth }) => auth);
 
   const [quote, setQuote] = useState({
-    quote: 'Hella narvwhal Cosby sweater McSweeney\'s, salvia kitsch before they sold out High Life.',
-    background: '/images/auth.png',
+    quote:
+      "Hella narvwhal Cosby sweater McSweeney's, salvia kitsch before they sold out High Life.",
+    background: '/images/auth.png'
   });
 
   useEffect(() => {
     let mounted = true;
     fetch('https://quotes.rest/qod?category=inspire&language=en')
       .then(res => res.json())
-      .then((data) => {
+      .then(data => {
         if (mounted) {
-          const qt = data.contents.quotes[0]
-          setQuote({ quote: qt.quote, background: qt.background, author: qt.author })
+          const qt = data.contents.quotes[0];
+          setQuote({
+            quote: qt.quote,
+            background: qt.background,
+            author: qt.author
+          });
         }
       })
-      .catch(console.log)
+      .catch(console.log);
     return () => {
       mounted = false;
     };
-  }, [])
-
+  }, []);
+  useEffect(() => {
+    if (loggedIn) {
+      history.goBack();
+    }
+  }, [loggedIn]);
   return (
-    <Page
-      className={classes.root}
-      title="Login"
-    >
+    <Page className={classes.root} title="Login">
       <Card className={classes.card}>
         <CardContent className={classes.content}>
           <LockIcon className={classes.icon} />
-          <Typography
-            gutterBottom
-            variant="h3"
-          >
+          <Typography gutterBottom variant="h3">
             {t('auth:title')}
           </Typography>
-          <Typography variant="subtitle2">
-            {t('auth:sub_title')}
-          </Typography>
+          <Typography variant="subtitle2">{t('auth:sub_title')}</Typography>
           <LoginForm className={classes.loginForm} t={t} />
           <Divider className={classes.divider} />
           <Link
@@ -64,28 +67,20 @@ const Login = (props) => {
             component={RouterLink}
             to="/auth/register"
             underline="always"
-            variant="subtitle2"
-          >
+            variant="subtitle2">
             {t('auth:no_account')}
           </Link>
         </CardContent>
         <CardMedia
           className={classes.media}
           image={quote.background}
-          title="Cover"
-        >
-          <Typography
-            color="inherit"
-            variant="subtitle1"
-          >
+          title="Cover">
+          <Typography color="inherit" variant="subtitle1">
             {quote.quote}
           </Typography>
           <div className={classes.person}>
             <div>
-              <Typography
-                color="inherit"
-                variant="body1"
-              >
+              <Typography color="inherit" variant="body1">
                 {quote.author}
               </Typography>
             </div>
@@ -97,8 +92,8 @@ const Login = (props) => {
 };
 
 Login.propTypes = {
+  history: PropTypes.func,
   t: PropTypes.func
 };
-
 
 export default Login;
