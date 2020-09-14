@@ -21,11 +21,11 @@ const Presentation = () => {
   return (
     <Page
       className={classes.root}
-      title="Presentation"
+      title="Home | Kumbe"
     >
       <Slider />
       <Header />
-      <UserFlows />
+      <UserFlows /> 
       <PluginsSupport />
       <SourceFiles />
       <FAQ />
