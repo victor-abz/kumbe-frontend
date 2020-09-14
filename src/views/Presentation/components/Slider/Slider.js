@@ -1,30 +1,21 @@
 import React from 'react';
 import Carousel from 'react-material-ui-carousel'
-import './style/Example.scss';
 import Banner from './Banner'
 
 const items = [
   {
-    Name: 'Electronics',
-    Caption: 'Electrify your friends!',
+    Name: 'Kumbe!',
+    Caption: 'Sexual and reproductive health and rights (SRHR) \n Information for adolescents and young people in Rwanda',
     contentPosition: 'left',
-    Items: [
-      {
-        Name: 'Macbook Pro',
-        Image: 'https://source.unsplash.com/featured/?macbook'
-      }
-    ]
+    color: 'linear-gradient(180deg, #EEBECA 0%, #E5A5B3 100%)',
+    image: '/images/TMWxjqA.jpg'
   },
   {
-    Name: 'Decoratives',
-    Caption: 'Give style and color to your living room!',
+    Name: 'Kumbe!',
+    Caption: 'Sexual and reproductive health and rights (SRHR) \n Information for adolescents and young people in Rwanda',
     contentPosition: 'right',
-    Items: [
-      {
-        Name: 'Living Room Lamp',
-        Image: 'https://source.unsplash.com/featured/?lamp'
-      }
-    ]
+    color: 'linear-gradient(180deg, #F8C44E 0%, #E8A822 100%)',
+    image: '/images/8HddMKV.jpg'
   }
 ]
 
@@ -34,12 +25,11 @@ const Presentation = () => {
       <Carousel
         animation="slide"
         autoPlay
-        className="Example"
         indicators
         navButtonsAlwaysInvisible={false}
         navButtonsAlwaysVisible
-        timeout={500}
-        timer={500}
+        timeout={800}
+        timer={800}
       >
         {
           items.map((item, index) => {
