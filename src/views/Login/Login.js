@@ -49,6 +49,7 @@ const Login = props => {
     if (loggedIn) {
       history.goBack();
     }
+    // eslint-disable-next-line
   }, [loggedIn]);
   return (
     <Page className={classes.root} title="Login">

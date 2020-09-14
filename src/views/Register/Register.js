@@ -113,6 +113,7 @@ const Register = props => {
     if (loggedIn) {
       history.goBack();
     }
+    // eslint-disable-next-line
   }, [loggedIn]);
   return (
     <Page className={classes.root} title={t('auth:register_title')}>

@@ -57,6 +57,7 @@ const LoginForm = props => {
       isValid: errors ? false : true,
       errors: errors || {}
     }));
+    // eslint-disable-next-line
   }, [formState.values]);
   useEffect(() => {
     if (login.loaded) {

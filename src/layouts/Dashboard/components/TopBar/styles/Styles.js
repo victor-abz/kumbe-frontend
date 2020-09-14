@@ -83,37 +83,31 @@ const useStyles = makeStyles(theme => ({
     marginRight: theme.spacing(1)
   },
 
-  title: {
-    flexGrow: 1,
-    color: '#ffffff',
-    fontWeight: 900
-  },
-
   select: {
     display: 'flex',
     color: 'white',
     margin: theme.spacing(1),
     minWidth: 120,
     background: colors.purple[600],
-    borderStyle:'none',
+    borderStyle: 'none',
     borderRadius: 8,
     paddingLeft: 24,
     paddingTop: 14,
     marginRight: 20,
     paddingBottom: 15,
     boxShadow: 'none',
-    '&:focus':{
+    '&:focus': {
       borderRadius: 8,
-      background: colors.purple[600],
-    },
-    '&[aria-expanded="true"]':{
       background: colors.purple[600]
     },
-    '& > div':{
-      display:'inline-flex' // this shows the icon in the SelectInput but not the dropdown
+    '&[aria-expanded="true"]': {
+      background: colors.purple[600]
+    },
+    '& > div': {
+      display: 'inline-flex' // this shows the icon in the SelectInput but not the dropdown
     }
   },
-  icon:{
+  icon: {
     color: 'white',
     right: 12,
     position: 'absolute',
@@ -125,26 +119,26 @@ const useStyles = makeStyles(theme => ({
     marginTop: 8
   },
   list: {
-    paddingTop:0,
-    paddingBottom:0,
-    paddingRight:8,
-    paddingLeft:8,
-    background:'white',
-    '& li':{
-      paddingTop:12,
-      paddingBottom:12,
-      paddingRight:8,
-      paddingLeft:8,
+    paddingTop: 0,
+    paddingBottom: 0,
+    paddingRight: 8,
+    paddingLeft: 8,
+    background: 'white',
+    '& li': {
+      paddingTop: 12,
+      paddingBottom: 12,
+      paddingRight: 8,
+      paddingLeft: 8
     },
-    '& li:hover':{
+    '& li:hover': {
       background: colors.purple[600],
       color: 'white'
     },
-    '& li.Mui-selected':{
-      color:'black',
+    '& li.Mui-selected': {
+      color: 'black',
       background: 'white'
     },
-    '& li.Mui-selected:hover':{
+    '& li.Mui-selected:hover': {
       background: colors.purple[600],
       color: 'white'
     }
