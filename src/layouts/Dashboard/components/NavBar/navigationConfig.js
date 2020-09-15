@@ -50,7 +50,7 @@ export default [
           {
             title: 'Projects',
             href: '/management/projects'
-          },
+          }
         ]
       },
       {
@@ -82,34 +82,34 @@ export default [
         ]
       },
       {
-        title: 'Project',
-        href: '/projects',
+        title: 'Blog',
+        href: '/blogs',
         icon: FolderIcon,
         label: () => <Label color={colors.green[500]}>New</Label>,
         children: [
           {
             title: 'Browse',
-            href: '/projects'
+            href: '/blogs'
           },
           {
             title: 'Create',
-            href: '/projects/create'
+            href: '/blogs/create'
           },
           {
             title: 'Overview',
-            href: '/projects/1/overview'
+            href: '/blogs/1/overview'
           },
           {
             title: 'Files',
-            href: '/projects/1/files'
+            href: '/blogs/1/files'
           },
           {
             title: 'Activity',
-            href: '/projects/1/activity'
+            href: '/blogs/1/activity'
           },
           {
             title: 'Subscribers',
-            href: '/projects/1/subscribers'
+            href: '/blogs/1/subscribers'
           }
         ]
       },
@@ -118,15 +118,12 @@ export default [
         href: '/chat',
         icon: ChatIcon,
         label: () => (
-          <Label
-            color={colors.red[500]}
-            shape="rounded"
-          >
+          <Label color={colors.red[500]} shape="rounded">
             4
           </Label>
         )
       },
-     
+
       {
         title: 'Authentication',
         href: '/auth',
@@ -193,7 +190,7 @@ export default [
             href: '/settings/security'
           }
         ]
-      },
+      }
     ]
   }
 ];

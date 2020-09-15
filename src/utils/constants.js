@@ -11,3 +11,4 @@ export const toUserAccess = accessLevel => {
       return 'Guest';
   }
 };
+export const UPLOADED_FILE_NAME = 'file-name';

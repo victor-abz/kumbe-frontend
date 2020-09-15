@@ -10,17 +10,14 @@ const useStyles = makeStyles(() => ({
   root: {}
 }));
 
-const ProjectCover = props => {
+const BlogCover = props => {
   const { className, ...rest } = props;
 
   const classes = useStyles();
 
   return (
-    <Card
-      {...rest}
-      className={clsx(classes.root, className)}
-    >
-      <CardHeader title="Project cover" />
+    <Card {...rest} className={clsx(classes.root, className)}>
+      <CardHeader title="Blog cover" />
       <CardContent>
         <FilesDropzone />
       </CardContent>
@@ -28,8 +25,8 @@ const ProjectCover = props => {
   );
 };
 
-ProjectCover.propTypes = {
+BlogCover.propTypes = {
   className: PropTypes.string
 };
 
-export default ProjectCover;
+export default BlogCover;

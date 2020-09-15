@@ -14,22 +14,12 @@ const Header = props => {
   const classes = useStyles();
 
   return (
-    <div
-      {...rest}
-      className={clsx(classes.root, className)}
-    >
-      <Typography
-        component="h2"
-        gutterBottom
-        variant="overline"
-      >
-        New Project
+    <div {...rest} className={clsx(classes.root, className)}>
+      <Typography component="h2" gutterBottom variant="overline">
+        New Blog
       </Typography>
-      <Typography
-        component="h1"
-        variant="h3"
-      >
-        Apply for listing project
+      <Typography component="h1" variant="h3">
+        Write a blog using tools below
       </Typography>
     </div>
   );
