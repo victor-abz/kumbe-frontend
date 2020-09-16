@@ -3,11 +3,11 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import { Page } from 'components';
 import {
-  Header,
+  Banner,
   FAQ,
   PluginsSupport,
   SourceFiles,
-  UserFlows,
+  Blogs,
   Slider
 } from './components';
 
@@ -24,11 +24,11 @@ const Presentation = () => {
       title="Home | Kumbe"
     >
       <Slider />
-      <Header />
-      <UserFlows /> 
-      <PluginsSupport />
+      <Banner />
+      <Blogs /> 
+      {/* <PluginsSupport />
       <SourceFiles />
-      <FAQ />
+      <FAQ /> */}
     </Page>
   );
 };
