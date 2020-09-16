@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import {
@@ -8,7 +8,7 @@ import {
   Modifier,
   getDefaultKeyBinding
 } from 'draft-js';
-import { Paper, Divider } from '@material-ui/core';
+import { Divider } from '@material-ui/core';
 
 import { EditorToolbar } from './components';
 import { blockRenderMap } from './utils';
@@ -17,13 +17,17 @@ import { useStyles } from './styles';
 const capitalize = string => string.charAt(0).toUpperCase() + string.slice(1);
 
 const RichEditor = props => {
-  const { placeholder, className, ...rest } = props;
+  const {
+    placeholder,
+    editorState,
+    setEditorState,
+    className,
+    ...rest
+  } = props;
 
   const classes = useStyles();
 
   const editorRef = useRef(null);
-
-  const [editorState, setEditorState] = useState(EditorState.createEmpty());
 
   const handleContainerClick = () => {
     editorRef.current.focus();
@@ -96,7 +100,7 @@ const RichEditor = props => {
   }
 
   return (
-    <Paper {...rest} className={clsx(classes.root, className)}>
+    <div {...rest} className={clsx(classes.root, className)}>
       <EditorToolbar editorState={editorState} onToggle={handleToolbarToggle} />
       <Divider />
       <div className={classes.editorContainer} onClick={handleContainerClick}>
@@ -112,12 +116,15 @@ const RichEditor = props => {
           spellCheck
         />
       </div>
-    </Paper>
+    </div>
   );
 };
 
 RichEditor.propTypes = {
-  className: PropTypes.string
+  className: PropTypes.string,
+  editorState: PropTypes.object,
+  placeholder: PropTypes.string,
+  setEditorState: PropTypes.func
 };
 
 export default RichEditor;

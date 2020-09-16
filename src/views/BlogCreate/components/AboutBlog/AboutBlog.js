@@ -25,7 +25,7 @@ import { getCategories } from 'redux/actions/category';
 import { AddCategDialog } from './AddCategDialog';
 
 const AboutBlog = props => {
-  const { className, ...rest } = props;
+  const { className, blog, onHandleChange, ...rest } = props;
   const classes = useStyles();
   const [openAddTag, setOpenAddTag] = useState(false);
   const [openAddCategory, setOpenAddCategory] = useState(false);
@@ -58,13 +58,19 @@ const AboutBlog = props => {
                   fullWidth
                   label="Blog Title"
                   name="title"
+                  onChange={onHandleChange}
+                  value={blog.title}
                   variant="outlined"
                 />
               </Grid>
               <Grid item md={4} xs={12}>
                 <FormControl fullWidth variant="outlined">
                   <InputLabel id="blog-category">Category</InputLabel>
-                  <Select labelId="blog-category" name="category">
+                  <Select
+                    labelId="blog-category"
+                    name="categoryId"
+                    onChange={onHandleChange}
+                    value={blog.categoryId}>
                     <MenuItem value="">---</MenuItem>
                     {categories.map(({ id, name }, categoryIdx) => (
                       <MenuItem key={categoryIdx} value={id}>
@@ -92,6 +98,7 @@ const AboutBlog = props => {
                 filterSelectedOptions
                 getOptionLabel={option => option.name}
                 multiple
+                onChange={onHandleChange}
                 options={tags}
                 renderInput={params => (
                   <TextField

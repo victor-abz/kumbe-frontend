@@ -1,4 +1,4 @@
-import { UPLOAD_FILE } from 'redux/actions/actionTypes';
+import { RESET_UPLOADED_FILE, UPLOAD_FILE } from 'redux/actions/actionTypes';
 import { baseState, fulfilled, pending, rejected } from 'redux/utils';
 import { UPLOADED_FILE_NAME } from 'utils/constants';
 
@@ -10,6 +10,7 @@ export const fileReducer = (state = initialState, action) => {
     case pending(UPLOAD_FILE):
       return {
         ...state,
+        loaded: false,
         loading: true
       };
     case fulfilled(UPLOAD_FILE):
@@ -18,6 +19,11 @@ export const fileReducer = (state = initialState, action) => {
         loading: false,
         loaded: true,
         fileName: action.payload.data.data
+      };
+    case RESET_UPLOADED_FILE:
+      return {
+        ...state,
+        fileName: null
       };
     case rejected(UPLOAD_FILE):
     default:

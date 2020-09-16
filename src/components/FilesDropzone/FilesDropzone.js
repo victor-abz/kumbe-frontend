@@ -42,6 +42,7 @@ const FilesDropzone = props => {
     if (loaded) {
       localStorage.setItem(UPLOADED_FILE_NAME, fileName);
     }
+    // eslint-disable-next-line
   }, [loaded]);
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop: handleDrop,

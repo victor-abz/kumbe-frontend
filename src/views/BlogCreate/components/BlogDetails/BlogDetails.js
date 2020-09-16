@@ -10,26 +10,26 @@ const useStyles = makeStyles(() => ({
   root: {}
 }));
 
-const ProjectDetails = props => {
-  const { className, ...rest } = props;
-
+const BlogDetails = props => {
+  const { className, editorState, setEditorState, ...rest } = props;
   const classes = useStyles();
 
   return (
-    <Card
-      {...rest}
-      className={clsx(classes.root, className)}
-    >
-      <CardHeader title="Project details" />
+    <Card {...rest} className={clsx(classes.root, className)}>
+      <CardHeader title="Blog content details" />
       <CardContent>
-        <RichEditor placeholder="Say something about the product..." />
+        <RichEditor
+          editorState={editorState}
+          placeholder="The whole content body goes here..."
+          setEditorState={setEditorState}
+        />
       </CardContent>
     </Card>
   );
 };
 
-ProjectDetails.propTypes = {
+BlogDetails.propTypes = {
   className: PropTypes.string
 };
 
-export default ProjectDetails;
+export default BlogDetails;

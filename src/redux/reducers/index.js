@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 
 import { loginReducer, authReducer, registerReducer } from './authReducer';
+import { blogAddReducer } from './blogReducer';
 import { categoryAddReducer, categoryGetReducer } from './categoryReducer';
 import { fileReducer } from './fileReducer';
 import { tagAddReducer, tagGetReducer } from './tagReducer';
@@ -13,5 +14,6 @@ export default combineReducers({
   tagGet: tagGetReducer,
   categoryAdd: categoryAddReducer,
   categoryGet: categoryGetReducer,
-  fileUpload: fileReducer
+  fileUpload: fileReducer,
+  blogAdd: blogAddReducer
 });

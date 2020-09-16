@@ -65,7 +65,7 @@ const LoginForm = props => {
       notifier.success(login.message);
       getUserProfile();
       setTimeout(() => {
-        router.history.push('/dashboards/default');
+        router.history.replace('/dashboards/default');
       }, 5000);
     }
     // eslint-disable-next-line
