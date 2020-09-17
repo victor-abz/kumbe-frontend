@@ -119,22 +119,22 @@ const routes = [
         component: lazy(() => import('views/Profile'))
       },
       {
-        path: '/projects/create',
+        path: '/blogs/create',
         exact: true,
-        component: lazy(() => import('views/ProjectCreate'))
+        component: lazy(() => import('views/BlogCreate'))
       },
       {
-        path: '/projects/:id',
-        exact: true,
-        component: lazy(() => import('views/ProjectDetails'))
-      },
-      {
-        path: '/projects/:id/:tab',
+        path: '/blogs/:id',
         exact: true,
         component: lazy(() => import('views/ProjectDetails'))
       },
       {
-        path: '/projects',
+        path: '/blogs/:id/:tab',
+        exact: true,
+        component: lazy(() => import('views/ProjectDetails'))
+      },
+      {
+        path: '/blogs',
         exact: true,
         component: lazy(() => import('views/ProjectList'))
       },

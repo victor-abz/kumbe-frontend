@@ -75,17 +75,15 @@ const Alert = forwardRef((props, ref) => {
       component={Typography}
       elevation={1}
       ref={ref}
-      variant="h6"
-    >
+      variant="elevation">
       <span className={classes.icon}>{icon || icons[variant]}</span>
-      <div className={classes.message}>{message}</div>
+      <span className={classes.message}>{message}</span>
       {onClose && (
         <IconButton
           className={classes.action}
           color="inherit"
           key="close"
-          onClick={onClose}
-        >
+          onClick={onClose}>
           <CloseIcon />
         </IconButton>
       )}

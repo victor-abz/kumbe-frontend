@@ -56,6 +56,7 @@ const Dashboard = props => {
     if (!loggedIn) {
       router.history.push('/auth/login');
     }
+    // eslint-disable-next-line
   }, [loggedIn]);
   return (
     <div className={classes.root}>

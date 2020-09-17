@@ -29,7 +29,7 @@ const Page = props => {
   return (
     <div {...rest}>
       <Helmet>
-        <title>{title}</title>
+        <title>{title} - Kumbe</title>
       </Helmet>
       {children}
     </div>

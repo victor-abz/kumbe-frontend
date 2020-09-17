@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import {
@@ -8,88 +8,26 @@ import {
   Modifier,
   getDefaultKeyBinding
 } from 'draft-js';
-import { makeStyles } from '@material-ui/core/styles';
-import { Paper, Divider } from '@material-ui/core';
+import { Divider } from '@material-ui/core';
 
 import { EditorToolbar } from './components';
 import { blockRenderMap } from './utils';
-
-const useStyles = makeStyles(theme => ({
-  root: {},
-  editorContainer: {
-    padding: theme.spacing(2),
-    minHeight: 400,
-    '& .public-DraftEditorPlaceholder-root': {
-      ...theme.typography.body2
-    },
-    '& .public-DraftEditorPlaceholder-hasFocus': {
-      display: 'none'
-    },
-    '& .public-DraftEditor-content': {
-      '& p': {
-        ...theme.typography.body1
-      },
-      '& h1': {
-        ...theme.typography.h1
-      },
-      '& h2': {
-        ...theme.typography.h2
-      },
-      '& h3': {
-        ...theme.typography.h3
-      },
-      '& h4': {
-        ...theme.typography.h4
-      },
-      '& h5': {
-        ...theme.typography.h5
-      },
-      '& h6': {
-        ...theme.typography.h6
-      },
-      '& blockquote': {
-        ...theme.typography.subtitle1
-      },
-      '& ul': {
-        ...theme.typography.body1,
-        marginLeft: theme.spacing(4)
-      },
-      '& ol': {
-        ...theme.typography.body1,
-        marginLeft: theme.spacing(4)
-      },
-      '& pre': {
-        backgroundColor: 'rgba(0, 0, 0, 0.05)',
-        fontFamily: '"Inconsolata", "Menlo", "Consolas", monospace',
-        fontSize: 16,
-        padding: 2
-      }
-    }
-  },
-  textAlignLeft: {
-    textAlign: 'left'
-  },
-  textAlignCenter: {
-    textAlign: 'center'
-  },
-  textAlignRight: {
-    textAlign: 'right'
-  },
-  textAlignJustify: {
-    textAlign: 'justify'
-  }
-}));
+import { useStyles } from './styles';
 
 const capitalize = string => string.charAt(0).toUpperCase() + string.slice(1);
 
 const RichEditor = props => {
-  const { placeholder, className, ...rest } = props;
+  const {
+    placeholder,
+    editorState,
+    setEditorState,
+    className,
+    ...rest
+  } = props;
 
   const classes = useStyles();
 
   const editorRef = useRef(null);
-
-  const [editorState, setEditorState] = useState(EditorState.createEmpty());
 
   const handleContainerClick = () => {
     editorRef.current.focus();
@@ -162,19 +100,10 @@ const RichEditor = props => {
   }
 
   return (
-    <Paper
-      {...rest}
-      className={clsx(classes.root, className)}
-    >
-      <EditorToolbar
-        editorState={editorState}
-        onToggle={handleToolbarToggle}
-      />
+    <div {...rest} className={clsx(classes.root, className)}>
+      <EditorToolbar editorState={editorState} onToggle={handleToolbarToggle} />
       <Divider />
-      <div
-        className={classes.editorContainer}
-        onClick={handleContainerClick}
-      >
+      <div className={classes.editorContainer} onClick={handleContainerClick}>
         <Editor
           blockRenderMap={blockRenderMap}
           blockStyleFn={blockStyleFn}
@@ -187,12 +116,15 @@ const RichEditor = props => {
           spellCheck
         />
       </div>
-    </Paper>
+    </div>
   );
 };
 
 RichEditor.propTypes = {
-  className: PropTypes.string
+  className: PropTypes.string,
+  editorState: PropTypes.object,
+  placeholder: PropTypes.string,
+  setEditorState: PropTypes.func
 };
 
 export default RichEditor;

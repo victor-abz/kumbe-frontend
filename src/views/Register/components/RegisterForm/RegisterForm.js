@@ -104,6 +104,7 @@ const RegisterForm = props => {
       isValid: errors ? false : true,
       errors: errors || {}
     }));
+    // eslint-disable-next-line
   }, [formState.values]);
 
   useEffect(() => {
@@ -147,8 +148,7 @@ const RegisterForm = props => {
     <form
       {...rest}
       className={clsx(classes.root, className)}
-      onSubmit={handleSubmit}
-    >
+      onSubmit={handleSubmit}>
       <Grid container spacing={1}>
         <Grid item md={12} sm={12}>
           <TextField
@@ -157,7 +157,7 @@ const RegisterForm = props => {
             helperText={
               hasError('username') ? formState.errors.username[0] : null
             }
-            label= {t('auth:user_name')}
+            label={t('auth:user_name')}
             name="username"
             onChange={handleChange}
             size="small"
@@ -169,7 +169,9 @@ const RegisterForm = props => {
           <TextField
             error={hasError('firstName')}
             fullWidth
-            helperText={hasError('firstName') ? formState.errors.firstName[0] : null}
+            helperText={
+              hasError('firstName') ? formState.errors.firstName[0] : null
+            }
             label={t('auth:firstName')}
             name="firstName"
             onChange={handleChange}
@@ -182,7 +184,9 @@ const RegisterForm = props => {
           <TextField
             error={hasError('lastName')}
             fullWidth
-            helperText={hasError('lastName') ? formState.errors.lastName[0] : null}
+            helperText={
+              hasError('lastName') ? formState.errors.lastName[0] : null
+            }
             label={t('auth:lastName')}
             name="lastName"
             onChange={handleChange}
@@ -195,9 +199,7 @@ const RegisterForm = props => {
           <TextField
             error={hasError('phone')}
             fullWidth
-            helperText={
-              hasError('phone') ? formState.errors.phone[0] : null
-            }
+            helperText={hasError('phone') ? formState.errors.phone[0] : null}
             label={t('auth:phone')}
             name="phone"
             onChange={handleChange}
@@ -227,7 +229,9 @@ const RegisterForm = props => {
             error={hasError('confirmPassword')}
             fullWidth
             helperText={
-              hasError('confirmPassword') ? formState.errors.confirmPassword[0] : null
+              hasError('confirmPassword')
+                ? formState.errors.confirmPassword[0]
+                : null
             }
             label={t('auth:confirmPassword')}
             name="confirmPassword"
@@ -239,18 +243,21 @@ const RegisterForm = props => {
           />
         </Grid>
         <Grid item md={12} sm={12}>
-
-          <FormControl className={classes.formControl} error={hasError('gender')} fullWidth size="small" variant="outlined">
+          <FormControl
+            className={classes.formControl}
+            error={hasError('gender')}
+            fullWidth
+            size="small"
+            variant="outlined">
             <InputLabel id="gender-selector">{t('auth:gender')}</InputLabel>
-            <Select     
+            <Select
               fullWidth
               id="gender"
               label={t('auth:gender')}
               labelId="gender-selector"
               name="gender"
               onChange={handleChange}
-              value={formState.values.gender || ''}
-            >
+              value={formState.values.gender || ''}>
               <MenuItem value={'Male'}>Male</MenuItem>
               <MenuItem value={'Female'}>Female</MenuItem>
             </Select>
@@ -264,8 +271,7 @@ const RegisterForm = props => {
         disabled={!formState.isValid}
         size="large"
         type="submit"
-        variant="contained"
-      >
+        variant="contained">
         {t('auth:register')}
       </Button>
     </form>
