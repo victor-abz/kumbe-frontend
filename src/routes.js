@@ -86,7 +86,7 @@ const routes = [
       {
         path: '/management/customers',
         exact: true,
-        component: lazy(() => import('views/CustomerManagementList'))
+        component: lazy(() => import('views/BlogManagementList'))
       },
       {
         path: '/management/customers/:id',
@@ -136,7 +136,7 @@ const routes = [
       {
         path: '/blogs',
         exact: true,
-        component: lazy(() => import('views/ProjectList'))
+        component: lazy(() => import('views/BlogManagementList'))
       },
       {
         path: '/settings',

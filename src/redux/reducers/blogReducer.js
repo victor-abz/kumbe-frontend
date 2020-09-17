@@ -1,5 +1,5 @@
 import { pending, fulfilled, rejected, baseState } from 'redux/utils';
-import { ADD_NEW_BLOG } from 'redux/actions/actionTypes';
+import { ADD_NEW_BLOG, GET_BLOGS } from 'redux/actions/actionTypes';
 
 export const blogAddReducer = (state = baseState('blog', {}), action) => {
   switch (action.type) {
@@ -19,6 +19,28 @@ export const blogAddReducer = (state = baseState('blog', {}), action) => {
         message: action.payload.data.message
       };
     case rejected(ADD_NEW_BLOG):
+    default:
+      return {
+        ...state,
+        loading: false
+      };
+  }
+};
+export const blogsGetReducer = (state = baseState('blogs', []), action) => {
+  switch (action.type) {
+    case pending(GET_BLOGS):
+      return {
+        ...state,
+        loading: false
+      };
+    case fulfilled(GET_BLOGS):
+      return {
+        ...state,
+        loading: false,
+        loaded: true,
+        blogs: action.payload.data.data
+      };
+    case rejected(GET_BLOGS):
     default:
       return {
         ...state,
