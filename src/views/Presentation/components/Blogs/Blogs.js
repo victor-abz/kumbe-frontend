@@ -29,7 +29,8 @@ const blogs = [
     title: 'Astronomy Binoculars A Great Alternative',
     description: 'Overwatch Official',
     date: '02.04.2020',
-    color: '#fc7944'
+    color: '#fc7944',
+    content: 'Kayaks crowd Three Sisters Springs, where people and manatees maintain controversial coexistence. Kayaks crowd Three Sisters Springs, where people and manatees maintain controversial coexistence.'
   },
   {
     usrImage: 'https://vignette.wikia.nocookie.net/youtube/images/7/77/LeagueOfLegends.jpg/revision/latest?cb=20180718040905',
@@ -37,7 +38,8 @@ const blogs = [
     title: 'New blogs for young people',
     description: 'League of Legends Official',
     date: '02.04.2020',
-    color: '#5357ce'
+    color: '#5357ce',
+    content: 'Kayaks crowd Three Sisters Springs, where people and manatees maintain controversial coexistence. Kayaks crowd Three Sisters Springs, where people and manatees maintain controversial coexistence.'
   },
   {
     usrImage: 'https://vignette.wikia.nocookie.net/youtube/images/7/77/LeagueOfLegends.jpg/revision/latest?cb=20180718040905',
@@ -45,7 +47,8 @@ const blogs = [
     title: 'New blogs for young people',
     description: 'League of Legends Official',
     date: '02.04.2020',
-    color: '#7f5500'
+    color: '#7f5500',
+    content: 'Kayaks crowd Three Sisters Springs, where people and manatees maintain controversial coexistence. Kayaks crowd Three Sisters Springs, where people and manatees maintain controversial coexistence.'
   },
 ]
 export const HighlightCardDemo = React.memo(function HighlightCard() {
@@ -68,12 +71,13 @@ export const HighlightCardDemo = React.memo(function HighlightCard() {
           blogs.map((blog, index) => {
             return  <Grid item key={blog}>
               <CustomCard
-                description={blog.description}
                 color={blog.color}
+                content={blog.content}
                 cover={blog.cover}
                 date={blog.date}
-                userImage={blog.usrImage}
+                description={blog.description}
                 title={blog.title}
+                userImage={blog.usrImage}
               />
             </Grid>
           })

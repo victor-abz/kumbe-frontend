@@ -7,6 +7,11 @@ import Box from '@material-ui/core/Box';
 import CardMedia from '@material-ui/core/CardMedia';
 import { useCoverCardMediaStyles } from '@mui-treasury/styles/cardMedia/cover';
 import { Row, Item } from '@mui-treasury/components/flex';
+import CardContent from '@material-ui/core/CardContent';
+import ChevronRightRounded from '@material-ui/icons/ChevronRightRounded';
+import TextInfoContent from '@mui-treasury/components/content/textInfo';
+import Button from '@material-ui/core/Button';
+import { useN01TextInfoContentStyles } from '@mui-treasury/styles/textInfoContent/n01';
 
 const useStyles = makeStyles(({ palette }) => ({
   color: ({ color }: { color: string }) => ({
@@ -70,7 +75,7 @@ const useStyles = makeStyles(({ palette }) => ({
   }),
   title: {
     fontFamily: 'Fjalla One',
-    fontSize: '1.25rem',
+    fontSize: '18px',
     color: '#fff',
     margin: 0,
   },
@@ -79,7 +84,7 @@ const useStyles = makeStyles(({ palette }) => ({
     width: 100,
     height: 100,
     boxShadow: '0 4px 12px 0 rgba(0,0,0,0.24)',
-    borderRadius: '1rem',
+    // borderRadius: '1rem',
   },
   team: {
     fontFamily: 'Sen',
@@ -95,12 +100,23 @@ const useStyles = makeStyles(({ palette }) => ({
     padding: '0 0.5rem',
     borderRadius: 12,
   },
+  cta: {
+    marginTop: 12,
+    textTransform: 'initial',
+  },
+  body: {
+    color: '#fff',
+  },
 }));
 
 
-const CustomCard = ({ color, cover, userImage, title, description, date }) => {
+const CustomCard = ({ color, cover, content, userImage, title, description, date }) => {
   const styles = useStyles({ color });
   const mediaStyles = useCoverCardMediaStyles();
+  const textCardContentStyles = useN01TextInfoContentStyles();
+  const truncate = (str, n) => {
+    return (str.length > n) ? str.substr(0, n-1) + '...' : str;
+  };
   return (
     <Box className={cx(styles.root, styles.color)} pt={20}>
       <CardMedia classes={mediaStyles} className={styles.cover} image={cover} />
@@ -108,13 +124,25 @@ const CustomCard = ({ color, cover, userImage, title, description, date }) => {
         <Box position={'relative'} zIndex={1}>
           <Row gap={2} p={0}>
             <Item>
-              <Avatar  className={styles.userImage} src={userImage} />
+              <Avatar className={styles.userImage} src={userImage}  />
             </Item>
             <Item position={'bottom'}>
               <h2 className={styles.title}>{title}</h2>
             </Item>
           </Row>
-          <Row alignItems={'center'} mt={4}>
+          <Row gap={2} p={0}>
+            <CardContent >
+              <TextInfoContent
+                body={truncate(content, 100)}
+                bodyProps= {styles.body}
+                classes={textCardContentStyles}
+              />
+              <Button className={styles.cta} color={'primary'} fullWidth variant={'contained'}>
+          Find Out More <ChevronRightRounded />
+              </Button>
+            </CardContent>
+          </Row>
+          <Row alignItems={'center'} gap={2} p={0}>
             <Item>
               <div className={styles.team}>{description}</div>
             </Item>
