@@ -12,6 +12,7 @@ import ChevronRightRounded from '@material-ui/icons/ChevronRightRounded';
 import TextInfoContent from '@mui-treasury/components/content/textInfo';
 import Button from '@material-ui/core/Button';
 import { useN01TextInfoContentStyles } from '@mui-treasury/styles/textInfoContent/n01';
+import PropTypes from 'prop-types';
 
 const useStyles = makeStyles(({ palette }) => ({
   color: ({ color }: { color: string }) => ({
@@ -134,7 +135,6 @@ const CustomCard = ({ color, cover, content, userImage, title, description, date
             <CardContent >
               <TextInfoContent
                 body={truncate(content, 100)}
-                bodyProps= {styles.body}
                 classes={textCardContentStyles}
               />
               <Button className={styles.cta} color={'primary'} fullWidth variant={'contained'}>
@@ -155,5 +155,16 @@ const CustomCard = ({ color, cover, content, userImage, title, description, date
     </Box>
   );
 };
+
+CustomCard.propTypes = {
+  color: PropTypes.string, 
+  content: PropTypes.string, 
+  cover: PropTypes.string, 
+  date: PropTypes.string,
+  description: PropTypes.string, 
+  title: PropTypes.string, 
+  userImage: PropTypes.string
+};
+  
 
 export default CustomCard;
