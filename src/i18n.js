@@ -7,7 +7,11 @@ const defaultLng = 'en';
 let lng = defaultLng;
 
 const storageLanguage = localStorage.getItem('language');
-lng = storageLanguage;
+if(storageLanguage){
+  lng = storageLanguage;
+} else {
+  localStorage.setItem('language', defaultLng);
+}
 
 i18n
   // load translation using xhr -> see /public/locales

@@ -4,7 +4,6 @@ import React, { lazy } from 'react';
 import { Redirect } from 'react-router-dom';
 
 import AuthLayout from './layouts/Auth';
-import ErrorLayout from './layouts/Error';
 import DashboardLayout from './layouts/Dashboard';
 import DashboardAnalyticsView from './views/DashboardAnalytics';
 import DashboardDefaultView from './views/DashboardDefault';
@@ -14,12 +13,17 @@ const routes = [
   {
     path: '/',
     exact: true,
-    component: () => <Redirect to="/presentation" />
+    component: () => <Redirect to="/home" />
   },
   {
-    path: '/auth',
+    path: '/',
     component: AuthLayout,
     routes: [
+      {
+        path: '/home',
+        exact: true,
+        component: PresentationView
+      },
       {
         path: '/auth/login',
         exact: true,
@@ -30,15 +34,6 @@ const routes = [
         exact: true,
         component: lazy(() => import('views/Register'))
       },
-      {
-        component: () => <Redirect to="/errors/error-404" />
-      }
-    ]
-  },
-  {
-    path: '/errors',
-    component: ErrorLayout,
-    routes: [
       {
         path: '/errors/error-401',
         exact: true,
@@ -56,7 +51,7 @@ const routes = [
       },
       {
         component: () => <Redirect to="/errors/error-404" />
-      }
+      },
     ]
   },
   {
@@ -102,11 +97,6 @@ const routes = [
         path: '/management/projects',
         exact: true,
         component: lazy(() => import('views/ProjectManagementList'))
-      },
-      {
-        path: '/presentation',
-        exact: true,
-        component: PresentationView
       },
       {
         path: '/profile/:id',

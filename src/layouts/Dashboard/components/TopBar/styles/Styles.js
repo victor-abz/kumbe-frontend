@@ -69,8 +69,7 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
     color: '#ffffff',
     fontWeight: 900
-  }, // Ends Her
-
+  },
   forumButton: {
     marginLeft: theme.spacing(2),
     color: theme.palette.white,
