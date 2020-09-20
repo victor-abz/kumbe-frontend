@@ -1,8 +1,18 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Typography, Button } from '@material-ui/core';
+import { NavLink as RouterLink } from 'react-router-dom';
+
+const CustomRouterLink = forwardRef((props, ref) => (
+  <div
+    ref={ref}
+    style={{ flexGrow: 1 }}
+  >
+    <RouterLink {...props} />
+  </div>
+));
 
 const useStyles = makeStyles(() => ({
   root: {}
@@ -25,7 +35,7 @@ const Header = props => {
           </Typography>
         </Grid>
         <Grid item>
-          <Button color="primary" variant="contained">
+          <Button color="primary" component={CustomRouterLink} to={'/blogs/create'} variant="contained">
             Add new blog
           </Button>
         </Grid>

@@ -1,21 +1,22 @@
 import React from 'react';
 import cx from 'clsx';
-import Color from 'color';
 import { makeStyles } from '@material-ui/core/styles';
-import Avatar from '@material-ui/core/Avatar';
-import Box from '@material-ui/core/Box';
-import CardMedia from '@material-ui/core/CardMedia';
-import { useCoverCardMediaStyles } from '@mui-treasury/styles/cardMedia/cover';
-import { Row, Item } from '@mui-treasury/components/flex';
-import CardContent from '@material-ui/core/CardContent';
-import ChevronRightRounded from '@material-ui/icons/ChevronRightRounded';
+import {Avatar, Button, Card , colors, CardContent, CardMedia, Box, CardActions} from '@material-ui/core';
+import IconButton from '@material-ui/core/IconButton';
+import FavoriteBorderRounded from '@material-ui/icons/FavoriteBorderRounded';
+import Share from '@material-ui/icons/Share';
+import { useWideCardMediaStyles } from '@mui-treasury/styles/cardMedia/wide';
 import TextInfoContent from '@mui-treasury/components/content/textInfo';
-import Button from '@material-ui/core/Button';
-import { useN01TextInfoContentStyles } from '@mui-treasury/styles/textInfoContent/n01';
-import PropTypes from 'prop-types';
+import { Column, Row, Item } from '@mui-treasury/components/flex';
+import { Info, InfoSubtitle, InfoTitle } from '@mui-treasury/components/info';
+import { useNewsInfoStyles } from '@mui-treasury/styles/info/news';
+import { useBlogTextInfoContentStyles } from '@mui-treasury/styles/textInfoContent/blog';
+import ChevronRightRounded from '@material-ui/icons/ChevronRightRounded';
+import { useFloatShadowStyles } from '@mui-treasury/styles/shadow/float';
+import Color from 'color';
 
-const useStyles = makeStyles(({ palette }) => ({
-  color: ({ color }: { color: string }) => ({
+const useStyles = makeStyles(() => ({
+  color: ({ color }) => ({
     '&:before': {
       backgroundColor: Color(color)
         .darken(0.3)
@@ -24,39 +25,11 @@ const useStyles = makeStyles(({ palette }) => ({
     },
   }),
   root: {
-    position: 'relative',
-    borderRadius: '1rem',
-    minWidth: 320,
-    maxWidth: 350,
-    '&:before': {
-      transition: '0.2s',
-      position: 'absolute',
-      width: '100%',
-      height: '100%',
-      content: '""',
-      display: 'block',
-      borderRadius: '1rem',
-      zIndex: 0,
-      bottom: 0,
-    },
-    '&:hover': {
-      '&:before': {
-        bottom: -6,
-      },
-      '& $userImage': {
-        transform: 'scale(1.1)',
-        boxShadow: '0 6px 20px 0 rgba(0,0,0,0.38)',
-      },
-    },
+    maxWidth: 304,
+    margin: 'auto',
   },
-  cover: {
-    borderRadius: '1rem',
-  },
-  content: ({ color }: { color: string }) => ({
+  content: ({ color }) => ({
     position: 'relative',
-    zIndex: 1,
-    borderRadius: '1rem',
-    boxShadow: `0 6px 16px 0 ${Color(color).fade(0.5)}`,
     '&:before': {
       content: '""',
       display: 'block',
@@ -66,105 +39,81 @@ const useStyles = makeStyles(({ palette }) => ({
       zIndex: 0,
       width: '100%',
       height: '100%',
-      clipPath:
-        'polygon(0% 100%, 0% 35%, 0.3% 33%, 1% 31%, 1.5% 30%, 2% 29%, 2.5% 28.4%, 3% 27.9%, 3.3% 27.6%, 5% 27%,95% 0%,100% 0%, 100% 100%)',
-      borderRadius: '1rem',
-      background: `linear-gradient(to top, ${color}, ${Color(color)
-        .rotate(24)
-        .lighten(0.12)})`,
+      background: '#fff'
+      // background: `linear-gradient( ${color}, ${Color(color)
+      //   .rotate(24)
+      //   .lighten(0.12)})`,
+    },
+    cta: {
+      marginTop: 12,
+      textTransform: 'initial',
+      color: colors.purple[600]
     },
   }),
-  title: {
-    fontFamily: 'Fjalla One',
-    fontSize: '18px',
-    color: '#fff',
-    margin: 0,
+  avatar: {
+    width: 50,
+    height: 50,
+    border: '2px solid #fff',
+    borderRadius: '50%',
+    '& > img': {
+      margin: 0,
+    },
   },
-  userImage: {
-    transition: '0.3s',
-    width: 100,
-    height: 100,
-    boxShadow: '0 4px 12px 0 rgba(0,0,0,0.24)',
-    // borderRadius: '1rem',
-  },
-  team: {
-    fontFamily: 'Sen',
-    fontSize: '0.75rem',
-    color: palette.text.hint,
-  },
-  date: {
-    fontFamily: 'Sen',
-    color: '#fff',
-    backgroundColor: palette.text.hint,
-    opacity: 0.72,
-    fontSize: '0.75rem',
-    padding: '0 0.5rem',
-    borderRadius: 12,
-  },
-  cta: {
-    marginTop: 12,
-    textTransform: 'initial',
-  },
-  body: {
-    color: '#fff',
+  logo: {
+    width: 48,
+    height: 48,
+    borderRadius: '0.75rem',
   },
 }));
 
-
-const CustomCard = ({ color, cover, content, userImage, title, description, date }) => {
-  const styles = useStyles({ color });
-  const mediaStyles = useCoverCardMediaStyles();
-  const textCardContentStyles = useN01TextInfoContentStyles();
+export const CustomCard = React.memo(function PostCard({ color, cover, content, userImage, title, description, date }) {
+  const cardStyles = useStyles({ color });
+  const mediaStyles = useWideCardMediaStyles();
+  const shadowStyles = useFloatShadowStyles();
+  const textCardContentStyles = useBlogTextInfoContentStyles();
   const truncate = (str, n) => {
     return (str.length > n) ? str.substr(0, n-1) + '...' : str;
   };
   return (
-    <Box className={cx(styles.root, styles.color)} pt={20}>
-      <CardMedia classes={mediaStyles} className={styles.cover} image={cover} />
-      <Box className={styles.content} p={2}>
+    <Card className={cx(cardStyles.root, shadowStyles.root)}>
+      <CardMedia
+        classes={mediaStyles}
+        image={cover}
+      />
+      <CardContent className={cardStyles.content}>
         <Box position={'relative'} zIndex={1}>
-          <Row gap={2} p={0}>
-            <Item>
-              <Avatar className={styles.userImage} src={userImage}  />
-            </Item>
-            <Item position={'bottom'}>
-              <h2 className={styles.title}>{title}</h2>
-            </Item>
-          </Row>
-          <Row gap={2} p={0}>
-            <CardContent >
+          <Column gap={2} >
+            <Row >
+              <Avatar className={cardStyles.avatar} src={userImage} variant={'rounded'} />
+              <Info useStyles={useNewsInfoStyles}>
+                <InfoTitle>{title}</InfoTitle>
+                <InfoSubtitle>Jul 20</InfoSubtitle>
+              </Info>
+            </Row>
+            <Row>
               <TextInfoContent
                 body={truncate(content, 100)}
                 classes={textCardContentStyles}
               />
-              <Button className={styles.cta} color={'primary'} fullWidth variant={'contained'}>
-          Find Out More <ChevronRightRounded />
+            </Row>
+            <Row gap={2} p={0}>
+              <Button className={cardStyles.cta} color={'primary'} fullWidth variant={'contained'}>
+                  Find Out More <ChevronRightRounded />
               </Button>
-            </CardContent>
-          </Row>
-          <Row alignItems={'center'} gap={2} p={0}>
-            <Item>
-              <div className={styles.team}>{description}</div>
-            </Item>
-            <Item position={'right'}>
-              <div className={styles.date}>{date}</div>
-            </Item>
-          </Row>
+            </Row>
+          </Column>
         </Box>
-      </Box>
-    </Box>
+      </CardContent>
+      <CardActions style={{ height: 50, backgroundColor: '#F1F1F1'}}>
+        <IconButton>
+          <Share />
+        </IconButton>
+        <IconButton>
+          <FavoriteBorderRounded />
+        </IconButton>
+      </CardActions>
+    </Card>
   );
-};
-
-CustomCard.propTypes = {
-  color: PropTypes.string, 
-  content: PropTypes.string, 
-  cover: PropTypes.string, 
-  date: PropTypes.string,
-  description: PropTypes.string, 
-  title: PropTypes.string, 
-  userImage: PropTypes.string
-};
-  
+});
 
 export default CustomCard;

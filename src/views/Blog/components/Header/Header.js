@@ -19,7 +19,7 @@ const Header = props => {
         New Blog
       </Typography>
       <Typography component="h1" variant="h3">
-        Write a new blog
+        Write a blog using tools below
       </Typography>
     </div>
   );

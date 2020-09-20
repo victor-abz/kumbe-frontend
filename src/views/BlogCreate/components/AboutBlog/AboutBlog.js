@@ -39,7 +39,7 @@ const AboutBlog = props => {
   }, []);
   return (
     <Card {...rest} className={clsx(classes.root, className)}>
-      <CardHeader title="About this project" />
+      <CardHeader title="About this blog" />
       <CardContent>
         <AddTagDialog open={openAddTag} setOpen={() => setOpenAddTag(false)} />
         <AddCategDialog
@@ -47,10 +47,6 @@ const AboutBlog = props => {
           setOpen={() => setOpenAddCategory(false)}
         />
         <form>
-          <Alert
-            className={classes.alert}
-            message="Once you choose the project name you can’t change it unless you contact customer support."
-          />
           <div className={classes.formGroup}>
             <Grid container spacing={2}>
               <Grid item md={6} xs={12}>

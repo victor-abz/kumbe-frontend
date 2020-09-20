@@ -13,16 +13,21 @@ const routes = [
   {
     path: '/',
     exact: true,
-    component: () => <Redirect to="/home" />
+    component: () => <Redirect to="/auth/home" />
   },
   {
-    path: '/',
+    path: '/auth',
     component: AuthLayout,
     routes: [
       {
-        path: '/home',
+        path: '/auth/home',
         exact: true,
         component: PresentationView
+      },
+      {
+        path: '/auth/blogs/',
+        exact: true,
+        component: lazy(() => import('views/Blog'))
       },
       {
         path: '/auth/login',
@@ -34,6 +39,30 @@ const routes = [
         exact: true,
         component: lazy(() => import('views/Register'))
       },
+      // {
+      //   path: '/errors/error-401',
+      //   exact: true,
+      //   component: lazy(() => import('views/Error401'))
+      // },
+      // {
+      //   path: '/errors/error-404',
+      //   exact: true,
+      //   component: lazy(() => import('views/Error404'))
+      // },
+      // {
+      //   path: '/errors/error-500',
+      //   exact: true,
+      //   component: lazy(() => import('views/Error500'))
+      // },
+      {
+        component: () => <Redirect to="/errors/error-404" />
+      },
+    ]
+  },
+  {
+    path: '/errors',
+    component: AuthLayout,
+    routes: [
       {
         path: '/errors/error-401',
         exact: true,
@@ -51,7 +80,7 @@ const routes = [
       },
       {
         component: () => <Redirect to="/errors/error-404" />
-      },
+      }
     ]
   },
   {
