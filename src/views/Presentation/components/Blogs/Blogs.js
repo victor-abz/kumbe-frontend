@@ -1,12 +1,9 @@
 import React from 'react';
-import cx from 'clsx';
-import Color from 'color';
 import GoogleFontLoader from 'react-google-font-loader';
 import NoSsr from '@material-ui/core/NoSsr';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import CustomCard from './CustomCard';
-import { Blogs } from '..';
 
 const useGridStyles = makeStyles(({ breakpoints }) => ({
   root: {

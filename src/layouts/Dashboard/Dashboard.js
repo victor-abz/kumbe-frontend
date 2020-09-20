@@ -38,7 +38,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 const Dashboard = props => {
-  const { route } = props;
+  const { route, t } = props;
 
   const classes = useStyles();
   const router = useRouter();
@@ -72,7 +72,7 @@ const Dashboard = props => {
         />
         <main className={classes.content}>
           <Suspense fallback={<LinearProgress />}>
-            {renderRoutes(route.routes)}
+            {renderRoutes(route.routes, { t })}
           </Suspense>
         </main>
       </div>
