@@ -7,23 +7,23 @@ export const useStyles = makeStyles(theme => ({
     margin: '0 auto',
     padding: theme.spacing(3, 3, 6, 3)
   },
-  aboutAuthor: {
-    marginTop: theme.spacing(3)
-  },
-  aboutProject: {
-    margin: theme.spacing(3),
 
+  blogView: {
+    margin: theme.spacing(3),
   },
-  projectCover: {
-    marginTop: theme.spacing(3)
+  divider: {
+    background: 'black', 
+    width: '40%', 
+    margin: theme.spacing(0, 1)
   },
-  projectDetails: {
-    marginTop: theme.spacing(3)
+  relatedTitle: { 
+    margin: theme.spacing(1, 1)
   },
-  preferences: {
-    marginTop: theme.spacing(3)
+  otherBlogs:{ 
+    margin: theme.spacing(1, 1)
   },
-  actions: {
+  otherBlogsContainer:{
     marginTop: theme.spacing(3)
   }
+  
 }));

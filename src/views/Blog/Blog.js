@@ -10,9 +10,10 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { BlogContent } from './components';
 import { useStyles } from './styles';
 import CustomCard from '../Presentation/components/Blogs/CustomCard';
-import { Grid } from '@material-ui/core';
+import { Grid, Typography, Divider } from '@material-ui/core';
 import theme from '../../theme';
 import { ThemeProvider } from '@material-ui/core/styles';
+import { Column, Row, Item } from '@mui-treasury/components/flex';
 
 const blogs = [
   {
@@ -87,29 +88,38 @@ const Blog = () => {
             <Content>
               <InsetContainer
                 rightSidebar={
-                  <InsetSidebar sidebarId="secondarySidebar" style={{backgroundColor: '#fff'}}>
-                    { 
-                      blogs.map((blog, index) => {
-                        return  <Grid key={index} style={{ margin: '3% 3% '}}>
-                          <CustomCard
-                            color={blog.color} content={blog.content}
-                            cover={blog.cover}
-                            date={blog.date}
-                            description={blog.description}
-                            item
-                            key={blog}
-                            title={blog.title}
-                            userImage={blog.usrImage}
-                          />
-                        </Grid>
-                      })
-                    }
+                  <InsetSidebar sidebarId="secondarySidebar">
+                    <Column className={classes.otherBlogsContainer}>
+                      <Typography className={classes.relatedTitle} component="h2" variant="h4">
+                            Related blogs
+                      </Typography>
+                      <Divider className={classes.divider} />
+                      <Item>
+
+                        { 
+                          blogs.map((blog, index) => {
+                            return  <Grid className={classes.otherBlogs} key={index}>
+                              <CustomCard
+                                color={blog.color} content={blog.content}
+                                cover={blog.cover}
+                                date={blog.date}
+                                description={blog.description}
+                                item
+                                key={blog}
+                                title={blog.title}
+                                userImage={blog.usrImage}
+                              />
+                            </Grid>
+                          })
+                        }
+                      </Item>
+                    </Column>
                   </InsetSidebar>
                 }
               >
                 <BlogContent
                   blog={blog}
-                  className={classes.aboutProject}
+                  className={classes.blogView}
                 />
               </InsetContainer>
             </Content>
