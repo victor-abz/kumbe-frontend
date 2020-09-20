@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import cx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import {Avatar, Button, Card , colors, CardContent, CardMedia, Box, CardActions} from '@material-ui/core';
@@ -14,6 +14,17 @@ import { useBlogTextInfoContentStyles } from '@mui-treasury/styles/textInfoConte
 import ChevronRightRounded from '@material-ui/icons/ChevronRightRounded';
 import { useFloatShadowStyles } from '@mui-treasury/styles/shadow/float';
 import Color from 'color';
+import moment from 'moment';
+import { NavLink as RouterLink } from 'react-router-dom';
+
+const CustomRouterLink = forwardRef((props, ref) => (
+  <div
+    ref={ref}
+    style={{ flexGrow: 1 }}
+  >
+    <RouterLink {...props} />
+  </div>
+));
 
 const useStyles = makeStyles(() => ({
   color: ({ color }) => ({
@@ -66,19 +77,19 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export const CustomCard = React.memo(function PostCard({ color, cover, content, userImage, title, description, date }) {
+export const CustomCard = React.memo(function PostCard({ color, cover, content, userImage, title, description, date, id }) {
   const cardStyles = useStyles({ color });
   const mediaStyles = useWideCardMediaStyles();
   const shadowStyles = useFloatShadowStyles();
   const textCardContentStyles = useBlogTextInfoContentStyles();
   const truncate = (str, n) => {
-    return (str.length > n) ? str.substr(0, n-1) + '...' : str;
+    return (str.length > n) ? str.replace(/<[^>]+>/g, '').substr(0, n-1) + '...' : str;
   };
   return (
     <Card className={cx(cardStyles.root, shadowStyles.root)}>
       <CardMedia
         classes={mediaStyles}
-        image={cover}
+        image={`${process.env.REACT_APP_API_URL}/blogs/${cover}`}
       />
       <CardContent className={cardStyles.content}>
         <Box position={'relative'} zIndex={1}>
@@ -87,7 +98,7 @@ export const CustomCard = React.memo(function PostCard({ color, cover, content, 
               <Avatar className={cardStyles.avatar} src={userImage} variant={'rounded'} />
               <Info useStyles={useNewsInfoStyles}>
                 <InfoTitle>{title}</InfoTitle>
-                <InfoSubtitle>Jul 20</InfoSubtitle>
+                <InfoSubtitle>{ moment(date).fromNow()}</InfoSubtitle>
               </Info>
             </Row>
             <Row>
@@ -97,7 +108,7 @@ export const CustomCard = React.memo(function PostCard({ color, cover, content, 
               />
             </Row>
             <Row gap={2} p={0}>
-              <Button className={cardStyles.cta} color={'primary'} fullWidth variant={'contained'}>
+              <Button className={cardStyles.cta} color={'primary'} component={CustomRouterLink} fullWidth to={`/auth/blogs/${id}`} variant={'contained'}>
                   Find Out More <ChevronRightRounded />
               </Button>
             </Row>

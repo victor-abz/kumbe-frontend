@@ -25,7 +25,7 @@ const routes = [
         component: PresentationView
       },
       {
-        path: '/auth/blogs/',
+        path: '/auth/blogs/:id',
         exact: true,
         component: lazy(() => import('views/Blog'))
       },
