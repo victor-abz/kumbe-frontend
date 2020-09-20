@@ -15,3 +15,4 @@ export const RESET_UPLOADED_FILE = 'RESET_UPLOADED_FILE';
 
 export const ADD_NEW_BLOG = 'ADD_NEW_BLOG';
 export const GET_BLOGS = 'GET_BLOGS';
+export const GET_BLOG = 'GET_BLOG'

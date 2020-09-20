@@ -1,4 +1,4 @@
-import React, {  useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Layout, {
   Root,
@@ -14,36 +14,9 @@ import { Grid, Typography, Divider } from '@material-ui/core';
 import theme from '../../theme';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { Column, Row, Item } from '@mui-treasury/components/flex';
-
-const blogs = [
-  {
-    usrImage: 'https://d3fa68hw0m2vcc.cloudfront.net/bf4/156511609.jpeg',
-    cover: 'https://cdn.vox-cdn.com/thumbor/C6_-SDnnoFdS19XRH4XvAYN1BT8=/148x0:1768x1080/1400x1400/filters:focal(148x0:1768x1080):format(jpeg)/cdn.vox-cdn.com/uploads/chorus_image/image/49641465/tracer_overwatch.0.0.jpg',
-    title: 'Astronomy Binoculars A Great Alternative',
-    description: 'Overwatch Official',
-    date: '02.04.2020',
-    color: '#fc7944',
-    content: 'Kayaks crowd Three Sisters Springs, where people and manatees maintain controversial coexistence. Kayaks crowd Three Sisters Springs, where people and manatees maintain controversial coexistence.'
-  },
-  {
-    usrImage: 'https://vignette.wikia.nocookie.net/youtube/images/7/77/LeagueOfLegends.jpg/revision/latest?cb=20180718040905',
-    cover: 'https://www.pcclean.io/wp-content/uploads/2019/04/559308.jpg',
-    title: 'New blogs for young people',
-    description: 'League of Legends Official',
-    date: '02.04.2020',
-    color: '#5357ce',
-    content: 'Kayaks crowd Three Sisters Springs, where people and manatees maintain controversial coexistence. Kayaks crowd Three Sisters Springs, where people and manatees maintain controversial coexistence.'
-  },
-  {
-    usrImage: 'https://vignette.wikia.nocookie.net/youtube/images/7/77/LeagueOfLegends.jpg/revision/latest?cb=20180718040905',
-    cover: 'https://www.pcclean.io/wp-content/uploads/2019/04/559308.jpg',
-    title: 'New blogs for young people',
-    description: 'League of Legends Official',
-    date: '02.04.2020',
-    color: '#7f5500',
-    content: 'Kayaks crowd Three Sisters Springs, where people and manatees maintain controversial coexistence. Kayaks crowd Three Sisters Springs, where people and manatees maintain controversial coexistence.'
-  },
-]
+import { getBlogs } from 'redux/actions/blog';
+import { getBlog } from 'redux/actions/blog';
+import { useSelector } from 'react-redux';
 
 const initialStateValues = {
   title: '',
@@ -76,9 +49,19 @@ scheme.configureInsetSidebar((builder) => {
     });
 });
 
-const Blog = () => {
+const Blog = (props) => {
   const classes = useStyles();
-  const [blog, setBlog] = useState(initialStateValues);
+  // const [blog, setBlog] = useState(initialStateValues);
+  const { match } = props;
+  const { id } = match.params;
+
+  const { wait, blog } = useSelector(({ blogGet }) => blogGet);
+  const { loading, blogs } = useSelector(({ blogsGet }) => blogsGet);
+  useEffect(() => {
+    getBlogs();
+    getBlog(id);
+  }, []);
+  console.log(blog);
   return (
     <Root scheme={scheme}>
       {() => (
@@ -100,12 +83,12 @@ const Blog = () => {
                           blogs.map((blog, index) => {
                             return  <Grid className={classes.otherBlogs} key={index}>
                               <CustomCard
-                                color={blog.color} content={blog.content}
-                                cover={blog.cover}
-                                date={blog.date}
+                                color={blog.color}
+                                content={blog.content}
+                                cover={blog.coverImage}
+                                date={blog.createdAt}
                                 description={blog.description}
-                                item
-                                key={blog}
+                                id={blog.id}
                                 title={blog.title}
                                 userImage={blog.usrImage}
                               />
@@ -117,10 +100,11 @@ const Blog = () => {
                   </InsetSidebar>
                 }
               >
-                <BlogContent
+                {blog ? (<BlogContent
                   blog={blog}
                   className={classes.blogView}
-                />
+                />): <p>Wait...</p>}
+                
               </InsetContainer>
             </Content>
           </ThemeProvider>
