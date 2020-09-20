@@ -19,68 +19,68 @@ export default [
   {
     title: 'Pages',
     pages: [
-      {
-        title: 'Dashboards',
-        href: '/dashboards',
-        icon: DashboardIcon,
-        children: [
-          {
-            title: 'Default',
-            href: '/dashboards/default'
-          },
-          {
-            title: 'Analytics',
-            href: '/dashboards/analytics'
-          }
-        ]
-      },
-      {
-        title: 'Management',
-        href: '/management',
-        icon: BarChartIcon,
-        children: [
-          {
-            title: 'Customers',
-            href: '/management/customers'
-          },
-          {
-            title: 'Customer Details',
-            href: '/management/customers/1/summary'
-          },
-          {
-            title: 'Projects',
-            href: '/management/projects'
-          }
-        ]
-      },
-      {
-        title: 'Social Feed',
-        href: '/social-feed',
-        icon: PeopleIcon
-      },
-      {
-        title: 'Profile',
-        href: '/profile',
-        icon: PersonIcon,
-        children: [
-          {
-            title: 'Timeline',
-            href: '/profile/1/timeline'
-          },
-          {
-            title: 'Connections',
-            href: '/profile/1/connections'
-          },
-          {
-            title: 'Projects',
-            href: '/profile/1/projects'
-          },
-          {
-            title: 'Reviews',
-            href: '/profile/1/reviews'
-          }
-        ]
-      },
+      // {
+      //   title: 'Dashboards',
+      //   href: '/dashboards',
+      //   icon: DashboardIcon,
+      //   children: [
+      //     {
+      //       title: 'Default',
+      //       href: '/dashboards/default'
+      //     },
+      //     {
+      //       title: 'Analytics',
+      //       href: '/dashboards/analytics'
+      //     }
+      //   ]
+      // },
+      // {
+      //   title: 'Management',
+      //   href: '/management',
+      //   icon: BarChartIcon,
+      //   children: [
+      //     {
+      //       title: 'Customers',
+      //       href: '/management/customers'
+      //     },
+      //     {
+      //       title: 'Customer Details',
+      //       href: '/management/customers/1/summary'
+      //     },
+      //     {
+      //       title: 'Projects',
+      //       href: '/management/projects'
+      //     }
+      //   ]
+      // },
+      // {
+      //   title: 'Social Feed',
+      //   href: '/social-feed',
+      //   icon: PeopleIcon
+      // },
+      // {
+      //   title: 'Profile',
+      //   href: '/profile',
+      //   icon: PersonIcon,
+      //   children: [
+      //     {
+      //       title: 'Timeline',
+      //       href: '/profile/1/timeline'
+      //     },
+      //     {
+      //       title: 'Connections',
+      //       href: '/profile/1/connections'
+      //     },
+      //     {
+      //       title: 'Projects',
+      //       href: '/profile/1/projects'
+      //     },
+      //     {
+      //       title: 'Reviews',
+      //       href: '/profile/1/reviews'
+      //     }
+      //   ]
+      // },
       {
         title: 'Blog',
         href: '/blogs',
@@ -95,79 +95,74 @@ export default [
             title: 'Create',
             href: '/blogs/create'
           },
-          {
-            title: 'Overview',
-            href: '/blogs/1/overview'
-          },
-          {
-            title: 'Files',
-            href: '/blogs/1/files'
-          },
-          {
-            title: 'Activity',
-            href: '/blogs/1/activity'
-          },
-          {
-            title: 'Subscribers',
-            href: '/blogs/1/subscribers'
-          }
+          // {
+          //   title: 'Overview',
+          //   href: '/blogs/1/overview'
+          // },
+          // {
+          //   title: 'Files',
+          //   href: '/blogs/1/files'
+          // },
+          // {
+          //   title: 'Activity',
+          //   href: '/blogs/1/activity'
+          // },
+          // {
+          //   title: 'Subscribers',
+          //   href: '/blogs/1/subscribers'
+          // }
         ]
       },
-      {
-        title: 'Chat',
-        href: '/chat',
-        icon: ChatIcon,
-        label: () => (
-          <Label color={colors.red[500]} shape="rounded">
-            4
-          </Label>
-        )
-      },
+      // {
+      //   title: 'Chat',
+      //   href: '/chat',
+      //   icon: ChatIcon,
+      //   label: () => (
+      //     <Label color={colors.red[500]} shape="rounded">
+      //       4
+      //     </Label>
+      //   )
+      // },
 
-      {
-        title: 'Authentication',
-        href: '/auth',
-        icon: LockOpenIcon,
-        children: [
-          {
-            title: 'Login',
-            href: '/auth/login'
-          },
-          {
-            title: 'Register',
-            href: '/auth/register'
-          }
-        ]
-      },
-      {
-        title: 'Errors',
-        href: '/errors',
-        icon: ErrorIcon,
-        children: [
-          {
-            title: 'Error 401',
-            href: '/errors/error-401'
-          },
-          {
-            title: 'Error 404',
-            href: '/errors/error-404'
-          },
-          {
-            title: 'Error 500',
-            href: '/errors/error-500'
-          }
-        ]
-      }
+      // {
+      //   title: 'Authentication',
+      //   href: '/auth',
+      //   icon: LockOpenIcon,
+      //   children: [
+      //     {
+      //       title: 'Login',
+      //       href: '/auth/login'
+      //     },
+      //     {
+      //       title: 'Register',
+      //       href: '/auth/register'
+      //     }
+      //   ]
+      // },
+      // {
+      //   title: 'Errors',
+      //   href: '/errors',
+      //   icon: ErrorIcon,
+      //   children: [
+      //     {
+      //       title: 'Error 401',
+      //       href: '/errors/error-401'
+      //     },
+      //     {
+      //       title: 'Error 404',
+      //       href: '/errors/error-404'
+      //     },
+      //     {
+      //       title: 'Error 500',
+      //       href: '/errors/error-500'
+      //     }
+      //   ]
+      // }
     ]
   },
   {
     title: 'Support',
     pages: [
-      {
-        title: 'Presentation',
-        href: '/presentation',
-        icon: PresentToAllIcon
-      },
       {
         title: 'Settings',
         href: '/settings',
