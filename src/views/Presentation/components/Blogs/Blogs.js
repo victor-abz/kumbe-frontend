@@ -50,6 +50,7 @@ export const HighlightCardDemo = React.memo(function HighlightCard() {
                 cover={blog.coverImage}
                 date={blog.createdAt}
                 description={blog.description}
+                editor={blog.editor}
                 id={blog.id}
                 title={blog.title}
                 userImage={blog.usrImage}

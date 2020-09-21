@@ -1,14 +1,14 @@
 import React, { forwardRef } from 'react';
 import cx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
-import {Avatar, Button, Card , colors, CardContent, CardMedia, Box, CardActions} from '@material-ui/core';
+import {Avatar, Button, Card , colors, CardContent, CardMedia, Box, CardActions, Divider, Typography} from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import FavoriteBorderRounded from '@material-ui/icons/FavoriteBorderRounded';
 import Share from '@material-ui/icons/Share';
 import { useWideCardMediaStyles } from '@mui-treasury/styles/cardMedia/wide';
 import TextInfoContent from '@mui-treasury/components/content/textInfo';
 import { Column, Row, Item } from '@mui-treasury/components/flex';
-import { Info, InfoSubtitle, InfoTitle } from '@mui-treasury/components/info';
+import { Info, InfoSubtitle, InfoTitle, InfoCaption } from '@mui-treasury/components/info';
 import { useNewsInfoStyles } from '@mui-treasury/styles/info/news';
 import { useBlogTextInfoContentStyles } from '@mui-treasury/styles/textInfoContent/blog';
 import ChevronRightRounded from '@material-ui/icons/ChevronRightRounded';
@@ -77,7 +77,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export const CustomCard = React.memo(function PostCard({ color, cover, content, userImage, title, description, date, id }) {
+export const CustomCard = React.memo(function PostCard({ color, cover, content, userImage, title, editor, date, id }) {
   const cardStyles = useStyles({ color });
   const mediaStyles = useWideCardMediaStyles();
   const shadowStyles = useFloatShadowStyles();
@@ -94,11 +94,17 @@ export const CustomCard = React.memo(function PostCard({ color, cover, content, 
       <CardContent className={cardStyles.content}>
         <Box position={'relative'} zIndex={1}>
           <Column gap={2} >
+            <Row>
+              <Typography component="h6" variant="h6">
+                {title}
+              </Typography>
+              <Divider />
+            </Row>
             <Row >
               <Avatar className={cardStyles.avatar} src={userImage} variant={'rounded'} />
               <Info useStyles={useNewsInfoStyles}>
-                <InfoTitle>{title}</InfoTitle>
-                <InfoSubtitle>{ moment(date).fromNow()}</InfoSubtitle>
+                <InfoCaption>{`By ${editor.firstName} ${editor.lastName}`}</InfoCaption>
+                <InfoSubtitle>{moment(date).fromNow()}</InfoSubtitle>
               </Info>
             </Row>
             <Row>
