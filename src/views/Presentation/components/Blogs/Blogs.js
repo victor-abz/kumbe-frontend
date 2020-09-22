@@ -7,16 +7,16 @@ import CustomCard from './CustomCard';
 import { useSelector } from 'react-redux';
 import { getBlogs } from 'redux/actions/blog';
 
-const useGridStyles = makeStyles(({ breakpoints }) => ({
+const useGridStyles = makeStyles(({ breakpoints, spacing }) => ({
   root: {
-    overflow: 'auto',
+    // overflow: 'auto',
+    // display: 'flex',
     [breakpoints.only('xs')]: {
-      '& > *:not(:first-child)': {
-        paddingLeft: 0,
-      },
+      padding: spacing(1, 2),
     },
     [breakpoints.up('sm')]: {
       justifyContent: 'center',
+      padding: spacing(2, 15)
     },
   },
 }));
@@ -27,23 +27,18 @@ export const HighlightCardDemo = React.memo(function HighlightCard() {
   useEffect(() => {
     getBlogs();
   }, []);
+  console.log(blogs);
   return (
     <>
-      <NoSsr>
-        <GoogleFontLoader
-          fonts={[{ font: 'Fjalla One' }, { font: 'Sen', weights: [500] }]}
-        />
-      </NoSsr>
       <Grid
         classes={gridStyles}
         container
-        spacing={4}
-        style={{ padding: 16 }}
-        wrap={'nowrap'}
+        
+        spacing={2}
       >
         {
           blogs.map((blog, index) => {
-            return  <Grid item key={index}>
+            return  <Grid item key={index} md={3} sm={12}>
               <CustomCard
                 color={blog.color}
                 content={blog.content}
@@ -52,6 +47,7 @@ export const HighlightCardDemo = React.memo(function HighlightCard() {
                 description={blog.description}
                 editor={blog.editor}
                 id={blog.id}
+                slug={blog.slug}
                 title={blog.title}
                 userImage={blog.usrImage}
               />

@@ -132,6 +132,7 @@ const TopBar = props => {
     setLanguage(event.target.value);
     localStorage.setItem('language', event.target.value);
     i18n.changeLanguage(event.target.value);
+    window.location.reload()
   };
 
 

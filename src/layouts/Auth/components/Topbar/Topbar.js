@@ -58,6 +58,7 @@ const TopBar = props => {
     setLanguage(event.target.value);
     localStorage.setItem('language', event.target.value);
     i18n.changeLanguage(event.target.value);
+    window.location.reload()
   };
 
 
@@ -67,42 +68,6 @@ const TopBar = props => {
     .lighten(0.4)
     .fade(0.87)
     .toString()
-  // const menuStyles = makeStyles((theme: Theme) => createStyles({
-  //   root: {
-  //     backgroundColor: theme.color.red,
-  //   },
-  // }));
-
-
-  // const bulbNavigationMenuStyles = createStyles({
-  //   menu: {
-  //     display: 'flex',
-  //     overflow: 'auto',
-  //   },
-  //   item: ({ gutter }: 1) => ({
-  //     flexShrink: 0,
-  //     display: 'flex',
-  //     alignItems: 'center',
-  //     position: 'relative',
-  //     // padding: spacing(1, itemHorzPadding),
-  //     cursor: 'pointer',
-  //     textDecoration: 'none',
-  //     color: '#fff',
-  //     borderRadius: '8px / 50%',
-  //     '&:hover': {
-  //       backgroundColor: activeColor,
-  //     },
-  //     '&:not(:first-child)': {
-  //       // marginLeft: typeof gutter === 'number' ? spacing(gutter) : gutter,
-  //     },
-  //   }),
-  //   itemActive: {
-  //     '&$item': {
-  //       backgroundColor: activeColor,
-  //       // color: palette.type === 'dark' ? '#fff' : palette.primary.main,
-  //     },
-  //   },
-  // });
   
   useEffect(() => {
     let mounted = true;
@@ -237,41 +202,3 @@ TopBar.propTypes = {
 };
 
 export default TopBar;
-
-
-
-
-// const TopBar = React.memo(
-//   function BulbNavigationMenu() {
-//     return (
-//       <Box display={'flex'} height={48}>
-//         {/* <FontProvider fonts={[{ font: 'Rubik' }]}> */}
-//         <NavMenu gutter={1} useStyles={useBulbNavigationMenuStyles}>
-//           <NavItem active>
-//             <Typography 
-//             >
-//             Kumbe!
-//             </Typography>
-//           </NavItem>
-//           <NavItem>
-//             <Typography 
-//             >
-//             Kumbe!
-//             </Typography>
-//           </NavItem>
-//           <NavItem>
-//             <Typography>Service</Typography>
-//           </NavItem>
-//           <NavItem>
-//             <Typography>Website</Typography>
-//           </NavItem>
-//           <NavItem>
-//             <Typography>Contact Us</Typography>
-//           </NavItem>
-//         </NavMenu>
-//         {/* </FontProvider> */}
-//       </Box>
-//     );
-//   }
-// );
-// export default TopBar;
