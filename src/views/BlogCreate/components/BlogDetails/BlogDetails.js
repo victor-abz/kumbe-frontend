@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Card, CardHeader, CardContent } from '@material-ui/core';
 
 import { RichEditor } from 'components';
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles(() => ({
   root: {}
@@ -13,14 +14,14 @@ const useStyles = makeStyles(() => ({
 const BlogDetails = props => {
   const { className, editorState, setEditorState, ...rest } = props;
   const classes = useStyles();
-
+  const { t } = useTranslation();
   return (
     <Card {...rest} className={clsx(classes.root, className)}>
-      <CardHeader title="Blog content details" />
+      <CardHeader title={t('blog:detail_title')} />
       <CardContent>
         <RichEditor
           editorState={editorState}
-          placeholder="The whole content body goes here..."
+          placeholder={t('blog:placeholder_detail')}
           setEditorState={setEditorState}
         />
       </CardContent>

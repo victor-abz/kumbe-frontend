@@ -9,8 +9,9 @@ import { Hidden } from '@material-ui/core';
 
 import useRouter from 'utils/useRouter';
 import { Navigation } from 'components';
-import navigationConfig from './navigationConfig';
+import { navigationConfig } from './navigationConfig';
 import { toUserAccess } from 'utils/constants';
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -43,7 +44,7 @@ const useStyles = makeStyles(theme => ({
 
 const NavBar = props => {
   const { openMobile, onMobileClose, className, ...rest } = props;
-
+  const { t } = useTranslation();
   const classes = useStyles();
   const router = useRouter();
   const { user } = useSelector(({ auth }) => auth);
@@ -74,7 +75,7 @@ const NavBar = props => {
       </div>
       <Divider className={classes.divider} />
       <nav className={classes.navigation}>
-        {navigationConfig.map(list => (
+        {navigationConfig(t).map(list => (
           <Navigation
             component="div"
             key={list.title}

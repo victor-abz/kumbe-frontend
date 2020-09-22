@@ -18,7 +18,7 @@ const initialStateValues = {
   content: '',
   coverImage: ''
 };
-const ProjectCreate = () => {
+const ProjectCreate = ({ t }) => {
   const classes = useStyles();
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const [blog, setBlog] = useState(initialStateValues);
@@ -53,8 +53,8 @@ const ProjectCreate = () => {
     createBlog(blog);
   };
   return (
-    <Page className={classes.root} title="Blog Create">
-      <Header />
+    <Page className={classes.root} title={t('blog:page_header')}>
+      <Header t={t} />
       <AboutBlog
         blog={blog}
         className={classes.aboutProject}
@@ -73,7 +73,7 @@ const ProjectCreate = () => {
           disabled={loading}
           onClick={() => onSaveBlog()}
           variant="contained">
-          {loading ? 'Saving,...' : 'Create blog'}
+          {loading ? t('blog:btn_loading') : t('blog:btn_save')}
         </Button>
       </div>
     </Page>
