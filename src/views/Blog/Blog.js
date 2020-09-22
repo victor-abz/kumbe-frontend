@@ -32,22 +32,22 @@ const InsetSidebar = getInsetSidebar(styled)
 
 const scheme = Layout();
 
-scheme.configureEdgeSidebar((builder) => {
-  builder
-    .create('primarySidebar', { anchor: 'left' })
-    .registerTemporaryConfig('xs', {
-      width: 'auto', // 'auto' is only valid for temporary variant
-    });
-});
+// scheme.configureEdgeSidebar((builder) => {
+//   builder
+//     .create('primarySidebar', { anchor: 'left' })
+//     .registerTemporaryConfig('xs', {
+//       width: 'auto', // 'auto' is only valid for temporary variant
+//     });
+// });
 
-scheme.configureInsetSidebar((builder) => {
-  builder
-    .create('secondarySidebar', { anchor: 'right' })
-    .registerAbsoluteConfig('md', {
-      top: 0,
-      width: 320,
-    });
-});
+// scheme.configureInsetSidebar((builder) => {
+//   builder
+//     .create('secondarySidebar', { anchor: 'right' })
+//     .registerAbsoluteConfig('md', {
+//       top: 0,
+//       width: 320,
+//     });
+// });
 
 const Blog = (props) => {
   const classes = useStyles();
@@ -63,23 +63,23 @@ const Blog = (props) => {
   }, []);
   console.log(blog);
   return (
-    <Root scheme={scheme}>
-      {() => (
-        <>
-          <CssBaseline />
-          <ThemeProvider theme={theme}>
-            <Content>
-              <InsetContainer
-                rightSidebar={
-                  <InsetSidebar sidebarId="secondarySidebar">
-                    <Column className={classes.otherBlogsContainer}>
-                      <Typography className={classes.relatedTitle} component="h2" variant="h4">
+    // <Root scheme={scheme}>
+    //   {() => (
+    //     <>
+    //       <CssBaseline />
+    //       <ThemeProvider theme={theme}>
+    <Content>
+      <InsetContainer
+        rightSidebar={
+          <InsetSidebar sidebarId="secondarySidebar">
+            <Column className={classes.otherBlogsContainer}>
+              <Typography className={classes.relatedTitle} component="h2" variant="h4">
                             Related blogs
-                      </Typography>
-                      <Divider className={classes.divider} />
-                      <Item>
+              </Typography>
+              <Divider className={classes.divider} />
+              <Item>
 
-                        { 
+                { blogs && 
                           blogs.map((blog, index) => {
                             return  <Grid className={classes.otherBlogs} key={index}>
                               <CustomCard
@@ -88,29 +88,31 @@ const Blog = (props) => {
                                 cover={blog.coverImage}
                                 date={blog.createdAt}
                                 description={blog.description}
+                                editor={blog.editor}
                                 id={blog.id}
+                                slug={blog.slug}
                                 title={blog.title}
                                 userImage={blog.usrImage}
                               />
                             </Grid>
                           })
-                        }
-                      </Item>
-                    </Column>
-                  </InsetSidebar>
                 }
-              >
-                {blog ? (<BlogContent
-                  blog={blog}
-                  className={classes.blogView}
-                />): <p>Wait...</p>}
+              </Item>
+            </Column>
+          </InsetSidebar>
+        }
+      >
+        {blog ? (<BlogContent
+          blog={blog}
+          className={classes.blogView}
+        />): <p>Wait...</p>}
                 
-              </InsetContainer>
-            </Content>
-          </ThemeProvider>
-        </>
-      )}
-    </Root>
+      </InsetContainer>
+    </Content>
+    //       </ThemeProvider>
+    //     </>
+    //   )}
+    // </Root>
   );
 };
 

@@ -7,6 +7,12 @@ import { Provider as StoreProvider } from 'react-redux';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import { renderRoutes } from 'react-router-config';
+import Layout, {
+  Root,
+  getContent,
+  getInsetContainer,
+  getInsetSidebar
+} from '@mui-treasury/layout';
 
 import theme from './theme';
 import { store } from './redux/store';
@@ -28,6 +34,24 @@ import { getUserProfile } from 'redux/actions';
 import './i18n';
 import { useTranslation } from 'react-i18next';
 
+
+const scheme = Layout();
+scheme.configureEdgeSidebar((builder) => {
+  builder
+    .create('primarySidebar', { anchor: 'left' })
+    .registerTemporaryConfig('xs', {
+      width: 'auto', // 'auto' is only valid for temporary variant
+    });
+});
+
+scheme.configureInsetSidebar((builder) => {
+  builder
+    .create('secondarySidebar', { anchor: 'right' })
+    .registerAbsoluteConfig('md', {
+      top: 0,
+      width: 320,
+    });
+});
 const history = createBrowserHistory();
 const authToken = localStorage.getItem(AUTH_TOKEN);
 if (authToken) {
@@ -41,19 +65,21 @@ if (authToken) {
 const App = () => {
   const { t } = useTranslation(['top_bar', 'auth', 'error']);
   return (
-    <StoreProvider store={store}>
-      <ThemeProvider theme={theme}>
-        <MuiPickersUtilsProvider utils={MomentUtils}>
-          <Router history={history}>
-            <ToastContainer />
-            <ScrollReset />
-            <GoogleAnalytics />
-            <CookiesNotification />     
-            {renderRoutes(routes, { t })}
-          </Router>
-        </MuiPickersUtilsProvider>
-      </ThemeProvider>
-    </StoreProvider>
+    <Root scheme={scheme}>
+      <StoreProvider store={store}>
+        <ThemeProvider theme={theme}>
+          <MuiPickersUtilsProvider utils={MomentUtils}>
+            <Router history={history}>
+              <ToastContainer />
+              <ScrollReset />
+              <GoogleAnalytics />
+              <CookiesNotification />     
+              {renderRoutes(routes, { t })}
+            </Router>
+          </MuiPickersUtilsProvider>
+        </ThemeProvider>
+      </StoreProvider>
+    </Root>
   );
 };
 

@@ -1,5 +1,13 @@
 import { makeStyles } from '@material-ui/core/styles';
 import { colors } from '@material-ui/core';
+import Color from 'color';
+
+const itemHorzPadding = 3;
+const activeColor = Color('#fff')
+  .rotate(-6)
+  .lighten(0.4)
+  .fade(0.87)
+  .toString()
 
 const useStyles = makeStyles(theme => ({
   content: {
@@ -98,7 +106,29 @@ const useStyles = makeStyles(theme => ({
     minWidth: 32,
     display: 'none', // hide the ListItemIcon in the dropdown
     color: 'white'
-  }
+  }, 
+  white: {
+    color: '#fff'
+  },
+  item: {
+    padding: theme.spacing(1, itemHorzPadding),
+    cursor: 'pointer',
+    textDecoration: 'none',
+    color: '#ffffff',
+    borderRadius: '4px',
+    '&:hover': {
+      backgroundColor: theme.palette.secondary.light,
+    },
+    '&:not(:first-child)': {
+      marginLeft: theme.spacing(1),
+    },
+  },
+  itemActive: {
+    '&$item': {
+      backgroundColor: theme.palette.secondary.light,
+      color: '#fff',
+    },
+  },
 }));
 
 export default useStyles;

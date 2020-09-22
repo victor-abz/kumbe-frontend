@@ -6,7 +6,7 @@ import { useWideCardMediaStyles } from '@mui-treasury/styles/cardMedia/wide';
 import { useLightTopShadowStyles } from '@mui-treasury/styles/shadow/lightTop';
 import { Column, Row, Item } from '@mui-treasury/components/flex';
 import HtmlParser from 'react-html-parser'
-import { Info, InfoSubtitle, InfoTitle } from '@mui-treasury/components/info';
+import { Info, InfoSubtitle, InfoTitle, InfoCaption } from '@mui-treasury/components/info';
 import TextInfoContent from '@mui-treasury/components/content/textInfo';
 import { useNewsInfoStyles } from '@mui-treasury/styles/info/news';
 import { useBlogTextInfoContentStyles } from '@mui-treasury/styles/textInfoContent/blog';
@@ -82,7 +82,7 @@ export default function MediaCard(props) {
             </Item>
             <Item position={'middle'}>
               <Info useStyles={useNewsInfoStyles}>
-                <InfoTitle>{`By ${blog.editor.firstName} ${blog.editor.lastName}`}</InfoTitle>
+                <InfoCaption>{`By ${blog.editor.firstName} ${blog.editor.lastName}`}</InfoCaption>
                 <InfoSubtitle>{moment(blog.createdAt).fromNow()}</InfoSubtitle>
               </Info>
             </Item>
