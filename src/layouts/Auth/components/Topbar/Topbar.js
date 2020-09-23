@@ -5,6 +5,15 @@ import { Link as RouterLink } from 'react-router-dom';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { useStyles } from '../../styles';
+// import React from 'react';
+// import {Box, Typography} from '@material-ui/core';
+import { red } from '@material-ui/core/colors';
+// import { Font, FontProvider } from 'website/src/components/Font';
+import { NavMenu, NavItem } from '@mui-treasury/components/menu/navigation';
+// import { useBulbNavigationMenuStyles } from '@mui-treasury/styles/navigationMenu/bulb';
+// import { usePointNavigationMenuStyles } from '@mui-treasury/styles/navigationMenu/point';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import Color from 'color';
 
 import {
   AppBar,
@@ -17,8 +26,11 @@ import {
   Typography,
   FormControl,
   Select,
+  Grid,
   MenuItem,
 } from '@material-ui/core';
+
+import { Column, Row, Item } from '@mui-treasury/components/flex';
 import LockIcon from '@material-ui/icons/LockOutlined';
 import MenuIcon from '@material-ui/icons/Menu';
 import TranslateIcon from '@material-ui/icons/Translate';
@@ -46,7 +58,16 @@ const TopBar = props => {
     setLanguage(event.target.value);
     localStorage.setItem('language', event.target.value);
     i18n.changeLanguage(event.target.value);
+    window.location.reload()
   };
+
+
+  const itemHorzPadding = 3;
+  const activeColor = Color('#fff')
+    .rotate(-6)
+    .lighten(0.4)
+    .fade(0.87)
+    .toString()
   
   useEffect(() => {
     let mounted = true;
@@ -107,6 +128,28 @@ const TopBar = props => {
             src="/images/logos/logo--white.svg"
           /> */}
         </RouterLink>
+        <Row gutter={1} style={{ marginLeft: '20%' }} >
+          <Item className={classes.item}>
+            <Typography 
+              variant="h6" 
+              className={classes.white}
+            >
+              Home!
+            </Typography>
+          </Item>
+          <Item className={classes.item}>
+            <Typography variant="h6" className={classes.white}>Gallery</Typography>
+          </Item >
+          <Item className={classes.item}>
+            <Typography variant="h6" className={classes.white} >The Mix</Typography>
+          </Item>
+          <Item className={classes.item}>
+            <Typography variant="h6" className={classes.white}>FAQ</Typography>
+          </Item>
+          <Item className={classes.item}>
+            <Typography variant="h6" className={classes.white}>About US</Typography>
+          </Item>
+        </Row>
         <div className={classes.flexGrow}/>
         <Hidden smDown>
           <Button

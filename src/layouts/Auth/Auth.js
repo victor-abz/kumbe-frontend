@@ -3,7 +3,7 @@ import { renderRoutes } from 'react-router-config';
 import PropTypes from 'prop-types';
 import { LinearProgress } from '@material-ui/core';
 
-import { Topbar } from './components';
+import { Topbar, Footer } from './components';
 import { useStyles } from './styles';
 
       
@@ -15,11 +15,16 @@ const Auth = props => {
   return (
     <Fragment>
       <Topbar t={t}/>
-      <main className={classes.content}>
-        <Suspense fallback={<LinearProgress />}>
-          {renderRoutes(route.routes, { t })}
-        </Suspense>
-      </main>
+      <div>
+        <main className={classes.content}>
+          <Suspense fallback={<LinearProgress />}>
+            {renderRoutes(route.routes, { t })}
+          </Suspense>
+        </main>
+      </div>
+      <div style={{ marginTop: 10}}>
+        <Footer/>
+      </div>
     </Fragment>
   );
 };

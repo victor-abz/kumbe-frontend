@@ -8,7 +8,7 @@ export const createBlog = (newBlog = {}) => {
     payload: http.post('/blogs', newBlog)
   });
 };
-export const getBlogs = (search = '', pageSize = 3, pageNumber = 1) => {
+export const getBlogs = (search = '', pageSize = 4, pageNumber = 1) => {
   const blogParams = `$search=${search}&pageSize=${pageSize}&page=${pageNumber}`;
   store.dispatch({
     type: GET_BLOGS,
