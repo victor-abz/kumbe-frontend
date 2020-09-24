@@ -20,5 +20,20 @@
   "tag_alert": "Tags will be colored depending a color you will choose.",
   "btn_remove_uploaded": "Remove uploaded",
   "btn_uploaded_success": "File has already uploaded",
-  "btn_upload": "Upload cover image"
+  "btn_upload": "Upload cover image",
+  "view_title": "Blogs management list",
+  "view_title_": "Management",
+  "view_title__": "Blogs",
+  "search": "Search",
+  "add_btn": "Add new blog",
+  "show_filters": "Show filters",
+  "table_title": "All blogs",
+  "col_author": "Author",
+  "col_title": "Title",
+  "col_category": "Category",
+  "col_is_published": "Is published",
+  "col_created": "Created at",
+  "col_views": "Views",
+  "col_tags": "Tags",
+  "col_actions": "Actions"
 }
