@@ -5,14 +5,6 @@ import { Link as RouterLink } from 'react-router-dom';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { useStyles } from '../../styles';
-// import React from 'react';
-// import {Box, Typography} from '@material-ui/core';
-import { red } from '@material-ui/core/colors';
-// import { Font, FontProvider } from 'website/src/components/Font';
-import { NavMenu, NavItem } from '@mui-treasury/components/menu/navigation';
-// import { useBulbNavigationMenuStyles } from '@mui-treasury/styles/navigationMenu/bulb';
-// import { usePointNavigationMenuStyles } from '@mui-treasury/styles/navigationMenu/point';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Color from 'color';
 
 import {
@@ -26,10 +18,11 @@ import {
   Typography,
   FormControl,
   Select,
-  Grid,
-  MenuItem,
+  Link,
+  MenuItem
 } from '@material-ui/core';
 
+import InputIcon from '@material-ui/icons/Input';
 import { Column, Row, Item } from '@mui-treasury/components/flex';
 import LockIcon from '@material-ui/icons/LockOutlined';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -152,13 +145,23 @@ const TopBar = props => {
         </Row>
         <div className={classes.flexGrow}/>
         <Hidden smDown>
-          <Button
+          {/* <Button
             className={classes.forumButton}
             variant="contained"
           >
             <LockIcon className={classes.forumIcon} />
-            {/* Let's Talk */}
             {t('top_bar:title')}
+          </Button> */}
+          <Button
+            className={classes.loginButton}
+            color="inherit"
+            variant="contained"
+            component={Link}
+            href={'/auth/login'}
+
+          >
+            <InputIcon className={classes.loginIcon} />
+            {t('top_bar:login')}
           </Button>
         </Hidden>
         <FormControl>

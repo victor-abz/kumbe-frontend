@@ -129,6 +129,16 @@ const useStyles = makeStyles(theme => ({
       color: '#fff',
     },
   },
+  loginButton: {
+    marginLeft: theme.spacing(1),
+    backgroundColor: colors.purple['A400'],
+    '&:hover': {
+      backgroundColor: colors.purple['A700']
+    }
+  },
+  loginIcon: {
+    marginRight: theme.spacing(1)
+  },
 }));
 
 export default useStyles;
