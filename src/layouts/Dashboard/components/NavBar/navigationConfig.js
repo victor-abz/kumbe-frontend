@@ -2,20 +2,19 @@
 /* eslint-disable react/display-name */
 import React from 'react';
 import { colors } from '@material-ui/core';
-import BarChartIcon from '@material-ui/icons/BarChart';
-import ChatIcon from '@material-ui/icons/ChatOutlined';
-import DashboardIcon from '@material-ui/icons/DashboardOutlined';
-import ErrorIcon from '@material-ui/icons/ErrorOutline';
-import FolderIcon from '@material-ui/icons/FolderOutlined';
-import LockOpenIcon from '@material-ui/icons/LockOpenOutlined';
-import PresentToAllIcon from '@material-ui/icons/PresentToAll';
-import PeopleIcon from '@material-ui/icons/PeopleOutlined';
-import PersonIcon from '@material-ui/icons/PersonOutlined';
 import SettingsIcon from '@material-ui/icons/SettingsOutlined';
+import FolderIcon from '@material-ui/icons/FolderOutlined';
+// import BarChartIcon from '@material-ui/icons/BarChart';
+// import ChatIcon from '@material-ui/icons/ChatOutlined';
+// import DashboardIcon from '@material-ui/icons/DashboardOutlined';
+// import ErrorIcon from '@material-ui/icons/ErrorOutline';
+// import LockOpenIcon from '@material-ui/icons/LockOpenOutlined';
+// import PresentToAllIcon from '@material-ui/icons/PresentToAll';
+// import PeopleIcon from '@material-ui/icons/PeopleOutlined';
+// import PersonIcon from '@material-ui/icons/PersonOutlined';
 
 import { Label } from 'components';
-
-export default [
+export const navigationConfig = t => [
   {
     title: 'Pages',
     pages: [
@@ -82,19 +81,19 @@ export default [
       //   ]
       // },
       {
-        title: 'Blog',
+        title: t('blog:name'),
         href: '/blogs',
         icon: FolderIcon,
         label: () => <Label color={colors.green[500]}>New</Label>,
         children: [
           {
-            title: 'Browse',
+            title: t('blog:blog_browse'),
             href: '/blogs'
           },
           {
-            title: 'Create',
+            title: t('blog:title'),
             href: '/blogs/create'
-          },
+          }
           // {
           //   title: 'Overview',
           //   href: '/blogs/1/overview'
@@ -112,7 +111,7 @@ export default [
           //   href: '/blogs/1/subscribers'
           // }
         ]
-      },
+      }
       // {
       //   title: 'Chat',
       //   href: '/chat',

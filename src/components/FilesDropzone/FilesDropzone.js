@@ -22,12 +22,14 @@ import { useStyles } from './styles';
 import { useSelector } from 'react-redux';
 import { UPLOADED_FILE_NAME } from 'utils/constants';
 import { uploadFile } from 'redux/actions/file';
+import { useTranslation } from 'react-i18next';
 
 const FilesDropzone = props => {
   const { className, ...rest } = props;
 
   const classes = useStyles();
   const [file, setFile] = useState(null);
+  const { t } = useTranslation();
   const { loading, loaded, fileName } = useSelector(
     ({ fileUpload }) => fileUpload
   );
@@ -64,21 +66,20 @@ const FilesDropzone = props => {
         <input {...getInputProps()} />
         <div>
           <img
-            alt="Select file"
+            alt={t('blog:upload_title')}
             className={classes.image}
             src="/images/undraw_add_file2_gvbb.svg"
           />
         </div>
         <div>
           <Typography gutterBottom variant="h3">
-            Select file
+            {t('blog:upload_title')}
           </Typography>
           <Typography
             className={classes.info}
             color="textSecondary"
             variant="body1">
-            Drop file here or click <Link underline="always">browse</Link>{' '}
-            thorough your machine
+            {t('blog:upload_sub_title')}
           </Typography>
         </div>
       </div>
@@ -105,7 +106,7 @@ const FilesDropzone = props => {
           </PerfectScrollbar>
           <div className={classes.actions}>
             <Button onClick={handleRemoveAll} size="small">
-              Remove uploaded
+              {t('blog:btn_remove_uploaded')}
             </Button>
             <Button
               color="secondary"
@@ -114,10 +115,10 @@ const FilesDropzone = props => {
               size="small"
               variant="contained">
               {loading
-                ? 'Uploading,...'
+                ? t('blog:btn_loading')
                 : fileName
-                ? 'File has already uploaded'
-                : 'Upload cover image'}
+                ? t('blog:btn_uploaded_success')
+                : t('blog:btn_upload')}
             </Button>
           </div>
         </Fragment>

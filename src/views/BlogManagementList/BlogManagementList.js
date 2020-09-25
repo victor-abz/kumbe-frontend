@@ -4,6 +4,7 @@ import { Page, SearchBar } from 'components';
 import { Header, Results } from './components';
 import { useSelector } from 'react-redux';
 import { getBlogs } from 'redux/actions/blog';
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -16,6 +17,7 @@ const useStyles = makeStyles(theme => ({
 
 const BlogManagementList = () => {
   const classes = useStyles();
+  const { t } = useTranslation();
   const { loading, blogs } = useSelector(({ blogsGet }) => blogsGet);
   useEffect(() => {
     getBlogs();
@@ -24,7 +26,7 @@ const BlogManagementList = () => {
   const handleSearch = () => {};
 
   return (
-    <Page className={classes.root} title="Blogs Management List">
+    <Page className={classes.root} title={t('blog:view_title')}>
       <Header />
       <SearchBar onFilter={handleFilter} onSearch={handleSearch} />
       <Results blogs={blogs} className={classes.results} loading={loading} />

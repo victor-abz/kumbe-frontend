@@ -16,17 +16,18 @@ import {
 } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import AddIcon from '@material-ui/icons/Add';
-import { Alert } from 'components';
 import { useStyles } from './styles';
 import { useSelector } from 'react-redux';
 import { getTags } from 'redux/actions/tag';
 import { AddTagDialog } from './AddTagDialog';
 import { getCategories } from 'redux/actions/category';
 import { AddCategDialog } from './AddCategDialog';
+import { useTranslation } from 'react-i18next';
 
 const AboutBlog = props => {
   const { className, blog, onHandleChange, ...rest } = props;
   const classes = useStyles();
+  const { t } = useTranslation();
   const [openAddTag, setOpenAddTag] = useState(false);
   const [openAddCategory, setOpenAddCategory] = useState(false);
   const {
@@ -39,7 +40,7 @@ const AboutBlog = props => {
   }, []);
   return (
     <Card {...rest} className={clsx(classes.root, className)}>
-      <CardHeader title="About this blog" />
+      <CardHeader title={t('blog:about_title')} />
       <CardContent>
         <AddTagDialog open={openAddTag} setOpen={() => setOpenAddTag(false)} />
         <AddCategDialog
@@ -52,7 +53,7 @@ const AboutBlog = props => {
               <Grid item md={6} xs={12}>
                 <TextField
                   fullWidth
-                  label="Blog Title"
+                  label={t('blog:placeholder_title')}
                   name="title"
                   onChange={onHandleChange}
                   value={blog.title}
@@ -61,7 +62,9 @@ const AboutBlog = props => {
               </Grid>
               <Grid item md={4} xs={12}>
                 <FormControl fullWidth variant="outlined">
-                  <InputLabel id="blog-category">Category</InputLabel>
+                  <InputLabel id="blog-category">
+                    {t('blog:placeholder_category')}
+                  </InputLabel>
                   <Select
                     labelId="blog-category"
                     name="categoryId"
@@ -82,7 +85,7 @@ const AboutBlog = props => {
                   onClick={() => setOpenAddCategory(true)}
                   size="small">
                   <AddIcon className={classes.addIcon} />
-                  Add category
+                  {t('blog:btn_add_category')}
                 </Button>
               </Grid>
             </Grid>
@@ -99,8 +102,8 @@ const AboutBlog = props => {
                 renderInput={params => (
                   <TextField
                     {...params}
-                    label="Blog tags"
-                    placeholder="Select tags"
+                    label={t('blog:placeholder_tags')}
+                    placeholder={t('blog:placeholder_tags')}
                     variant="outlined"
                   />
                 )}
@@ -110,12 +113,11 @@ const AboutBlog = props => {
                 onClick={() => setOpenAddTag(true)}
                 size="small">
                 <AddIcon className={classes.addIcon} />
-                Add an new tag
+                {t('blog:btn_add_tag')}
               </Button>
             </div>
             <Typography className={classes.fieldHint} variant="body2">
-              Tags will be colored depending the technology if the system
-              recognises.
+              {t('blog:tag_alert')}
             </Typography>
           </div>
         </form>

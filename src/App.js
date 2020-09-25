@@ -34,22 +34,21 @@ import { getUserProfile } from 'redux/actions';
 import './i18n';
 import { useTranslation } from 'react-i18next';
 
-
 const scheme = Layout();
-scheme.configureEdgeSidebar((builder) => {
+scheme.configureEdgeSidebar(builder => {
   builder
     .create('primarySidebar', { anchor: 'left' })
     .registerTemporaryConfig('xs', {
-      width: 'auto', // 'auto' is only valid for temporary variant
+      width: 'auto' // 'auto' is only valid for temporary variant
     });
 });
 
-scheme.configureInsetSidebar((builder) => {
+scheme.configureInsetSidebar(builder => {
   builder
     .create('secondarySidebar', { anchor: 'right' })
     .registerAbsoluteConfig('md', {
       top: 0,
-      width: 320,
+      width: 320
     });
 });
 const history = createBrowserHistory();
@@ -63,7 +62,7 @@ if (authToken) {
   }
 }
 const App = () => {
-  const { t } = useTranslation(['top_bar', 'auth', 'error']);
+  const { t } = useTranslation(['top_bar', 'auth', 'error', 'blog']);
   return (
     <Root scheme={scheme}>
       <StoreProvider store={store}>
@@ -73,7 +72,7 @@ const App = () => {
               <ToastContainer />
               <ScrollReset />
               <GoogleAnalytics />
-              <CookiesNotification />     
+              <CookiesNotification />
               {renderRoutes(routes, { t })}
             </Router>
           </MuiPickersUtilsProvider>
