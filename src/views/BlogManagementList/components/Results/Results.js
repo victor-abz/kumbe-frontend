@@ -154,7 +154,12 @@ const Results = props => {
                       <TableCell>{moment(blog.createdAt).fromNow()}</TableCell>
                       <TableCell>{blog.likes.length}</TableCell>
                       <TableCell>
-                        {blog.tags.map(({ name }) => name).join(',')}
+                        {blog.tags.map(({ name }) => (
+                          <>
+                            <span>{name}</span>
+                            <br />
+                          </>
+                        ))}
                       </TableCell>
                       <TableCell align="right">
                         <Button
