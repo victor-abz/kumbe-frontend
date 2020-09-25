@@ -35,5 +35,8 @@
   "col_created": "Created at",
   "col_views": "Views",
   "col_tags": "Tags",
-  "col_actions": "Actions"
+  "col_actions": "Actions",
+  "btn_view": "View",
+  "confirm_yes": "Yes",
+  "confirm_no": "No"
 }

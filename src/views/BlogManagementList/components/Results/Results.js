@@ -21,15 +21,17 @@ import {
   TableRow,
   Typography
 } from '@material-ui/core';
+import moment from 'moment';
 import getInitials from 'utils/getInitials';
 import { GenericMoreButton, TableEditBar } from 'components';
 import { useStyles } from './stayles';
+import { useTranslation } from 'react-i18next';
 
 const Results = props => {
   const { className, blogs, ...rest } = props;
 
   const classes = useStyles();
-
+  const { t } = useTranslation();
   const [selectedBlogs, setSelectedBlogs] = useState([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -77,7 +79,10 @@ const Results = props => {
         {Math.ceil(blogs.length / rowsPerPage)}
       </Typography>
       <Card>
-        <CardHeader action={<GenericMoreButton />} title="All blogs" />
+        <CardHeader
+          action={<GenericMoreButton />}
+          title={t('blog:table_title')}
+        />
         <Divider />
         <CardContent className={classes.content}>
           <PerfectScrollbar>
@@ -96,13 +101,14 @@ const Results = props => {
                         onChange={handleSelectAll}
                       />
                     </TableCell>
-                    <TableCell>Author</TableCell>
-                    <TableCell>Title</TableCell>
-                    <TableCell>Category</TableCell>
-                    <TableCell>Is published</TableCell>
-                    <TableCell>Created</TableCell>
-                    <TableCell>Tags</TableCell>
-                    <TableCell align="right">Actions</TableCell>
+                    <TableCell>{t('blog:col_author')}</TableCell>
+                    <TableCell>{t('blog:col_title')}</TableCell>
+                    <TableCell>{t('blog:col_category')}</TableCell>
+                    <TableCell>{t('blog:col_is_published')}</TableCell>
+                    <TableCell>{t('blog:col_created')}</TableCell>
+                    <TableCell>{t('blog:col_views')}</TableCell>
+                    <TableCell>{t('blog:col_tags')}</TableCell>
+                    <TableCell align="right">{t('blog:col_actions')}</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -140,7 +146,12 @@ const Results = props => {
                       </TableCell>
                       <TableCell>{blog.title}</TableCell>
                       <TableCell>{blog.category.name}</TableCell>
-                      <TableCell>Yes</TableCell>
+                      <TableCell>
+                        {blog.isPublished
+                          ? t('blog:confirm_yes')
+                          : t('blog:confirm_no')}
+                      </TableCell>
+                      <TableCell>{moment(blog.createdAt).fromNow()}</TableCell>
                       <TableCell>{blog.likes.length}</TableCell>
                       <TableCell>
                         {blog.tags.map(({ name }) => name).join(',')}
@@ -152,7 +163,7 @@ const Results = props => {
                           size="small"
                           to="/management/customers/1"
                           variant="outlined">
-                          View
+                          {t('blog:btn_view')}
                         </Button>
                       </TableCell>
                     </TableRow>
