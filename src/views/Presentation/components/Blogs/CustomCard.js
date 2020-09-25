@@ -1,14 +1,31 @@
 import React, { forwardRef } from 'react';
 import cx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
-import {Avatar, Button, Card , colors, CardContent, Link, CardMedia, Box, CardActions, Divider, Typography} from '@material-ui/core';
+import {
+  Avatar,
+  Button,
+  Card,
+  colors,
+  CardContent,
+  Link,
+  CardMedia,
+  Box,
+  CardActions,
+  Divider,
+  Typography
+} from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import FavoriteBorderRounded from '@material-ui/icons/FavoriteBorderRounded';
 import Share from '@material-ui/icons/Share';
 import { useWideCardMediaStyles } from '@mui-treasury/styles/cardMedia/wide';
 import TextInfoContent from '@mui-treasury/components/content/textInfo';
 import { Column, Row, Item } from '@mui-treasury/components/flex';
-import { Info, InfoSubtitle, InfoTitle, InfoCaption } from '@mui-treasury/components/info';
+import {
+  Info,
+  InfoSubtitle,
+  InfoTitle,
+  InfoCaption
+} from '@mui-treasury/components/info';
 import { useNewsInfoStyles } from '@mui-treasury/styles/info/news';
 import { useBlogTextInfoContentStyles } from '@mui-treasury/styles/textInfoContent/blog';
 import ChevronRightRounded from '@material-ui/icons/ChevronRightRounded';
@@ -27,18 +44,18 @@ import { useTranslation } from 'react-i18next';
 //   </div>
 // ));
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   color: ({ color }) => ({
     '&:before': {
       backgroundColor: Color(color)
         .darken(0.3)
         .desaturate(0.2)
-        .toString(),
-    },
+        .toString()
+    }
   }),
   root: {
     maxWidth: '100%',
-    margin: theme.spacing(1),
+    margin: theme.spacing(1)
     // margin: 'auto',
   },
   content: ({ color }) => ({
@@ -61,7 +78,7 @@ const useStyles = makeStyles((theme) => ({
       marginTop: 12,
       textTransform: 'initial',
       color: colors.purple[600]
-    },
+    }
   }),
   avatar: {
     width: 50,
@@ -69,17 +86,27 @@ const useStyles = makeStyles((theme) => ({
     border: '2px solid #fff',
     borderRadius: '50%',
     '& > img': {
-      margin: 0,
-    },
+      margin: 0
+    }
   },
   logo: {
     width: 48,
     height: 48,
-    borderRadius: '0.75rem',
-  },
+    borderRadius: '0.75rem'
+  }
 }));
 
-export const CustomCard = React.memo(function PostCard({ color, cover, content, userImage, slug, title, editor, date, id }) {
+export const CustomCard = React.memo(function PostCard({
+  color,
+  cover,
+  content,
+  userImage,
+  slug,
+  title,
+  editor,
+  date,
+  id
+}) {
   const cardStyles = useStyles({ color });
   const mediaStyles = useWideCardMediaStyles();
   const shadowStyles = useFloatShadowStyles();
@@ -87,25 +114,31 @@ export const CustomCard = React.memo(function PostCard({ color, cover, content, 
   const { t } = useTranslation(['blog_preview']);
 
   const truncate = (str, n) => {
-    return (str.length > n) ? str.replace(/<[^>]+>/g, '').substr(0, n-1) + '...' : str;
+    return str.length > n
+      ? str.replace(/<[^>]+>/g, '').substr(0, n - 1) + '...'
+      : str;
   };
   return (
     <Card className={cx(cardStyles.root, shadowStyles.root)}>
       <CardMedia
         classes={mediaStyles}
-        image={`${process.env.REACT_APP_API_URL}/blogs/${cover}`}
+        image={`${process.env.REACT_APP_API_URL}/api/res/blogs/${cover}`}
       />
       <CardContent className={cardStyles.content}>
         <Box position={'relative'} zIndex={1}>
-          <Column gap={2} >
+          <Column gap={2}>
             <Row>
               <Typography component="h6" variant="h6">
                 {title}
               </Typography>
               <Divider />
             </Row>
-            <Row >
-              <Avatar className={cardStyles.avatar} src={userImage} variant={'rounded'} />
+            <Row>
+              <Avatar
+                className={cardStyles.avatar}
+                src={userImage}
+                variant={'rounded'}
+              />
               <Info useStyles={useNewsInfoStyles}>
                 <InfoCaption>{`${editor.firstName} ${editor.lastName}`}</InfoCaption>
                 <InfoSubtitle>{moment(date).fromNow()}</InfoSubtitle>
@@ -118,14 +151,20 @@ export const CustomCard = React.memo(function PostCard({ color, cover, content, 
               />
             </Row>
             <Row gap={2} p={0}>
-              <Button className={cardStyles.cta} color={'primary'} component={Link} fullWidth href={`/auth/blogs/${slug}`} variant={'contained'}>
+              <Button
+                className={cardStyles.cta}
+                color={'primary'}
+                component={Link}
+                fullWidth
+                href={`/auth/blogs/${slug}`}
+                variant={'contained'}>
                 {t('blog_preview:blogView')} <ChevronRightRounded />
               </Button>
             </Row>
           </Column>
         </Box>
       </CardContent>
-      <CardActions style={{ height: 50, backgroundColor: '#F1F1F1'}}>
+      <CardActions style={{ height: 50, backgroundColor: '#F1F1F1' }}>
         <IconButton>
           <Share />
         </IconButton>
