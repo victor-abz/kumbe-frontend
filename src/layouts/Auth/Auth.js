@@ -5,26 +5,31 @@ import { LinearProgress } from '@material-ui/core';
 
 import { Topbar, Footer } from './components';
 import { useStyles } from './styles';
+import { useLocation } from 'react-router-dom'
 
       
 const Auth = props => {
   const { route, t } = props;
 
+  const location = useLocation();
   const classes = useStyles();
 
   return (
     <Fragment>
       <Topbar t={t}/>
-      <div>
-        <main className={classes.content}>
-          <Suspense fallback={<LinearProgress />}>
-            {renderRoutes(route.routes, { t })}
-          </Suspense>
-        </main>
-      </div>
-      <div style={{ marginTop: 10}}>
-        <Footer/>
-      </div>
+      
+      <main className={classes.content}>
+        <Suspense fallback={<LinearProgress />}>
+          {renderRoutes(route.routes, { t })}
+        </Suspense>
+      </main>
+
+      {
+        location.pathname !== '/auth/login' && location.pathname !== '/auth/register' &&
+        <div style={{ marginTop: 10}}>
+          <Footer/>
+        </div>
+      }
     </Fragment>
   );
 };

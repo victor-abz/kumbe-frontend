@@ -53,7 +53,7 @@ const Login = props => {
     // eslint-disable-next-line
   }, [loggedIn]);
   return (
-    <Page className={classes.root} title="Login">
+    <Page className={classes.root} style={{ height: '100vh'}} title="Login">
       <Card className={classes.card}>
         <CardContent className={classes.content}>
           <LockIcon className={classes.icon} />

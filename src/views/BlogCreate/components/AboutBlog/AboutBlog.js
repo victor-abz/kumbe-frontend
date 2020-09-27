@@ -12,7 +12,8 @@ import {
   InputLabel,
   Select,
   MenuItem,
-  Grid
+  Grid,
+  Chip
 } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import AddIcon from '@material-ui/icons/Add';
@@ -107,6 +108,11 @@ const AboutBlog = props => {
                     variant="outlined"
                   />
                 )}
+                renderTags={(value, getTagProps) =>
+                  value.map((option, index) => (
+                    <Chip color="primary" label={option.name} {...getTagProps({ index })} style={{ backgroundColor: option.color, color:'#fff' }} />
+                  ))
+                }
               />
               <Button
                 className={classes.addButton}

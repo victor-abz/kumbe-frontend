@@ -1,17 +1,9 @@
 import { makeStyles } from '@material-ui/core/styles';
 import { colors } from '@material-ui/core';
-import Color from 'color';
 
 const itemHorzPadding = 3;
-const activeColor = Color('#fff')
-  .rotate(-6)
-  .lighten(0.4)
-  .fade(0.87)
-  .toString()
-
 const useStyles = makeStyles(theme => ({
   content: {
-    height: '100%',
     paddingTop: 56,
     [theme.breakpoints.up('sm')]: {
       paddingTop: 64

@@ -16,8 +16,8 @@ import {
 } from '@material-ui/core';
 import { addNewTag, getTags } from 'redux/actions/tag';
 import { useSelector } from 'react-redux';
-
-const colors = ['red', 'green', 'blue'];
+import { ColorPicker } from 'material-ui-color';
+ 
 const initialState = { name: '', color: '' };
 export const AddTagDialog = ({ open, setOpen }) => {
   const [values, setValues] = useState(initialState);
@@ -34,6 +34,14 @@ export const AddTagDialog = ({ open, setOpen }) => {
   const onHandleChange = ({ target: { name, value } }) => {
     setValues({ ...values, [name]: value });
   };
+  const setTagColor = (e) => {
+    console.log(e);
+    setValues({ ...values, color: e.css.backgroundColor });
+  }
+
+  console.log(values);
+
+  
   return (
     <Dialog aria-labelledby="dialog-title" onClose={setOpen} open={open}>
       <DialogTitle id="dialog-title">Add a new tag</DialogTitle>
@@ -42,7 +50,7 @@ export const AddTagDialog = ({ open, setOpen }) => {
           Note that the tag can be used within the whole system.
         </DialogContentText>
         <Grid container spacing={3}>
-          <Grid item md={6} xs={12}>
+          <Grid item md={12} xs={12}>
             <TextField
               autoFocus
               fullWidth
@@ -53,22 +61,8 @@ export const AddTagDialog = ({ open, setOpen }) => {
               value={values.name}
             />
           </Grid>
-          <Grid item md={6} xs={12}>
-            <FormControl fullWidth>
-              <InputLabel id="tag-color">Tag color</InputLabel>
-              <Select
-                labelId="tag-color"
-                name="color"
-                onChange={onHandleChange}
-                value={values.color}>
-                <MenuItem value="">---</MenuItem>
-                {colors.map((color, choiceIdx) => (
-                  <MenuItem key={choiceIdx} value={color}>
-                    {color.toUpperCase()}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
+          <Grid item md={12} xs={12}>
+            <ColorPicker disableAlpha  name="color" onChange={setTagColor} value={values.color} />
           </Grid>
         </Grid>
       </DialogContent>
