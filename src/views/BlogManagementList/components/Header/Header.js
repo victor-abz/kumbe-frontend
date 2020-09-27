@@ -36,7 +36,7 @@ const Header = props => {
           <Button
             color="primary"
             component={CustomRouterLink}
-            to={'/blogs/create'}
+            to={'/admin/blogs/create'}
             variant="contained">
             {t('blog:add_btn')}
           </Button>

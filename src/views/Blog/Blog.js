@@ -6,48 +6,20 @@ import Layout, {
   getInsetContainer,
   getInsetSidebar
 } from '@mui-treasury/layout';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import { BlogContent } from './components';
 import { useStyles } from './styles';
 import CustomCard from '../Presentation/components/Blogs/CustomCard';
 import { Grid, Typography, Divider } from '@material-ui/core';
-import theme from '../../theme';
-import { ThemeProvider } from '@material-ui/core/styles';
 import { Column, Row, Item } from '@mui-treasury/components/flex';
 import { getBlogs } from 'redux/actions/blog';
 import { getBlog } from 'redux/actions/blog';
 import { useSelector } from 'react-redux';
 
-const initialStateValues = {
-  title: '',
-  categoryId: '',
-  tags: [],
-  content: '',
-  coverImage: ''
-};
+
 
 const Content = getContent(styled)
 const InsetContainer = getInsetContainer(styled)
 const InsetSidebar = getInsetSidebar(styled)
-
-const scheme = Layout();
-
-// scheme.configureEdgeSidebar((builder) => {
-//   builder
-//     .create('primarySidebar', { anchor: 'left' })
-//     .registerTemporaryConfig('xs', {
-//       width: 'auto', // 'auto' is only valid for temporary variant
-//     });
-// });
-
-// scheme.configureInsetSidebar((builder) => {
-//   builder
-//     .create('secondarySidebar', { anchor: 'right' })
-//     .registerAbsoluteConfig('md', {
-//       top: 0,
-//       width: 320,
-//     });
-// });
 
 const Blog = (props) => {
   const classes = useStyles();
@@ -61,13 +33,8 @@ const Blog = (props) => {
     getBlogs();
     getBlog(id);
   }, []);
-  console.log(blog);
+  
   return (
-    // <Root scheme={scheme}>
-    //   {() => (
-    //     <>
-    //       <CssBaseline />
-    //       <ThemeProvider theme={theme}>
     <Content>
       <InsetContainer
         rightSidebar={
@@ -109,10 +76,6 @@ const Blog = (props) => {
                 
       </InsetContainer>
     </Content>
-    //       </ThemeProvider>
-    //     </>
-    //   )}
-    // </Root>
   );
 };
 

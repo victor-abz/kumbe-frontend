@@ -13,50 +13,100 @@ const routes = [
   {
     path: '/',
     exact: true,
-    component: () => <Redirect to="/auth/home" />
+    component: () => <Redirect to="/home" />
   },
   {
-    path: '/auth',
-    component: AuthLayout,
+    path: '/admin',
+    component: DashboardLayout,
     routes: [
       {
-        path: '/auth/home',
+        path: '/admin/chat',
         exact: true,
-        component: PresentationView
+        component: lazy(() => import('views/Chat'))
       },
       {
-        path: '/auth/blogs/:id',
+        path: '/admin/chat/:id',
         exact: true,
-        component: lazy(() => import('views/Blog'))
+        component: lazy(() => import('views/Chat'))
       },
       {
-        path: '/auth/login',
+        path: '/admin/dashboards/analytics',
         exact: true,
-        component: lazy(() => import('views/Login'))
+        component: DashboardAnalyticsView
       },
       {
-        path: '/auth/register',
+        path: 'admin/dashboards/default',
         exact: true,
-        component: lazy(() => import('views/Register'))
+        component: DashboardDefaultView
       },
-      // {
-      //   path: '/errors/error-401',
-      //   exact: true,
-      //   component: lazy(() => import('views/Error401'))
-      // },
-      // {
-      //   path: '/errors/error-404',
-      //   exact: true,
-      //   component: lazy(() => import('views/Error404'))
-      // },
-      // {
-      //   path: '/errors/error-500',
-      //   exact: true,
-      //   component: lazy(() => import('views/Error500'))
-      // },
+      {
+        path: '/admin/management/customers',
+        exact: true,
+        component: lazy(() => import('views/BlogManagementList'))
+      },
+      {
+        path: '/admin/management/customers/:id',
+        exact: true,
+        component: lazy(() => import('views/CustomerManagementDetails'))
+      },
+      {
+        path: '/admin/management/customers/:id/:tab',
+        exact: true,
+        component: lazy(() => import('views/CustomerManagementDetails'))
+      },
+      {
+        path: '/admin/management/projects',
+        exact: true,
+        component: lazy(() => import('views/ProjectManagementList'))
+      },
+      {
+        path: '/admin/profile/:id',
+        exact: true,
+        component: lazy(() => import('views/Profile'))
+      },
+      {
+        path: '/admin/profile/:id/:tab',
+        exact: true,
+        component: lazy(() => import('views/Profile'))
+      },
+      {
+        path: '/admin/blogs/create',
+        exact: true,
+        component: lazy(() => import('views/BlogCreate'))
+      },
+      {
+        path: '/admin/blogs/:id',
+        exact: true,
+        component: lazy(() => import('views/ProjectDetails'))
+      },
+      {
+        path: '/admin/blogs/:id/:tab',
+        exact: true,
+        component: lazy(() => import('views/ProjectDetails'))
+      },
+      {
+        path: '/admin/blogs',
+        exact: true,
+        component: lazy(() => import('views/BlogManagementList'))
+      },
+      {
+        path: '/admin/settings',
+        exact: true,
+        component: lazy(() => import('views/Settings'))
+      },
+      {
+        path: '/admin/settings/:tab',
+        exact: true,
+        component: lazy(() => import('views/Settings'))
+      },
+      {
+        path: '/admin/social-feed',
+        exact: true,
+        component: lazy(() => import('views/SocialFeed'))
+      },
       {
         component: () => <Redirect to="/errors/error-404" />
-      },
+      }
     ]
   },
   {
@@ -85,98 +135,48 @@ const routes = [
   },
   {
     route: '*',
-    component: DashboardLayout,
+    component: AuthLayout,
     routes: [
       {
-        path: '/chat',
+        path: '/home',
         exact: true,
-        component: lazy(() => import('views/Chat'))
-      },
-      {
-        path: '/chat/:id',
-        exact: true,
-        component: lazy(() => import('views/Chat'))
-      },
-      {
-        path: '/dashboards/analytics',
-        exact: true,
-        component: DashboardAnalyticsView
-      },
-      {
-        path: '/dashboards/default',
-        exact: true,
-        component: DashboardDefaultView
-      },
-      {
-        path: '/management/customers',
-        exact: true,
-        component: lazy(() => import('views/BlogManagementList'))
-      },
-      {
-        path: '/management/customers/:id',
-        exact: true,
-        component: lazy(() => import('views/CustomerManagementDetails'))
-      },
-      {
-        path: '/management/customers/:id/:tab',
-        exact: true,
-        component: lazy(() => import('views/CustomerManagementDetails'))
-      },
-      {
-        path: '/management/projects',
-        exact: true,
-        component: lazy(() => import('views/ProjectManagementList'))
-      },
-      {
-        path: '/profile/:id',
-        exact: true,
-        component: lazy(() => import('views/Profile'))
-      },
-      {
-        path: '/profile/:id/:tab',
-        exact: true,
-        component: lazy(() => import('views/Profile'))
-      },
-      {
-        path: '/blogs/create',
-        exact: true,
-        component: lazy(() => import('views/BlogCreate'))
+        component: PresentationView
       },
       {
         path: '/blogs/:id',
         exact: true,
-        component: lazy(() => import('views/ProjectDetails'))
+        component: lazy(() => import('views/Blog'))
       },
       {
-        path: '/blogs/:id/:tab',
+        path: '/login',
         exact: true,
-        component: lazy(() => import('views/ProjectDetails'))
+        component: lazy(() => import('views/Login'))
       },
       {
-        path: '/blogs',
+        path: '/register',
         exact: true,
-        component: lazy(() => import('views/BlogManagementList'))
+        component: lazy(() => import('views/Register'))
       },
-      {
-        path: '/settings',
-        exact: true,
-        component: lazy(() => import('views/Settings'))
-      },
-      {
-        path: '/settings/:tab',
-        exact: true,
-        component: lazy(() => import('views/Settings'))
-      },
-      {
-        path: '/social-feed',
-        exact: true,
-        component: lazy(() => import('views/SocialFeed'))
-      },
+      // {
+      //   path: '/errors/error-401',
+      //   exact: true,
+      //   component: lazy(() => import('views/Error401'))
+      // },
+      // {
+      //   path: '/errors/error-404',
+      //   exact: true,
+      //   component: lazy(() => import('views/Error404'))
+      // },
+      // {
+      //   path: '/errors/error-500',
+      //   exact: true,
+      //   component: lazy(() => import('views/Error500'))
+      // },
       {
         component: () => <Redirect to="/errors/error-404" />
-      }
+      },
     ]
-  }
+  },
 ];
 
 export default routes;

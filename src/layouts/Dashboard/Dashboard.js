@@ -54,7 +54,7 @@ const Dashboard = props => {
   };
   useEffect(() => {
     if (!loggedIn) {
-      router.history.push('/auth/login');
+      router.history.push('/login');
     }
     // eslint-disable-next-line
   }, [loggedIn]);

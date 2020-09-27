@@ -86,7 +86,7 @@ const Register = props => {
 
   const [quote, setQuote] = useState({
     quote:
-      "Hella narvwhal Cosby sweater McSweeney's, salvia kitsch before they sold out High Life.",
+      'Hella narvwhal Cosby sweater McSweeney\'s, salvia kitsch before they sold out High Life.',
     background: '/images/auth.png'
   });
 
@@ -116,7 +116,7 @@ const Register = props => {
     // eslint-disable-next-line
   }, [loggedIn]);
   return (
-    <Page className={classes.root} title={t('auth:register_title')}>
+    <Page className={classes.root} style={{ height: '100vh'}} title={t('auth:register_title')}>
       <Card className={classes.card}>
         <CardContent className={classes.content}>
           <PersonAddIcon className={classes.icon} />
@@ -132,7 +132,7 @@ const Register = props => {
             align="center"
             color="secondary"
             component={RouterLink}
-            to="/auth/login"
+            to="/login"
             underline="always"
             variant="subtitle2">
             {t('auth:have_account')}

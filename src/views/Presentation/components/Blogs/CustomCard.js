@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React from 'react';
 import cx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -19,32 +19,17 @@ import FavoriteBorderRounded from '@material-ui/icons/FavoriteBorderRounded';
 import Share from '@material-ui/icons/Share';
 import { useWideCardMediaStyles } from '@mui-treasury/styles/cardMedia/wide';
 import TextInfoContent from '@mui-treasury/components/content/textInfo';
-import { Column, Row, Item } from '@mui-treasury/components/flex';
-import {
-  Info,
-  InfoSubtitle,
-  InfoTitle,
-  InfoCaption
-} from '@mui-treasury/components/info';
+import { Column, Row } from '@mui-treasury/components/flex';
+import { Info, InfoSubtitle, InfoCaption } from '@mui-treasury/components/info';
 import { useNewsInfoStyles } from '@mui-treasury/styles/info/news';
 import { useBlogTextInfoContentStyles } from '@mui-treasury/styles/textInfoContent/blog';
 import ChevronRightRounded from '@material-ui/icons/ChevronRightRounded';
 import { useFloatShadowStyles } from '@mui-treasury/styles/shadow/float';
 import Color from 'color';
 import moment from 'moment';
-import { NavLink as RouterLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
-// const CustomRouterLink = forwardRef((props, ref) => (
-//   <div
-//     ref={ref}
-//     style={{ flexGrow: 1 }}
-//   >
-//     <Link {...props} />
-//   </div>
-// ));
-
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   color: ({ color }) => ({
     '&:before': {
       backgroundColor: Color(color)
@@ -58,7 +43,8 @@ const useStyles = makeStyles(theme => ({
     margin: theme.spacing(1)
     // margin: 'auto',
   },
-  content: ({ color }) => ({
+  // content: ({ color }) => ({
+  content: ( ) => ({
     position: 'relative',
     '&:before': {
       content: '""',
@@ -96,17 +82,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export const CustomCard = React.memo(function PostCard({
-  color,
-  cover,
-  content,
-  userImage,
-  slug,
-  title,
-  editor,
-  date,
-  id
-}) {
+export const CustomCard = React.memo(function PostCard({ color, cover, content, userImage, slug, title, editor, date }) {
   const cardStyles = useStyles({ color });
   const mediaStyles = useWideCardMediaStyles();
   const shadowStyles = useFloatShadowStyles();
@@ -156,7 +132,7 @@ export const CustomCard = React.memo(function PostCard({
                 color={'primary'}
                 component={Link}
                 fullWidth
-                href={`/auth/blogs/${slug}`}
+                href={`/blogs/${slug}`}
                 variant={'contained'}>
                 {t('blog_preview:blogView')} <ChevronRightRounded />
               </Button>

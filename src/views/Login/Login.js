@@ -48,12 +48,12 @@ const Login = props => {
   useEffect(() => {
     if (loggedIn) {
       // history.goBack();
-      history.push('/blogs')
+      history.push('/admin/blogs')
     }
     // eslint-disable-next-line
   }, [loggedIn]);
   return (
-    <Page className={classes.root} title="Login">
+    <Page className={classes.root} style={{ height: '100vh'}} title="Login">
       <Card className={classes.card}>
         <CardContent className={classes.content}>
           <LockIcon className={classes.icon} />
@@ -67,7 +67,7 @@ const Login = props => {
             align="center"
             color="secondary"
             component={RouterLink}
-            to="/auth/register"
+            to="/register"
             underline="always"
             variant="subtitle2">
             {t('auth:no_account')}
