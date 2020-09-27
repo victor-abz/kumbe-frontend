@@ -33,7 +33,7 @@ const Blog = (props) => {
     getBlogs();
     getBlog(id);
   }, []);
-  console.log(blog);
+  
   return (
     <Content>
       <InsetContainer

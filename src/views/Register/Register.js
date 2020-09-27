@@ -115,7 +115,6 @@ const Register = props => {
     }
     // eslint-disable-next-line
   }, [loggedIn]);
-  console.log(quote)
   return (
     <Page className={classes.root} style={{ height: '100vh'}} title={t('auth:register_title')}>
       <Card className={classes.card}>
