@@ -25,8 +25,11 @@ const Blog = props => {
   const { match } = props;
   const { id } = match.params;
 
-  const { wait, blog } = useSelector(({ blogGet }) => blogGet);
-  const { loading, blogs } = useSelector(({ blogsGet }) => blogsGet);
+  const {
+    blogGet: { blog },
+    blogsGet: { blogs }
+  } = useSelector(({ blogGet, blogsGet }) => ({ blogGet, blogsGet }));
+
   useEffect(() => {
     getBlogs();
     getBlog(id);

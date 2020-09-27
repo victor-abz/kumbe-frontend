@@ -31,11 +31,14 @@ import TranslateIcon from '@material-ui/icons/Translate';
 import ExpandMoreRoundedIcon from '@material-ui/icons/ExpandMoreRounded';
 import axios from 'utils/axios';
 import { useTranslation } from 'react-i18next';
+import  useRouter  from 'utils/useRouter';
+import { navigationConfig } from '../NavBar/navigationConfig';
 
 const TopBar = props => {
   const { onOpenNavBarMobile, className, t, ...rest } = props;
 
   const { i18n } = useTranslation();
+
   const classes = useStyles();
 
   const defaultLng = 'en';
@@ -54,13 +57,7 @@ const TopBar = props => {
     window.location.reload()
   };
 
-
-  const itemHorzPadding = 3;
-  const activeColor = Color('#fff')
-    .rotate(-6)
-    .lighten(0.4)
-    .fade(0.87)
-    .toString()
+  const { location } = useRouter();
   
   useEffect(() => {
     let mounted = true;
@@ -109,40 +106,37 @@ const TopBar = props => {
       color="primary"
     >
       <Toolbar>
-        <RouterLink to="/">
-          <Typography 
-            className={classes.title}
-            variant="h2" 
-          >
+        <div className = {classes.left}>
+          <RouterLink to="/">
+            <Typography 
+              className={classes.title}
+              variant="h2" 
+            >
             Kumbe!
-          </Typography>
-          {/* <img
+            </Typography>
+            {/* <img
             alt="Logo"
             src="/images/logos/logo--white.svg"
           /> */}
-        </RouterLink>
-        <Row gutter={1} style={{ marginLeft: '20%' }} >
-          <Item className={classes.item}>
-            <Typography 
-              variant="h6" 
-              className={classes.white}
-            >
-              Home!
-            </Typography>
-          </Item>
-          <Item className={classes.item}>
-            <Typography variant="h6" className={classes.white}>Gallery</Typography>
-          </Item >
-          <Item className={classes.item}>
-            <Typography variant="h6" className={classes.white} >The Mix</Typography>
-          </Item>
-          <Item className={classes.item}>
-            <Typography variant="h6" className={classes.white}>FAQ</Typography>
-          </Item>
-          <Item className={classes.item}>
-            <Typography variant="h6" className={classes.white}>About US</Typography>
-          </Item>
-        </Row>
+          </RouterLink>
+        </div>
+        <Hidden smDown>
+          <div style={{ alignItems: 'center'}}>
+            <Row gutter={1} className={classes.middle} >
+              {
+                navigationConfig(t).filter(p => p.title === 'Pages')[0].pages.map((menu, index) => (
+                  <RouterLink key={index} to={menu.href} >
+                    <Item className= {location.pathname === menu.href ? classes.itemActive : classes.item} >
+                      <Typography variant="h6" className={classes.white} >
+                        {menu.title}
+                      </Typography>
+                    </Item>
+                  </RouterLink>
+                ))
+              }
+            </Row>
+          </div>
+        </Hidden>
         <div className={classes.flexGrow}/>
         <Hidden smDown>
           {/* <Button

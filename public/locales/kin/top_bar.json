@@ -1,4 +1,19 @@
 {
   "title": "Tuganire!",
-  "login": "Injira"
+  "login": "Injira",
+  "media": "Amashusho",
+  "home": "Ahabanza",
+  "faq": "Ibyo wibaza",
+  "mix": "Uruvange",
+  "about": "Abo turibo",
+  "copyright": "Uburenganzira bwose",
+  "privacy": "Ibigenga Uburenganzira bwite",
+  "terms": "Amategeko n'amabwiriza",
+  "subscribe": "Iyandikishe",
+  "infotitle": "Amakuru",
+  "popularcategories": "Ibyiciro bikunzwe",
+  "services": "serivisi zacu",
+  "emailPrompt": "Shyiramo email",
+  "newsletterSubscribe": "Iyandikishe ku kinyamakuru cyacu",
+  "toll": "Duhamagare ku murongo wacu utishyurwa:"
 }
