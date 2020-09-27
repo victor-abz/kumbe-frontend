@@ -36,10 +36,8 @@ const Results = props => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
-  const handleSelectAll = event => {
-    const selectedBlogs = event.target.checked
-      ? blogs.map(blog => blog.id)
-      : [];
+  const handleSelectAll = ({ target: { checked } }) => {
+    const selectedBlogs = checked ? blogs.map(blog => blog.id) : [];
 
     setSelectedBlogs(selectedBlogs);
   };

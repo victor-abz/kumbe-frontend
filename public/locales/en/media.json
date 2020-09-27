@@ -1,0 +1,14 @@
+{
+  "title_audio": "Audio",
+  "title_video": "Video",
+  "name": "Media",
+  "add_btn": "Add an audio",
+  "view_title": "Audios",
+  "dialog_title": "Add a new audio",
+  "dialog_description": "Note that the audio can be either a song or a diolog.",
+  "input_title": "Audio title",
+  "input_type": "Media type",
+  "input_file": "Upload the file",
+  "input_description": "Type the file description",
+  "btn_cancel": "Cancel"
+}

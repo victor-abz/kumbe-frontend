@@ -1,0 +1,14 @@
+{
+  "title_audio": "Audio",
+  "title_video": "Video",
+  "name": "Media",
+  "add_btn": "Shyiraho audio",
+  "view_title": "Ama audio",
+  "dialog_title": "Shyiraho audio nshya",
+  "dialog_description": "Mumenye ko audio ishobora kuba indirimbo cyangwa ikiganiro.",
+  "input_title": "Umutwe wa audio",
+  "input_type": "Ubwoko bwa audio",
+  "input_file": "Hitamo audio",
+  "input_description": "Andika ubusobanuro bwa audio",
+  "btn_cancel": "Subira inyuma"
+}

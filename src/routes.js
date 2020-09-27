@@ -90,6 +90,11 @@ const routes = [
         component: lazy(() => import('views/BlogManagementList'))
       },
       {
+        path: '/admin/media/audios',
+        exact: true,
+        component: lazy(() => import('views/Medias/AudioList'))
+      },
+      {
         path: '/admin/settings',
         exact: true,
         component: lazy(() => import('views/Settings'))
@@ -164,9 +169,9 @@ const routes = [
       },
       {
         component: () => <Redirect to="/errors/error-404" />
-      },
+      }
     ]
-  },
+  }
 ];
 
 export default routes;
