@@ -133,7 +133,7 @@ const Register = props => {
             align="center"
             color="secondary"
             component={RouterLink}
-            to="/auth/login"
+            to="/login"
             underline="always"
             variant="subtitle2">
             {t('auth:have_account')}

@@ -48,7 +48,7 @@ const Login = props => {
   useEffect(() => {
     if (loggedIn) {
       // history.goBack();
-      history.push('/blogs')
+      history.push('/admin/blogs')
     }
     // eslint-disable-next-line
   }, [loggedIn]);
@@ -67,7 +67,7 @@ const Login = props => {
             align="center"
             color="secondary"
             component={RouterLink}
-            to="/auth/register"
+            to="/register"
             underline="always"
             variant="subtitle2">
             {t('auth:no_account')}

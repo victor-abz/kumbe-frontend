@@ -157,7 +157,7 @@ const TopBar = props => {
             color="inherit"
             variant="contained"
             component={Link}
-            href={'/auth/login'}
+            href={'/login'}
 
           >
             <InputIcon className={classes.loginIcon} />

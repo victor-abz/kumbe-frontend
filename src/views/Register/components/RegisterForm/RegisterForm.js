@@ -111,7 +111,7 @@ const RegisterForm = props => {
     if (register.loaded) {
       notifier.success(register.message);
       setTimeout(() => {
-        router.history.push('/auth/login');
+        router.history.push('/login');
       }, 5000);
     }
     // eslint-disable-next-line

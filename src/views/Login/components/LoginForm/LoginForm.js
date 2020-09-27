@@ -65,7 +65,7 @@ const LoginForm = props => {
       notifier.success(login.message);
       getUserProfile();
       setTimeout(() => {
-        router.history.replace('/blogs');
+        router.history.replace('/admin/blogs');
       }, 5000);
     }
     // eslint-disable-next-line

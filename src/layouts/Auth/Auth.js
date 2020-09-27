@@ -25,7 +25,7 @@ const Auth = props => {
       </main>
 
       {
-        location.pathname !== '/auth/login' && location.pathname !== '/auth/register' &&
+        location.pathname !== '/login' && location.pathname !== '/register' &&
         <div style={{ marginTop: 10}}>
           <Footer/>
         </div>

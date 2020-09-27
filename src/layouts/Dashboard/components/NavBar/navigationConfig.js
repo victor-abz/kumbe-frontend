@@ -82,17 +82,17 @@ export const navigationConfig = t => [
       // },
       {
         title: t('blog:name'),
-        href: '/blogs',
+        href: '/admin/blogs',
         icon: FolderIcon,
         label: () => <Label color={colors.green[500]}>New</Label>,
         children: [
           {
             title: t('blog:blog_browse'),
-            href: '/blogs'
+            href: '/admin/blogs'
           },
           {
             title: t('blog:title'),
-            href: '/blogs/create'
+            href: '/admin/blogs/create'
           }
           // {
           //   title: 'Overview',
@@ -159,32 +159,32 @@ export const navigationConfig = t => [
       // }
     ]
   },
-  {
-    title: 'Support',
-    pages: [
-      {
-        title: 'Settings',
-        href: '/settings',
-        icon: SettingsIcon,
-        children: [
-          {
-            title: 'General',
-            href: '/settings/general'
-          },
-          {
-            title: 'Subscription',
-            href: '/settings/subscription'
-          },
-          {
-            title: 'Notifications',
-            href: '/settings/notifications'
-          },
-          {
-            title: 'Security',
-            href: '/settings/security'
-          }
-        ]
-      }
-    ]
-  }
+  // {
+  //   title: 'Support',
+  //   pages: [
+  //     {
+  //       title: 'Settings',
+  //       href: '/settings',
+  //       icon: SettingsIcon,
+  //       children: [
+  //         {
+  //           title: 'General',
+  //           href: '/settings/general'
+  //         },
+  //         {
+  //           title: 'Subscription',
+  //           href: '/settings/subscription'
+  //         },
+  //         {
+  //           title: 'Notifications',
+  //           href: '/settings/notifications'
+  //         },
+  //         {
+  //           title: 'Security',
+  //           href: '/settings/security'
+  //         }
+  //       ]
+  //     }
+  //   ]
+  // }
 ];

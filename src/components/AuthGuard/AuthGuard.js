@@ -14,7 +14,7 @@ const AuthGuard = props => {
 
   useEffect(() => {
     if (!session.loggedIn || !session.user) {
-      router.history.push('/auth/login');
+      router.history.push('/login');
       return;
     }
 

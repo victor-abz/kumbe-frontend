@@ -132,7 +132,7 @@ export const CustomCard = React.memo(function PostCard({ color, cover, content, 
                 color={'primary'}
                 component={Link}
                 fullWidth
-                href={`/auth/blogs/${slug}`}
+                href={`/blogs/${slug}`}
                 variant={'contained'}>
                 {t('blog_preview:blogView')} <ChevronRightRounded />
               </Button>
