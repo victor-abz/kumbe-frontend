@@ -15,13 +15,11 @@ import { getBlogs } from 'redux/actions/blog';
 import { getBlog } from 'redux/actions/blog';
 import { useSelector } from 'react-redux';
 
+const Content = getContent(styled);
+const InsetContainer = getInsetContainer(styled);
+const InsetSidebar = getInsetSidebar(styled);
 
-
-const Content = getContent(styled)
-const InsetContainer = getInsetContainer(styled)
-const InsetSidebar = getInsetSidebar(styled)
-
-const Blog = (props) => {
+const Blog = props => {
   const classes = useStyles();
   // const [blog, setBlog] = useState(initialStateValues);
   const { match } = props;
@@ -32,48 +30,50 @@ const Blog = (props) => {
   useEffect(() => {
     getBlogs();
     getBlog(id);
-  }, []);
-  
+  }, [id]);
+
   return (
     <Content>
       <InsetContainer
         rightSidebar={
           <InsetSidebar sidebarId="secondarySidebar">
             <Column className={classes.otherBlogsContainer}>
-              <Typography className={classes.relatedTitle} component="h2" variant="h4">
-                            Related blogs
+              <Typography
+                className={classes.relatedTitle}
+                component="h2"
+                variant="h4">
+                Related blogs
               </Typography>
               <Divider className={classes.divider} />
               <Item>
-
-                { blogs && 
-                          blogs.map((blog, index) => {
-                            return  <Grid className={classes.otherBlogs} key={index}>
-                              <CustomCard
-                                color={blog.color}
-                                content={blog.content}
-                                cover={blog.coverImage}
-                                date={blog.createdAt}
-                                description={blog.description}
-                                editor={blog.editor}
-                                id={blog.id}
-                                slug={blog.slug}
-                                title={blog.title}
-                                userImage={blog.usrImage}
-                              />
-                            </Grid>
-                          })
-                }
+                {blogs &&
+                  blogs.map((blog, index) => {
+                    return (
+                      <Grid className={classes.otherBlogs} key={index}>
+                        <CustomCard
+                          color={blog.color}
+                          content={blog.content}
+                          cover={blog.coverImage}
+                          date={blog.createdAt}
+                          description={blog.description}
+                          editor={blog.editor}
+                          id={blog.id}
+                          slug={blog.slug}
+                          title={blog.title}
+                          userImage={blog.usrImage}
+                        />
+                      </Grid>
+                    );
+                  })}
               </Item>
             </Column>
           </InsetSidebar>
-        }
-      >
-        {blog ? (<BlogContent
-          blog={blog}
-          className={classes.blogView}
-        />): <p>Wait...</p>}
-                
+        }>
+        {blog ? (
+          <BlogContent blog={blog} className={classes.blogView} />
+        ) : (
+          <p>Wait...</p>
+        )}
       </InsetContainer>
     </Content>
   );

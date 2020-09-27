@@ -7,7 +7,6 @@ import {
   Card,
   colors,
   CardContent,
-  Link,
   CardMedia,
   Box,
   CardActions,
@@ -28,8 +27,9 @@ import { useFloatShadowStyles } from '@mui-treasury/styles/shadow/float';
 import Color from 'color';
 import moment from 'moment';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   color: ({ color }) => ({
     '&:before': {
       backgroundColor: Color(color)
@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
     // margin: 'auto',
   },
   // content: ({ color }) => ({
-  content: ( ) => ({
+  content: () => ({
     position: 'relative',
     '&:before': {
       content: '""',
@@ -82,7 +82,16 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export const CustomCard = React.memo(function PostCard({ color, cover, content, userImage, slug, title, editor, date }) {
+export const CustomCard = React.memo(function PostCard({
+  color,
+  cover,
+  content,
+  userImage,
+  slug,
+  title,
+  editor,
+  date
+}) {
   const cardStyles = useStyles({ color });
   const mediaStyles = useWideCardMediaStyles();
   const shadowStyles = useFloatShadowStyles();
@@ -132,7 +141,7 @@ export const CustomCard = React.memo(function PostCard({ color, cover, content, 
                 color={'primary'}
                 component={Link}
                 fullWidth
-                href={`/blogs/${slug}`}
+                to={`/blogs/${slug}`}
                 variant={'contained'}>
                 {t('blog_preview:blogView')} <ChevronRightRounded />
               </Button>
