@@ -157,21 +157,11 @@ const routes = [
         exact: true,
         component: lazy(() => import('views/Register'))
       },
-      // {
-      //   path: '/errors/error-401',
-      //   exact: true,
-      //   component: lazy(() => import('views/Error401'))
-      // },
-      // {
-      //   path: '/errors/error-404',
-      //   exact: true,
-      //   component: lazy(() => import('views/Error404'))
-      // },
-      // {
-      //   path: '/errors/error-500',
-      //   exact: true,
-      //   component: lazy(() => import('views/Error500'))
-      // },
+      {
+        path: '/watch/:videoId',
+        exact: true,
+        component: lazy(() => import('views/WatchVideo')),
+      },
       {
         component: () => <Redirect to="/errors/error-404" />
       },
