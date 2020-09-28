@@ -10,10 +10,11 @@ const useStyles = makeStyles(theme => ({
     }
   },
   root: {
-    boxShadow: 'none'
+    boxShadow: 'none',
+    // alignItems: 'center'
   },
   flexGrow: {
-    flexGrow: 1
+    flexGrow: 1,
   },
 
   forumButton: {
@@ -111,14 +112,16 @@ const useStyles = makeStyles(theme => ({
     '&:hover': {
       backgroundColor: theme.palette.secondary.light,
     },
-    '&:not(:first-child)': {
-      marginLeft: theme.spacing(1),
-    },
   },
   itemActive: {
-    '&$item': {
-      backgroundColor: theme.palette.secondary.light,
-      color: '#fff',
+    padding: theme.spacing(1, itemHorzPadding),
+    cursor: 'pointer',
+    textDecoration: 'none',
+    color: '#ffffff',
+    backgroundColor: theme.palette.secondary.light,
+    borderRadius: '4px',
+    '&:hover': {
+      backgroundColor: theme.palette.secondary.dark,
     },
   },
   loginButton: {
@@ -130,6 +133,19 @@ const useStyles = makeStyles(theme => ({
   },
   loginIcon: {
     marginRight: theme.spacing(1)
+  },
+  middle:{
+    alignItems: 'center',
+    flexGrow: 1
+  },
+  left:{
+    flexGrow: 1
+  },
+  navBar: {
+    zIndex: 3,
+    width: 256,
+    minWidth: 256,
+    flex: '0 0 auto'
   },
 }));
 

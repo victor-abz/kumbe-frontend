@@ -1,4 +1,19 @@
 {
   "title": "Let's chat!",
-  "login": "Log In"
+  "login": "Log In",
+  "media": "Media",
+  "home": "Home",
+  "faq": "FAQ",
+  "mix": "The Mix",
+  "about": "About us",
+  "copyright": "All right reserved",
+  "privacy": "Privacy Policy",
+  "terms": "Terms & Conditions",
+  "subscribe": "Subscribe",
+  "infotitle": "Information",
+  "popularcategories": "Popular categories",
+  "services": "Our Services",
+  "emailPrompt": "Enter Email",
+  "newsletterSubscribe": "Subscribe to our quarterly newsletter",
+  "toll": "Call us on our free toll line:"
 }

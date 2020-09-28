@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
+import { getCategories } from 'redux/actions/category';
+import { useSelector } from 'react-redux';
 import {
   makeStyles,
   ThemeProvider,
@@ -32,6 +34,7 @@ import { useMagCategoryMenuStyles } from '@mui-treasury/styles/categoryMenu/mag'
 import { usePoofSocialLinkStyles } from '@mui-treasury/styles/socialLink/poof';
 import { useReadyEmailSubscribeStyles } from '@mui-treasury/styles/emailSubscribe/ready';
 import { usePlainNavigationMenuStyles } from '@mui-treasury/styles/navigationMenu/plain';
+import { useTranslation } from 'react-i18next';
 
 const darkTheme = createMuiTheme({ palette: { type: 'dark' } });
 
@@ -89,8 +92,14 @@ const useStyles = makeStyles(({ palette, typography }) => ({
   }
 }));
 
-const ArcAppFooterDemo = React.memo(function ArcAppFooter() {
+const Footer = React.memo(function ArcAppFooter() {
+  const { t } = useTranslation();
   const classes = useStyles();
+  const { categories } = useSelector(({ categoryGet }) => categoryGet );
+  useEffect(() => {
+    getCategories();
+  }, []);
+  console.log(categories);
   return (
     <Box width={'100%'}>
       <Box className={classes.top} position={'relative'} px={2} py={6}>
@@ -113,7 +122,7 @@ const ArcAppFooterDemo = React.memo(function ArcAppFooter() {
           >
             <Item>
               <Typography className={classes.newsletterText}>
-                <Typography>Subscribe to our quarterly newsletter</Typography>
+                <Typography>{t('top_bar:newsletterSubscribe')}</Typography>
               </Typography>
             </Item>
             <Item>
@@ -123,8 +132,8 @@ const ArcAppFooterDemo = React.memo(function ArcAppFooter() {
                 onSubmit={email => alert(`Your email is ${email}.`)}
                 useStyles={useReadyEmailSubscribeStyles}
               >
-                <EmailTextInput placeholder="Enter your email" />
-                <SubmitButton>Subscribe</SubmitButton>
+                <EmailTextInput placeholder={t('top_bar:emailPrompt')} />
+                <SubmitButton>{t('top_bar:subscribe')}</SubmitButton>
               </EmailSubscribe>
             </Item>
           </ColumnToRow>
@@ -160,7 +169,7 @@ const ArcAppFooterDemo = React.memo(function ArcAppFooter() {
                 <Grid item sm={4} xs={6}>
                   <CategoryProvider useStyles={useMagCategoryMenuStyles}>
                     <CategoryTitle>
-                      <Typography>Services</Typography>
+                      <Typography>{t('top_bar:services')}</Typography>
                     </CategoryTitle>
                     <CategoryItem>
                       <Typography index={1}>Counselling</Typography>
@@ -168,40 +177,33 @@ const ArcAppFooterDemo = React.memo(function ArcAppFooter() {
                     <CategoryItem>
                       <Typography index={1}>Condoms</Typography>
                     </CategoryItem>
-                    <CategoryItem>
-                      <Typography index={1}>Lubricants</Typography>
-                    </CategoryItem>
-                    <CategoryItem>
-                      <Typography index={1}>Entertainment</Typography>
-                    </CategoryItem>
                   </CategoryProvider>
                 </Grid>
                 <Grid item sm={4} xs={6}>
                   <CategoryProvider useStyles={useMagCategoryMenuStyles}>
                     <CategoryTitle>
-                      <Typography>Popular Cateogries</Typography>
+                      <Typography>{t('top_bar:popularcategories')}</Typography>
                     </CategoryTitle>
-                    <CategoryItem>
-                      <Typography index={1}>Pregnancy</Typography>
-                    </CategoryItem>
-                    <CategoryItem>
-                      <Typography index={1}>Helps center</Typography>
-                    </CategoryItem>
+                    {
+                      categories.map(({ name }, index)=> (
+                        <CategoryItem index={index}>
+                          <Typography index={1}>{name}</Typography>
+                        </CategoryItem>
+
+                      ))
+                    }
                   </CategoryProvider>
                 </Grid>
                 <Grid item sm={4} xs={6}>
                   <CategoryProvider useStyles={useMagCategoryMenuStyles}>
                     <CategoryTitle>
-                      <Typography>Information</Typography>
+                      <Typography>{t('top_bar:infotitle')}</Typography>
                     </CategoryTitle>
                     <CategoryItem>
-                      <Typography index={1}>Contact</Typography>
+                      <Typography index={1}>{t('top_bar:about')}</Typography>
                     </CategoryItem>
                     <CategoryItem>
-                      <Typography index={1}>FAQ</Typography>
-                    </CategoryItem>
-                    <CategoryItem>
-                      <Typography index={1}>About Us!</Typography>
+                      <Typography index={1}>{t('top_bar:faq')}</Typography>
                     </CategoryItem>
                   </CategoryProvider>
                 </Grid>
@@ -210,7 +212,7 @@ const ArcAppFooterDemo = React.memo(function ArcAppFooter() {
             <Grid item lg={3} md={8} style={{ marginLeft: 'auto' }} xs={12}>
               <CategoryProvider useStyles={useMagCategoryMenuStyles}>
                 <CategoryTitle>
-                  <Typography>Subscribe</Typography>
+                  <Typography>{t('top_bar:subscribe')}</Typography>
                 </CategoryTitle>
               </CategoryProvider>
               <SocialProvider useStyles={usePoofSocialLinkStyles}>
@@ -237,10 +239,10 @@ const ArcAppFooterDemo = React.memo(function ArcAppFooter() {
               <NavMenu useStyles={usePlainNavigationMenuStyles}>
                 <ColumnToRow at={'sm'}>
                   <NavItem className={classes.legalLink}>
-                    <Typography>Terms & Conditions</Typography>
+                    <Typography>{t('top_bar:terms')}</Typography>
                   </NavItem>
                   <NavItem className={classes.legalLink}>
-                    <Typography>Privacy Policy</Typography>
+                    <Typography>{t('top_bar:privacy')}</Typography>
                   </NavItem>
                 </ColumnToRow>
               </NavMenu>
@@ -253,8 +255,7 @@ const ArcAppFooterDemo = React.memo(function ArcAppFooter() {
                   variant={'caption'}
                 >
                   <Typography index={1}>
-                      © HDI Rwanda 2020 All right
-                      reserved
+                    © HDI Rwanda 2020 {t('top_bar:copyright')}
                   </Typography>
                 </Typography>
               </Box>
@@ -266,4 +267,4 @@ const ArcAppFooterDemo = React.memo(function ArcAppFooter() {
   );
 });
 
-export default ArcAppFooterDemo;
+export default Footer;
