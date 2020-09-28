@@ -90,7 +90,7 @@ const routes = [
         component: lazy(() => import('views/BlogManagementList'))
       },
       {
-        path: '/admin/media/audios',
+        path: '/admin/media/medias',
         exact: true,
         component: lazy(() => import('views/Medias/AudioList'))
       },

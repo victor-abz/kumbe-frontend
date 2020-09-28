@@ -49,7 +49,7 @@ export const CustomisedTable = ({
   return (
     <div className={clsx(classes.root, className)}>
       <Typography color="textSecondary" gutterBottom variant="body2">
-        {data.length} Records found. Page {page + 1} of {dataCount}
+        {data.length} Records found. Page {page} of {dataCount}
       </Typography>
       <Card>
         <CardHeader action={<GenericMoreButton />} title={tableTitle} />

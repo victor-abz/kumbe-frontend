@@ -106,7 +106,7 @@ import { useStyles } from './styles';
 
 const TopBar = props => {
   const { onOpenNavBarMobile, className, ...rest } = props;
-
+  const { t } = useTranslation();
   const classes = useStyles();
   const { history } = useRouter();
   const searchRef = useRef(null);
@@ -121,20 +121,19 @@ const TopBar = props => {
 
   const defaultLng = 'en';
   let lng = defaultLng;
-  
+
   const storageLanguage = localStorage.getItem('language');
   lng = storageLanguage;
 
   const [language, setLanguage] = useState(lng);
-  const [languages, setLanguages] = useState(['en', 'kin'])
-  
-  const handleChange = (event) => {
+  const [languages, setLanguages] = useState(['en', 'kin']);
+
+  const handleChange = event => {
     setLanguage(event.target.value);
     localStorage.setItem('language', event.target.value);
     i18n.changeLanguage(event.target.value);
-    window.location.reload()
+    window.location.reload();
   };
-
 
   useEffect(() => {
     let mounted = true;
@@ -210,10 +209,11 @@ const TopBar = props => {
   ];
 
   // eslint-disable-next-line react/no-multi-comp
-  const iconComponent = (props) => {
+  const iconComponent = props => {
     return (
-      <ExpandMoreRoundedIcon className={props.className + ' ' + classes.icon}/>
-    )};
+      <ExpandMoreRoundedIcon className={props.className + ' ' + classes.icon} />
+    );
+  };
 
   const menuProps = {
     classes: {
@@ -251,7 +251,7 @@ const TopBar = props => {
               className={classes.searchInput}
               disableUnderline
               onChange={handleSearchChange}
-              placeholder="Search people &amp; places"
+              placeholder={t('top_bar:search')}
               value={searchValue}
             />
           </div>
@@ -304,26 +304,23 @@ const TopBar = props => {
             color="inherit"
             onClick={handleLogout}>
             <InputIcon className={classes.logoutIcon} />
-            Sign out
+            {t('top_bar:signout')}
           </Button>
         </Hidden>
         <FormControl>
           <Select
-            classes={{ root: classes.select }}
-            disableUnderline
             IconComponent={iconComponent}
             MenuProps={menuProps}
+            classes={{ root: classes.select }}
+            disableUnderline
             onChange={handleChange}
-            value={language}
-          >
+            value={language}>
             {languages.map((option, index) => (
               <MenuItem key={index} value={option.shortName}>
                 <ListItemIcon classes={{ root: classes.listIcon }}>
-                  <TranslateIcon/>
+                  <TranslateIcon />
                 </ListItemIcon>
-                <span style={{marginTop:3}}>
-                  {option.name}
-                </span>
+                <span style={{ marginTop: 3 }}>{option.name}</span>
               </MenuItem>
             ))}
           </Select>

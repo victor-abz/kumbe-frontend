@@ -1,5 +1,6 @@
 {
   "title_audio": "Audio",
+  "title_media": "Media zose",
   "title_video": "Video",
   "name": "Media",
   "add_btn": "Shyiraho media",
@@ -10,5 +11,9 @@
   "input_type": "Ubwoko",
   "input_file": "Link ya media",
   "input_description": "Andika ubusobanuro burambuye",
-  "btn_cancel": "Subira inyuma"
+  "btn_cancel": "Subira inyuma",
+  "table_title": "Urutonde rw ama Media yose",
+  "col_title": "Umutwe wa media",
+  "col_description": "Ubusobanuro",
+  "col_type": "Ubwoko bwa media"
 }

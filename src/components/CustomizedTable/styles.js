@@ -1,9 +1,7 @@
 import { makeStyles } from '@material-ui/styles';
 
 export const useTableStyles = makeStyles(theme => ({
-  root: {
-    padding: theme.spacing(3)
-  },
+  root: {},
   row: {
     height: '42px',
     display: 'flex',

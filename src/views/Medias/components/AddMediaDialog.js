@@ -13,7 +13,7 @@ import {
   FormControl,
   InputLabel
 } from '@material-ui/core';
-import { addCategory, getCategories } from 'redux/actions/category';
+import { addMedia, getMedias } from 'redux/actions/media';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
@@ -23,12 +23,12 @@ const initialState = { title: '', description: '', type: '' };
 export const AddMediaDialog = ({ open, setOpen }) => {
   const [values, setValues] = useState(initialState);
   const { t } = useTranslation();
-  const { loading, loaded } = useSelector(({ categoryAdd }) => categoryAdd);
+  const { loading, loaded } = useSelector(({ mediaAdd }) => mediaAdd);
 
   useEffect(() => {
     if (loaded) {
       setValues(initialState);
-      getCategories();
+      getMedias();
       setOpen();
     }
     // eslint-disable-next-line
@@ -75,7 +75,7 @@ export const AddMediaDialog = ({ open, setOpen }) => {
               fullWidth
               label={t('media:input_file')}
               margin="dense"
-              name="file"
+              name="mediaLink"
               onChange={onHandleChange}
               type={values.type === 'video' ? 'text' : 'file'}
               value={values.name}
@@ -100,7 +100,7 @@ export const AddMediaDialog = ({ open, setOpen }) => {
         <Button
           color="primary"
           disabled={loading}
-          onClick={() => addCategory(values)}>
+          onClick={() => addMedia(values)}>
           {loading ? t('blog:btn_loading') : t('blog:btn_save')}
         </Button>
       </DialogActions>

@@ -122,12 +122,8 @@ export const navigationConfig = t => [
         icon: PermMediaOutlined,
         children: [
           {
-            title: t('media:title_audio'),
-            href: '/admin/media/audios'
-          },
-          {
-            title: t('media:title_video'),
-            href: '/admin/media/videos'
+            title: t('media:title_media'),
+            href: '/admin/media/medias'
           }
         ]
       }

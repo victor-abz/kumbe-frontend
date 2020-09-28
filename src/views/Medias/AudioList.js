@@ -5,6 +5,9 @@ import { AddMediaDialog, Header } from './components';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { CustomisedTable } from 'components/CustomizedTable';
+import { mediaColumns } from './components/columns';
+import { getMedias } from 'redux/actions/media';
+import { Grid } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -19,6 +22,10 @@ const AudioList = () => {
   const classes = useStyles();
   const { t } = useTranslation();
   const [openAddMedia, setOpenAddMedia] = useState(false);
+  const { loading, medias } = useSelector(({ mediaGet }) => mediaGet);
+  useEffect(() => {
+    getMedias();
+  }, []);
   const handleFilter = () => {};
   const handleSearch = () => {};
 
@@ -30,7 +37,18 @@ const AudioList = () => {
       />
       <Header setOpenAddMedia={() => setOpenAddMedia(true)} />
       <SearchBar onFilter={handleFilter} onSearch={handleSearch} />
-      <CustomisedTable tableTitle="Audio list" />
+      <Grid container>
+        <Grid item md={8} xs={12}>
+          <CustomisedTable
+            className={classes.results}
+            columns={mediaColumns(t)}
+            data={medias}
+            dataCount={medias.length}
+            loading={loading}
+            tableTitle={t('media:table_title')}
+          />
+        </Grid>
+      </Grid>
     </Page>
   );
 };
