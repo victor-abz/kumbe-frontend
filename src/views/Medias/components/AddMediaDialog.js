@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import {
   Button,
   TextField,
@@ -20,8 +19,8 @@ import { useTranslation } from 'react-i18next';
 
 const types = ['audio', 'video', 'image'];
 
-export const AddMediaDialog = ({ open, setOpen, mediaType = 'audio' }) => {
-  const initialState = { title: '', description: '', type: mediaType };
+const initialState = { title: '', description: '', type: '' };
+export const AddMediaDialog = ({ open, setOpen }) => {
   const [values, setValues] = useState(initialState);
   const { t } = useTranslation();
   const { loading, loaded } = useSelector(({ categoryAdd }) => categoryAdd);
@@ -58,7 +57,6 @@ export const AddMediaDialog = ({ open, setOpen, mediaType = 'audio' }) => {
             <FormControl fullWidth>
               <InputLabel id="media-type">{t('media:input_type')}</InputLabel>
               <Select
-                disabled
                 labelId="media-type"
                 name="type"
                 onChange={onHandleChange}
@@ -79,7 +77,7 @@ export const AddMediaDialog = ({ open, setOpen, mediaType = 'audio' }) => {
               margin="dense"
               name="file"
               onChange={onHandleChange}
-              type="file"
+              type={values.type === 'video' ? 'text' : 'file'}
               value={values.name}
             />
           </Grid>
