@@ -1,6 +1,8 @@
 import React from 'react';
 import { Grid, Typography, Divider } from '@material-ui/core';
 import { useStyles } from './style';
+import ReactPlayer from 'react-player/lazy'
+
 
 const VideoSection = ({ video }) => {
   const classes = useStyles()
@@ -8,7 +10,17 @@ const VideoSection = ({ video }) => {
     <Grid container>
       <Grid item xs={12}>
         <div className={classes.thumbnail}>
-          <img alt="thumbnail" src={video.thumbnail} />
+          <ReactPlayer
+            className={classes.reactPlayer}
+            controls 
+            height="100%"
+            light={video.thumbnail}
+            pip
+            playing
+            stopOnUnmount={false}
+            url={video.url}
+            width="100%"
+          />
         </div>
       </Grid>
 

@@ -19,4 +19,9 @@ export const useStyles = makeStyles(theme => ({
     paddingTop: theme.spacing(2.5),
     paddingBottom: theme.spacing(1),
   },
+  reactPlayer: {
+    position: 'absolute',
+    top: 0,
+    left: 0
+  }
 }));

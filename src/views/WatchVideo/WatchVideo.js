@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Grid } from '@material-ui/core';
 // Dummy data
-import { HighLightVideo, NewsVideo } from '../../videoData';
+import { HighLightVideo } from '../../videoData';
 
 import VideoSection from './VideoSection';
 import { VideoList } from 'components';
@@ -11,13 +11,16 @@ const WatchVideo = ({ match }) => {
   const { params: { videoId } } = match;
   const classes = useStyles()
 
-  // Use the videoId to fetch video info
-  const video =
-    HighLightVideo.filter((video) => video.id === videoId)[0] ||
-    NewsVideo.filter((video) => video.id === videoId)[0];
+  const [video, setVideo] = useState(videoId)
 
-  // Use the videoId to fetch related videos info
   const videos = HighLightVideo;
+
+  useEffect(() => {
+    const v =
+    HighLightVideo.filter((video) => video.id === videoId)[0]
+    setVideo(v)
+
+  }, [videoId]);
 
   return (
     <Grid className={classes.root} container>

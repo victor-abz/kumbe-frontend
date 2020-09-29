@@ -1,8 +1,7 @@
 import React from 'react';
 import { Grid, Typography } from '@material-ui/core';
 import { useStyles } from './style';
-
-import { useHistory } from 'react-router';
+import { Link } from 'react-router-dom';
 
 const VideoGridItem = ({
   id,
@@ -10,18 +9,10 @@ const VideoGridItem = ({
   channel,
   thumbnail,
 }) => {
-  const history = useHistory();
   const classes = useStyles()
 
-  const handleVideoClick = (e) => {
-    e.stopPropagation();
-    history.push({
-      pathname: `/watch/${id}`,
-    });
-  };
-
   return (
-    <Grid className={classes.root} container onClick={handleVideoClick}>
+    <Grid className={classes.root} component={Link} container to={`/watch/${id}`}>
       <Grid item>
         <div className={classes.thumbnail}>
           <img alt="thumbnail" src={thumbnail} />
@@ -34,7 +25,7 @@ const VideoGridItem = ({
             {title}
           </Typography>
           <Typography color="inherit" variant="body2">
-            {channel} views 1 month ago
+            {channel}
           </Typography>
         </Grid>
       </Grid>
