@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
   Button,
   TextField,
@@ -11,19 +11,29 @@ import {
   Select,
   MenuItem,
   FormControl,
-  InputLabel
+  InputLabel,
+  Typography
 } from '@material-ui/core';
 import { addMedia, getMedias } from 'redux/actions/media';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import { useDropzone } from 'react-dropzone';
+import { useStyles } from 'components/FilesDropzone/styles';
+import clsx from 'clsx';
+import { uploadFile } from 'redux/actions/file';
 
 const types = ['audio', 'video', 'image'];
 
-const initialState = { title: '', description: '', type: '' };
+const initialState = { title: '', description: '', type: '', mediaLink: '' };
 export const AddMediaDialog = ({ open, setOpen }) => {
+  const classes = useStyles();
   const [values, setValues] = useState(initialState);
+  const [theFile, setTheFile] = useState(null);
   const { t } = useTranslation();
-  const { loading, loaded } = useSelector(({ mediaAdd }) => mediaAdd);
+  const {
+    mediaAdd: { loading, loaded },
+    fileUpload
+  } = useSelector(({ mediaAdd, fileUpload }) => ({ mediaAdd, fileUpload }));
 
   useEffect(() => {
     if (loaded) {
@@ -33,9 +43,25 @@ export const AddMediaDialog = ({ open, setOpen }) => {
     }
     // eslint-disable-next-line
   }, [loaded]);
+  useEffect(() => {
+    if (fileUpload.loaded) {
+      setValues({ ...values, mediaLink: fileUpload.fileName });
+    }
+  }, [fileUpload.loaded]);
   const onHandleChange = ({ target: { name, value } }) => {
     setValues({ ...values, [name]: value });
   };
+  const onDrop = useCallback(acceptedFiles => {
+    setTheFile(acceptedFiles[0]);
+  }, []);
+  useEffect(() => {
+    if (values.type !== '' && theFile) {
+      const formData = new FormData();
+      formData.append('file', theFile);
+      uploadFile(formData, values.type, fileUpload.fileName);
+    }
+  }, [theFile]);
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
   return (
     <Dialog aria-labelledby="cat-dialog-title" onClose={setOpen} open={open}>
       <DialogTitle id="cat-dialog-title">{t('media:dialog_title')}</DialogTitle>
@@ -71,15 +97,49 @@ export const AddMediaDialog = ({ open, setOpen }) => {
             </FormControl>
           </Grid>
           <Grid item md={12} xs={12}>
-            <TextField
-              fullWidth
-              label={t('media:input_file')}
-              margin="dense"
-              name="mediaLink"
-              onChange={onHandleChange}
-              type={values.type === 'video' ? 'text' : 'file'}
-              value={values.name}
-            />
+            {values.type === 'video' ? (
+              <TextField
+                fullWidth
+                label={t('media:input_file')}
+                margin="dense"
+                name="mediaLink"
+                onChange={onHandleChange}
+                type={values.type === 'video' ? 'text' : 'file'}
+                value={values.name}
+              />
+            ) : (
+              // <TextField
+              //   fullWidth
+              //   margin="dense"
+              //   name="mediaLink"
+              //   onChange={e => console.log(e.target.files[0])}
+              //   type="file"
+              // />
+              <div
+                className={clsx({
+                  [classes.dropZone]: true,
+                  [classes.dragActive]: isDragActive
+                })}
+                {...getRootProps()}>
+                <input {...getInputProps()} />
+
+                <div>
+                  <Typography gutterBottom variant="h3">
+                    {fileUpload.loaded
+                      ? 'Uploaded file'
+                      : t('blog:upload_title')}
+                  </Typography>
+                  <Typography
+                    className={classes.info}
+                    color="textSecondary"
+                    variant="body1">
+                    {fileUpload.loaded
+                      ? fileUpload.fileName
+                      : t('blog:upload_sub_title')}
+                  </Typography>
+                </div>
+              </div>
+            )}
           </Grid>
           <Grid item md={12} xs={12}>
             <TextField
