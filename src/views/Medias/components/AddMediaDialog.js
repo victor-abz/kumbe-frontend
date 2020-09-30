@@ -12,7 +12,8 @@ import {
   MenuItem,
   FormControl,
   InputLabel,
-  Typography
+  Typography,
+  Chip
 } from '@material-ui/core';
 import { addMedia, getMedias } from 'redux/actions/media';
 import { useSelector } from 'react-redux';
@@ -21,20 +22,38 @@ import { useDropzone } from 'react-dropzone';
 import { useStyles } from 'components/FilesDropzone/styles';
 import clsx from 'clsx';
 import { uploadFile } from 'redux/actions/file';
+import { Add as AddIcon } from '@material-ui/icons';
+import { Autocomplete } from '@material-ui/lab';
+import { AddTagDialog } from 'views/BlogCreate/components/AboutBlog/AddTagDialog';
+import { getTags } from 'redux/actions/tag';
 
 const types = ['audio', 'video', 'image'];
 
-const initialState = { title: '', description: '', type: '', mediaLink: '' };
+const initialState = {
+  title: '',
+  description: '',
+  type: '',
+  tags: [],
+  mediaLink: ''
+};
 export const AddMediaDialog = ({ open, setOpen }) => {
   const classes = useStyles();
   const [values, setValues] = useState(initialState);
+  const [openAddTag, setOpenAddTag] = useState(false);
   const [theFile, setTheFile] = useState(null);
   const { t } = useTranslation();
   const {
     mediaAdd: { loading, loaded },
-    fileUpload
-  } = useSelector(({ mediaAdd, fileUpload }) => ({ mediaAdd, fileUpload }));
-
+    fileUpload: { loaded: done, fileName },
+    tagGet: { tags }
+  } = useSelector(({ mediaAdd, fileUpload, tagGet }) => ({
+    mediaAdd,
+    fileUpload,
+    tagGet
+  }));
+  useEffect(() => {
+    getTags();
+  }, []);
   useEffect(() => {
     if (loaded) {
       setValues(initialState);
@@ -44,12 +63,15 @@ export const AddMediaDialog = ({ open, setOpen }) => {
     // eslint-disable-next-line
   }, [loaded]);
   useEffect(() => {
-    if (fileUpload.loaded) {
-      setValues({ ...values, mediaLink: fileUpload.fileName });
+    if (done && fileName) {
+      setTheFile(null);
+      setValues({ ...values, mediaLink: fileName });
     }
-  }, [fileUpload.loaded]);
+  }, [done, fileName]);
   const onHandleChange = ({ target: { name, value } }) => {
-    setValues({ ...values, [name]: value });
+    const inputName = name ? name : 'tags';
+    const inputValue = name ? value : tags.map(({ id }) => id);
+    setValues({ ...values, [inputName]: inputValue });
   };
   const onDrop = useCallback(acceptedFiles => {
     setTheFile(acceptedFiles[0]);
@@ -58,12 +80,13 @@ export const AddMediaDialog = ({ open, setOpen }) => {
     if (values.type !== '' && theFile) {
       const formData = new FormData();
       formData.append('file', theFile);
-      uploadFile(formData, values.type, fileUpload.fileName);
+      uploadFile(formData, values.type, fileName);
     }
   }, [theFile]);
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
   return (
     <Dialog aria-labelledby="cat-dialog-title" onClose={setOpen} open={open}>
+      <AddTagDialog open={openAddTag} setOpen={() => setOpenAddTag(false)} />
       <DialogTitle id="cat-dialog-title">{t('media:dialog_title')}</DialogTitle>
       <DialogContent>
         <DialogContentText>{t('media:dialog_description')}</DialogContentText>
@@ -97,6 +120,16 @@ export const AddMediaDialog = ({ open, setOpen }) => {
             </FormControl>
           </Grid>
           <Grid item md={12} xs={12}>
+            <TextField
+              fullWidth
+              label={t('media:input_description')}
+              margin="dense"
+              name="description"
+              onChange={onHandleChange}
+              value={values.description}
+            />
+          </Grid>
+          <Grid item md={12} xs={12}>
             {values.type === 'video' ? (
               <TextField
                 fullWidth
@@ -104,17 +137,9 @@ export const AddMediaDialog = ({ open, setOpen }) => {
                 margin="dense"
                 name="mediaLink"
                 onChange={onHandleChange}
-                type={values.type === 'video' ? 'text' : 'file'}
                 value={values.name}
               />
             ) : (
-              // <TextField
-              //   fullWidth
-              //   margin="dense"
-              //   name="mediaLink"
-              //   onChange={e => console.log(e.target.files[0])}
-              //   type="file"
-              // />
               <div
                 className={clsx({
                   [classes.dropZone]: true,
@@ -125,31 +150,58 @@ export const AddMediaDialog = ({ open, setOpen }) => {
 
                 <div>
                   <Typography gutterBottom variant="h3">
-                    {fileUpload.loaded
+                    {done && fileName !== ''
                       ? 'Uploaded file'
-                      : t('blog:upload_title')}
+                      : t('media:upload_title')}
                   </Typography>
                   <Typography
                     className={classes.info}
                     color="textSecondary"
                     variant="body1">
-                    {fileUpload.loaded
-                      ? fileUpload.fileName
-                      : t('blog:upload_sub_title')}
+                    {done && fileName !== ''
+                      ? fileName
+                      : t('media:upload_sub_title')}
                   </Typography>
                 </div>
               </div>
             )}
           </Grid>
-          <Grid item md={12} xs={12}>
-            <TextField
-              fullWidth
-              label={t('media:input_description')}
-              margin="dense"
-              name="description"
+          <Grid item md={8} xs={12}>
+            <Autocomplete
+              className={classes.flexGrow}
+              filterSelectedOptions
+              getOptionLabel={option => option.name}
+              multiple
               onChange={onHandleChange}
-              value={values.description}
+              options={tags}
+              renderInput={params => (
+                <TextField
+                  {...params}
+                  label={t('blog:placeholder_tags')}
+                  placeholder={t('blog:placeholder_tags')}
+                  variant="outlined"
+                />
+              )}
+              renderTags={(value, getTagProps) =>
+                value.map((option, index) => (
+                  <Chip
+                    color="primary"
+                    label={option.name}
+                    {...getTagProps({ index })}
+                    style={{ backgroundColor: option.color, color: '#fff' }}
+                  />
+                ))
+              }
             />
+          </Grid>
+          <Grid item md={4} xs={12}>
+            <Button
+              className={classes.addButton}
+              onClick={() => setOpenAddTag(true)}
+              size="small">
+              <AddIcon className={classes.addIcon} />
+              {t('blog:btn_add_tag')}
+            </Button>
           </Grid>
         </Grid>
       </DialogContent>

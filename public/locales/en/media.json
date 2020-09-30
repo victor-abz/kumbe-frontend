@@ -15,5 +15,7 @@
   "table_title": "List of all medias",
   "col_title": "Media title",
   "col_description": "Description",
-  "col_type": "Media type"
+  "col_type": "Media type",
+  "upload_title": "Select file",
+  "upload_sub_title": "Drop your image or click to browse from your machine"
 }
