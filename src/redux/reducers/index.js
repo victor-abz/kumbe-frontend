@@ -6,6 +6,7 @@ import { categoryAddReducer, categoryGetReducer } from './categoryReducer';
 import { fileReducer } from './fileReducer';
 import {
   mediaAddReducer,
+  mediaDetailReducer,
   mediaEditReducer,
   mediaGetReducer
 } from './mediaReducers';
@@ -25,5 +26,6 @@ export default combineReducers({
   blogGet: blogGetReducer,
   mediaAdd: mediaAddReducer,
   mediaGet: mediaGetReducer,
-  mediaEdit: mediaEditReducer
+  mediaEdit: mediaEditReducer,
+  mediaDetail: mediaDetailReducer
 });

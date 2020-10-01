@@ -1,6 +1,7 @@
 import {
   ADD_NEW_MEDIA,
   GET_MEDIAS,
+  GET_MEDIA_DETAIL,
   UPDATE_MEDIA
 } from 'redux/actions/actionTypes';
 import { baseState, fulfilled, pending, rejected } from 'redux/utils';
@@ -65,6 +66,29 @@ export const mediaEditReducer = (state = baseState('message', ''), action) => {
         message: action.payload.data.message
       };
     case rejected(UPDATE_MEDIA):
+    default:
+      return {
+        ...state,
+        loading: false
+      };
+  }
+};
+export const mediaDetailReducer = (state = baseState('media', {}), action) => {
+  switch (action.type) {
+    case pending(GET_MEDIA_DETAIL):
+      return {
+        ...state,
+        loaded: false,
+        loading: true
+      };
+    case fulfilled(GET_MEDIA_DETAIL):
+      return {
+        ...state,
+        loading: false,
+        loaded: true,
+        media: action.payload.data.data
+      };
+    case rejected(GET_MEDIA_DETAIL):
     default:
       return {
         ...state,
