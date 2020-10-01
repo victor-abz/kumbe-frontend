@@ -4,7 +4,11 @@ import { loginReducer, authReducer, registerReducer } from './authReducer';
 import { blogAddReducer, blogsGetReducer, blogGetReducer } from './blogReducer';
 import { categoryAddReducer, categoryGetReducer } from './categoryReducer';
 import { fileReducer } from './fileReducer';
-import { mediaAddReducer, mediaGetReducer } from './mediaReducers';
+import {
+  mediaAddReducer,
+  mediaEditReducer,
+  mediaGetReducer
+} from './mediaReducers';
 import { tagAddReducer, tagGetReducer } from './tagReducer';
 
 export default combineReducers({
@@ -20,5 +24,6 @@ export default combineReducers({
   blogsGet: blogsGetReducer,
   blogGet: blogGetReducer,
   mediaAdd: mediaAddReducer,
-  mediaGet: mediaGetReducer
+  mediaGet: mediaGetReducer,
+  mediaEdit: mediaEditReducer
 });

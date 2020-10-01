@@ -19,3 +19,4 @@ export const GET_BLOG = 'GET_BLOG';
 
 export const ADD_NEW_MEDIA = 'ADD_NEW_MEDIA';
 export const GET_MEDIAS = 'GET_MEDIAS';
+export const UPDATE_MEDIA = 'UPDATE_MEDIA';
