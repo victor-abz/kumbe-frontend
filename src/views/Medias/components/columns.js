@@ -14,8 +14,18 @@ export const mediaColumns = (t, viewVideo, addThum) => [
     label: t('blog:col_actions'),
     content: item => (
       <ButtonGroup aria-label="small outlined button group" size="small">
-        <Button onClick={() => viewVideo(item)}>View</Button>
-        <Button onClick={() => addThum(item)}>Add thumb</Button>
+        {item.thumbnail ? (
+          <Button
+            color="primary"
+            onClick={() => viewVideo(item)}
+            variant="contained">
+            View
+          </Button>
+        ) : (
+          <Button onClick={() => addThum(item)} variant="outlined">
+            Thumnail
+          </Button>
+        )}
       </ButtonGroup>
     )
   }

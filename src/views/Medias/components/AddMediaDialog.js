@@ -21,7 +21,7 @@ import { useTranslation } from 'react-i18next';
 import { useDropzone } from 'react-dropzone';
 import { useStyles } from 'components/FilesDropzone/styles';
 import clsx from 'clsx';
-import { uploadFile } from 'redux/actions/file';
+import { resetUploadedFile, uploadFile } from 'redux/actions/file';
 import { Add as AddIcon } from '@material-ui/icons';
 import { Autocomplete } from '@material-ui/lab';
 import { AddTagDialog } from 'views/BlogCreate/components/AboutBlog/AddTagDialog';
@@ -58,6 +58,7 @@ export const AddMediaDialog = ({ open, setOpen }) => {
     if (loaded) {
       setValues(initialState);
       getMedias();
+      resetUploadedFile();
       setOpen();
     }
     // eslint-disable-next-line

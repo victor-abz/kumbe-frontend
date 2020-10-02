@@ -4,9 +4,13 @@ import { useStyles } from './style';
 import ReactPlayer from 'react-player/lazy';
 
 const thumbnailsPath = `${process.env.REACT_APP_API_URL}/api/res/thumbnails`;
+const audiosPath = `${process.env.REACT_APP_API_URL}/api/res/audios`;
 const VideoSection = ({ video }) => {
   const classes = useStyles();
-
+  const mediaUrl =
+    video.type === 'video'
+      ? video.mediaLink
+      : `${audiosPath}/${video.mediaLink}`;
   return (
     <Grid container>
       <Grid item xs={12}>
@@ -19,7 +23,7 @@ const VideoSection = ({ video }) => {
             pip
             playing
             stopOnUnmount={false}
-            url={video.mediaLink}
+            url={mediaUrl}
             width="100%"
           />
         </div>

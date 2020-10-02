@@ -53,7 +53,7 @@ const AudioList = () => {
       <Header setOpenAddMedia={() => setOpenAddMedia(true)} />
       <SearchBar onFilter={handleFilter} onSearch={handleSearch} />
       <Grid container>
-        <Grid item md={8} xs={12}>
+        <Grid item md={12} xs={12}>
           <CustomisedTable
             className={classes.results}
             columns={mediaColumns(t, watchVideo, addThumbnail)}

@@ -9,7 +9,7 @@ import {
 } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { updateMedia } from 'redux/actions/media';
+import { getMedias, updateMedia } from 'redux/actions/media';
 import { FilesDropzone } from 'components';
 import { UPLOADED_FILE_NAME } from 'utils/constants';
 import { resetUploadedFile } from 'redux/actions/file';
@@ -23,6 +23,7 @@ export const AddThumbnailDialog = ({ open, setOpen, media }) => {
   } = useSelector(({ fileUpload, mediaEdit }) => ({ fileUpload, mediaEdit }));
   useEffect(() => {
     if (updated) {
+      getMedias('all');
       localStorage.removeItem(UPLOADED_FILE_NAME);
       resetUploadedFile();
       notifier.success(message);
