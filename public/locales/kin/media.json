@@ -1,0 +1,22 @@
+{
+  "title_audio": "Audio",
+  "title_media": "Media zose",
+  "title_video": "Video",
+  "name": "Media",
+  "add_btn": "Shyiraho media",
+  "view_title": "Ama media",
+  "dialog_title": "Shyiraho media nshya",
+  "dialog_description": "Mumenye ko media ishobora kuba indirimbo, ikiganiro, ifoto, cg video.",
+  "input_title": "Umutwe",
+  "input_type": "Ubwoko",
+  "input_file": "Link ya media",
+  "input_description": "Andika ubusobanuro burambuye",
+  "btn_cancel": "Subira inyuma",
+  "table_title": "Urutonde rw ama Media yose",
+  "col_title": "Umutwe wa media",
+  "col_description": "Ubusobanuro",
+  "col_type": "Ubwoko bwa media",
+  "upload_title": "Hitamo media",
+  "upload_sub_title": "Kanda hano uhitemo file mu mashini yawe",
+  "add_thumb_title": "Shyira ifoto kuri iyi media:"
+}

@@ -2,7 +2,7 @@ import { RESET_UPLOADED_FILE, UPLOAD_FILE } from 'redux/actions/actionTypes';
 import { baseState, fulfilled, pending, rejected } from 'redux/utils';
 import { UPLOADED_FILE_NAME } from 'utils/constants';
 
-const uploadedFileName = localStorage.getItem(UPLOADED_FILE_NAME) || '';
+const uploadedFileName = localStorage.getItem(UPLOADED_FILE_NAME) || null;
 const initialState = baseState('fileName', uploadedFileName);
 
 export const fileReducer = (state = initialState, action) => {

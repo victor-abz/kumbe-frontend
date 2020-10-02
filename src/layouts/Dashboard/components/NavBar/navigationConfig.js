@@ -3,7 +3,11 @@
 import React from 'react';
 import { colors } from '@material-ui/core';
 import SettingsIcon from '@material-ui/icons/SettingsOutlined';
-import FolderIcon from '@material-ui/icons/FolderOutlined';
+import {
+  FolderOutlined as FolderIcon,
+  PermMediaOutlined
+} from '@material-ui/icons';
+
 // import BarChartIcon from '@material-ui/icons/BarChart';
 // import ChatIcon from '@material-ui/icons/ChatOutlined';
 // import DashboardIcon from '@material-ui/icons/DashboardOutlined';
@@ -111,6 +115,17 @@ export const navigationConfig = t => [
           //   href: '/blogs/1/subscribers'
           // }
         ]
+      },
+      {
+        title: t('media:name'),
+        href: '/admin/media',
+        icon: PermMediaOutlined,
+        children: [
+          {
+            title: t('media:title_media'),
+            href: '/admin/media/medias'
+          }
+        ]
       }
       // {
       //   title: 'Chat',
@@ -158,7 +173,7 @@ export const navigationConfig = t => [
       //   ]
       // }
     ]
-  },
+  }
   // {
   //   title: 'Support',
   //   pages: [

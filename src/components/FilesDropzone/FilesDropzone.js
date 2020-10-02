@@ -1,5 +1,4 @@
 import React, { Fragment, useState, useCallback, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import uuid from 'uuid/v1';
 import { useDropzone } from 'react-dropzone';
@@ -7,7 +6,6 @@ import PerfectScrollbar from 'react-perfect-scrollbar';
 import {
   Button,
   IconButton,
-  Link,
   List,
   ListItem,
   ListItemIcon,
@@ -24,9 +22,7 @@ import { UPLOADED_FILE_NAME } from 'utils/constants';
 import { uploadFile } from 'redux/actions/file';
 import { useTranslation } from 'react-i18next';
 
-const FilesDropzone = props => {
-  const { className, ...rest } = props;
-
+const FilesDropzone = ({ fileType = 'coverImage' }) => {
   const classes = useStyles();
   const [file, setFile] = useState(null);
   const { t } = useTranslation();
@@ -53,10 +49,10 @@ const FilesDropzone = props => {
   const handleUploadFile = () => {
     const formData = new FormData();
     formData.append('file', file);
-    uploadFile(formData);
+    uploadFile(formData, fileType, fileName);
   };
   return (
-    <div {...rest} className={clsx(classes.root, className)}>
+    <div className={classes.root}>
       <div
         className={clsx({
           [classes.dropZone]: true,
@@ -126,9 +122,4 @@ const FilesDropzone = props => {
     </div>
   );
 };
-
-FilesDropzone.propTypes = {
-  className: PropTypes.string
-};
-
 export default FilesDropzone;
