@@ -1,30 +1,28 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Avatar, Typography } from '@material-ui/core';
 import { useStyles } from './style';
+import useRouter from 'utils/useRouter';
 
-const VideoGridItem = ({id, thumbnail, description, title, mediaLink, ...rest }) => {
-  const history = useHistory();
+const VideoGridItem = ({id, thumbnail, description, title, mediaLink }) => {
   const classes = useStyles();
-  console.log(rest);
-
-  const handleVideoClick = (e) => {
-    e.stopPropagation();
-    history.push({
-      pathname: `/watch/${id}`,
-    });
-  };
+  const router = useRouter()
   
   const results = mediaLink.match('[\\?&]v=([^&#]*)');
-  const vid = ( results === null ) ? mediaLink : results[1];
+  const video_id = ( results === null ) ? mediaLink : results[1];
 
   const AvatarImg =
   'https://i2.wp.com/churchillwild.com/wp-content/uploads/2019/03/janet-the-polar-bear-nanuk-polar-bear-lodge-george-turner-photo.jpg?resize=740%2C740&ssl=1';
 
   return (
-    <div className={classes.root} onClick={handleVideoClick}>
+    <div
+      className={classes.root} 
+      component={Link} 
+      container
+      onClick={() => router.history.replace(`/watch/${id}`)}
+    >
       <div className={classes.thumbnail}>
-        <img alt="thumbnail" src={thumbnail? thumbnail : `http://img.youtube.com/vi/${vid}/0.jpg`} />
+        <img alt="thumbnail" src={thumbnail? thumbnail : `http://img.youtube.com/vi/${video_id}/0.jpg`} />
       </div>
 
       <div className={classes.details}>

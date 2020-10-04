@@ -32,7 +32,6 @@ const VideoGrid = () => {
   const [rowsPerPage] = useState(10);
   const [page] = useState(0);
 
-
   const {
     mediaGet: { loading: mediasLoading, medias }
   } = useSelector(({ mediaGet }) => ({ mediaGet }));
