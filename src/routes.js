@@ -163,6 +163,11 @@ const routes = [
         component: lazy(() => import('views/Register'))
       },
       {
+        path: '/watch',
+        exact: true,
+        component: lazy(() => import('views/VideoHome')),
+      },
+      {
         path: '/watch/:videoId',
         exact: true,
         component: lazy(() => import('views/WatchVideo'))

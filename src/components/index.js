@@ -23,3 +23,4 @@ export { default as StackAvatars } from './StackAvatars';
 export { default as StatusBullet } from './StatusBullet';
 export { default as TableEditBar } from './TableEditBar';
 export { default as VideoList } from './VideoList';
+export { default as VideoGridItem } from './VideoGridItem';
