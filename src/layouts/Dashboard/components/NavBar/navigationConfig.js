@@ -8,7 +8,7 @@ import {
   PermMediaOutlined
 } from '@material-ui/icons';
 
-// import BarChartIcon from '@material-ui/icons/BarChart';
+import BarChartIcon from '@material-ui/icons/BarChart';
 // import ChatIcon from '@material-ui/icons/ChatOutlined';
 // import DashboardIcon from '@material-ui/icons/DashboardOutlined';
 // import ErrorIcon from '@material-ui/icons/ErrorOutline';
@@ -37,25 +37,25 @@ export const navigationConfig = t => [
       //     }
       //   ]
       // },
-      // {
-      //   title: 'Management',
-      //   href: '/management',
-      //   icon: BarChartIcon,
-      //   children: [
-      //     {
-      //       title: 'Customers',
-      //       href: '/management/customers'
-      //     },
-      //     {
-      //       title: 'Customer Details',
-      //       href: '/management/customers/1/summary'
-      //     },
-      //     {
-      //       title: 'Projects',
-      //       href: '/management/projects'
-      //     }
-      //   ]
-      // },
+      {
+        title: 'Management',
+        href: '/admin/management',
+        icon: BarChartIcon,
+        children: [
+          {
+            title: 'Customers',
+            href: '/admin/management/customers'
+          },
+          {
+            title: 'Customer Details',
+            href: '/admin/management/customers/1/summary'
+          },
+          {
+            title: 'Projects',
+            href: '/admin/management/projects'
+          }
+        ]
+      },
       // {
       //   title: 'Social Feed',
       //   href: '/social-feed',
