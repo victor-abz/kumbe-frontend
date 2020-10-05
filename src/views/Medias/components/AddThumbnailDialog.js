@@ -55,7 +55,7 @@ export const AddThumbnailDialog = ({ open, setOpen, media }) => {
           color="primary"
           disabled={loading}
           onClick={() => saveThumbnail()}>
-          {loading ? t('blog:btn_loading') : t('blog:btn_save')}
+          {loading ? t('blog:btn_loading') : t('media:btn_save')}
         </Button>
       </DialogActions>
     </Dialog>

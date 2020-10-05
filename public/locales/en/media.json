@@ -18,5 +18,6 @@
   "col_type": "Media type",
   "upload_title": "Select file",
   "upload_sub_title": "Drop your image or click to browse from your machine",
-  "add_thumb_title": "Add a thumbnail to this media:"
+  "add_thumb_title": "Add a thumbnail to this media:",
+  "btn_save": "Save"
 }

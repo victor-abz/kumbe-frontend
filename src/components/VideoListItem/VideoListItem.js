@@ -3,11 +3,11 @@ import { Grid, Typography } from '@material-ui/core';
 import { useStyles } from './style';
 import { Link } from 'react-router-dom';
 import useRouter from 'utils/useRouter';
+import { getThumbnail } from 'utils/constants';
 
-const VideoGridItem = ({ id, title, thumbnail }) => {
+const VideoGridItem = ({ id, title, thumbnail, type }) => {
   const classes = useStyles();
   const router = useRouter();
-  const thumbnailsPath = `${process.env.REACT_APP_API_URL}/api/res/thumbnails`;
 
   return (
     <Grid
@@ -17,7 +17,7 @@ const VideoGridItem = ({ id, title, thumbnail }) => {
       onClick={() => router.history.replace(`/watch/${id}`)}>
       <Grid item>
         <div className={classes.thumbnail}>
-          <img alt="thumbnail" src={`${thumbnailsPath}/${thumbnail}`} />
+          <img alt="thumbnail" src={`${getThumbnail(thumbnail, type)}`} />
         </div>
       </Grid>
 

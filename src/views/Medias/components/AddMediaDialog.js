@@ -214,7 +214,7 @@ export const AddMediaDialog = ({ open, setOpen }) => {
           color="primary"
           disabled={loading}
           onClick={() => addMedia(values)}>
-          {loading ? t('blog:btn_loading') : t('blog:btn_save')}
+          {loading ? t('blog:btn_loading') : t('media:btn_save')}
         </Button>
       </DialogActions>
     </Dialog>

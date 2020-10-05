@@ -11,6 +11,7 @@ export const mediaAddReducer = (state = baseState('message', ''), action) => {
     case pending(ADD_NEW_MEDIA):
       return {
         ...state,
+        loaded: false,
         loading: true
       };
     case fulfilled(ADD_NEW_MEDIA):
@@ -33,6 +34,7 @@ export const mediaGetReducer = (state = baseState('medias', []), action) => {
     case pending(GET_MEDIAS):
       return {
         ...state,
+        loaded: false,
         loading: true
       };
     case fulfilled(GET_MEDIAS):
