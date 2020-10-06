@@ -7,7 +7,7 @@ import useRouter from 'utils/useRouter';
 const VideoGridItem = ({ id, title, thumbnail }) => {
   const classes = useStyles();
   const router = useRouter();
-  const thumbnailsPath = `${process.env.REACT_APP_API_URL}/api/res/thumbnails`;
+  // const thumbnailsPath = `${process.env.REACT_APP_API_URL}/api/res/thumbnails`;
 
   return (
     <Grid
@@ -17,7 +17,7 @@ const VideoGridItem = ({ id, title, thumbnail }) => {
       onClick={() => router.history.replace(`/watch/${id}`)}>
       <Grid item>
         <div className={classes.thumbnail}>
-          <img alt="thumbnail" src={`${thumbnailsPath}/${thumbnail}`} />
+          <img alt="thumbnail" src={thumbnail} />
         </div>
       </Grid>
 

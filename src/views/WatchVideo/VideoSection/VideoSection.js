@@ -3,7 +3,7 @@ import { Grid, Typography, Divider } from '@material-ui/core';
 import { useStyles } from './style';
 import ReactPlayer from 'react-player/lazy';
 
-const thumbnailsPath = `${process.env.REACT_APP_API_URL}/api/res/thumbnails`;
+// const thumbnailsPath = `${process.env.REACT_APP_API_URL}/api/res/thumbnails`;
 const audiosPath = `${process.env.REACT_APP_API_URL}/api/res/audios`;
 const VideoSection = ({ video }) => {
   const classes = useStyles();
@@ -19,7 +19,7 @@ const VideoSection = ({ video }) => {
             className={classes.reactPlayer}
             controls
             height="100%"
-            light={`${thumbnailsPath}/${video.thumbnail}`}
+            light={video.thumbnail}
             pip
             playing
             stopOnUnmount={false}

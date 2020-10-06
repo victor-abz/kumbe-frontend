@@ -1,6 +1,11 @@
 import { combineReducers } from 'redux';
 
-import { loginReducer, authReducer, registerReducer } from './authReducer';
+import {
+  loginReducer,
+  authReducer,
+  registerReducer,
+  logOutReducer
+} from './authReducer';
 import { blogAddReducer, blogsGetReducer, blogGetReducer } from './blogReducer';
 import { categoryAddReducer, categoryGetReducer } from './categoryReducer';
 import { fileReducer } from './fileReducer';
@@ -27,5 +32,6 @@ export default combineReducers({
   mediaAdd: mediaAddReducer,
   mediaGet: mediaGetReducer,
   mediaEdit: mediaEditReducer,
-  mediaDetail: mediaDetailReducer
+  mediaDetail: mediaDetailReducer,
+  logOut: logOutReducer
 });

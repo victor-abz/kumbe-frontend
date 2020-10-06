@@ -8,9 +8,13 @@ import {
 } from './actionTypes';
 
 export const addMedia = (newMedia = {}) => {
+  let mediaObj = newMedia;
+  if (newMedia.type === 'image') {
+    mediaObj = { ...newMedia, title: 'Image', description: 'Image' };
+  }
   store.dispatch({
     type: ADD_NEW_MEDIA,
-    payload: http.post('/medias', newMedia)
+    payload: http.post('/medias', mediaObj)
   });
 };
 export const getMedias = (mediaType = 'all') => {

@@ -2,7 +2,7 @@
 /* eslint-disable react/jsx-sort-props */
 /* eslint-disable no-unused-vars */
 import React, { useState, useRef, useEffect } from 'react';
-import { Link as RouterLink, NavLink } from 'react-router-dom';
+import { Link, Link as RouterLink, NavLink } from 'react-router-dom';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { useStyles } from '../../styles';
@@ -19,7 +19,6 @@ import {
   Typography,
   FormControl,
   Select,
-  Link,
   MenuItem,
   Menu
 } from '@material-ui/core';
@@ -33,34 +32,35 @@ import TranslateIcon from '@material-ui/icons/Translate';
 import ExpandMoreRoundedIcon from '@material-ui/icons/ExpandMoreRounded';
 import axios from 'utils/axios';
 import { useTranslation } from 'react-i18next';
-import  useRouter  from 'utils/useRouter';
+import useRouter from 'utils/useRouter';
 import { navigationConfig } from '../NavBar/navigationConfig';
 import { withStyles } from '@material-ui/core/styles';
+import { useSelector } from 'react-redux';
 
 const StyledMenu = withStyles({
   paper: {
     borderRadius: 0,
     backgroundColor: colors.purple[600],
     color: '#fff',
-    border: '1px solid #d3d4d5',
-  },
-})((props) => (
+    border: '1px solid #d3d4d5'
+  }
+})(props => (
   <Menu
     elevation={0}
     getContentAnchorEl={null}
     anchorOrigin={{
       vertical: 'bottom',
-      horizontal: 'center',
+      horizontal: 'center'
     }}
     transformOrigin={{
       vertical: 'top',
-      horizontal: 'center',
+      horizontal: 'center'
     }}
     {...props}
   />
 ));
 
-const StyledMenuItem = withStyles((theme) => ({
+const StyledMenuItem = withStyles(theme => ({
   root: {
     color: '#fff',
     '&:hover': {
@@ -79,22 +79,23 @@ const TopBar = props => {
 
   const defaultLng = 'en';
   let lng = defaultLng;
-  
+
   const storageLanguage = localStorage.getItem('language');
   lng = storageLanguage;
 
   const [language, setLanguage] = useState(lng);
-  const [languages, setLanguages] = useState(['en', 'kin'])
-  
-  const handleChange = (event) => {
+  const [languages, setLanguages] = useState(['en', 'kin']);
+  const { loggedIn, user } = useSelector(({ auth }) => auth);
+
+  const handleChange = event => {
     setLanguage(event.target.value);
     localStorage.setItem('language', event.target.value);
     i18n.changeLanguage(event.target.value);
-    window.location.reload()
+    window.location.reload();
   };
 
   const { location } = useRouter();
-  
+
   useEffect(() => {
     let mounted = true;
 
@@ -115,7 +116,7 @@ const TopBar = props => {
 
   const [anchorEl, setAnchorEl] = useState(null);
 
-  const handleClick = (event) => {
+  const handleClick = event => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -123,12 +124,12 @@ const TopBar = props => {
     setAnchorEl(null);
   };
 
-
   // eslint-disable-next-line react/no-multi-comp
-  const iconComponent = (props) => {
+  const iconComponent = props => {
     return (
-      <ExpandMoreRoundedIcon className={props.className + ' ' + classes.icon}/>
-    )};
+      <ExpandMoreRoundedIcon className={props.className + ' ' + classes.icon} />
+    );
+  };
 
   const menuProps = {
     classes: {
@@ -146,19 +147,12 @@ const TopBar = props => {
     getContentAnchorEl: null
   };
   return (
-    <AppBar
-      {...rest}
-      className={clsx(classes.root, className)}
-      color="primary"
-    >
+    <AppBar {...rest} className={clsx(classes.root, className)} color="primary">
       <Toolbar>
-        <div className = {classes.left}>
+        <div className={classes.left}>
           <RouterLink to="/">
-            <Typography 
-              className={classes.title}
-              variant="h2" 
-            >
-            Kumbe!
+            <Typography className={classes.title} variant="h2">
+              Kumbe!
             </Typography>
             {/* <img
             alt="Logo"
@@ -167,15 +161,24 @@ const TopBar = props => {
           </RouterLink>
         </div>
         <Hidden smDown>
-          <div style={{ alignItems: 'center'}}>
-            <Row gutter={1} className={classes.middle} >
-              {
-                navigationConfig(t).filter(p => p.title === 'Pages')[0].pages.map((menu, index) => (
-                  menu.children ?
+          <div style={{ alignItems: 'center' }}>
+            <Row gutter={1} className={classes.middle}>
+              {navigationConfig(t)
+                .filter(p => p.title === 'Pages')[0]
+                .pages.map((menu, index) =>
+                  menu.children ? (
                     <>
-                      <RouterLink aria-controls="popup-menu" key={index} onClick={handleClick}>
-                        <Item className= {Boolean(anchorEl) ? classes.itemActive : classes.item}  >
-                          <Typography variant="h6" className={classes.white} >
+                      <RouterLink
+                        aria-controls="popup-menu"
+                        key={index}
+                        onClick={handleClick}>
+                        <Item
+                          className={
+                            Boolean(anchorEl)
+                              ? classes.itemActive
+                              : classes.item
+                          }>
+                          <Typography variant="h6" className={classes.white}>
                             {menu.title}
                           </Typography>
                         </Item>
@@ -185,30 +188,33 @@ const TopBar = props => {
                         anchorEl={anchorEl}
                         keepMounted
                         open={Boolean(anchorEl)}
-                        onClose={handleClose}
-                      >
-                        { menu.children.map( (child, index) => (
-                          <RouterLink key={index} to={child.href} >
-                            <StyledMenuItem >
-                              {child.title}
-                            </StyledMenuItem>
+                        onClose={handleClose}>
+                        {menu.children.map((child, index) => (
+                          <RouterLink key={index} to={child.href}>
+                            <StyledMenuItem>{child.title}</StyledMenuItem>
                           </RouterLink>
                         ))}
-                      </StyledMenu> 
-                    </> :
-                    <RouterLink key={index} to={menu.href} >
-                      <Item className= {location.pathname === menu.href ? classes.itemActive : classes.item} >
-                        <Typography variant="h6" className={classes.white} >
+                      </StyledMenu>
+                    </>
+                  ) : (
+                    <RouterLink key={index} to={menu.href}>
+                      <Item
+                        className={
+                          location.pathname === menu.href
+                            ? classes.itemActive
+                            : classes.item
+                        }>
+                        <Typography variant="h6" className={classes.white}>
                           {menu.title}
                         </Typography>
                       </Item>
-                    </RouterLink> 
-                ))
-              }
+                    </RouterLink>
+                  )
+                )}
             </Row>
           </div>
         </Hidden>
-        <div className={classes.flexGrow}/>
+        <div className={classes.flexGrow} />
         <Hidden smDown>
           {/* <Button
             className={classes.forumButton}
@@ -222,11 +228,9 @@ const TopBar = props => {
             color="inherit"
             variant="contained"
             component={Link}
-            href={'/login'}
-
-          >
+            to={loggedIn ? 'admin/blogs' : '/login'}>
             <InputIcon className={classes.loginIcon} />
-            {t('top_bar:login')}
+            {loggedIn ? user.firstName : t('top_bar:login')}
           </Button>
         </Hidden>
         <FormControl>
@@ -236,25 +240,19 @@ const TopBar = props => {
             IconComponent={iconComponent}
             MenuProps={menuProps}
             onChange={handleChange}
-            value={language}
-          >
+            value={language}>
             {languages.map((option, index) => (
               <MenuItem key={index} value={option.shortName}>
                 <ListItemIcon classes={{ root: classes.listIcon }}>
-                  <TranslateIcon/>
+                  <TranslateIcon />
                 </ListItemIcon>
-                <span style={{marginTop:3}}>
-                  {option.name}
-                </span>
+                <span style={{ marginTop: 3 }}>{option.name}</span>
               </MenuItem>
             ))}
           </Select>
         </FormControl>
         <Hidden lgUp>
-          <IconButton
-            color="inherit"
-            onClick={onOpenNavBarMobile}
-          >
+          <IconButton color="inherit" onClick={onOpenNavBarMobile}>
             <MenuIcon />
           </IconButton>
         </Hidden>
