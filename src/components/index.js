@@ -24,3 +24,4 @@ export { default as StatusBullet } from './StatusBullet';
 export { default as TableEditBar } from './TableEditBar';
 export { default as VideoList } from './VideoList';
 export { default as VideoGridItem } from './VideoGridItem';
+export { default as AudioPlayList } from './AudioPlayList';
