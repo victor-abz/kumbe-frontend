@@ -105,6 +105,7 @@ const useStyles = makeStyles(theme => ({
   },
   item: {
     padding: theme.spacing(1, itemHorzPadding),
+    margin: theme.spacing(0, 1),
     cursor: 'pointer',
     textDecoration: 'none',
     color: '#ffffff',
@@ -116,6 +117,7 @@ const useStyles = makeStyles(theme => ({
   itemActive: {
     padding: theme.spacing(1, itemHorzPadding),
     cursor: 'pointer',
+    margin: theme.spacing(0, 1),
     textDecoration: 'none',
     color: '#ffffff',
     backgroundColor: theme.palette.secondary.light,
@@ -147,6 +149,14 @@ const useStyles = makeStyles(theme => ({
     minWidth: 256,
     flex: '0 0 auto'
   },
+  styledMenuItem: {
+    '&:hover': {
+      backgroundColor: theme.palette.secondary.light,
+      '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
+        color: '#ff5500',
+      },
+    },
+  }
 }));
 
 export default useStyles;

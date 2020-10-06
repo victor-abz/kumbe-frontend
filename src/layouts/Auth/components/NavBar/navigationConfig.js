@@ -12,16 +12,16 @@ export const navigationConfig = t => [
       {
         title: t('top_bar:media'),
         href: '/#',
-        // children: [
-        //   {
-        //     title: t('blog:blog_browse'),
-        //     href: '/admin/blogs'
-        //   },
-        //   {
-        //     title: t('blog:title'),
-        //     href: '/admin/blogs/create'
-        //   }
-        // ]
+        children: [
+          {
+            title: t('top_bar:videos'),
+            href: '/watch'
+          },
+          {
+            title: t('top_bar:audios'),
+            href: '/listen'
+          }
+        ]
       },
       {
         title: t('top_bar:mix'),

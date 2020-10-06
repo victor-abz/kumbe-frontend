@@ -52,7 +52,7 @@ const SearchBar = props => {
       <Grid item>
         <Search className={classes.search} onSearch={onSearch} />
       </Grid>
-      <Grid item>
+      {/* <Grid item>
         <Button
           className={classes.filterButton}
           color="primary"
@@ -62,12 +62,12 @@ const SearchBar = props => {
           <FilterListIcon className={classes.filterIcon} />
           {t('blog:show_filters')}
         </Button>
-      </Grid>
+      </Grid> 
       <Filter
         onClose={handleFilterClose}
         onFilter={onFilter}
         open={openFilter}
-      />
+      /> */}
     </Grid>
   );
 };
