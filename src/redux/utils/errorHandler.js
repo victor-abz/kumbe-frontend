@@ -11,8 +11,8 @@ export const errorHandler = () => {
       return next(action).catch(error => {
         let errorMessage = '';
         if (error.response) {
-          const { error: message } = error.response.data;
-          errorMessage = message;
+          const { error: apiError, message } = error.response.data;
+          errorMessage = apiError || message;
         } else {
           errorMessage = error.message;
         }
