@@ -173,6 +173,11 @@ const routes = [
         component: lazy(() => import('views/WatchVideo'))
       },
       {
+        path: '/listen',
+        exact: true,
+        component: lazy(() => import('views/Listen')),
+      },
+      {
         component: () => <Redirect to="/errors/error-404" />
       }
     ]
