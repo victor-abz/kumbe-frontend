@@ -92,17 +92,19 @@ export const AddMediaDialog = ({ open, setOpen }) => {
       <DialogContent>
         <DialogContentText>{t('media:dialog_description')}</DialogContentText>
         <Grid container spacing={3}>
-          <Grid item md={6} xs={12}>
-            <TextField
-              autoFocus
-              fullWidth
-              label={t('media:input_title')}
-              margin="dense"
-              name="title"
-              onChange={onHandleChange}
-              value={values.name}
-            />
-          </Grid>
+          {values.type !== 'image' ? (
+            <Grid item md={6} xs={12}>
+              <TextField
+                autoFocus
+                fullWidth
+                label={t('media:input_title')}
+                margin="dense"
+                name="title"
+                onChange={onHandleChange}
+                value={values.name}
+              />
+            </Grid>
+          ) : null}
           <Grid item md={6} xs={12}>
             <FormControl fullWidth>
               <InputLabel id="media-type">{t('media:input_type')}</InputLabel>
@@ -120,16 +122,18 @@ export const AddMediaDialog = ({ open, setOpen }) => {
               </Select>
             </FormControl>
           </Grid>
-          <Grid item md={12} xs={12}>
-            <TextField
-              fullWidth
-              label={t('media:input_description')}
-              margin="dense"
-              name="description"
-              onChange={onHandleChange}
-              value={values.description}
-            />
-          </Grid>
+          {values.type !== 'image' ? (
+            <Grid item md={12} xs={12}>
+              <TextField
+                fullWidth
+                label={t('media:input_description')}
+                margin="dense"
+                name="description"
+                onChange={onHandleChange}
+                value={values.description}
+              />
+            </Grid>
+          ) : null}
           <Grid item md={12} xs={12}>
             {values.type === 'video' ? (
               <TextField
@@ -178,8 +182,8 @@ export const AddMediaDialog = ({ open, setOpen }) => {
               renderInput={params => (
                 <TextField
                   {...params}
-                  label={t('blog:placeholder_tags')}
-                  placeholder={t('blog:placeholder_tags')}
+                  label={t('media:placeholder_tags')}
+                  placeholder={t('media:placeholder_tags')}
                   variant="outlined"
                 />
               )}

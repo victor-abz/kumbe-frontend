@@ -4,25 +4,23 @@ import { Avatar, Typography } from '@material-ui/core';
 import { useStyles } from './style';
 import useRouter from 'utils/useRouter';
 
-const VideoGridItem = ({id, thumbnail, description, title, mediaLink }) => {
+const VideoGridItem = ({ id, description, title, thumbnail }) => {
   const classes = useStyles();
-  const router = useRouter()
-  
-  const results = mediaLink.match('[\\?&]v=([^&#]*)');
-  const video_id = ( results === null ) ? mediaLink : results[1];
+  const router = useRouter();
+
+  // const results = mediaLink.match('[\\?&]v=([^&#]*)');
+  // const video_id = results === null ? mediaLink : results[1];
 
   const AvatarImg =
-  'https://i2.wp.com/churchillwild.com/wp-content/uploads/2019/03/janet-the-polar-bear-nanuk-polar-bear-lodge-george-turner-photo.jpg?resize=740%2C740&ssl=1';
-
+    'https://i2.wp.com/churchillwild.com/wp-content/uploads/2019/03/janet-the-polar-bear-nanuk-polar-bear-lodge-george-turner-photo.jpg?resize=740%2C740&ssl=1';
   return (
     <div
-      className={classes.root} 
-      component={Link} 
+      className={classes.root}
+      component={Link}
       container
-      onClick={() => router.history.replace(`/watch/${id}`)}
-    >
+      onClick={() => router.history.push(`/watch/${id}`)}>
       <div className={classes.thumbnail}>
-        <img alt="thumbnail" src={thumbnail? thumbnail : `http://img.youtube.com/vi/${video_id}/0.jpg`} />
+        <img alt={title} src={thumbnail} />
       </div>
 
       <div className={classes.details}>
@@ -32,7 +30,7 @@ const VideoGridItem = ({id, thumbnail, description, title, mediaLink }) => {
             {title}
           </Typography>
           <Typography color="inherit" variant="body2">
-            {description} 
+            {description}
           </Typography>
         </div>
       </div>

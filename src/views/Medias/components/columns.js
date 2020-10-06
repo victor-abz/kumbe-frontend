@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, ButtonGroup, Typography } from '@material-ui/core';
 
-export const mediaColumns = (t, viewVideo, addThum) => [
+export const mediaColumns = (t, viewVideo) => [
   { path: 'title', label: t('media:col_title') },
   { path: 'description', label: t('media:col_description') },
   {
@@ -14,18 +14,14 @@ export const mediaColumns = (t, viewVideo, addThum) => [
     label: t('blog:col_actions'),
     content: item => (
       <ButtonGroup aria-label="small outlined button group" size="small">
-        {item.thumbnail ? (
+        {item.type === 'video' ? (
           <Button
             color="primary"
             onClick={() => viewVideo(item)}
             variant="contained">
-            View
+            Watch video
           </Button>
-        ) : (
-          <Button onClick={() => addThum(item)} variant="outlined">
-            Thumnail
-          </Button>
-        )}
+        ) : null}
       </ButtonGroup>
     )
   }
