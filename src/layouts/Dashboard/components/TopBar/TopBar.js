@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   AppBar,
@@ -39,6 +39,9 @@ import useRouter from 'utils/useRouter';
 import { PricingModal, NotificationsPopover } from 'components';
 import { useTranslation } from 'react-i18next';
 import { useStyles } from './styles';
+import { logoutUser } from 'redux/actions';
+import { AUTH_TOKEN } from 'utils/constants';
+import { notifier } from 'utils/notifier';
 
 // const useStyles = makeStyles(theme => ({
 //   root: {
@@ -107,10 +110,9 @@ import { useStyles } from './styles';
 const TopBar = props => {
   const { onOpenNavBarMobile, className, ...rest } = props;
   const { t } = useTranslation();
+  const { loading, loaded, message } = useSelector(({ logOut }) => logOut);
   const classes = useStyles();
-  const { history } = useRouter();
   const searchRef = useRef(null);
-  const dispatch = useDispatch();
   const notificationsRef = useRef(null);
   const [pricingModalOpen, setPricingModalOpen] = useState(false);
   const [openSearchPopover, setOpenSearchPopover] = useState(false);
@@ -118,6 +120,7 @@ const TopBar = props => {
   const [notifications, setNotifications] = useState([]);
   const [openNotifications, setOpenNotifications] = useState(false);
   const { i18n } = useTranslation();
+  const { history } = useRouter();
 
   const defaultLng = 'en';
   let lng = defaultLng;
@@ -162,11 +165,13 @@ const TopBar = props => {
       mounted = false;
     };
   }, []);
-
-  const handleLogout = () => {
-    history.push('/login');
-    // dispatch(logout());
-  };
+  useEffect(() => {
+    if (loaded) {
+      notifier.success(message);
+      localStorage.removeItem(AUTH_TOKEN);
+      history.replace('/');
+    }
+  }, [loaded]);
 
   const handlePricingOpen = () => {
     setPricingModalOpen(true);
@@ -302,7 +307,8 @@ const TopBar = props => {
           <Button
             className={classes.logoutButton}
             color="inherit"
-            onClick={handleLogout}>
+            disabled={loading}
+            onClick={() => logoutUser()}>
             <InputIcon className={classes.logoutIcon} />
             {t('top_bar:signout')}
           </Button>
