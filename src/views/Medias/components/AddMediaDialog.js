@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Button,
   TextField,
@@ -12,20 +12,18 @@ import {
   MenuItem,
   FormControl,
   InputLabel,
-  Typography,
   Chip
 } from '@material-ui/core';
 import { addMedia, getMedias } from 'redux/actions/media';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { useDropzone } from 'react-dropzone';
 import { useStyles } from 'components/FilesDropzone/styles';
-import clsx from 'clsx';
 import { resetUploadedFile, uploadFile } from 'redux/actions/file';
 import { Add as AddIcon } from '@material-ui/icons';
 import { Autocomplete } from '@material-ui/lab';
 import { AddTagDialog } from 'views/BlogCreate/components/AboutBlog/AddTagDialog';
 import { getTags } from 'redux/actions/tag';
+import { FilesDropzone } from 'components';
 
 const types = ['audio', 'video', 'image'];
 
@@ -74,9 +72,6 @@ export const AddMediaDialog = ({ open, setOpen }) => {
     const inputValue = name ? value : tags.map(({ id }) => id);
     setValues({ ...values, [inputName]: inputValue });
   };
-  const onDrop = useCallback(acceptedFiles => {
-    setTheFile(acceptedFiles[0]);
-  }, []);
   useEffect(() => {
     if (values.type !== '' && theFile) {
       const formData = new FormData();
@@ -84,7 +79,6 @@ export const AddMediaDialog = ({ open, setOpen }) => {
       uploadFile(formData, values.type, fileName);
     }
   }, [theFile]);
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
   return (
     <Dialog aria-labelledby="cat-dialog-title" onClose={setOpen} open={open}>
       <AddTagDialog open={openAddTag} setOpen={() => setOpenAddTag(false)} />
@@ -145,30 +139,14 @@ export const AddMediaDialog = ({ open, setOpen }) => {
                 value={values.name}
               />
             ) : (
-              <div
-                className={clsx({
-                  [classes.dropZone]: true,
-                  [classes.dragActive]: isDragActive
-                })}
-                {...getRootProps()}>
-                <input {...getInputProps()} />
-
-                <div>
-                  <Typography gutterBottom variant="h3">
-                    {done && fileName !== ''
-                      ? 'Uploaded file'
-                      : t('media:upload_title')}
-                  </Typography>
-                  <Typography
-                    className={classes.info}
-                    color="textSecondary"
-                    variant="body1">
-                    {done && fileName !== ''
-                      ? fileName
-                      : t('media:upload_sub_title')}
-                  </Typography>
-                </div>
-              </div>
+              <FilesDropzone
+                acceptedFiles={
+                  values.type === 'audio'
+                    ? 'audio/mp3, audio/mpeg'
+                    : 'image/jpeg, image/png'
+                }
+                fileType={values.type}
+              />
             )}
           </Grid>
           <Grid item md={8} xs={12}>
@@ -218,7 +196,7 @@ export const AddMediaDialog = ({ open, setOpen }) => {
           color="primary"
           disabled={loading}
           onClick={() => addMedia(values)}>
-          {loading ? t('blog:btn_loading') : t('blog:btn_save')}
+          {loading ? t('blog:btn_loading') : t('media:btn_save')}
         </Button>
       </DialogActions>
     </Dialog>
