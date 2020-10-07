@@ -12,3 +12,4 @@ export const toUserAccess = accessLevel => {
   }
 };
 export const UPLOADED_FILE_NAME = 'file-name';
+export const audiosPath = `${process.env.REACT_APP_API_URL}/api/res/audios`;

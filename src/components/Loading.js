@@ -37,5 +37,9 @@ export const Loading = () => {
     };
   }, []);
 
-  return <CircularProgressWithLabel value={progress} />;
+  return (
+    <Typography align="center" variant="h4">
+      <CircularProgressWithLabel value={progress} />
+    </Typography>
+  );
 };

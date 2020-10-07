@@ -22,7 +22,10 @@ import { UPLOADED_FILE_NAME } from 'utils/constants';
 import { uploadFile } from 'redux/actions/file';
 import { useTranslation } from 'react-i18next';
 
-const FilesDropzone = ({ fileType = 'coverImage' }) => {
+const FilesDropzone = ({
+  fileType = 'coverImage',
+  acceptedFiles = 'image/jpeg, image/png'
+}) => {
   const classes = useStyles();
   const [file, setFile] = useState(null);
   const { t } = useTranslation();
@@ -44,7 +47,7 @@ const FilesDropzone = ({ fileType = 'coverImage' }) => {
   }, [loaded]);
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop: handleDrop,
-    accept: 'image/jpeg, image/png'
+    accept: acceptedFiles
   });
   const handleUploadFile = () => {
     const formData = new FormData();
@@ -53,32 +56,38 @@ const FilesDropzone = ({ fileType = 'coverImage' }) => {
   };
   return (
     <div className={classes.root}>
-      <div
-        className={clsx({
-          [classes.dropZone]: true,
-          [classes.dragActive]: isDragActive
-        })}
-        {...getRootProps()}>
-        <input {...getInputProps()} />
-        <div>
-          <img
-            alt={t('blog:upload_title')}
-            className={classes.image}
-            src="/images/undraw_add_file2_gvbb.svg"
-          />
+      {loading ? (
+        <Typography align="center" variant="h3">
+          File is uploading, please wait,...
+        </Typography>
+      ) : (
+        <div
+          className={clsx({
+            [classes.dropZone]: true,
+            [classes.dragActive]: isDragActive
+          })}
+          {...getRootProps()}>
+          <input {...getInputProps()} />
+          <div>
+            <img
+              alt={t('blog:upload_title')}
+              className={classes.image}
+              src="/images/undraw_add_file2_gvbb.svg"
+            />
+          </div>
+          <div>
+            <Typography gutterBottom variant="h3">
+              {t('blog:upload_title')}
+            </Typography>
+            <Typography
+              className={classes.info}
+              color="textSecondary"
+              variant="body1">
+              {t('blog:upload_sub_title')}
+            </Typography>
+          </div>
         </div>
-        <div>
-          <Typography gutterBottom variant="h3">
-            {t('blog:upload_title')}
-          </Typography>
-          <Typography
-            className={classes.info}
-            color="textSecondary"
-            variant="body1">
-            {t('blog:upload_sub_title')}
-          </Typography>
-        </div>
-      </div>
+      )}
       {file !== null && (
         <Fragment>
           <PerfectScrollbar options={{ suppressScrollX: true }}>

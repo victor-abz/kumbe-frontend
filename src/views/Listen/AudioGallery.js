@@ -17,7 +17,11 @@ const AudioGallery = ({ match }) => {
     mediaDetail: { loading, media },
     mediaGet: { loading: mediasLoading, medias },
     blogsGet: { blogs }
-  } = useSelector(({ mediaDetail, mediaGet, blogsGet }) => ({ mediaDetail, mediaGet, blogsGet }));
+  } = useSelector(({ mediaDetail, mediaGet, blogsGet }) => ({
+    mediaDetail,
+    mediaGet,
+    blogsGet
+  }));
 
   useEffect(() => {
     getMediaDetail(videoId);
@@ -30,47 +34,47 @@ const AudioGallery = ({ match }) => {
   return (
     <Grid className={classes.root} container>
       <Grid className={classes.videoSection} item md xs={12}>
-        {loading ? <Loading /> : 
-          [
-            {url:'https://www.mfiles.co.uk/mp3-downloads/gs-cd-track2.mp3', id: 1 }, 
-            {url:'https://www.mfiles.co.uk/mp3-downloads/gs-cd-track2.mp3', id: 2 }, 
-            {url:'https://www.mfiles.co.uk/mp3-downloads/gs-cd-track2.mp3', id: 3 }
-          ].map( ({ url, id }) => (
-            <AudioPlayList id={id} url={url}/>
-          ))}
+        {loading ? (
+          <Loading />
+        ) : (
+          medias.map(({ mediaLink, id }) => (
+            <AudioPlayList id={id} url={mediaLink} />
+          ))
+        )}
       </Grid>
       <Grid className={classes.relatedVideo} item md={'auto'} xs={12}>
-        {mediasLoading ? <Loading /> : 
+        {mediasLoading ? (
+          <Loading />
+        ) : (
           <>
             <Typography
               className={classes.relatedTitle}
               component="h2"
               variant="h4">
-                Read blogs
+              Read blogs
             </Typography>
             <Divider className={classes.divider} />
             {blogs &&
-                blogs.map((blog, index) => {
-                  return (
-                    <Grid className={classes.otherBlogs} key={index}>
-                      <CustomCard
-                        color={blog.color}
-                        content={blog.content}
-                        cover={blog.coverImage}
-                        date={blog.createdAt}
-                        description={blog.description}
-                        editor={blog.editor}
-                        id={blog.id}
-                        slug={blog.slug}
-                        title={blog.title}
-                        userImage={blog.usrImage}
-                      />
-                    </Grid>
-                  );
-                })}
+              blogs.map((blog, index) => {
+                return (
+                  <Grid className={classes.otherBlogs} key={index}>
+                    <CustomCard
+                      color={blog.color}
+                      content={blog.content}
+                      cover={blog.coverImage}
+                      date={blog.createdAt}
+                      description={blog.description}
+                      editor={blog.editor}
+                      id={blog.id}
+                      slug={blog.slug}
+                      title={blog.title}
+                      userImage={blog.usrImage}
+                    />
+                  </Grid>
+                );
+              })}
           </>
-        
-        }
+        )}
       </Grid>
     </Grid>
   );
