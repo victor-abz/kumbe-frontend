@@ -228,7 +228,7 @@ const TopBar = props => {
             color="inherit"
             variant="contained"
             component={Link}
-            to={loggedIn ? 'admin/blogs' : '/login'}>
+            to={loggedIn ? '/admin/blogs' : '/login'}>
             <InputIcon className={classes.loginIcon} />
             {loggedIn ? user.firstName : t('top_bar:login')}
           </Button>

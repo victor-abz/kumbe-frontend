@@ -35,7 +35,6 @@ import TranslateIcon from '@material-ui/icons/Translate';
 import ExpandMoreRoundedIcon from '@material-ui/icons/ExpandMoreRounded';
 
 import axios from 'utils/axios';
-import useRouter from 'utils/useRouter';
 import { PricingModal, NotificationsPopover } from 'components';
 import { useTranslation } from 'react-i18next';
 import { useStyles } from './styles';
@@ -120,7 +119,6 @@ const TopBar = props => {
   const [notifications, setNotifications] = useState([]);
   const [openNotifications, setOpenNotifications] = useState(false);
   const { i18n } = useTranslation();
-  const { history } = useRouter();
 
   const defaultLng = 'en';
   let lng = defaultLng;
@@ -169,7 +167,7 @@ const TopBar = props => {
     if (loaded) {
       notifier.success(message);
       localStorage.removeItem(AUTH_TOKEN);
-      history.replace('/');
+      window.location.replace('/');
     }
   }, [loaded]);
 

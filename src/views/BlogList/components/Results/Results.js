@@ -134,7 +134,7 @@ const Results = props => {
                             <Link
                               color="inherit"
                               component={RouterLink}
-                              to="/management/customers/1"
+                              to={`/blogs/${blog.slug}`}
                               variant="h6">
                               {`${blog.editor.firstName} ${blog.editor.lastName}`}
                             </Link>
@@ -164,7 +164,7 @@ const Results = props => {
                           color="primary"
                           component={RouterLink}
                           size="small"
-                          to="/management/customers/1"
+                          to={`/blogs/${blog.slug}`}
                           variant="outlined">
                           {t('blog:btn_view')}
                         </Button>
