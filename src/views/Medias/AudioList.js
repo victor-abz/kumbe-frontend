@@ -32,8 +32,10 @@ const AudioList = () => {
   }, []);
   const handleFilter = () => {};
   const handleSearch = () => {};
-  const watchVideo = video => {
-    router.history.push(`/watch/${video.id}`);
+  const viewMedia = media => {
+    const mediaRoute =
+      media.type === 'video' ? `/watch/${media.id}` : '/listen';
+    router.history.push(mediaRoute);
   };
   const addThumbnail = media => {
     setCurrentMedia(media);
@@ -56,7 +58,7 @@ const AudioList = () => {
         <Grid item md={12} xs={12}>
           <CustomisedTable
             className={classes.results}
-            columns={mediaColumns(t, watchVideo, addThumbnail)}
+            columns={mediaColumns(t, viewMedia)}
             data={medias}
             dataCount={medias.length}
             loading={loading}
