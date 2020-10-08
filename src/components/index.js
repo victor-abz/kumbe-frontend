@@ -25,3 +25,4 @@ export { default as TableEditBar } from './TableEditBar';
 export { default as VideoList } from './VideoList';
 export { default as VideoGridItem } from './VideoGridItem';
 export { default as AudioPlayList } from './AudioPlayList';
+export { default as AudioPlayer } from './AudioPlayer';
