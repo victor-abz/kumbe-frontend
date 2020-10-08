@@ -81,10 +81,10 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function AudioPlayer({ track }) {
+export default function AudioPlayer({ track, playing, setPlay }) {
   const waveformRef = useRef(null);
   const wavesurfer = useRef(null);
-  const [playing, setPlay] = useState(false);
+  //   const [playing, setPlay] = useState(false);
   const [volume, setVolume] = useState(0.5);
 
   const classes = useStyles();
@@ -93,7 +93,7 @@ export default function AudioPlayer({ track }) {
   // create new WaveSurfer instance
   // On component mount and when url changes
   useEffect(() => {
-    setPlay(false);
+    // setPlay(false);
 
     const options = formWaveSurferOptions(waveformRef.current);
     wavesurfer.current = WaveSurfer.create(options);
