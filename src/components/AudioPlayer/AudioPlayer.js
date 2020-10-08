@@ -93,7 +93,7 @@ export default function AudioPlayer({ track, playing, setPlay }) {
   // create new WaveSurfer instance
   // On component mount and when url changes
   useEffect(() => {
-    // setPlay(false);
+    setPlay(false);
 
     const options = formWaveSurferOptions(waveformRef.current);
     wavesurfer.current = WaveSurfer.create(options);
