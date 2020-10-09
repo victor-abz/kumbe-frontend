@@ -12,7 +12,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 const BlogCover = props => {
-  const { className, ...rest } = props;
+  const { className, currentFile = '', ...rest } = props;
 
   const classes = useStyles();
   const { t } = useTranslation();
@@ -21,7 +21,7 @@ const BlogCover = props => {
     <Card {...rest} className={clsx(classes.root, className)}>
       <CardHeader title={t('blog:cover_title')} />
       <CardContent>
-        <FilesDropzone />
+        <FilesDropzone currentFile={currentFile} />
       </CardContent>
     </Card>
   );

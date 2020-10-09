@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import clsx from 'clsx';
 import {
   Card,
   CardHeader,
@@ -25,8 +24,7 @@ import { getCategories } from 'redux/actions/category';
 import { AddCategDialog } from './AddCategDialog';
 import { useTranslation } from 'react-i18next';
 
-const AboutBlog = props => {
-  const { className, blog, onHandleChange, ...rest } = props;
+const AboutBlog = ({ blog, blogTags = [], onHandleChange, onChangeTags }) => {
   const classes = useStyles();
   const { t } = useTranslation();
   const [openAddTag, setOpenAddTag] = useState(false);
@@ -40,7 +38,7 @@ const AboutBlog = props => {
     getCategories();
   }, []);
   return (
-    <Card {...rest} className={clsx(classes.root, className)}>
+    <Card className={classes.root}>
       <CardHeader title={t('blog:about_title')} />
       <CardContent>
         <AddTagDialog open={openAddTag} setOpen={() => setOpenAddTag(false)} />
@@ -98,7 +96,7 @@ const AboutBlog = props => {
                 filterSelectedOptions
                 getOptionLabel={option => option.name}
                 multiple
-                onChange={onHandleChange}
+                onChange={onChangeTags}
                 options={tags}
                 renderInput={params => (
                   <TextField
@@ -110,9 +108,15 @@ const AboutBlog = props => {
                 )}
                 renderTags={(value, getTagProps) =>
                   value.map((option, index) => (
-                    <Chip color="primary" label={option.name} {...getTagProps({ index })} style={{ backgroundColor: option.color, color:'#fff' }} />
+                    <Chip
+                      color="primary"
+                      label={option.name}
+                      {...getTagProps({ index })}
+                      style={{ backgroundColor: option.color, color: '#fff' }}
+                    />
                   ))
                 }
+                value={blogTags}
               />
               <Button
                 className={classes.addButton}

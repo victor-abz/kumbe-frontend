@@ -26,7 +26,7 @@ const Blog = props => {
   const { id } = match.params;
 
   const {
-    blogGet: { blog },
+    blogGet: { blog, loaded },
     blogsGet: { blogs }
   } = useSelector(({ blogGet, blogsGet }) => ({ blogGet, blogsGet }));
 
@@ -72,7 +72,7 @@ const Blog = props => {
             </Column>
           </InsetSidebar>
         }>
-        {blog ? (
+        {loaded ? (
           <BlogContent blog={blog} className={classes.blogView} />
         ) : (
           <p>Wait...</p>

@@ -2,6 +2,7 @@
   "name": "Blog",
   "page_header": "Create blog",
   "title": "New blog",
+  "title_edit": "Edit blog:",
   "blog_browse": "Browse blogs",
   "header_title": "Write a new blog",
   "about_title": "About this blog",

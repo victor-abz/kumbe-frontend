@@ -6,7 +6,12 @@ import {
   registerReducer,
   logOutReducer
 } from './authReducer';
-import { blogAddReducer, blogsGetReducer, blogGetReducer } from './blogReducer';
+import {
+  blogAddReducer,
+  blogsGetReducer,
+  blogGetReducer,
+  blogEditReducer
+} from './blogReducer';
 import { categoryAddReducer, categoryGetReducer } from './categoryReducer';
 import { fileReducer } from './fileReducer';
 import {
@@ -33,5 +38,6 @@ export default combineReducers({
   mediaGet: mediaGetReducer,
   mediaEdit: mediaEditReducer,
   mediaDetail: mediaDetailReducer,
-  logOut: logOutReducer
+  logOut: logOutReducer,
+  blogEdit: blogEditReducer
 });

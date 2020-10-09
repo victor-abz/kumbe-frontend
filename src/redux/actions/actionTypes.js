@@ -16,6 +16,7 @@ export const RESET_UPLOADED_FILE = 'RESET_UPLOADED_FILE';
 export const ADD_NEW_BLOG = 'ADD_NEW_BLOG';
 export const GET_BLOGS = 'GET_BLOGS';
 export const GET_BLOG = 'GET_BLOG';
+export const UPDATE_BLOG = 'UPDATE_BLOG';
 
 export const ADD_NEW_MEDIA = 'ADD_NEW_MEDIA';
 export const GET_MEDIAS = 'GET_MEDIAS';

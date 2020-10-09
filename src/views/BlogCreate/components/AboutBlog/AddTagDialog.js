@@ -17,7 +17,7 @@ import {
 import { addNewTag, getTags } from 'redux/actions/tag';
 import { useSelector } from 'react-redux';
 import { ColorPicker } from 'material-ui-color';
- 
+
 const initialState = { name: '', color: '' };
 export const AddTagDialog = ({ open, setOpen }) => {
   const [values, setValues] = useState(initialState);
@@ -34,14 +34,9 @@ export const AddTagDialog = ({ open, setOpen }) => {
   const onHandleChange = ({ target: { name, value } }) => {
     setValues({ ...values, [name]: value });
   };
-  const setTagColor = (e) => {
-    console.log(e);
+  const setTagColor = e => {
     setValues({ ...values, color: e.css.backgroundColor });
-  }
-
-  console.log(values);
-
-  
+  };
   return (
     <Dialog aria-labelledby="dialog-title" onClose={setOpen} open={open}>
       <DialogTitle id="dialog-title">Add a new tag</DialogTitle>
@@ -62,7 +57,12 @@ export const AddTagDialog = ({ open, setOpen }) => {
             />
           </Grid>
           <Grid item md={12} xs={12}>
-            <ColorPicker disableAlpha  name="color" onChange={setTagColor} value={values.color} />
+            <ColorPicker
+              disableAlpha
+              name="color"
+              onChange={setTagColor}
+              value={values.color}
+            />
           </Grid>
         </Grid>
       </DialogContent>

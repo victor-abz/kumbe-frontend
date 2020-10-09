@@ -75,6 +75,11 @@ const routes = [
         component: lazy(() => import('views/BlogCreate'))
       },
       {
+        path: '/admin/blogs/edit/:blogSlug',
+        exact: true,
+        component: lazy(() => import('views/BlogCreate'))
+      },
+      {
         path: '/admin/blogs/:id',
         exact: true,
         component: lazy(() => import('views/ProjectDetails'))
@@ -165,7 +170,7 @@ const routes = [
       {
         path: '/watch',
         exact: true,
-        component: lazy(() => import('views/VideoHome')),
+        component: lazy(() => import('views/VideoHome'))
       },
       {
         path: '/watch/:videoId',
@@ -175,7 +180,7 @@ const routes = [
       {
         path: '/listen',
         exact: true,
-        component: lazy(() => import('views/Listen')),
+        component: lazy(() => import('views/Listen'))
       },
       {
         component: () => <Redirect to="/errors/error-404" />

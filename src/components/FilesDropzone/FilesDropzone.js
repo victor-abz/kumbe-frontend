@@ -24,7 +24,8 @@ import { useTranslation } from 'react-i18next';
 
 const FilesDropzone = ({
   fileType = 'coverImage',
-  acceptedFiles = 'image/jpeg, image/png'
+  acceptedFiles = 'image/jpeg, image/png',
+  currentFile = ''
 }) => {
   const classes = useStyles();
   const [file, setFile] = useState(null);
@@ -51,8 +52,9 @@ const FilesDropzone = ({
   });
   const handleUploadFile = () => {
     const formData = new FormData();
+    const prevFile = currentFile === '' ? currentFile : fileName;
     formData.append('file', file);
-    uploadFile(formData, fileType, fileName);
+    uploadFile(formData, fileType, prevFile);
   };
   return (
     <div className={classes.root}>

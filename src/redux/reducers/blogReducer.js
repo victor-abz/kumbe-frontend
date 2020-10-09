@@ -1,5 +1,10 @@
 import { pending, fulfilled, rejected, baseState } from 'redux/utils';
-import { ADD_NEW_BLOG, GET_BLOGS, GET_BLOG } from 'redux/actions/actionTypes';
+import {
+  ADD_NEW_BLOG,
+  GET_BLOGS,
+  GET_BLOG,
+  UPDATE_BLOG
+} from 'redux/actions/actionTypes';
 
 export const blogAddReducer = (state = baseState('blog', {}), action) => {
   switch (action.type) {
@@ -49,12 +54,12 @@ export const blogsGetReducer = (state = baseState('blogs', []), action) => {
   }
 };
 
-export const blogGetReducer = (state = baseState('blogs', []), action) => {
+export const blogGetReducer = (state = baseState('blog', {}), action) => {
   switch (action.type) {
     case pending(GET_BLOG):
       return {
         ...state,
-        loading: false
+        loading: true
       };
     case fulfilled(GET_BLOG):
       return {
@@ -64,6 +69,29 @@ export const blogGetReducer = (state = baseState('blogs', []), action) => {
         blog: action.payload.data.data
       };
     case rejected(GET_BLOG):
+    default:
+      return {
+        ...state,
+        loading: false
+      };
+  }
+};
+export const blogEditReducer = (state = baseState('message', ''), action) => {
+  switch (action.type) {
+    case pending(UPDATE_BLOG):
+      return {
+        ...state,
+        loaded: false,
+        loading: true
+      };
+    case fulfilled(UPDATE_BLOG):
+      return {
+        ...state,
+        loading: false,
+        loaded: true,
+        message: action.payload.data.message
+      };
+    case rejected(UPDATE_BLOG):
     default:
       return {
         ...state,

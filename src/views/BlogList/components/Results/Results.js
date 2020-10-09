@@ -19,7 +19,8 @@ import {
   TableHead,
   TablePagination,
   TableRow,
-  Typography
+  Typography,
+  ButtonGroup
 } from '@material-ui/core';
 import moment from 'moment';
 import getInitials from 'utils/getInitials';
@@ -160,14 +161,21 @@ const Results = props => {
                         ))}
                       </TableCell>
                       <TableCell align="right">
-                        <Button
-                          color="primary"
-                          component={RouterLink}
-                          size="small"
-                          to={`/blogs/${blog.slug}`}
-                          variant="outlined">
-                          {t('blog:btn_view')}
-                        </Button>
+                        <ButtonGroup aria-label="action button" size="small">
+                          <Button
+                            color="primary"
+                            component={RouterLink}
+                            to={`/blogs/${blog.slug}`}
+                            variant="outlined">
+                            {t('blog:btn_view')}
+                          </Button>
+                          <Button
+                            color="secondary"
+                            component={RouterLink}
+                            to={`/admin/blogs/edit/${blog.slug}`}>
+                            Edit
+                          </Button>
+                        </ButtonGroup>
                       </TableCell>
                     </TableRow>
                   ))}

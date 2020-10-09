@@ -1,6 +1,6 @@
 import { store } from 'redux/store';
 import { http } from 'utils/http';
-import { ADD_NEW_BLOG, GET_BLOGS, GET_BLOG } from './actionTypes';
+import { ADD_NEW_BLOG, GET_BLOGS, GET_BLOG, UPDATE_BLOG } from './actionTypes';
 
 export const createBlog = (newBlog = {}) => {
   store.dispatch({
@@ -15,9 +15,15 @@ export const getBlogs = (search = '', pageSize = 4, pageNumber = 1) => {
     payload: http.get(`/blogs?${blogParams}`)
   });
 };
-export const getBlog = (blogId = 1) => {
+export const getBlog = (blogId = '') => {
   store.dispatch({
     type: GET_BLOG,
     payload: http.get(`/blogs/${blogId}`)
+  });
+};
+export const updateBlog = (blog = {}, blogId = '') => {
+  store.dispatch({
+    type: UPDATE_BLOG,
+    payload: http.patch(`/blogs/${blogId}`, blog)
   });
 };
