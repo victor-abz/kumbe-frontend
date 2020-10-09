@@ -24,7 +24,13 @@ import { getCategories } from 'redux/actions/category';
 import { AddCategDialog } from './AddCategDialog';
 import { useTranslation } from 'react-i18next';
 
-const AboutBlog = ({ blog, blogTags = [], onHandleChange, onChangeTags }) => {
+const AboutBlog = ({
+  blog,
+  slug = null,
+  blogTags = [],
+  onHandleChange,
+  onChangeTags
+}) => {
   const classes = useStyles();
   const { t } = useTranslation();
   const [openAddTag, setOpenAddTag] = useState(false);
