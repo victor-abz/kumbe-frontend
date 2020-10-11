@@ -21,7 +21,7 @@ const BlogCover = props => {
     <Card {...rest} className={clsx(classes.root, className)}>
       <CardHeader title={t('blog:cover_title')} />
       <CardContent>
-        <FilesDropzone currentFile={currentFile} />
+        <FilesDropzone currentFile={currentFile} fileType="coverImage" />
       </CardContent>
     </Card>
   );

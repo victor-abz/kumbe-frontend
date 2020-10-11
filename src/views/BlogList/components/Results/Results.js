@@ -173,7 +173,7 @@ const Results = props => {
                             color="secondary"
                             component={RouterLink}
                             to={`/admin/blogs/edit/${blog.slug}`}>
-                            Edit
+                            {t('blog:btn_edit')}
                           </Button>
                         </ButtonGroup>
                       </TableCell>

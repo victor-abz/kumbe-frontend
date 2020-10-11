@@ -4,14 +4,13 @@ import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import blog from '@mui-treasury/styles/textInfoContent/blog';
 
 const useStyles = makeStyles(() => ({
   root: {}
 }));
 
 const Header = props => {
-  const { className, blog = {}, slug = null, ...rest } = props;
+  const { className, blog = {}, loading=false, slug = null, ...rest } = props;
 
   const classes = useStyles();
   const { t } = useTranslation();
@@ -22,7 +21,7 @@ const Header = props => {
       </Typography>
       <Typography component="h1" variant="h3">
         {slug
-          ? `${t('blog:header_title_edit')}:${blog.title}`
+          ?loading?t('blog:title_loading'): `${t('blog:header_title_edit')}:${blog.title}`
           : t('blog:header_title')}
       </Typography>
     </div>

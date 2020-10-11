@@ -7,11 +7,12 @@ import { useSelector } from 'react-redux';
 import { Page } from 'components';
 import { Header, AboutBlog, BlogCover, BlogDetails } from './components';
 import { useStyles } from './styles';
-import { createBlog, getBlog } from 'redux/actions/blog';
+import { createBlog, getBlog, resetUpdateBlog, updateBlog } from 'redux/actions/blog';
 import { UPLOADED_FILE_NAME } from 'utils/constants';
 import { notifier } from 'utils/notifier';
 import { resetUploadedFile } from 'redux/actions/file';
 import { useTranslation } from 'react-i18next';
+import useRouter from 'utils/useRouter';
 
 const initialStateValues = {
   title: '',
@@ -24,17 +25,20 @@ const ProjectCreate = ({ match }) => {
   const { blogSlug } = match.params;
   const classes = useStyles();
   const { t } = useTranslation();
+  const {history} = useRouter()
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const [blog, setBlog] = useState(initialStateValues);
   const [blogTags, setBlogTags] = useState([]);
   const {
     fileUpload: { fileName },
     blogAdd: { loading, loaded, message },
+    blogEdit: { loading:editing, loaded:edited, message:editedMsg },
     blogGet
-  } = useSelector(({ fileUpload, blogAdd, blogGet }) => ({
+  } = useSelector(({ fileUpload, blogAdd, blogGet,blogEdit }) => ({
     fileUpload,
     blogAdd,
-    blogGet
+    blogGet,
+    blogEdit
   }));
 
   useEffect(() => {
@@ -44,14 +48,19 @@ const ProjectCreate = ({ match }) => {
     // eslint-disable-next-line
   }, [fileName]);
   useEffect(() => {
-    if (loaded) {
+    if (loaded||edited) {
       localStorage.removeItem(UPLOADED_FILE_NAME);
       resetUploadedFile();
-      notifier.success(message);
+      notifier.success(message||editedMsg);
       setBlog(initialStateValues);
+      setBlogTags([])
       setEditorState(EditorState.createEmpty());
+      if(edited){
+        resetUpdateBlog()
+        history.replace('/admin/blogs')
+      }
     }
-  }, [loaded]);
+  }, [loaded, edited]);
   useEffect(() => {
     if (blogSlug) {
       getBlog(blogSlug);
@@ -61,8 +70,8 @@ const ProjectCreate = ({ match }) => {
     if (blogGet.loaded) {
       const { title, categoryId, content, tags, coverImage } = blogGet.blog;
       const contentState = stateFromHTML(content);
-      setBlog({ title, categoryId, coverImage });
       setBlogTags(tags);
+      setBlog({ title, categoryId, coverImage, tags:tags.map(({ id }) => id)});
       setEditorState(EditorState.createWithContent(contentState));
     }
   }, [blogGet.loaded]);
@@ -75,7 +84,11 @@ const ProjectCreate = ({ match }) => {
   };
   const onSaveBlog = () => {
     blog.content = stateToHTML(editorState.getCurrentContent());
-    createBlog(blog);
+    if(blogSlug){
+      updateBlog(blog, blogSlug)
+    }else{
+      createBlog(blog);
+    }
   };
   return (
     <Page className={classes.root} title={t('blog:page_header')}>
@@ -103,7 +116,7 @@ const ProjectCreate = ({ match }) => {
           disabled={loading}
           onClick={() => onSaveBlog()}
           variant="contained">
-          {loading ? t('blog:btn_loading') : t('blog:btn_save')}
+          {loading||editing ? t('blog:btn_loading') : t('blog:btn_save')}
         </Button>
       </div>
     </Page>

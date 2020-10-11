@@ -1,6 +1,6 @@
 import { store } from 'redux/store';
 import { http } from 'utils/http';
-import { ADD_NEW_BLOG, GET_BLOGS, GET_BLOG, UPDATE_BLOG } from './actionTypes';
+import { ADD_NEW_BLOG, GET_BLOGS, GET_BLOG, UPDATE_BLOG, RESET_UPDATE_BLOG } from './actionTypes';
 
 export const createBlog = (newBlog = {}) => {
   store.dispatch({
@@ -27,3 +27,9 @@ export const updateBlog = (blog = {}, blogId = '') => {
     payload: http.patch(`/blogs/${blogId}`, blog)
   });
 };
+export const resetUpdateBlog=()=>{
+  store.dispatch({
+    type: RESET_UPDATE_BLOG,
+    payload: ''
+  });
+}

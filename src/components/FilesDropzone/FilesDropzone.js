@@ -52,7 +52,7 @@ const FilesDropzone = ({
   });
   const handleUploadFile = () => {
     const formData = new FormData();
-    const prevFile = currentFile === '' ? currentFile : fileName;
+    const prevFile = currentFile !== ''&&!fileName ? currentFile : fileName;
     formData.append('file', file);
     uploadFile(formData, fileType, prevFile);
   };
@@ -79,7 +79,7 @@ const FilesDropzone = ({
           </div>
           <div>
             <Typography gutterBottom variant="h3">
-              {t('blog:upload_title')}
+              {currentFile?t('blog:upload_title_edit'): t('blog:upload_title')}
             </Typography>
             <Typography
               className={classes.info}
@@ -124,8 +124,8 @@ const FilesDropzone = ({
               {loading
                 ? t('blog:btn_loading')
                 : fileName
-                ? t('blog:btn_uploaded_success')
-                : t('blog:btn_upload')}
+                  ? t('blog:btn_uploaded_success')
+                  : t('blog:btn_upload')}
             </Button>
           </div>
         </Fragment>

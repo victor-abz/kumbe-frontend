@@ -3,6 +3,7 @@
   "page_header": "Gukora inkuru",
   "title": "Inkuru nshya",
   "title_edit": "Guhindura inkuru",
+  "title_loading": "Mube mwihanganye",
   "blog_browse": "Reba izanditswe",
   "header_title": "Andika inkuru hano",
   "header_title_edit": "Hindurira inkuru: ",
@@ -12,6 +13,7 @@
   "placeholder_tags": "Ibirango by inkuru",
   "cover_title": "Ifoto y inkuru",
   "upload_title": "Hitamo file",
+  "upload_title_edit": "Hindura file isanzwe",
   "upload_sub_title": "Kanda hano uhitemo file mu mashini yawe",
   "detail_title": "Inkuru mu buryo burambuye",
   "placeholder_detail": "Andi inkuru mu buryo burambuye hano",
@@ -39,6 +41,7 @@
   "col_tags": "Ibirango",
   "col_actions": "Ibyakorwa",
   "btn_view": "Reba",
+  "btn_edit": "Hindura",
   "confirm_yes": "Yego",
   "confirm_no": "Oya"
 }

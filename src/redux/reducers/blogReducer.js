@@ -3,7 +3,8 @@ import {
   ADD_NEW_BLOG,
   GET_BLOGS,
   GET_BLOG,
-  UPDATE_BLOG
+  UPDATE_BLOG,
+  RESET_UPDATE_BLOG
 } from 'redux/actions/actionTypes';
 
 export const blogAddReducer = (state = baseState('blog', {}), action) => {
@@ -91,6 +92,11 @@ export const blogEditReducer = (state = baseState('message', ''), action) => {
         loaded: true,
         message: action.payload.data.message
       };
+    case RESET_UPDATE_BLOG:
+      return{
+        ...state,
+        loaded:false
+      }
     case rejected(UPDATE_BLOG):
     default:
       return {
