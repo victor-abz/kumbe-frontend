@@ -10,7 +10,8 @@ import {
   blogAddReducer,
   blogsGetReducer,
   blogGetReducer,
-  blogEditReducer
+  blogEditReducer,
+  blogPublishReducer
 } from './blogReducer';
 import { categoryAddReducer, categoryGetReducer } from './categoryReducer';
 import { fileReducer } from './fileReducer';
@@ -39,5 +40,6 @@ export default combineReducers({
   mediaEdit: mediaEditReducer,
   mediaDetail: mediaDetailReducer,
   logOut: logOutReducer,
-  blogEdit: blogEditReducer
+  blogEdit: blogEditReducer,
+  blogPublish:blogPublishReducer
 });

@@ -1,6 +1,6 @@
 import { store } from 'redux/store';
 import { http } from 'utils/http';
-import { ADD_NEW_BLOG, GET_BLOGS, GET_BLOG, UPDATE_BLOG, RESET_UPDATE_BLOG } from './actionTypes';
+import { ADD_NEW_BLOG, GET_BLOGS, GET_BLOG, UPDATE_BLOG, RESET_UPDATE_BLOG, PUBLISH_BLOG } from './actionTypes';
 
 export const createBlog = (newBlog = {}) => {
   store.dispatch({
@@ -32,4 +32,10 @@ export const resetUpdateBlog=()=>{
     type: RESET_UPDATE_BLOG,
     payload: ''
   });
+}
+export const publishBlog=(blogId, blog)=>{
+  store.dispatch({
+    type: PUBLISH_BLOG,
+    payload: http.put(`/blogs/publish/${blogId}`, blog)
+  })
 }

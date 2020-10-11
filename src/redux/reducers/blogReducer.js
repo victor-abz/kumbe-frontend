@@ -4,7 +4,8 @@ import {
   GET_BLOGS,
   GET_BLOG,
   UPDATE_BLOG,
-  RESET_UPDATE_BLOG
+  RESET_UPDATE_BLOG,
+  PUBLISH_BLOG
 } from 'redux/actions/actionTypes';
 
 export const blogAddReducer = (state = baseState('blog', {}), action) => {
@@ -98,6 +99,34 @@ export const blogEditReducer = (state = baseState('message', ''), action) => {
         loaded:false
       }
     case rejected(UPDATE_BLOG):
+    default:
+      return {
+        ...state,
+        loading: false
+      };
+  }
+};
+export const blogPublishReducer = (state = baseState('message', ''), action) => {
+  switch (action.type) {
+    case pending(PUBLISH_BLOG):
+      return {
+        ...state,
+        loaded: false,
+        loading: true
+      };
+    case fulfilled(PUBLISH_BLOG):
+      return {
+        ...state,
+        loading: false,
+        loaded: true,
+        message: action.payload.data.message
+      };
+    case RESET_UPDATE_BLOG:
+      return{
+        ...state,
+        loaded:false
+      }
+    case rejected(PUBLISH_BLOG):
     default:
       return {
         ...state,

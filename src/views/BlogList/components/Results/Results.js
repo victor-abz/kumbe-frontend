@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
@@ -27,6 +27,9 @@ import getInitials from 'utils/getInitials';
 import { GenericMoreButton, TableEditBar } from 'components';
 import { useStyles } from './stayles';
 import { useTranslation } from 'react-i18next';
+import { AlertConfirm } from 'components/AlertConfirm';
+import { useSelector } from 'react-redux';
+import { getBlogs, publishBlog } from 'redux/actions/blog';
 
 const Results = props => {
   const { className, blogs, ...rest } = props;
@@ -35,8 +38,16 @@ const Results = props => {
   const { t } = useTranslation();
   const [selectedBlogs, setSelectedBlogs] = useState([]);
   const [page, setPage] = useState(0);
+  const [publish, setPublish]=useState({open:false, message:'', blog:{}})
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  const {loading, loaded} = useSelector(({blogPublish})=>blogPublish)
 
+  useEffect(()=>{
+    if(loaded){
+      setPublish({...publish, open:false})
+      getBlogs()
+    }
+  },[loaded])
   const handleSelectAll = ({ target: { checked } }) => {
     const selectedBlogs = checked ? blogs.map(blog => blog.id) : [];
 
@@ -70,9 +81,19 @@ const Results = props => {
   const handleChangeRowsPerPage = event => {
     setRowsPerPage(event.target.value);
   };
-
+  const onOpenPublish = (blog)=>{
+    setPublish({open:true, message:`Are sure you want to ${blog.isPublished?'unpublish':'publish'} ${blog.title.toUpperCase()}`, blog})
+  }
+  const {isPublished, slug} = publish.blog
   return (
     <div {...rest} className={clsx(classes.root, className)}>
+      <AlertConfirm 
+        loading={loading} 
+        message={publish.message} 
+        onConfirmYes={()=>publishBlog(slug, {isPublished:!isPublished})} 
+        open={publish.open} 
+        setOpen={()=>setPublish({...publish,open:false})}
+      />
       <Typography color="textSecondary" gutterBottom variant="body2">
         {blogs.length} Records found. Page {page + 1} of{' '}
         {Math.ceil(blogs.length / rowsPerPage)}
@@ -175,6 +196,7 @@ const Results = props => {
                             to={`/admin/blogs/edit/${blog.slug}`}>
                             {t('blog:btn_edit')}
                           </Button>
+                          <Button color="default" onClick={()=>onOpenPublish(blog)}>{blog.isPublished?'Unpublish':'Publish'}</Button>
                         </ButtonGroup>
                       </TableCell>
                     </TableRow>

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import { LinearProgress } from '@material-ui/core';
 
-import { NavBar, TopBar, ChatBar } from './components';
+import { NavBar, TopBar } from './components';
 import { useSelector } from 'react-redux';
 import useRouter from 'utils/useRouter';
 
@@ -76,7 +76,10 @@ const Dashboard = props => {
           </Suspense>
         </main>
       </div>
-      <ChatBar />
+      {/* 
+      * Disacle chat
+      <ChatBar /> 
+      */}
     </div>
   );
 };
