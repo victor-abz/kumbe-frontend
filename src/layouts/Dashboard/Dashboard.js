@@ -77,7 +77,7 @@ const Dashboard = props => {
         </main>
       </div>
       {/* 
-      * Disacle chat
+      * Disable chat
       <ChatBar /> 
       */}
     </div>
