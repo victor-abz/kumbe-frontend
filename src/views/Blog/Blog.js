@@ -31,7 +31,7 @@ const Blog = props => {
   } = useSelector(({ blogGet, blogsGet }) => ({ blogGet, blogsGet }));
 
   useEffect(() => {
-    getBlogs();
+    getBlogs({});
     getBlog(id);
   }, [id]);
 

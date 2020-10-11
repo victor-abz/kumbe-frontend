@@ -45,7 +45,7 @@ const Results = props => {
   useEffect(()=>{
     if(loaded){
       setPublish({...publish, open:false})
-      getBlogs()
+      getBlogs({})
     }
   },[loaded])
   const handleSelectAll = ({ target: { checked } }) => {
