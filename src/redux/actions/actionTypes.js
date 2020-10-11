@@ -24,3 +24,5 @@ export const ADD_NEW_MEDIA = 'ADD_NEW_MEDIA';
 export const GET_MEDIAS = 'GET_MEDIAS';
 export const UPDATE_MEDIA = 'UPDATE_MEDIA';
 export const GET_MEDIA_DETAIL = 'GET_MEDIA_DETAIL';
+
+export const UPDATE_PROFILE = 'UPDATE_PROFILE';

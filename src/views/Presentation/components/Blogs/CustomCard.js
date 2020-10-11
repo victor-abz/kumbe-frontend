@@ -98,23 +98,29 @@ export const CustomCard = React.memo(function PostCard({
   const textCardContentStyles = useBlogTextInfoContentStyles();
   const { t } = useTranslation(['blog_preview']);
 
-  const truncate = (str, n) => {
-    return str.length > n
-      ? str.replace(/<[^>]+>/g, '').substr(0, n - 1) + '...'
-      : str;
-  };
+  // const truncate = (str, n) => {
+  //   return str.length > n
+  //     ? str.replace(/<[^>]+>/g, '').substr(0, n - 1) + '...'
+  //     : str;
+  // };
+  function truncate(str, maxLen) {
+    if (str.length <= maxLen) return str.padEnd(maxLen, '\xa0');
+    return str.padEnd(maxLen-3, '.').substring(0, maxLen) + '...';
+  }
   return (
     <Card className={cx(cardStyles.root, shadowStyles.root)}>
       <CardMedia
         classes={mediaStyles}
+        component={Link} 
         image={`${process.env.REACT_APP_API_URL}/api/res/blogs/${cover}`}
+        to={`/blogs/${slug}`}
       />
       <CardContent className={cardStyles.content}>
         <Box position={'relative'} zIndex={1}>
           <Column gap={2}>
-            <Row>
-              <Typography component="h6" variant="h6">
-                {title}
+            <Row component={Link} to={`/blogs/${slug}`}>
+              <Typography component="h6" style={{}} variant="h6">
+                { truncate(title, 60)}
               </Typography>
               <Divider />
             </Row>
@@ -126,12 +132,12 @@ export const CustomCard = React.memo(function PostCard({
               />
               <Info useStyles={useNewsInfoStyles}>
                 <InfoCaption>{`${editor.firstName} ${editor.lastName}`}</InfoCaption>
-                <InfoSubtitle>{moment(date).fromNow()}</InfoSubtitle>
+                {/* <InfoSubtitle>{moment(date).fromNow()}</InfoSubtitle> */}
               </Info>
             </Row>
-            <Row>
+            <Row component={Link} to={`/blogs/${slug}`}>
               <TextInfoContent
-                body={truncate(content, 100)}
+                body={truncate(content.replace(/<[^>]+>/g, '') , 80)}
                 classes={textCardContentStyles}
               />
             </Row>

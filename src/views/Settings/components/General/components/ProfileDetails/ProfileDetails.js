@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
+import { UploadImage } from './UploadImage';
 import {
   Card,
   CardContent,
@@ -35,6 +36,11 @@ const ProfileDetails = props => {
   const { profile, className, ...rest } = props;
 
   const classes = useStyles();
+  const [openAddImage, setOpenAddImage] = useState(false);
+  
+  const handleOpen = () => {
+    setOpenAddImage(true)
+  }
 
   return (
     <Card
@@ -44,7 +50,7 @@ const ProfileDetails = props => {
       <CardContent className={classes.content}>
         <Avatar
           className={classes.avatar}
-          src={profile.avatar}
+          src={`${process.env.REACT_APP_API_URL}/api/res/profiles/${profile.profilePic}`}
         />
         <Typography
           className={classes.name}
@@ -57,7 +63,7 @@ const ProfileDetails = props => {
           color="textSecondary"
           variant="body1"
         >
-          {profile.state}, {profile.country}
+          {profile.phone}
         </Typography>
         <Typography
           color="textSecondary"
@@ -65,13 +71,17 @@ const ProfileDetails = props => {
         >
           {profile.timezone}
         </Typography>
+        <UploadImage open={openAddImage} profile={profile} setOpen={() => setOpenAddImage(false)}/>
       </CardContent>
       <CardActions>
         <Button
           className={classes.removeBotton}
-          variant="text"
+          color={'primary'}
+          fullwidth
+          onClick={handleOpen}
+          variant="contained"
         >
-          Remove picture
+          Update picture
         </Button>
       </CardActions>
     </Card>

@@ -8,9 +8,9 @@ import { Page } from 'components';
 import {
   Header,
   General,
-  Subscription,
-  Notifications,
-  Security
+  // Subscription,
+  // Notifications,
+  // Security
 } from './components';
 
 const useStyles = makeStyles(theme => ({
@@ -32,36 +32,40 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Settings = props => {
-  const { match, history } = props;
+  // const { match } = props;
   const classes = useStyles();
-  const { tab } = match.params;
+  // const { tab } = match.params;
 
-  const handleTabsChange = (event, value) => {
-    history.push(value);
-  };
+  // const handleTabsChange = (event, value) => {
+  //   history.push(value);
+  // };
 
-  const tabs = [
-    { value: 'general', label: 'General' },
-    { value: 'subscription', label: 'Subscription' },
-    { value: 'notifications', label: 'Notifications' },
-    { value: 'security', label: 'Security' }
-  ];
+  // const tabs = [
+  //   { value: 'general', label: 'General' },
+  // { value: 'subscription', label: 'Subscription' },
+  // { value: 'notifications', label: 'Notifications' },
+  // { value: 'security', label: 'Security' }
+  // ];
 
-  if (!tab) {
-    return <Redirect to="/settings/general" />;
-  }
+  // if (!tab) {
+  //   return <Redirect to="/user/profile/general" />;
+  // }
 
-  if (!tabs.find(t => t.value === tab)) {
-    return <Redirect to="/errors/error-404" />;
-  }
+  // if (!tabs.find(t => t.value === tab)) {
+  //   return <Redirect to="/errors/error-404" />;
+  // }
 
   return (
     <Page
       className={classes.root}
-      title="Settings"
+      title="Profile Settings"
     >
       <Header />
-      <Tabs
+      <Divider className={classes.divider} />
+      <div className={classes.content}>
+        <General />
+      </div>
+      {/* <Tabs
         className={classes.tabs}
         onChange={handleTabsChange}
         scrollButtons="auto"
@@ -81,8 +85,8 @@ const Settings = props => {
         {tab === 'general' && <General />}
         {tab === 'subscription' && <Subscription />}
         {tab === 'notifications' && <Notifications />}
-        {tab === 'security' && <Security />}
-      </div>
+        {tab === 'security' && <Security />} 
+      </div> */}
     </Page>
   );
 };

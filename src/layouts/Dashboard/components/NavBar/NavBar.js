@@ -57,19 +57,19 @@ const NavBar = props => {
   }, [router.location.pathname]);
 
   const navbarContent = (
-    <div className={classes.content}>
+    <div className={classes.content} >
       <div className={classes.profile}>
         <Avatar
           alt="Person"
           className={classes.avatar}
           component={RouterLink}
-          src={user.avatar}
-          to="/profile/1/timeline"
+          src={`${process.env.REACT_APP_API_URL}/api/res/profiles/${user.profilePic}`}
+          to="/user/profile" 
         />
-        <Typography className={classes.name} variant="h4">
+        <Typography className={classes.name} component={RouterLink} to="/user/profile" variant="h4">
           {user.firstName} {user.lastName}
         </Typography>
-        <Typography variant="body2">
+        <Typography component={RouterLink} to="/user/profile" variant="body2">
           {toUserAccess(user.accessLevel)}
         </Typography>
       </div>

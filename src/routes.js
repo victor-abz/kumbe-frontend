@@ -114,6 +114,25 @@ const routes = [
         exact: true,
         component: lazy(() => import('views/SocialFeed'))
       },
+      // {
+      //   component: () => <Redirect to="/errors/error-404" />
+      // }
+    ]
+  },
+  {
+    path: '/user',
+    component: DashboardLayout,
+    routes: [
+      {
+        path: '/user/profile',
+        exact: true,
+        component: lazy(() => import('views/Settings'))
+      },
+      {
+        path: '/user/profile/:tab',
+        exact: true,
+        component: lazy(() => import('views/Settings'))
+      },
       {
         component: () => <Redirect to="/errors/error-404" />
       }

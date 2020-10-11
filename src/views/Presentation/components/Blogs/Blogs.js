@@ -22,7 +22,7 @@ export const HighlightCardDemo = React.memo(function HighlightCard() {
   const gridStyles = useGridStyles();
   const { blogs } = useSelector(({ blogsGet }) => blogsGet);
   useEffect(() => {
-    getBlogs();
+    getBlogs({pageSize: 4});
   }, []);
   console.log(blogs);
   return (

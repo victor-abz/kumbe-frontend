@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
+import { useSelector } from 'react-redux';
 
-import axios from 'utils/axios';
 import { ProfileDetails, GeneralSettings } from './components';
 
 const useStyles = makeStyles(() => ({
@@ -15,27 +15,13 @@ const General = props => {
   const { className, ...rest } = props;
 
   const classes = useStyles();
-  const [profile, setProfile] = useState(null);
 
-  useEffect(() => {
-    let mounted = true;
+  const { auth: { user }  } = useSelector(({ auth }) => ({ auth }));
 
-    const fetchProfile = () => {
-      axios.get('/api/account/profile').then(response => {
-        if (mounted) {
-          setProfile(response.data.profile);
-        }
-      });
-    };
+  console.log('>>>>', user);
 
-    fetchProfile();
 
-    return () => {
-      mounted = false;
-    };
-  }, []);
-
-  if (!profile) {
+  if (!user) {
     return null;
   }
 
@@ -53,7 +39,7 @@ const General = props => {
         xl={3}
         xs={12}
       >
-        <ProfileDetails profile={profile} />
+        <ProfileDetails profile={user} />
       </Grid>
       <Grid
         item
@@ -62,7 +48,7 @@ const General = props => {
         xl={9}
         xs={12}
       >
-        <GeneralSettings profile={profile} />
+        <GeneralSettings profile={user} />
       </Grid>
     </Grid>
   );

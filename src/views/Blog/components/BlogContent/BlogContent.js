@@ -104,7 +104,7 @@ export default function MediaCard(props) {
             <Item position={'middle'}>
               <Info useStyles={useNewsInfoStyles}>
                 <InfoCaption>{`By ${blog.editor.firstName} ${blog.editor.lastName}`}</InfoCaption>
-                <InfoSubtitle>{moment(blog.createdAt).fromNow()}</InfoSubtitle>
+                {/* <InfoSubtitle>{moment(blog.createdAt).fromNow()}</InfoSubtitle> */}
               </Info>
             </Item>
           </Row>

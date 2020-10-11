@@ -22,15 +22,15 @@ const Banner = (props) => {
       item 
       key="content" 
       md={6} 
-      style={{ background: `${props.item.color}` }}  
+      style={{ background: `${props.item.backgroundColor}` }}  
       xs={12}
     >
       <CardContent className={classes.bannerText} >
-        <Typography className={classes.title}>
+        <Typography className={classes.title} style={{ color : `${props.item.titleColor}`}}>
           {props.item.Name}
         </Typography>
 
-        <Typography className={classes.caption}>
+        <Typography className={classes.caption} style={{ color : `${props.item.captionColor}`}}>
           {props.item.Caption}
         </Typography>
 

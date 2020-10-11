@@ -22,6 +22,7 @@ import {
   mediaGetReducer
 } from './mediaReducers';
 import { tagAddReducer, tagGetReducer } from './tagReducer';
+import { updateProfileReducer } from './profileReducer';
 
 export default combineReducers({
   login: loginReducer,
@@ -41,5 +42,6 @@ export default combineReducers({
   mediaDetail: mediaDetailReducer,
   logOut: logOutReducer,
   blogEdit: blogEditReducer,
-  blogPublish:blogPublishReducer
+  blogPublish:blogPublishReducer,
+  updateProfile: updateProfileReducer,
 });

@@ -39,6 +39,7 @@ const Timeline = props => {
       mounted = false;
     };
   }, []);
+  console.log('HHJSHDJHC');
 
   return (
     <div

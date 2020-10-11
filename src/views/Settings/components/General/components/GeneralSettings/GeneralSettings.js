@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
@@ -10,13 +10,13 @@ import {
   CardHeader,
   Grid,
   Divider,
-  Switch,
   TextField,
-  Typography,
   colors
 } from '@material-ui/core';
-
-import SuccessSnackbar from '../SuccessSnackbar';
+import { useSelector } from 'react-redux';
+import { notifier } from 'utils/notifier';
+import { getUserProfile } from 'redux/actions';
+import { updateProfile } from 'redux/actions/profile';
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -33,16 +33,11 @@ const GeneralSettings = props => {
   const { profile, className, ...rest } = props;
 
   const classes = useStyles();
-  const [openSnackbar, setOpenSnackbar] = useState(false);
   const [values, setValues] = useState({
     firstName: profile.firstName,
     lastName: profile.lastName,
-    email: profile.email,
     phone: profile.phone,
-    state: profile.state,
-    country: profile.country,
-    isPublic: profile.isPublic,
-    canHire: profile.canHire
+    username: profile.username
   });
 
   const handleChange = event => {
@@ -57,16 +52,23 @@ const GeneralSettings = props => {
     });
   };
 
-  const handleSubmit = event => {
-    event.preventDefault();
-    setOpenSnackbar(true);
-  };
 
-  const handleSnackbarClose = () => {
-    setOpenSnackbar(false);
-  };
+  const {  
+    updateProfile: { loaded: created, message }, auth: { user } } = useSelector(({ updateProfile, auth }) => ({ updateProfile, auth }));
 
-  const states = ['Alabama', 'New York', 'San Francisco'];
+
+  useEffect(() => {
+    if (created) {
+      notifier.success(message);
+      getUserProfile()
+    }
+  }, [created]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    updateProfile(values)
+  }
+
 
   return (
     <Card
@@ -119,11 +121,12 @@ const GeneralSettings = props => {
             >
               <TextField
                 fullWidth
-                label="Email Address"
-                name="email"
+                helperText="This will be your login username"
+                label="User Name"
+                name="username"
                 onChange={handleChange}
                 required
-                value={values.email}
+                value={values.username}
                 variant="outlined"
               />
             </Grid>
@@ -142,48 +145,7 @@ const GeneralSettings = props => {
                 variant="outlined"
               />
             </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <TextField
-                fullWidth
-                label="Select State"
-                name="state"
-                onChange={handleChange}
-                select
-                // eslint-disable-next-line react/jsx-sort-props
-                SelectProps={{ native: true }}
-                value={values.state}
-                variant="outlined"
-              >
-                {states.map(state => (
-                  <option
-                    key={state}
-                    value={state}
-                  >
-                    {state}
-                  </option>
-                ))}
-              </TextField>
-            </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <TextField
-                fullWidth
-                label="Country"
-                name="country"
-                onChange={handleChange}
-                required
-                value={values.country}
-                variant="outlined"
-              />
-            </Grid>
-            <Grid
+            {/* <Grid
               item
               md={6}
               xs={12}
@@ -200,31 +162,13 @@ const GeneralSettings = props => {
                 name="isPublic"
                 onChange={handleChange}
               />
-            </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <Typography variant="h6">Available to hire</Typography>
-              <Typography variant="body2">
-                Toggling this will let your teamates know that you are available
-                for acquireing new projects
-              </Typography>
-              <Switch
-                checked={values.canHire}
-                color="secondary"
-                edge="start"
-                name="canHire"
-                onChange={handleChange}
-              />
-            </Grid>
+            </Grid> */}
           </Grid>
         </CardContent>
         <Divider />
         <CardActions>
           <Button
-            className={classes.saveButton}
+            color={'primary'}
             type="submit"
             variant="contained"
           >
@@ -232,10 +176,6 @@ const GeneralSettings = props => {
           </Button>
         </CardActions>
       </form>
-      <SuccessSnackbar
-        onClose={handleSnackbarClose}
-        open={openSnackbar}
-      />
     </Card>
   );
 };

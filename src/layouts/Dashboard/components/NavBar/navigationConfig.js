@@ -14,8 +14,8 @@ import {
 // import ErrorIcon from '@material-ui/icons/ErrorOutline';
 // import LockOpenIcon from '@material-ui/icons/LockOpenOutlined';
 // import PresentToAllIcon from '@material-ui/icons/PresentToAll';
-// import PeopleIcon from '@material-ui/icons/PeopleOutlined';
-// import PersonIcon from '@material-ui/icons/PersonOutlined';
+import PeopleIcon from '@material-ui/icons/PeopleOutlined';
+import PersonIcon from '@material-ui/icons/PersonOutlined';
 
 import { Label } from 'components';
 export const navigationConfig = t => [
@@ -60,29 +60,6 @@ export const navigationConfig = t => [
       //   title: 'Social Feed',
       //   href: '/social-feed',
       //   icon: PeopleIcon
-      // },
-      // {
-      //   title: 'Profile',
-      //   href: '/profile',
-      //   icon: PersonIcon,
-      //   children: [
-      //     {
-      //       title: 'Timeline',
-      //       href: '/profile/1/timeline'
-      //     },
-      //     {
-      //       title: 'Connections',
-      //       href: '/profile/1/connections'
-      //     },
-      //     {
-      //       title: 'Projects',
-      //       href: '/profile/1/projects'
-      //     },
-      //     {
-      //       title: 'Reviews',
-      //       href: '/profile/1/reviews'
-      //     }
-      //   ]
       // },
       {
         title: t('blog:name'),
@@ -173,33 +150,61 @@ export const navigationConfig = t => [
       //   ]
       // }
     ]
+  },
+  {
+    title: 'Settings',
+    pages: [
+      // {
+      //   title: 'Settings',
+      //   href: '/settings',
+      //   icon: SettingsIcon,
+      //   children: [
+      //     {
+      //       title: 'General',
+      //       href: '/settings/general'
+      //     },
+      //     {
+      //       title: 'Subscription',
+      //       href: '/settings/subscription'
+      //     },
+      //     {
+      //       title: 'Notifications',
+      //       href: '/settings/notifications'
+      //     },
+      //     {
+      //       title: 'Security',
+      //       href: '/settings/security'
+      //     }
+      //   ]
+      // },
+      {
+        title: 'Profile',
+        href: '/user/profile',
+        icon: PersonIcon,
+      },
+      // {
+      //   title: 'Profile',
+      //   href: '/profile',
+      //   icon: PersonIcon,
+      //   children: [
+      //     {
+      //       title: 'Timeline',
+      //       href: '/profile/1/timeline'
+      //     },
+      //     {
+      //       title: 'Connections',
+      //       href: '/profile/1/connections'
+      //     },
+      //     {
+      //       title: 'Projects',
+      //       href: '/profile/1/projects'
+      //     },
+      //     {
+      //       title: 'Reviews',
+      //       href: '/profile/1/reviews'
+      //     }
+      //   ]
+      // },
+    ]
   }
-  // {
-  //   title: 'Support',
-  //   pages: [
-  //     {
-  //       title: 'Settings',
-  //       href: '/settings',
-  //       icon: SettingsIcon,
-  //       children: [
-  //         {
-  //           title: 'General',
-  //           href: '/settings/general'
-  //         },
-  //         {
-  //           title: 'Subscription',
-  //           href: '/settings/subscription'
-  //         },
-  //         {
-  //           title: 'Notifications',
-  //           href: '/settings/notifications'
-  //         },
-  //         {
-  //           title: 'Security',
-  //           href: '/settings/security'
-  //         }
-  //       ]
-  //     }
-  //   ]
-  // }
 ];

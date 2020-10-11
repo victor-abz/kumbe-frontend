@@ -20,7 +20,7 @@ const BlogManagementList = () => {
   const { t } = useTranslation();
   const { loading, blogs } = useSelector(({ blogsGet }) => blogsGet);
   useEffect(() => {
-    getBlogs();
+    getBlogs({});
   }, []);
   const handleFilter = () => {};
   const handleSearch = () => {};

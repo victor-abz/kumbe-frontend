@@ -6,16 +6,29 @@ const items = [
   {
     Name: 'Kumbe!',
     Caption: 'Sexual and reproductive health and rights (SRHR) \n Information for adolescents and young people in Rwanda',
+    contentPosition: 'right',
+    backgroundColor: '#e1a710',
+    titleColor:'white',
+    captionColor: 'black',
+    image: '/images/banner2.jpg'
+  },
+  {
+    Name: 'Kumbe!',
+    Caption: 'Sexual and reproductive health and rights (SRHR) \n Information for adolescents and young people in Rwanda',
     contentPosition: 'left',
-    color: 'linear-gradient(180deg, #EEBECA 0%, #E5A5B3 100%)',
-    image: '/images/TMWxjqA.jpg'
+    backgroundColor: 'black',
+    titleColor:'white',
+    captionColor: 'white',
+    image: '/images/banner1.jpg'
   },
   {
     Name: 'Kumbe!',
     Caption: 'Sexual and reproductive health and rights (SRHR) \n Information for adolescents and young people in Rwanda',
     contentPosition: 'right',
-    color: 'linear-gradient(180deg, #F8C44E 0%, #E8A822 100%)',
-    image: '/images/8HddMKV.jpg'
+    backgroundColor: '#e1a710',
+    titleColor:'white',
+    captionColor: 'black',
+    image: '/images/I1.jpg'
   }
 ]
 
