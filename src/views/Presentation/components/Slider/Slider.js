@@ -14,7 +14,7 @@ const items = [
   },
   {
     Name: 'Kumbe!',
-    Caption: 'Sexual and reproductive health and rights (SRHR) \n Information for adolescents and young people in Rwanda',
+    Caption: 'Sexual and reproductive health and rights (SRHR) \n Relationship advice for you',
     contentPosition: 'left',
     backgroundColor: 'black',
     titleColor:'white',
@@ -29,6 +29,15 @@ const items = [
     titleColor:'white',
     captionColor: 'black',
     image: '/images/I1.jpg'
+  },
+  {
+    Name: 'Kumbe!',
+    Caption: 'The Answer to your Questions \n Get information about STIs, HIV and AIDS',
+    contentPosition: 'left',
+    backgroundColor: 'black',
+    titleColor:'white',
+    captionColor: 'white',
+    image: '/images/banner3.jpg'
   }
 ]
 
