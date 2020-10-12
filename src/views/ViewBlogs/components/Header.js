@@ -1,6 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Typography } from '@material-ui/core';
 
@@ -8,26 +6,19 @@ const useStyles = makeStyles(() => ({
   root: {}
 }));
 
-const Header = props => {
-  const { className, ...rest } = props;
-
+const Header = () => {
   const classes = useStyles();
 
   return (
-    <div {...rest} className={clsx(classes.root, className)}>
+    <div className={classes.root}>
       <Grid alignItems="flex-end" container justify="space-between" spacing={3}>
         <Grid item>
           <Typography component="h1" variant="h3">
-            Videos
+            Blogs
           </Typography>
         </Grid>
       </Grid>
     </div>
   );
 };
-
-Header.propTypes = {
-  className: PropTypes.string
-};
-
 export default Header;

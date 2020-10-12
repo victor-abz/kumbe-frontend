@@ -82,7 +82,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export const CustomCard = React.memo(function PostCard({
+const BlogCard = React.memo(function PostCard({
   color,
   cover,
   content,
@@ -105,13 +105,13 @@ export const CustomCard = React.memo(function PostCard({
   // };
   function truncate(str, maxLen) {
     if (str.length <= maxLen) return str.padEnd(maxLen, '\xa0');
-    return str.padEnd(maxLen-3, '.').substring(0, maxLen) + '...';
+    return str.padEnd(maxLen - 3, '.').substring(0, maxLen) + '...';
   }
   return (
     <Card className={cx(cardStyles.root, shadowStyles.root)}>
       <CardMedia
         classes={mediaStyles}
-        component={Link} 
+        component={Link}
         image={`${process.env.REACT_APP_API_URL}/api/res/blogs/${cover}`}
         to={`/blogs/${slug}`}
       />
@@ -120,7 +120,7 @@ export const CustomCard = React.memo(function PostCard({
           <Column gap={2}>
             <Row component={Link} to={`/blogs/${slug}`}>
               <Typography component="h6" style={{}} variant="h6">
-                { truncate(title, 60)}
+                {truncate(title, 60)}
               </Typography>
               <Divider />
             </Row>
@@ -137,7 +137,7 @@ export const CustomCard = React.memo(function PostCard({
             </Row>
             <Row component={Link} to={`/blogs/${slug}`}>
               <TextInfoContent
-                body={truncate(content.replace(/<[^>]+>/g, '') , 80)}
+                body={truncate(content.replace(/<[^>]+>/g, ''), 80)}
                 classes={textCardContentStyles}
               />
             </Row>
@@ -167,4 +167,4 @@ export const CustomCard = React.memo(function PostCard({
   );
 });
 
-export default CustomCard;
+export default BlogCard;

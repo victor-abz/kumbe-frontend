@@ -8,12 +8,13 @@ import Layout, {
 } from '@mui-treasury/layout';
 import { BlogContent } from './components';
 import { useStyles } from './styles';
-import CustomCard from '../Presentation/components/Blogs/CustomCard';
+import CustomCard from '../../components/BlogCard';
 import { Grid, Typography, Divider } from '@material-ui/core';
 import { Column, Row, Item } from '@mui-treasury/components/flex';
 import { getBlogs } from 'redux/actions/blog';
 import { getBlog } from 'redux/actions/blog';
 import { useSelector } from 'react-redux';
+import BlogCard from '../../components/BlogCard';
 
 const Content = getContent(styled);
 const InsetContainer = getInsetContainer(styled);
@@ -53,7 +54,7 @@ const Blog = props => {
                   blogs.map((blog, index) => {
                     return (
                       <Grid className={classes.otherBlogs} key={index}>
-                        <CustomCard
+                        <BlogCard
                           color={blog.color}
                           content={blog.content}
                           cover={blog.coverImage}

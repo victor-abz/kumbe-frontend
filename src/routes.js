@@ -113,7 +113,7 @@ const routes = [
         path: '/admin/social-feed',
         exact: true,
         component: lazy(() => import('views/SocialFeed'))
-      },
+      }
       // {
       //   component: () => <Redirect to="/errors/error-404" />
       // }
@@ -170,6 +170,11 @@ const routes = [
         path: '/home',
         exact: true,
         component: PresentationView
+      },
+      {
+        path: '/blogs',
+        exact: true,
+        component: lazy(() => import('views/ViewBlogs'))
       },
       {
         path: '/blogs/:id',
