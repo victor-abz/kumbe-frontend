@@ -128,7 +128,6 @@ const GeneralSettings = props => {
   const hasError = field =>
     formState.touched[field] && formState.errors[field] ? true : false;
 
-  console.log(formState, Object.keys(formState.touched).length === 0);
   return (
     <Card
       {...rest}

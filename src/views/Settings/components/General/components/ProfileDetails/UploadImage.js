@@ -14,9 +14,11 @@ import { UPLOADED_FILE_NAME } from 'utils/constants';
 import { resetUploadedFile } from 'redux/actions/file';
 import { notifier } from 'utils/notifier';
 import { getUserProfile } from 'redux/actions';
+import { useTranslation } from 'react-i18next';
 
 export const UploadImage = ({ open, setOpen, profile }) => {
   const initialState = { profilePic: '' };
+  const { t } = useTranslation()
   const [values, setValues] = useState(initialState);
   const { fileUpload: { fileName, loading }, 
     updateProfile: { loaded: created, message } } = useSelector(({ fileUpload, updateProfile }) => ({ fileUpload, updateProfile }));
@@ -40,19 +42,19 @@ export const UploadImage = ({ open, setOpen, profile }) => {
   
   return (
     <Dialog aria-labelledby="cat-dialog-title" onClose={setOpen} open={open}>
-      <DialogTitle id="cat-dialog-title">Change your profile Picture</DialogTitle>
+      <DialogTitle id="cat-dialog-title">{t('settings:profile_change_title')}</DialogTitle>
       <DialogContent>
         <FilesDropzone currentFile={profile.profilePic} fileType="profile"/>
       </DialogContent>
       <DialogActions>
         <Button color="primary" onClick={setOpen}>
-          Cancel
+          {t('settings:cancel')}
         </Button>
         <Button
           color="primary"
           disabled={loading || values.profilePic === ''}
           onClick={() => updateProfile(values)}>
-          {loading ? 'Saving,...' : 'Save Profile picture'}
+          {loading ? t('settings:saving') : t('settings:save')}
         </Button>
       </DialogActions>
     </Dialog>

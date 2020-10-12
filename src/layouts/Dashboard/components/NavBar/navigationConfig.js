@@ -178,10 +178,10 @@ export const navigationConfig = t => [
       //   ]
       // },
       {
-        title: 'Profile',
+        title: t('settings:profile'),
         href: '/user/profile',
-        icon: PersonIcon,
-      },
+        icon: PersonIcon
+      }
       // {
       //   title: 'Profile',
       //   href: '/profile',

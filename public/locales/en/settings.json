@@ -1,25 +1,11 @@
 {
-    "title_audio": "Audio",
-    "title_media": "All media",
-    "title_video": "Video",
-    "name": "Media",
-    "add_btn": "Add an media",
-    "view_title": "Audios",
-    "dialog_title": "Add a new media",
-    "dialog_description": "Note that the media can be either a song, diolog, image or video.",
-    "input_title": "Media title",
-    "input_type": "Media type",
-    "input_file": "Link",
-    "input_description": "Type the description",
-    "btn_cancel": "Cancel",
-    "table_title": "List of all medias",
-    "col_title": "Media title",
-    "col_description": "Description",
-    "col_type": "Media type",
-    "upload_title": "Select file",
-    "upload_sub_title": "Drop your image or click to browse from your machine",
-    "add_thumb_title": "Add a thumbnail to this media:",
-    "placeholder_tags": "Media tags",
-    "btn_save": "Save"
-  }
-  
+  "profile_change_title": "Change your profile Picture",
+  "cancel": "Cancel",
+  "save": "Save",
+  "saving": "Wait...",
+  "change_profile": "Change Profile Picture",
+  "profile_settings_title": "Profile Settings",
+  "account_title": "Change account information",
+  "sub_title": "Settings",
+  "profile": "Profile"
+}

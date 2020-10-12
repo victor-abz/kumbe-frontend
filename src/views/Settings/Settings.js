@@ -5,9 +5,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Tabs, Tab, Divider, colors } from '@material-ui/core';
 
 import { Page } from 'components';
+import { useTranslation } from 'react-i18next';
 import {
   Header,
-  General,
+  General
   // Subscription,
   // Notifications,
   // Security
@@ -34,6 +35,7 @@ const useStyles = makeStyles(theme => ({
 const Settings = props => {
   // const { match } = props;
   const classes = useStyles();
+  const { t } = useTranslation();
   // const { tab } = match.params;
 
   // const handleTabsChange = (event, value) => {
@@ -56,10 +58,7 @@ const Settings = props => {
   // }
 
   return (
-    <Page
-      className={classes.root}
-      title="Profile Settings"
-    >
+    <Page className={classes.root} title={t('settings:profile_title')}>
       <Header />
       <Divider className={classes.divider} />
       <div className={classes.content}>

@@ -62,7 +62,14 @@ if (authToken) {
   }
 }
 const App = () => {
-  const { t } = useTranslation(['top_bar', 'auth', 'error', 'blog', 'media']);
+  const { t } = useTranslation([
+    'top_bar',
+    'auth',
+    'error',
+    'blog',
+    'media',
+    'settings'
+  ]);
   return (
     <Root scheme={scheme}>
       <StoreProvider store={store}>

@@ -18,8 +18,6 @@ const General = props => {
 
   const { auth: { user }  } = useSelector(({ auth }) => ({ auth }));
 
-  console.log('>>>>', user);
-
 
   if (!user) {
     return null;
