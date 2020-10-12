@@ -17,6 +17,8 @@ import { useSelector } from 'react-redux';
 import { notifier } from 'utils/notifier';
 import { getUserProfile } from 'redux/actions';
 import { updateProfile } from 'redux/actions/profile';
+import { useTranslation } from 'react-i18next';
+import validate from 'validate.js';
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -31,30 +33,57 @@ const useStyles = makeStyles(theme => ({
 
 const GeneralSettings = props => {
   const { profile, className, ...rest } = props;
+  const { t } = useTranslation()
 
   const classes = useStyles();
-  const [values, setValues] = useState({
-    firstName: profile.firstName,
-    lastName: profile.lastName,
-    phone: profile.phone,
-    username: profile.username
+
+  const {  
+    updateProfile: { loaded: created, message } } = useSelector(({ updateProfile }) => ({ updateProfile }));
+  const [formState, setFormState] = useState({
+    isValid: false,
+    values: {
+      firstName: profile.firstName,
+      lastName: profile.lastName,
+      phone: profile.phone,
+      username: profile.username
+    },
+    touched: {},
+    errors: {}
   });
 
   const handleChange = event => {
     event.persist();
 
-    setValues({
-      ...values,
-      [event.target.name]:
-        event.target.type === 'checkbox'
-          ? event.target.checked
-          : event.target.value
-    });
+    setFormState(formState => ({
+      ...formState,
+      values: {
+        ...formState.values,
+        [event.target.name]:
+          event.target.type === 'checkbox'
+            ? event.target.checked
+            : event.target.value
+      },
+      touched: {
+        ...formState.touched,
+        [event.target.name]: true
+      }
+    }));
   };
+  
 
 
-  const {  
-    updateProfile: { loaded: created, message }, auth: { user } } = useSelector(({ updateProfile, auth }) => ({ updateProfile, auth }));
+  useEffect(() => {
+    const errors = validate(formState.values, schema);
+
+    setFormState(formState => ({
+      ...formState,
+      isValid: errors ? false : true,
+      errors: errors || {}
+    }));
+    // eslint-disable-next-line
+  }, [formState.values]);
+
+
 
 
   useEffect(() => {
@@ -66,17 +95,47 @@ const GeneralSettings = props => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    updateProfile(values)
+    updateProfile(formState.values)
   }
 
+  const schema = {
+    username: {
+      presence: { allowEmpty: false, message: t('error:is_required') },
+      length: {
+        maximum: 32
+      }
+    },
+    firstName: {
+      presence: { allowEmpty: false, message: t('error:is_required') },
+      length: {
+        maximum: 64
+      }
+    },
+    lastName: {
+      presence: { allowEmpty: false, message: t('error:is_required') },
+      length: {
+        maximum: 64
+      }
+    },
+    phone: {
+      presence: { allowEmpty: false, message: t('error:is_required') },
+      length: {
+        maximum: 128
+      }
+    },
+  };
 
+  const hasError = field =>
+    formState.touched[field] && formState.errors[field] ? true : false;
+
+  console.log(formState, Object.keys(formState.touched).length === 0);
   return (
     <Card
       {...rest}
       className={clsx(classes.root, className)}
     >
       <form onSubmit={handleSubmit}>
-        <CardHeader title="Profile" />
+        <CardHeader title= {t('auth:profile')} />
         <Divider />
         <CardContent>
           <Grid
@@ -89,13 +148,15 @@ const GeneralSettings = props => {
               xs={12}
             >
               <TextField
+                error={hasError('firstName')}
                 fullWidth
-                helperText="Please specify the first name"
-                label="First name"
+                helperText={
+                  hasError('firstName') ? t('auth:firstName_helper') : null}
+                label={t('auth:firstName')}
                 name="firstName"
                 onChange={handleChange}
                 required
-                value={values.firstName}
+                value={formState.values.firstName}
                 variant="outlined"
               />
             </Grid>
@@ -105,12 +166,14 @@ const GeneralSettings = props => {
               xs={12}
             >
               <TextField
+                error={hasError('lastName')}
                 fullWidth
-                label="Last name"
+                helperText={hasError('lastName') ?  t('auth:lastName_helper') : null}
+                label={t('auth:lastName')}
                 name="lastName"
                 onChange={handleChange}
                 required
-                value={values.lastName}
+                value={formState.values.lastName}
                 variant="outlined"
               />
             </Grid>
@@ -120,13 +183,14 @@ const GeneralSettings = props => {
               xs={12}
             >
               <TextField
+                error={hasError('email')}
                 fullWidth
-                helperText="This will be your login username"
-                label="User Name"
+                helperText={hasError('email') ? t('auth:email_helper') : null}
+                label={t('auth:user_name')}
                 name="username"
                 onChange={handleChange}
                 required
-                value={values.username}
+                value={formState.values.username}
                 variant="outlined"
               />
             </Grid>
@@ -136,12 +200,15 @@ const GeneralSettings = props => {
               xs={12}
             >
               <TextField
+                error={hasError('phone')}
                 fullWidth
-                label="Phone Number"
+                helperText={hasError('phone') ? t('auth:phone_helper'): null}
+                label={t('auth:phone')}
                 name="phone"
                 onChange={handleChange}
+                required
                 type="text"
-                value={values.phone}
+                value={formState.values.phone}
                 variant="outlined"
               />
             </Grid>
@@ -156,7 +223,7 @@ const GeneralSettings = props => {
                 contacts details
               </Typography>
               <Switch
-                checked={values.isPublic}
+                checked={formState.isPublic}
                 color="secondary"
                 edge="start"
                 name="isPublic"
@@ -169,10 +236,11 @@ const GeneralSettings = props => {
         <CardActions>
           <Button
             color={'primary'}
+            disabled={!formState.isValid || Object.keys(formState.touched).length === 0}
             type="submit"
             variant="contained"
           >
-            Save Changes
+            {t('auth:save_changes')}
           </Button>
         </CardActions>
       </form>

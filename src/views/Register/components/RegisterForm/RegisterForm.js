@@ -155,7 +155,7 @@ const RegisterForm = props => {
             error={hasError('username')}
             fullWidth
             helperText={
-              hasError('username') ? formState.errors.username[0] : null
+              hasError('username') ? t('auth:username_helper') : null
             }
             label={t('auth:user_name')}
             name="username"
@@ -170,7 +170,7 @@ const RegisterForm = props => {
             error={hasError('firstName')}
             fullWidth
             helperText={
-              hasError('firstName') ? formState.errors.firstName[0] : null
+              hasError('firstName') ? t('auth:firstName_helper') : null
             }
             label={t('auth:firstName')}
             name="firstName"
@@ -185,7 +185,7 @@ const RegisterForm = props => {
             error={hasError('lastName')}
             fullWidth
             helperText={
-              hasError('lastName') ? formState.errors.lastName[0] : null
+              hasError('lastName') ? t('auth:lastName_helper') : null
             }
             label={t('auth:lastName')}
             name="lastName"
@@ -199,7 +199,7 @@ const RegisterForm = props => {
           <TextField
             error={hasError('phone')}
             fullWidth
-            helperText={hasError('phone') ? formState.errors.phone[0] : null}
+            helperText={hasError('phone') ? t('auth:phone_helper') : null}
             label={t('auth:phone')}
             name="phone"
             onChange={handleChange}
@@ -213,7 +213,7 @@ const RegisterForm = props => {
             error={hasError('password')}
             fullWidth
             helperText={
-              hasError('password') ? formState.errors.password[0] : null
+              hasError('password') ? t('auth:password_helper') : null
             }
             label={t('auth:password')}
             name="password"
@@ -230,7 +230,7 @@ const RegisterForm = props => {
             fullWidth
             helperText={
               hasError('confirmPassword')
-                ? formState.errors.confirmPassword[0]
+                ? t('auth:password_confirm_helper')
                 : null
             }
             label={t('auth:confirmPassword')}
