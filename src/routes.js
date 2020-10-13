@@ -108,11 +108,6 @@ const routes = [
         path: '/admin/settings/:tab',
         exact: true,
         component: lazy(() => import('views/Settings'))
-      },
-      {
-        path: '/admin/social-feed',
-        exact: true,
-        component: lazy(() => import('views/SocialFeed'))
       }
       // {
       //   component: () => <Redirect to="/errors/error-404" />
@@ -205,6 +200,11 @@ const routes = [
         path: '/listen',
         exact: true,
         component: lazy(() => import('views/Listen'))
+      },
+      {
+        path: '/forum',
+        exact: true,
+        component: lazy(() => import('views/Forum'))
       },
       {
         component: () => <Redirect to="/errors/error-404" />
