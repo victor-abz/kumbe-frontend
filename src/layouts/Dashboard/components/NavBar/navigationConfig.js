@@ -4,6 +4,7 @@ import React from 'react';
 import { colors } from '@material-ui/core';
 import SettingsIcon from '@material-ui/icons/SettingsOutlined';
 import {
+  CommentOutlined,
   FolderOutlined as FolderIcon,
   PermMediaOutlined
 } from '@material-ui/icons';
@@ -103,7 +104,13 @@ export const navigationConfig = t => [
             href: '/admin/media/medias'
           }
         ]
+      },
+      {
+        title: t('comment:page_header'),
+        href: '/admin/comments',
+        icon: CommentOutlined
       }
+
       // {
       //   title: 'Chat',
       //   href: '/chat',
