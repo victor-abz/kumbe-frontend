@@ -10,7 +10,9 @@ import ListAltIcon from '@material-ui/icons/ListAlt';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import { makeStyles } from '@material-ui/core/styles';
-import { Link } from 'react-router-dom';
+import { Link, NavLink as RouterLink } from 'react-router-dom';
+import ForumIcon from '@material-ui/icons/Forum';
+import ForumOutlinedIcon from '@material-ui/icons/ForumOutlined';
 import {
   ListItem,
   Button,
@@ -19,7 +21,16 @@ import {
   Grid,
   Divider
 } from '@material-ui/core';
+
+const CustomRouterLink = forwardRef((props, ref) => (
+  <div ref={ref} style={{ flexGrow: 1 }}>
+    <RouterLink {...props} />
+  </div>
+));
 const useStyles = makeStyles(theme => ({
+  container: {
+    padding: theme.spacing(2, 1)
+  },
   itemLeaf: {
     display: 'flex',
     paddingTop: 0,
@@ -35,6 +46,13 @@ const useStyles = makeStyles(theme => ({
     fontWeight: theme.typography.fontWeightRegular,
     '&.depth-0': {
       fontWeight: theme.typography.fontWeightMedium
+    },
+    '&:hover': {
+      backgroundColor: theme.palette.secondary.dark,
+      color: theme.palette.white,
+      '& $icon': {
+        color: theme.palette.white
+      }
     }
   },
   icon: {
@@ -49,10 +67,11 @@ const useStyles = makeStyles(theme => ({
     marginLeft: 'auto'
   },
   active: {
-    color: theme.palette.primary.main,
+    color: theme.palette.white,
+    backgroundColor: theme.palette.primary.main,
     fontWeight: theme.typography.fontWeightMedium,
     '& $icon': {
-      color: theme.palette.primary.main
+      color: theme.palette.white
     }
   }
 }));
@@ -76,15 +95,30 @@ const menu = [
   }
 ];
 
-const Sidebar = () => {
+const Sidebar = ({ categories }) => {
   const style = {
     paddingLeft: 8
   };
   const classes = useStyles();
+  console.log(categories);
   return (
     <Grid className={classes.container}>
       <List>
-        {menu.map(({ Icon, text }) => (
+        <ListItem className={classes.itemLeaf} disableGutters>
+          <Button
+            activeClassName={classes.active}
+            className={classes.buttonLeaf}
+            // component={Link}
+            component={CustomRouterLink}
+            exact
+            style={style}
+            to={'/forum'}>
+            <HomeIcon className={classes.icon} />
+            All Categories
+          </Button>
+        </ListItem>
+        <Divider />
+        {categories.map(({ Icon, name }) => (
           <>
             <ListItem className={classes.itemLeaf} disableGutters>
               <Button
@@ -94,8 +128,12 @@ const Sidebar = () => {
                 exact
                 style={style}
                 to={'#'}>
-                <Icon className={classes.icon} />
-                {text}
+                {Icon ? (
+                  <Icon className={classes.icon} />
+                ) : (
+                  <ForumOutlinedIcon className={classes.icon} />
+                )}
+                {name}
               </Button>
             </ListItem>
             <Divider />
