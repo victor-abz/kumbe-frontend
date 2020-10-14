@@ -1,20 +1,16 @@
-import React, { useState, useRef } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Card,
   CardContent,
-  Divider,
-  IconButton,
   Input,
   Paper,
-  Tooltip
+  Tooltip,
+  Button
 } from '@material-ui/core';
 import SendIcon from '@material-ui/icons/Send';
-import AddPhotoIcon from '@material-ui/icons/AddPhotoAlternate';
-import AttachFileIcon from '@material-ui/icons/AttachFile';
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -35,16 +31,17 @@ const useStyles = makeStyles(theme => ({
   },
   fileInput: {
     display: 'none'
+  },
+  button: {
+    margin: theme.spacing(1, 0)
   }
 }));
 
 const AddPost = props => {
-  const { className, ...rest } = props;
+  const { className, user, ...rest } = props;
 
   const classes = useStyles();
-  const fileInputRef = useRef(null);
   const [value, setValue] = useState('');
-  const session = useSelector(state => state.session);
 
   const handleChange = event => {
     event.persist();
@@ -52,38 +49,32 @@ const AddPost = props => {
     setValue(event.target.value);
   };
 
-  const handleAttach = () => {
-    fileInputRef.current.click();
-  };
-
   return (
     <Card {...rest} className={clsx(classes.root, className)}>
-      <CardContent className={classes.content}>
+      <CardContent>
         <Paper className={classes.paper} elevation={1}>
           <Input
             className={classes.input}
             disableUnderline
+            multiline
             onChange={handleChange}
-            placeholder={"What's on your mind, first_name"}
+            placeholder={
+              user
+                ? `${user.lastName}, Ask us any question regarding SRHR`
+                : 'Login to post question,'
+            }
+            rows={3}
           />
         </Paper>
-        <Tooltip title="Send">
-          <IconButton color={value.length > 0 ? 'primary' : 'default'}>
-            <SendIcon />
-          </IconButton>
+        <Tooltip title="Post Question">
+          <Button
+            className={classes.button}
+            color="secondary"
+            endIcon={<SendIcon>Post Question</SendIcon>}
+            variant="contained">
+            Post Question
+          </Button>
         </Tooltip>
-        <Divider className={classes.divider} />
-        <Tooltip title="Attach image">
-          <IconButton edge="end" onClick={handleAttach}>
-            <AddPhotoIcon />
-          </IconButton>
-        </Tooltip>
-        <Tooltip title="Attach file">
-          <IconButton edge="end" onClick={handleAttach}>
-            <AttachFileIcon />
-          </IconButton>
-        </Tooltip>
-        <input className={classes.fileInput} ref={fileInputRef} type="file" />
       </CardContent>
     </Card>
   );

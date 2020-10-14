@@ -100,7 +100,6 @@ const Sidebar = ({ categories }) => {
     paddingLeft: 8
   };
   const classes = useStyles();
-  console.log(categories);
   return (
     <Grid className={classes.container}>
       <List>
@@ -120,7 +119,7 @@ const Sidebar = ({ categories }) => {
         <Divider />
         {categories.map(({ Icon, name }) => (
           <>
-            <ListItem className={classes.itemLeaf} disableGutters>
+            <ListItem className={classes.itemLeaf} disableGutters key={name}>
               <Button
                 activeClassName={classes.active}
                 className={classes.buttonLeaf}

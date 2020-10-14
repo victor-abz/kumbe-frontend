@@ -13,11 +13,21 @@ import {
   Avatar,
   Link,
   Typography,
-  Divider
+  Divider,
+  IconButton,
+  Grid,
+  Button,
+  CardActions,
+  Collapse
 } from '@material-ui/core';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 import { Reactions, CommentBubble, CommentForm } from './components';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import ShareIcon from '@material-ui/icons/Share';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ForumOutlinedIcon from '@material-ui/icons/ForumOutlined';
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -33,7 +43,8 @@ const useStyles = makeStyles(theme => ({
     marginRight: 6
   },
   content: {
-    paddingTop: 0
+    paddingTop: 0,
+    paddingBottom: 0
   },
   message: {
     marginBottom: theme.spacing(2)
@@ -46,8 +57,40 @@ const useStyles = makeStyles(theme => ({
     backgroundPosition: 'initial'
   },
   divider: {
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(2)
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1)
+  },
+  category: {
+    display: 'flex',
+    alignItems: 'center',
+    marginBottom: theme.spacing(-1.5)
+  },
+  popCategory: {
+    // marginBottom: theme.spacing(-2),
+    marginLeft: 'auto',
+    marginRight: theme.spacing(2),
+    height: 20
+  },
+  expand: {
+    // transform: 'rotate(0deg)',
+    marginLeft: 'auto',
+    backgroundColor: theme.palette.secondary.main,
+    color: theme.palette.white,
+    marginRight: theme.spacing(1),
+    '&:hover': {
+      backgroundColor: theme.palette.secondary.dark,
+      color: theme.palette.white
+    }
+  },
+  expandOpen: {
+    transform: 'rotate(180deg)'
+  },
+  actions: {
+    padding: theme.spacing(0, 1),
+    marginTop: 0
+  },
+  replies: {
+    padding: theme.spacing(2, 2, 3, 6)
   }
 }));
 
@@ -55,76 +98,95 @@ const PostCard = props => {
   const { post, className, ...rest } = props;
 
   const classes = useStyles();
+  const [expanded, setExpanded] = React.useState(false);
+
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
 
   return (
-    <Card
-      {...rest}
-      className={clsx(classes.root, className)}
-    >
-      <CardHeader
-        avatar={
-          <Avatar
-            alt="Person"
-            className={classes.avatar}
-            component={RouterLink}
-            src={post.author.avatar}
-            to="/profile/1/timeline"
-          />
-        }
-        disableTypography
-        subheader={
-          <div className={classes.subheader}>
-            <AccessTimeIcon className={classes.accessTimeIcon} />
-            <Typography variant="body2">
-              {moment(post.created_at).fromNow()}
-            </Typography>
-          </div>
-        }
-        title={
-          <Link
-            color="textPrimary"
-            component={RouterLink}
-            to="/profile/1/timeline"
-            variant="h6"
-          >
-            {post.author.name}
-          </Link>
-        }
-      />
-      <CardContent className={classes.content}>
-        <Typography
-          className={classes.message}
-          variant="body1"
-        >
-          {post.message}
-        </Typography>
-        {post.media && (
-          <CardActionArea className={classes.mediaArea}>
-            <CardMedia
-              className={classes.media}
-              image={post.media}
+    <Grid>
+      <div className={classes.category}>
+        <Button
+          className={classes.popCategory}
+          size="small"
+          style={{ backgroundColor: '#CC6101', color: '#fff' }}
+          variant="contained">
+          Puberty
+        </Button>
+      </div>
+      <Card {...rest} className={clsx(classes.root, className)}>
+        <CardHeader
+          avatar={
+            <Avatar
+              alt="Person"
+              className={classes.avatar}
+              component={RouterLink}
+              src={post.author.avatar}
+              to="/profile/1/timeline"
             />
-          </CardActionArea>
-        )}
-        <Reactions
-          className={classes.reactions}
-          post={post}
+          }
+          disableTypography
+          subheader={
+            <div className={classes.subheader}>
+              <AccessTimeIcon className={classes.accessTimeIcon} />
+              <Typography variant="body2">
+                {moment(post.created_at).fromNow()}
+              </Typography>
+            </div>
+          }
+          title={
+            <Link
+              color="textPrimary"
+              component={RouterLink}
+              to="/profile/1/timeline"
+              variant="h6">
+              {post.author.name}
+            </Link>
+          }
         />
+        <CardContent className={classes.content}>
+          <Typography className={classes.message} variant="body1">
+            {post.message}
+          </Typography>
+        </CardContent>
         <Divider className={classes.divider} />
-        {post.comments && (
-          <div className={classes.comments}>
-            {post.comments.map(comment => (
-              <CommentBubble
-                comment={comment}
-                key={comment.id}
-              />
-            ))}
-          </div>
-        )}
-        <Divider className={classes.divider} />
-        <CommentForm />
-      </CardContent>
-    </Card>
+        <CardActions className={classes.actions} disableSpacing>
+          <IconButton aria-label="add to favorites">
+            <FavoriteIcon />
+          </IconButton>
+          <IconButton aria-label="share">
+            <ShareIcon />
+          </IconButton>
+          <Button
+            className={classes.expand}
+            // color="light"
+            onClick={handleExpandClick}
+            // size="small"
+            startIcon={<ForumOutlinedIcon />}
+            variant="contained">
+            {post.comments
+              ? `Replies(${post.comments.length})`
+              : `Replies(${0})`}
+          </Button>
+        </CardActions>
+        <Collapse in={expanded} timeout="auto" unmountOnExit>
+          <Divider className={classes.divider} />
+          {/* <Reactions className={classes.reactions} post={post} /> */}
+          <Grid className={classes.replies}>
+            <CommentForm />
+            <Divider className={classes.divider} />
+            {post.comments && (
+              <div className={classes.comments}>
+                {post.comments.map(comment => (
+                  <CommentBubble comment={comment} key={comment.id} />
+                ))}
+              </div>
+            )}
+          </Grid>
+        </Collapse>
+      </Card>
+    </Grid>
   );
 };
 

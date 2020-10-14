@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
 import axios from 'utils/axios';
-import { Page, PostCard, AddPost } from 'components';
+import { Page, PostCard, AddPost, SearchBar } from 'components';
 import { Header } from './components';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    width: theme.breakpoints.values.lg,
+    // width: theme.breakpoints.values.lg,
     maxWidth: '100%',
     margin: '0 auto',
     padding: theme.spacing(3)
@@ -20,10 +20,13 @@ const useStyles = makeStyles(theme => ({
   },
   post: {
     marginBottom: theme.spacing(3)
+  },
+  search: {
+    marginTop: theme.spacing(1)
   }
 }));
 
-const Feed = () => {
+const Feed = ({ user }) => {
   const classes = useStyles();
 
   const [posts, setPosts] = useState([]);
@@ -46,20 +49,21 @@ const Feed = () => {
     };
   }, []);
 
+  const handleFilter = () => {};
+  const handleSearch = () => {};
+
   return (
-    <Page
-      className={classes.root}
-      title="Social Feed"
-    >
+    <Page className={classes.root} title="Social Feed">
       <Header />
-      <AddPost className={classes.newPost} />
+      <SearchBar
+        className={classes.search}
+        onFilter={handleFilter}
+        onSearch={handleSearch}
+      />
+      <AddPost className={classes.newPost} user={user} />
       <div className={classes.posts}>
         {posts.map(post => (
-          <PostCard
-            className={classes.post}
-            key={post.id}
-            post={post}
-          />
+          <PostCard className={classes.post} key={post.id} post={post} />
         ))}
       </div>
     </Page>

@@ -31,8 +31,9 @@ const useStyles = makeStyles(theme => ({
 const Forum = () => {
   const classes = useStyles();
   const {
-    categoryGet: { loaded, categories }
-  } = useSelector(({ categoryGet }) => ({ categoryGet }));
+    categoryGet: { loaded, categories },
+    auth: { user }
+  } = useSelector(({ categoryGet, auth }) => ({ categoryGet, auth }));
 
   useEffect(() => {
     getCategories();
@@ -40,19 +41,19 @@ const Forum = () => {
 
   return (
     <Page style={{ height: '100vh' }} title="Social Feed">
-      <Grid className={classes.root}>
+      <Grid className={classes.root} container>
         <Grid className={classes.container}>
           <Hidden smDown>
             <Grid
               className={classes.scrollable}
-              component={Paper}
+              // component={Paper}
               md={2}
               sm={12}>
               {loaded ? <Sidebar categories={categories} /> : null}
             </Grid>
           </Hidden>
           <Grid className={classes.scrollable} md={10} sm={12}>
-            <Feed />
+            <Feed user={user} />
           </Grid>
         </Grid>
       </Grid>
