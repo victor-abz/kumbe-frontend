@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   CardMedia,
@@ -25,9 +25,12 @@ import TextInfoContent from '@mui-treasury/components/content/textInfo';
 import { useNewsInfoStyles } from '@mui-treasury/styles/info/news';
 import { useBlogTextInfoContentStyles } from '@mui-treasury/styles/textInfoContent/blog';
 import IconButton from '@material-ui/core/IconButton';
-import FavoriteBorderRounded from '@material-ui/icons/FavoriteBorderRounded';
-import Share from '@material-ui/icons/Share';
+import { FavoriteBorderRounded, CommentRounded } from '@material-ui/icons';
 import moment from 'moment';
+import { Share } from 'components';
+import { LinkedInSquare } from '@mui-treasury/components/socialLink';
+import { useSelector } from 'react-redux';
+import { likeBlog, shareBlog } from 'redux/actions/blog';
 // import { useBasicProfileStyles }
 
 const useStyles = makeStyles(theme => ({
@@ -57,7 +60,22 @@ export default function MediaCard(props) {
   const cardStyles = useStyles();
   const mediaStyles = useWideCardMediaStyles();
   const shadowStyles = useLightTopShadowStyles();
-
+  const [likes, setLikes] = useState(blog.likes.length);
+  const [shares, setShares] = useState(blog.shares.length);
+  const {
+    blogLike: { loaded, count },
+    blogShare: { loaded: shared }
+  } = useSelector(({ blogLike, blogShare }) => ({ blogLike, blogShare }));
+  useEffect(() => {
+    if (loaded) {
+      setLikes(likes + count);
+    }
+  }, [loaded]);
+  useEffect(() => {
+    if (shared) {
+      setShares(shares + 1);
+    }
+  }, [shared]);
   return (
     <Card
       {...rest}
@@ -114,11 +132,18 @@ export default function MediaCard(props) {
         </Column>
       </CardContent>
       <CardActions style={{ backgroundColor: '#F1F1F1' }}>
-        <IconButton>
-          <Share />
+        <Share
+          shareCount={shares}
+          href={`blogs/${blog.slug}`}
+          onShare={() => shareBlog(blog.slug)}
+        />
+        <IconButton onClick={() => likeBlog(blog.slug)}>
+          <FavoriteBorderRounded />
+          <Typography variant="body2">{likes}</Typography>
         </IconButton>
         <IconButton>
-          <FavoriteBorderRounded />
+          <CommentRounded />
+          <Typography variant="body2">{blog.comments.length}</Typography>
         </IconButton>
       </CardActions>
     </Card>

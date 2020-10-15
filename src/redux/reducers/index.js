@@ -11,7 +11,9 @@ import {
   blogsGetReducer,
   blogGetReducer,
   blogEditReducer,
-  blogPublishReducer
+  blogPublishReducer,
+  blogLikeReducer,
+  blogShareReducer
 } from './blogReducer';
 import { categoryAddReducer, categoryGetReducer } from './categoryReducer';
 import { fileReducer } from './fileReducer';
@@ -46,5 +48,7 @@ export default combineReducers({
   blogPublish: blogPublishReducer,
   updateProfile: updateProfileReducer,
   commentsGet: commentGetReducer,
-  commentApprove: commentApproveReducer
+  commentApprove: commentApproveReducer,
+  blogLike: blogLikeReducer,
+  blogShare: blogShareReducer
 });

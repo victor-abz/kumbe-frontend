@@ -20,6 +20,10 @@ export const UPDATE_BLOG = 'UPDATE_BLOG';
 export const RESET_UPDATE_BLOG = 'RESET_UPDATE_BLOG';
 export const PUBLISH_BLOG = 'PUBLISH_BLOG';
 
+export const SHARE_BLOG = 'SHARE_BLOG';
+
+export const DIS_OR_LIKE_BLOG = 'DIS_OR_LIKE_BLOG';
+
 export const ADD_NEW_MEDIA = 'ADD_NEW_MEDIA';
 export const GET_MEDIAS = 'GET_MEDIAS';
 export const UPDATE_MEDIA = 'UPDATE_MEDIA';

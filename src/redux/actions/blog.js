@@ -6,7 +6,9 @@ import {
   GET_BLOG,
   UPDATE_BLOG,
   RESET_UPDATE_BLOG,
-  PUBLISH_BLOG
+  PUBLISH_BLOG,
+  DIS_OR_LIKE_BLOG,
+  SHARE_BLOG
 } from './actionTypes';
 
 export const createBlog = (newBlog = {}) => {
@@ -50,5 +52,17 @@ export const publishBlog = (blogId, blog) => {
   store.dispatch({
     type: PUBLISH_BLOG,
     payload: http.put(`/blogs/publish/${blogId}`, blog)
+  });
+};
+export const likeBlog = blogId => {
+  store.dispatch({
+    type: DIS_OR_LIKE_BLOG,
+    payload: http.patch(`/blogs/${blogId}/like`)
+  });
+};
+export const shareBlog = blogId => {
+  store.dispatch({
+    type: SHARE_BLOG,
+    payload: http.patch(`/blogs/${blogId}/share`)
   });
 };
