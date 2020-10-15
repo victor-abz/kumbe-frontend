@@ -1,0 +1,46 @@
+import React from 'react';
+import moment from 'moment';
+import { Avatar, Button, ButtonGroup, Typography } from '@material-ui/core';
+import getInitials from 'utils/getInitials';
+
+export const commentsColumns = (t, classes, onApprove) => [
+  {
+    label: t('comment:col_user'),
+    content: item => (
+      <div className={classes.nameCell}>
+        <Avatar className={classes.avatar} src={item.user.profilePic}>
+          {getInitials(item.user.firstName)}
+        </Avatar>
+        <div>
+          <Typography color="inherit" variant="h6">
+            {`${item.user.firstName} ${item.user.lastName}`}
+          </Typography>
+          <div>{item.user.username}</div>
+        </div>
+      </div>
+    )
+  },
+  {
+    label: t('comment:col_title'),
+    content: item => item.blog.title
+  },
+  { path: 'content', label: t('comment:col_content') },
+  {
+    label: t('comment:col_approved'),
+    content: item => (item.approved ? 'Yes' : 'No')
+  },
+  {
+    label: t('comment:col_created'),
+    content: item => moment(item.createdAt).fromNow()
+  },
+  {
+    label: t('blog:col_actions'),
+    content: item => (
+      <ButtonGroup aria-label="small outlined button group" size="small">
+        <Button color="primary" onClick={() => onApprove(item)}>
+          {item.approved ? 'Unpublish' : 'Publish'}
+        </Button>
+      </ButtonGroup>
+    )
+  }
+];

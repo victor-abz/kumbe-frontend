@@ -95,6 +95,11 @@ const routes = [
         component: lazy(() => import('views/BlogList'))
       },
       {
+        path: '/admin/comments',
+        exact: true,
+        component: lazy(() => import('views/Comments'))
+      },
+      {
         path: '/admin/media/medias',
         exact: true,
         component: lazy(() => import('views/Medias/AudioList'))

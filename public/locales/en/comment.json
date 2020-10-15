@@ -1,0 +1,15 @@
+{
+  "name": "Comment",
+  "page_header": "Blog comments",
+  "title": "Give your comment",
+  "view_title":"All blog comments",
+  "col_user":"Commentor",
+  "col_title":"Blog title",
+  "col_content":"Content",
+  "col_approved":"Approved",
+  "col_created":"Created at",
+  "placeholder":"Give your comment",
+  "btn_send":"Comment",
+  "no_display_data":"Be the first to give a comment",
+  "comment_success":"The comment has been received"
+}

@@ -11,7 +11,9 @@ import {
   blogsGetReducer,
   blogGetReducer,
   blogEditReducer,
-  blogPublishReducer
+  blogPublishReducer,
+  blogLikeReducer,
+  blogShareReducer
 } from './blogReducer';
 import { categoryAddReducer, categoryGetReducer } from './categoryReducer';
 import { fileReducer } from './fileReducer';
@@ -23,6 +25,11 @@ import {
 } from './mediaReducers';
 import { tagAddReducer, tagGetReducer } from './tagReducer';
 import { updateProfileReducer } from './profileReducer';
+import {
+  commentAddReducer,
+  commentApproveReducer,
+  commentGetReducer
+} from './commentReducer';
 
 export default combineReducers({
   login: loginReducer,
@@ -42,6 +49,11 @@ export default combineReducers({
   mediaDetail: mediaDetailReducer,
   logOut: logOutReducer,
   blogEdit: blogEditReducer,
-  blogPublish:blogPublishReducer,
+  blogPublish: blogPublishReducer,
   updateProfile: updateProfileReducer,
+  commentsGet: commentGetReducer,
+  commentApprove: commentApproveReducer,
+  blogLike: blogLikeReducer,
+  blogShare: blogShareReducer,
+  commentAdd: commentAddReducer
 });

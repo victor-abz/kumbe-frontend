@@ -68,7 +68,8 @@ const App = () => {
     'error',
     'blog',
     'media',
-    'settings'
+    'settings',
+    'comment'
   ]);
   return (
     <Root scheme={scheme}>
