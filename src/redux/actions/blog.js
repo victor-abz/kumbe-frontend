@@ -8,7 +8,9 @@ import {
   RESET_UPDATE_BLOG,
   PUBLISH_BLOG,
   DIS_OR_LIKE_BLOG,
-  SHARE_BLOG
+  SHARE_BLOG,
+  ADD_COMMENT,
+  RESET_ADD_COMMENT
 } from './actionTypes';
 
 export const createBlog = (newBlog = {}) => {
@@ -64,5 +66,17 @@ export const shareBlog = blogId => {
   store.dispatch({
     type: SHARE_BLOG,
     payload: http.patch(`/blogs/${blogId}/share`)
+  });
+};
+export const addComment = (blogId, comment) => {
+  store.dispatch({
+    type: ADD_COMMENT,
+    payload: http.post(`/blogs/${blogId}/comments`, comment)
+  });
+};
+export const resetAddComment = () => {
+  store.dispatch({
+    type: RESET_ADD_COMMENT,
+    payload: ''
   });
 };

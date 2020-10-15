@@ -25,7 +25,11 @@ import {
 } from './mediaReducers';
 import { tagAddReducer, tagGetReducer } from './tagReducer';
 import { updateProfileReducer } from './profileReducer';
-import { commentApproveReducer, commentGetReducer } from './commentReducer';
+import {
+  commentAddReducer,
+  commentApproveReducer,
+  commentGetReducer
+} from './commentReducer';
 
 export default combineReducers({
   login: loginReducer,
@@ -50,5 +54,6 @@ export default combineReducers({
   commentsGet: commentGetReducer,
   commentApprove: commentApproveReducer,
   blogLike: blogLikeReducer,
-  blogShare: blogShareReducer
+  blogShare: blogShareReducer,
+  commentAdd: commentAddReducer
 });

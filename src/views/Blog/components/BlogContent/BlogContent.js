@@ -8,7 +8,13 @@ import {
   CardActionArea,
   CardActions,
   CardContent,
-  Typography
+  Typography,
+  CardHeader,
+  Input,
+  Paper,
+  Tooltip,
+  Button,
+  Grid
 } from '@material-ui/core';
 import cx from 'clsx';
 import { useWideCardMediaStyles } from '@mui-treasury/styles/cardMedia/wide';
@@ -25,13 +31,26 @@ import TextInfoContent from '@mui-treasury/components/content/textInfo';
 import { useNewsInfoStyles } from '@mui-treasury/styles/info/news';
 import { useBlogTextInfoContentStyles } from '@mui-treasury/styles/textInfoContent/blog';
 import IconButton from '@material-ui/core/IconButton';
-import { FavoriteBorderRounded, CommentRounded } from '@material-ui/icons';
+import {
+  FavoriteBorderRounded,
+  CommentRounded,
+  Favorite
+} from '@material-ui/icons';
 import moment from 'moment';
 import { Share } from 'components';
 import { LinkedInSquare } from '@mui-treasury/components/socialLink';
 import { useSelector } from 'react-redux';
-import { likeBlog, shareBlog } from 'redux/actions/blog';
+import {
+  addComment,
+  likeBlog,
+  resetAddComment,
+  shareBlog
+} from 'redux/actions/blog';
 // import { useBasicProfileStyles }
+import { Send as SendIcon } from '@material-ui/icons';
+import { BlogComments } from './BlogComments';
+import { useTranslation } from 'react-i18next';
+import { notifier } from 'utils/notifier';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -52,20 +71,37 @@ const useStyles = makeStyles(theme => ({
   chip: {
     maxWidth: '100%',
     margin: theme.spacing(0.2)
+  },
+  paper: {
+    flexGrow: 1,
+    padding: theme.spacing(0.5, 2)
+  },
+  input: {
+    width: '100%'
+  },
+  button: {
+    margin: theme.spacing(1, 0)
   }
 }));
 
-export default function MediaCard(props) {
+const MediaCard = props => {
   const { className, blog, ...rest } = props;
   const cardStyles = useStyles();
   const mediaStyles = useWideCardMediaStyles();
   const shadowStyles = useLightTopShadowStyles();
+  const { t } = useTranslation();
   const [likes, setLikes] = useState(blog.likes.length);
   const [shares, setShares] = useState(blog.shares.length);
+  const [commentValue, setCommentValue] = useState('');
   const {
     blogLike: { loaded, count },
-    blogShare: { loaded: shared }
-  } = useSelector(({ blogLike, blogShare }) => ({ blogLike, blogShare }));
+    blogShare: { loaded: shared },
+    commentAdd: { loading, loaded: done }
+  } = useSelector(({ blogLike, blogShare, commentAdd }) => ({
+    blogLike,
+    blogShare,
+    commentAdd
+  }));
   useEffect(() => {
     if (loaded) {
       setLikes(likes + count);
@@ -76,6 +112,18 @@ export default function MediaCard(props) {
       setShares(shares + 1);
     }
   }, [shared]);
+  useEffect(() => {
+    if (done) {
+      setCommentValue('');
+      resetAddComment();
+      notifier.success(t('comment:comment_success'));
+    }
+  }, [done]);
+  const onSendComment = () => {
+    if (commentValue.length > 20) {
+      addComment(blog.slug, { content: commentValue });
+    }
+  };
   return (
     <Card
       {...rest}
@@ -146,6 +194,34 @@ export default function MediaCard(props) {
           <Typography variant="body2">{blog.comments.length}</Typography>
         </IconButton>
       </CardActions>
+      <Card>
+        <CardHeader title={t('comment:page_header')} />
+        <CardContent>
+          <Paper className={cardStyles.paper} elevation={1}>
+            <Input
+              className={cardStyles.input}
+              disableUnderline
+              multiline
+              onChange={({ target }) => setCommentValue(target.value)}
+              placeholder={t('comment:placeholder')}
+              rows={3}
+            />
+          </Paper>
+          <Tooltip title={t('comment:btn_send')}>
+            <Button
+              className={cardStyles.button}
+              color="secondary"
+              disabled={loading}
+              onClick={() => onSendComment()}
+              endIcon={<SendIcon>{t('comment:btn_send')}</SendIcon>}
+              variant="contained">
+              {t('comment:btn_send')}
+            </Button>
+          </Tooltip>
+          <BlogComments blogSlug={blog.slug} />
+        </CardContent>
+      </Card>
     </Card>
   );
-}
+};
+export default MediaCard;

@@ -9,12 +9,20 @@ import Layout, {
 import { BlogContent } from './components';
 import { useStyles } from './styles';
 import CustomCard from '../../components/BlogCard';
-import { Grid, Typography, Divider } from '@material-ui/core';
+import {
+  Grid,
+  Typography,
+  Divider,
+  Card,
+  CardHeader,
+  CardContent
+} from '@material-ui/core';
 import { Column, Row, Item } from '@mui-treasury/components/flex';
 import { getBlogs } from 'redux/actions/blog';
 import { getBlog } from 'redux/actions/blog';
 import { useSelector } from 'react-redux';
 import BlogCard from '../../components/BlogCard';
+import { Loading } from 'components/Loading';
 
 const Content = getContent(styled);
 const InsetContainer = getInsetContainer(styled);
@@ -27,12 +35,12 @@ const Blog = props => {
   const { id } = match.params;
 
   const {
-    blogGet: { blog, loaded },
+    blogGet: { blog, loaded, loading },
     blogsGet: { blogs }
   } = useSelector(({ blogGet, blogsGet }) => ({ blogGet, blogsGet }));
 
   useEffect(() => {
-    getBlogs({});
+    // getBlogs({});
     getBlog(id);
   }, [id]);
 
@@ -73,10 +81,10 @@ const Blog = props => {
             </Column>
           </InsetSidebar>
         }>
-        {loaded ? (
-          <BlogContent blog={blog} className={classes.blogView} />
+        {loading ? (
+          <Loading />
         ) : (
-          <p>Wait...</p>
+          loaded && <BlogContent blog={blog} className={classes.blogView} />
         )}
       </InsetContainer>
     </Content>

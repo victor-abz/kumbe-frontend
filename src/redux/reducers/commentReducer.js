@@ -1,4 +1,9 @@
-import { APPROVE_COMMENT, GET_COMMENTS } from 'redux/actions/actionTypes';
+import {
+  ADD_COMMENT,
+  APPROVE_COMMENT,
+  GET_COMMENTS,
+  RESET_ADD_COMMENT
+} from 'redux/actions/actionTypes';
 import { baseState, fulfilled, pending, rejected } from 'redux/utils';
 
 export const commentGetReducer = (
@@ -46,6 +51,34 @@ export const commentApproveReducer = (
         message: action.payload.data.message
       };
     case rejected(APPROVE_COMMENT):
+    default:
+      return {
+        ...state,
+        loading: false
+      };
+  }
+};
+export const commentAddReducer = (state = baseState('message', ''), action) => {
+  switch (action.type) {
+    case pending(ADD_COMMENT):
+      return {
+        ...state,
+        loaded: false,
+        loading: true
+      };
+    case fulfilled(ADD_COMMENT):
+      return {
+        ...state,
+        loading: false,
+        loaded: true,
+        message: action.payload.data.message
+      };
+    case RESET_ADD_COMMENT:
+      return {
+        ...state,
+        loaded: false
+      };
+    case rejected(ADD_COMMENT):
     default:
       return {
         ...state,

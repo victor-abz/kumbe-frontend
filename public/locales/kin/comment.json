@@ -7,5 +7,9 @@
   "col_title":"Inkuru",
   "col_content":"Content",
   "col_approved":"Yemejwe?",
-  "col_created":"Yanditswe"
+  "col_created":"Yanditswe",
+  "placeholder":"Tanga igitekerezo cyawe",
+  "btn_send":"Ohereza",
+  "no_display_data":"Ba uwa mbere mu gutanga igitekerezo",
+  "comment_success":"Igitekerezo cyanyu cyakiriwe"
 }
