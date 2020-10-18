@@ -2,19 +2,13 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { Page } from 'components';
-import {
-  Banner,
-  FAQ,
-  Products,
-  Blogs,
-  Slider
-} from './components';
+import { Banner, FAQ, Products, Blogs, Slider } from './components';
 
 const useStyles = makeStyles(() => ({
   root: {}
 }));
 
-const Presentation = () => {
+const Home = () => {
   const classes = useStyles();
 
   return (
@@ -28,4 +22,4 @@ const Presentation = () => {
   );
 };
 
-export default Presentation;
+export default Home;

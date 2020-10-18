@@ -7,7 +7,7 @@ import AuthLayout from './layouts/Auth';
 import DashboardLayout from './layouts/Dashboard';
 import DashboardAnalyticsView from './views/DashboardAnalytics';
 import DashboardDefaultView from './views/DashboardDefault';
-import PresentationView from './views/Presentation';
+import PresentationView from './views/Home';
 
 const routes = [
   {
@@ -185,6 +185,11 @@ const routes = [
         path: '/login',
         exact: true,
         component: lazy(() => import('views/Login'))
+      },
+      {
+        path: '/faq',
+        exact: true,
+        component: lazy(() => import('views/FAQ'))
       },
       {
         path: '/register',
