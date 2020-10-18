@@ -5,8 +5,7 @@ import { Page } from 'components';
 import {
   Banner,
   FAQ,
-  PluginsSupport,
-  SourceFiles,
+  Products,
   Blogs,
   Slider
 } from './components';
@@ -19,16 +18,12 @@ const Presentation = () => {
   const classes = useStyles();
 
   return (
-    <Page
-      className={classes.root}
-      title="Home | Kumbe"
-    >
+    <Page className={classes.root} title="Home | Kumbe">
       <Slider />
       <Banner />
-      <Blogs /> 
-      {/* <PluginsSupport />
-      <SourceFiles />
-      <FAQ /> */}
+      <Blogs />
+      <Products />
+      {/* <FAQ /> */}
     </Page>
   );
 };
