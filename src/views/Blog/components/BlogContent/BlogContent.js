@@ -169,7 +169,7 @@ const MediaCard = props => {
             </Item>
             <Item position={'middle'}>
               <Info useStyles={useNewsInfoStyles}>
-                <InfoCaption>{`By ${blog.editor.firstName} ${blog.editor.lastName}`}</InfoCaption>
+                <InfoCaption>{`By ${blog.author.firstName} ${blog.author.lastName}`}</InfoCaption>
                 {/* <InfoSubtitle>{moment(blog.createdAt).fromNow()}</InfoSubtitle> */}
               </Info>
             </Item>

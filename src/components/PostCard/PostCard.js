@@ -28,6 +28,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ForumOutlinedIcon from '@material-ui/icons/ForumOutlined';
+import { NoDisplayData } from 'components/NoDisplayData';
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -112,7 +113,7 @@ const PostCard = props => {
           size="small"
           style={{ backgroundColor: '#CC6101', color: '#fff' }}
           variant="contained">
-          Puberty
+          {post.category.name}
         </Button>
       </div>
       <Card {...rest} className={clsx(classes.root, className)}>
@@ -122,7 +123,7 @@ const PostCard = props => {
               alt="Person"
               className={classes.avatar}
               component={RouterLink}
-              src={post.author.avatar}
+              src={post.author.profilePic}
               to="/profile/1/timeline"
             />
           }
@@ -131,7 +132,7 @@ const PostCard = props => {
             <div className={classes.subheader}>
               <AccessTimeIcon className={classes.accessTimeIcon} />
               <Typography variant="body2">
-                {moment(post.created_at).fromNow()}
+                {moment(post.createdAt).fromNow()}
               </Typography>
             </div>
           }
@@ -141,13 +142,13 @@ const PostCard = props => {
               component={RouterLink}
               to="/profile/1/timeline"
               variant="h6">
-              {post.author.name}
+              {`${post.author.firstName} ${post.author.lastName}`}
             </Link>
           }
         />
         <CardContent className={classes.content}>
           <Typography className={classes.message} variant="body1">
-            {post.message}
+            {post.content}
           </Typography>
         </CardContent>
         <Divider className={classes.divider} />
@@ -165,9 +166,7 @@ const PostCard = props => {
             // size="small"
             startIcon={<ForumOutlinedIcon />}
             variant="contained">
-            {post.comments
-              ? `Replies(${post.comments.length})`
-              : `Replies(${0})`}
+            {`Replies(${post.replies.length})`}
           </Button>
         </CardActions>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
@@ -176,12 +175,14 @@ const PostCard = props => {
           <Grid className={classes.replies}>
             <CommentForm />
             <Divider className={classes.divider} />
-            {post.comments && (
+            {post.replies.length ? (
               <div className={classes.comments}>
-                {post.comments.map(comment => (
-                  <CommentBubble comment={comment} key={comment.id} />
+                {post.replies.map((comment, commentIdx) => (
+                  <CommentBubble comment={comment} key={commentIdx} />
                 ))}
               </div>
+            ) : (
+              <NoDisplayData message="Be the first to comment on the post" />
             )}
           </Grid>
         </Collapse>

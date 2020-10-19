@@ -159,8 +159,8 @@ const Results = props => {
                         <div className={classes.nameCell}>
                           <Avatar
                             className={classes.avatar}
-                            src={blog.editor.profilePic}>
-                            {getInitials(blog.editor.firstName)}
+                            src={blog.author.profilePic}>
+                            {getInitials(blog.author.firstName)}
                           </Avatar>
                           <div>
                             <Link
@@ -168,9 +168,9 @@ const Results = props => {
                               component={RouterLink}
                               to={`/blogs/${blog.slug}`}
                               variant="h6">
-                              {`${blog.editor.firstName} ${blog.editor.lastName}`}
+                              {`${blog.author.firstName} ${blog.author.lastName}`}
                             </Link>
-                            <div>{blog.editor.username}</div>
+                            <div>{blog.author.username}</div>
                           </div>
                         </div>
                       </TableCell>
