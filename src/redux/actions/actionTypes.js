@@ -38,3 +38,5 @@ export const RESET_ADD_COMMENT = 'RESET_ADD_COMMENT';
 
 export const CREATE_QUESTION = 'CREATE_QUESTION';
 export const GET_QUESTIONS = 'GET_QUESTIONS';
+export const CREATE_REPLY = 'CREATE_REPLY';
+export const GET_REPLIES = 'GET_REPLIES';
