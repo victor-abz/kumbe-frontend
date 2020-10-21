@@ -40,9 +40,11 @@ const PostCard = props => {
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
   const [questionId, setQuestionId] = useState('');
+  const [postReplies, setPostReplies] = useState([]);
+  const [newReplies, setNewReplies] = useState([]);
   const {
     replyAdd: { loading },
-    repliesGet: { loading: posting, replies },
+    repliesGet: { loading: posting, loaded, replies },
     auth: { user }
   } = useSelector(({ replyAdd, repliesGet, auth }) => ({
     repliesGet,
@@ -51,12 +53,16 @@ const PostCard = props => {
   }));
 
   const expandQuestion = qtnId => {
-    if (expanded) {
-      setQuestionId(qtnId);
+    if (!expanded) {
       getReplies(qtnId, {});
     }
     setExpanded(!expanded);
   };
+  useEffect(() => {
+    if (loaded) {
+      setPostReplies(replies);
+    }
+  }, [loaded]);
   useEffect(() => {
     const name = `${user.firstName} ${user.lastName}`;
     httpSocket.emit('join', { userId: user.id, name }, () => {});
@@ -66,7 +72,10 @@ const PostCard = props => {
       notifier.success(joinMessage.content);
     });
     httpSocket.on('new-reply', replyContent => {
-      console.log('NR', replyContent);
+      if (replyContent.discussionId === post.id) {
+        setNewReplies(rplies => [...rplies, replyContent]);
+        setPostReplies(currReplies => [replyContent, ...currReplies]);
+      }
       notifier.success(`New update from ${replyContent.userNames}`);
     });
   }, []);
@@ -132,7 +141,7 @@ const PostCard = props => {
             // size="small"
             startIcon={<ForumOutlinedIcon />}
             variant="contained">
-            {`Replies(${post.replies.length})`}
+            {`Replies(${post.replies.length + newReplies.length})`}
           </Button>
         </CardActions>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
@@ -141,9 +150,9 @@ const PostCard = props => {
           <Grid className={classes.replies}>
             <CommentForm postId={post.id} />
             <Divider className={classes.divider} />
-            {replies.length ? (
+            {postReplies.length ? (
               <div className={classes.comments}>
-                {replies.map((comment, commentIdx) => (
+                {postReplies.map((comment, commentIdx) => (
                   <CommentBubble comment={comment} key={commentIdx} />
                 ))}
               </div>
