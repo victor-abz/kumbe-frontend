@@ -105,10 +105,10 @@ export const BlogComments = ({ blogSlug = '' }) => {
             <CardHeader
               avatar={
                 <Avatar
-                  alt={comment.user.firstName}
+                  alt={comment.author.firstName}
                   className={classes.avatar}
                   component={RouterLink}
-                  src={`${profilePicPath}/${comment.user.profilePic}`}
+                  src={`${profilePicPath}/${comment.author.profilePic}`}
                   to="#"
                 />
               }
@@ -127,7 +127,7 @@ export const BlogComments = ({ blogSlug = '' }) => {
                   component={RouterLink}
                   to="/profile/1/timeline"
                   variant="h6">
-                  {`${comment.user.firstName} ${comment.user.lastName}`}
+                  {`${comment.author.firstName} ${comment.author.lastName}`}
                 </Link>
               }
             />

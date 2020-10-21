@@ -89,7 +89,7 @@ const BlogCard = React.memo(function PostCard({
   userImage,
   slug,
   title,
-  editor,
+  author,
   date
 }) {
   const cardStyles = useStyles({ color });
@@ -131,7 +131,7 @@ const BlogCard = React.memo(function PostCard({
                 variant={'rounded'}
               />
               <Info useStyles={useNewsInfoStyles}>
-                <InfoCaption>{`${editor.firstName} ${editor.lastName}`}</InfoCaption>
+                <InfoCaption>{`${author.firstName} ${author.lastName}`}</InfoCaption>
                 {/* <InfoSubtitle>{moment(date).fromNow()}</InfoSubtitle> */}
               </Info>
             </Row>

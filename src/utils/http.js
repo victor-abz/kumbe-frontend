@@ -1,4 +1,5 @@
 import axios from 'axios';
+import socketIoClient from 'socket.io-client';
 import { AUTH_TOKEN } from './constants';
 
 let token = localStorage.getItem(AUTH_TOKEN);
@@ -11,4 +12,7 @@ export const http = axios.create({
     Authorization: token || '',
     'Accept-Language': language || 'en'
   }
+});
+export const httpSocket = socketIoClient(process.env.REACT_APP_API_URL, {
+  autoConnect: true
 });

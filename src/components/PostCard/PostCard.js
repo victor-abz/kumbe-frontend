@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import moment from 'moment';
-import { makeStyles } from '@material-ui/core/styles';
 import {
   Card,
   CardHeader,
@@ -28,81 +27,58 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ForumOutlinedIcon from '@material-ui/icons/ForumOutlined';
-
-const useStyles = makeStyles(theme => ({
-  root: {},
-  subheader: {
-    display: 'flex',
-    alignItems: 'center'
-  },
-  accessTimeIcon: {
-    color: theme.palette.text.secondary,
-    fontSize: '14px',
-    height: 14,
-    width: 14,
-    marginRight: 6
-  },
-  content: {
-    paddingTop: 0,
-    paddingBottom: 0
-  },
-  message: {
-    marginBottom: theme.spacing(2)
-  },
-  mediaArea: {
-    marginBottom: theme.spacing(2)
-  },
-  media: {
-    height: 400,
-    backgroundPosition: 'initial'
-  },
-  divider: {
-    marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(1)
-  },
-  category: {
-    display: 'flex',
-    alignItems: 'center',
-    marginBottom: theme.spacing(-1.5)
-  },
-  popCategory: {
-    // marginBottom: theme.spacing(-2),
-    marginLeft: 'auto',
-    marginRight: theme.spacing(2),
-    height: 20
-  },
-  expand: {
-    // transform: 'rotate(0deg)',
-    marginLeft: 'auto',
-    backgroundColor: theme.palette.secondary.main,
-    color: theme.palette.white,
-    marginRight: theme.spacing(1),
-    '&:hover': {
-      backgroundColor: theme.palette.secondary.dark,
-      color: theme.palette.white
-    }
-  },
-  expandOpen: {
-    transform: 'rotate(180deg)'
-  },
-  actions: {
-    padding: theme.spacing(0, 1),
-    marginTop: 0
-  },
-  replies: {
-    padding: theme.spacing(2, 2, 3, 6)
-  }
-}));
+import { NoDisplayData } from 'components/NoDisplayData';
+import { useStyles } from './styles/postCard';
+import { useSelector } from 'react-redux';
+import { getReplies } from 'redux/actions/forum';
+import { httpSocket } from 'utils/http';
+import { notifier } from 'utils/notifier';
 
 const PostCard = props => {
   const { post, className, ...rest } = props;
 
   const classes = useStyles();
-  const [expanded, setExpanded] = React.useState(false);
+  const [expanded, setExpanded] = useState(false);
+  const [questionId, setQuestionId] = useState('');
+  const [postReplies, setPostReplies] = useState([]);
+  const [newReplies, setNewReplies] = useState([]);
+  const {
+    replyAdd: { loading },
+    repliesGet: { loading: posting, loaded, replies },
+    auth: { user }
+  } = useSelector(({ replyAdd, repliesGet, auth }) => ({
+    repliesGet,
+    replyAdd,
+    auth
+  }));
 
-  const handleExpandClick = () => {
+  const expandQuestion = qtnId => {
+    if (!expanded) {
+      getReplies(qtnId, {});
+    }
     setExpanded(!expanded);
   };
+  useEffect(() => {
+    if (loaded) {
+      setPostReplies(replies);
+    }
+  }, [loaded]);
+  useEffect(() => {
+    const name = `${user.firstName} ${user.lastName}`;
+    httpSocket.emit('join', { userId: user.id, name }, () => {});
+  }, []);
+  useEffect(() => {
+    httpSocket.on('join-message', joinMessage => {
+      notifier.success(joinMessage.content);
+    });
+    httpSocket.on('new-reply', replyContent => {
+      if (replyContent.discussionId === post.id) {
+        setNewReplies(rplies => [...rplies, replyContent]);
+        setPostReplies(currReplies => [replyContent, ...currReplies]);
+      }
+      notifier.success(`New update from ${replyContent.userNames}`);
+    });
+  }, []);
 
   return (
     <Grid>
@@ -112,7 +88,7 @@ const PostCard = props => {
           size="small"
           style={{ backgroundColor: '#CC6101', color: '#fff' }}
           variant="contained">
-          Puberty
+          {post.category.name}
         </Button>
       </div>
       <Card {...rest} className={clsx(classes.root, className)}>
@@ -122,7 +98,7 @@ const PostCard = props => {
               alt="Person"
               className={classes.avatar}
               component={RouterLink}
-              src={post.author.avatar}
+              src={post.author.profilePic}
               to="/profile/1/timeline"
             />
           }
@@ -131,7 +107,7 @@ const PostCard = props => {
             <div className={classes.subheader}>
               <AccessTimeIcon className={classes.accessTimeIcon} />
               <Typography variant="body2">
-                {moment(post.created_at).fromNow()}
+                {moment(post.createdAt).fromNow()}
               </Typography>
             </div>
           }
@@ -141,13 +117,13 @@ const PostCard = props => {
               component={RouterLink}
               to="/profile/1/timeline"
               variant="h6">
-              {post.author.name}
+              {`${post.author.firstName} ${post.author.lastName}`}
             </Link>
           }
         />
         <CardContent className={classes.content}>
           <Typography className={classes.message} variant="body1">
-            {post.message}
+            {post.content}
           </Typography>
         </CardContent>
         <Divider className={classes.divider} />
@@ -161,27 +137,27 @@ const PostCard = props => {
           <Button
             className={classes.expand}
             // color="light"
-            onClick={handleExpandClick}
+            onClick={() => expandQuestion(post.id)}
             // size="small"
             startIcon={<ForumOutlinedIcon />}
             variant="contained">
-            {post.comments
-              ? `Replies(${post.comments.length})`
-              : `Replies(${0})`}
+            {`Replies(${post.replies.length + newReplies.length})`}
           </Button>
         </CardActions>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <Divider className={classes.divider} />
           {/* <Reactions className={classes.reactions} post={post} /> */}
           <Grid className={classes.replies}>
-            <CommentForm />
+            <CommentForm postId={post.id} />
             <Divider className={classes.divider} />
-            {post.comments && (
+            {postReplies.length ? (
               <div className={classes.comments}>
-                {post.comments.map(comment => (
-                  <CommentBubble comment={comment} key={comment.id} />
+                {postReplies.map((comment, commentIdx) => (
+                  <CommentBubble comment={comment} key={commentIdx} />
                 ))}
               </div>
+            ) : (
+              <NoDisplayData message="Be the first to comment on the post" />
             )}
           </Grid>
         </Collapse>

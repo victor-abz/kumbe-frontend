@@ -30,6 +30,12 @@ import {
   commentApproveReducer,
   commentGetReducer
 } from './commentReducer';
+import {
+  qtnAddReducer,
+  qtnsGetReducer,
+  repliesGetReducer,
+  replyAddReducer
+} from './forumReducers';
 
 export default combineReducers({
   login: loginReducer,
@@ -55,5 +61,9 @@ export default combineReducers({
   commentApprove: commentApproveReducer,
   blogLike: blogLikeReducer,
   blogShare: blogShareReducer,
-  commentAdd: commentAddReducer
+  commentAdd: commentAddReducer,
+  qtnAdd: qtnAddReducer,
+  qtnsGet: qtnsGetReducer,
+  replyAdd: replyAddReducer,
+  repliesGet: repliesGetReducer
 });

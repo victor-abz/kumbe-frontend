@@ -4,6 +4,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import axios from 'utils/axios';
 import { Page, PostCard, AddPost, SearchBar } from 'components';
 import { Header } from './components';
+import { useSelector } from 'react-redux';
+import { Loading } from 'components/Loading';
+import { NoDisplayData } from 'components/NoDisplayData';
+import { getQuestions } from 'redux/actions/forum';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -28,27 +32,19 @@ const useStyles = makeStyles(theme => ({
 
 const Feed = ({ user }) => {
   const classes = useStyles();
-
+  const {
+    qtnsGet: { loading, questions },
+    qtnAdd: { loading: sending, loaded }
+  } = useSelector(({ qtnsGet, qtnAdd }) => ({ qtnsGet, qtnAdd }));
   const [posts, setPosts] = useState([]);
-
   useEffect(() => {
-    let mounted = true;
-
-    const fetchPosts = () => {
-      axios.get('/api/social-feed').then(response => {
-        if (mounted) {
-          setPosts(response.data.posts);
-        }
-      });
-    };
-
-    fetchPosts();
-
-    return () => {
-      mounted = false;
-    };
+    getQuestions({});
   }, []);
-
+  useEffect(() => {
+    if (loaded) {
+      getQuestions({});
+    }
+  }, [loaded]);
   const handleFilter = () => {};
   const handleSearch = () => {};
 
@@ -60,11 +56,22 @@ const Feed = ({ user }) => {
         onFilter={handleFilter}
         onSearch={handleSearch}
       />
-      <AddPost className={classes.newPost} user={user} />
+      <AddPost
+        className={classes.newPost}
+        loading={sending}
+        done={loaded}
+        user={user}
+      />
       <div className={classes.posts}>
-        {posts.map(post => (
-          <PostCard className={classes.post} key={post.id} post={post} />
-        ))}
+        {loading ? (
+          <Loading />
+        ) : questions.length ? (
+          questions.map((post, postIdx) => (
+            <PostCard className={classes.post} key={postIdx} post={post} />
+          ))
+        ) : (
+          <NoDisplayData />
+        )}
       </div>
     </Page>
   );

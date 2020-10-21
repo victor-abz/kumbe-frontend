@@ -58,14 +58,14 @@ const CommentBubble = props => {
             component={RouterLink}
             to="/profile/1/timeline"
             variant="h6">
-            {comment.author.name}
+            {`${comment.author.firstName} ${comment.author.lastName}`}
           </Link>
           <Typography className={classes.time} variant="body2">
-            {moment(comment.created_at).fromNow()}
+            {moment(comment.createdAt).fromNow()}
           </Typography>
         </div>
         <Typography className={classes.message} variant="body1">
-          {comment.message}
+          {comment.content}
         </Typography>
         <div className={classes.reactions}>
           <IconButton aria-label="add to favorites" size="small">
