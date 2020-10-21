@@ -8,14 +8,14 @@ export const commentsColumns = (t, classes, onApprove) => [
     label: t('comment:col_user'),
     content: item => (
       <div className={classes.nameCell}>
-        <Avatar className={classes.avatar} src={item.user.profilePic}>
-          {getInitials(item.user.firstName)}
+        <Avatar className={classes.avatar} src={item.author.profilePic}>
+          {getInitials(item.author.firstName)}
         </Avatar>
         <div>
           <Typography color="inherit" variant="h6">
-            {`${item.user.firstName} ${item.user.lastName}`}
+            {`${item.author.firstName} ${item.author.lastName}`}
           </Typography>
-          <div>{item.user.username}</div>
+          <div>{item.author.username}</div>
         </div>
       </div>
     )
