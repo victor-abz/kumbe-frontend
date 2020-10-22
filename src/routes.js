@@ -217,21 +217,6 @@ const routes = [
         exact: true,
         component: lazy(() => import('views/Listen'))
       },
-      // {
-      //   path: '/forum',
-      //   exact: true,
-      //   component: lazy(() => import('views/Forum'))
-      // },
-      // {
-      //   path: '/forum/c/:id/',
-      //   exact: true,
-      //   component: lazy(() => import('views/Forum'))
-      // },
-      // {
-      //   path: '/forum/q/:qId',
-      //   exact: true,
-      //   component: lazy(() => import('views/Forum'))
-      // },
       {
         path: '/forum',
         component: Forum,
