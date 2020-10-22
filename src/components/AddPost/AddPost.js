@@ -43,11 +43,16 @@ const useStyles = makeStyles(theme => ({
     display: 'none'
   },
   button: {
-    margin: theme.spacing(1, 0)
+    margin: theme.spacing(1),
+    marginLeft: 'auto'
   },
   formControl: {
     margin: theme.spacing(1),
     minWidth: 120
+  },
+  actions: {
+    display: 'flex',
+    alignItems: 'center'
   }
 }));
 const initialValue = { content: '', categoryId: '', anonymous: false };
@@ -77,7 +82,6 @@ const AddPost = props => {
             className={classes.input}
             disableUnderline
             multiline
-            value={postValue.content}
             name="content"
             onChange={handleChange}
             placeholder={
@@ -86,51 +90,60 @@ const AddPost = props => {
                 : 'Login to post question,'
             }
             rows={3}
+            value={postValue.content}
           />
         </Paper>
-        <FormControl variant="outlined" className={classes.formControl}>
-          <InputLabel id="category">Category</InputLabel>
-          <Select
-            value={postValue.categoryId}
-            name="categoryId"
-            onChange={handleChange}>
-            <MenuItem value="">
-              <em>Select category</em>
-            </MenuItem>
-            {categories.map((category, categoryIdx) => (
-              <MenuItem value={category.id} key={categoryIdx}>
-                {category.name}
+        <div className={classes.actions}>
+          <FormControl
+            className={classes.formControl}
+            size="small"
+            variant="outlined">
+            <InputLabel id="category">Category</InputLabel>
+            <Select
+              name="categoryId"
+              onChange={handleChange}
+              value={postValue.categoryId}>
+              <MenuItem value="">
+                <em>Select category</em>
               </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-        <FormControl component="fieldset">
-          <FormLabel component="legend">Is Anonymous?</FormLabel>
-          <Typography component="div">
-            <Grid component="label" container alignItems="center" spacing={1}>
-              <Grid item>No</Grid>
-              <Grid item>
-                <Switch
-                  checked={postValue.anonymous}
-                  onChange={handleChange}
-                  name="anonymous"
-                />
+              {categories.map((category, categoryIdx) => (
+                <MenuItem key={categoryIdx} value={category.id}>
+                  {category.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <FormControl
+            className={classes.formControl}
+            component="fieldset"
+            size="small">
+            <FormLabel component="legend">Is Anonymous?</FormLabel>
+            <Typography component="div">
+              <Grid alignItems="center" component="label" container spacing={1}>
+                <Grid item>No</Grid>
+                <Grid item>
+                  <Switch
+                    checked={postValue.anonymous}
+                    name="anonymous"
+                    onChange={handleChange}
+                  />
+                </Grid>
+                <Grid item>Yes</Grid>
               </Grid>
-              <Grid item>Yes</Grid>
-            </Grid>
-          </Typography>
-        </FormControl>
-        <Tooltip title="Post Question">
-          <Button
-            className={classes.button}
-            color="secondary"
-            endIcon={<SendIcon>Post Question</SendIcon>}
-            disabled={!postValue.content || !postValue.categoryId || loading}
-            onClick={() => addQuestion(postValue)}
-            variant="contained">
-            {loading ? 'Posting,...' : 'Post Question'}
-          </Button>
-        </Tooltip>
+            </Typography>
+          </FormControl>
+          <Tooltip title="Post Question">
+            <Button
+              className={classes.button}
+              color="secondary"
+              disabled={!postValue.content || !postValue.categoryId || loading}
+              endIcon={<SendIcon>Post Question</SendIcon>}
+              onClick={() => addQuestion(postValue)}
+              variant="contained">
+              {loading ? 'Posting,...' : 'Post Question'}
+            </Button>
+          </Tooltip>
+        </div>
       </CardContent>
     </Card>
   );

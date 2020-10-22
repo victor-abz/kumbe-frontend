@@ -9,19 +9,25 @@ import { useStyles } from './styles';
 import { getBlogs } from 'redux/actions/blog';
 import { useTranslation } from 'react-i18next';
 
-const ViewBlogs = () => {
+const ViewBlogs = ({ match }) => {
   const classes = useStyles();
   const { t } = useTranslation();
   const [rowsPerPage] = useState(10);
   const [page] = useState(0);
+
+  console.log(match);
+  const {
+    params: { id }
+  } = match;
 
   const {
     blogsGet: { loading, blogs }
   } = useSelector(({ blogsGet }) => ({ blogsGet }));
 
   useEffect(() => {
-    getBlogs({});
-  }, []);
+    const categoryId = id || null;
+    getBlogs({ category: categoryId });
+  }, [id]);
 
   const handleFilter = () => {};
   const handleSearch = () => {};
@@ -38,10 +44,10 @@ const ViewBlogs = () => {
         <Grid container spacing={3}>
           {loading ? (
             <Loading />
-          ) : blogs.length > 0 ? (
-            blogs.map(item => (
-              <Grid item key={item.id} lg={3} md={4} sm={6} xs={12}>
-                <BlogCard {...item} />
+          ) : blogs.length > 0 && blogs ? (
+            blogs.map(blog => (
+              <Grid item key={blog.id} lg={3} md={4} sm={6} xs={12}>
+                <BlogCard {...blog} />
               </Grid>
             ))
           ) : null}

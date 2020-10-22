@@ -23,9 +23,10 @@ export const getBlogs = ({
   search = '',
   pageSize = 20,
   pageNumber = 1,
-  isAdmin = false
+  isAdmin = false,
+  category = ''
 }) => {
-  let blogParams = `search=${search}&pageSize=${pageSize}&page=${pageNumber}`;
+  let blogParams = `category=${category}&search=${search}&pageSize=${pageSize}&page=${pageNumber}`;
   if (isAdmin) blogParams += '&isAdmin=yes';
   store.dispatch({
     type: GET_BLOGS,
