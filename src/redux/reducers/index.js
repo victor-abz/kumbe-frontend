@@ -37,6 +37,12 @@ import {
   repliesGetReducer,
   replyAddReducer
 } from './forumReducers';
+import {
+  productAddReducer,
+  productDeleteReducer,
+  productEditReducer,
+  productsGetReducer
+} from './productReducer';
 
 export default combineReducers({
   login: loginReducer,
@@ -67,5 +73,9 @@ export default combineReducers({
   qtnsGet: qtnsGetReducer,
   qtnGet: qtnGetReducer,
   replyAdd: replyAddReducer,
-  repliesGet: repliesGetReducer
+  repliesGet: repliesGetReducer,
+  productAdd: productAddReducer,
+  productsGet: productsGetReducer,
+  productEdit: productEditReducer,
+  productRm: productDeleteReducer
 });
