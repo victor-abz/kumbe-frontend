@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
@@ -14,70 +14,21 @@ import {
   IconButton,
   Grid,
   Button,
-  CardActions,
-  Collapse
+  CardActions
 } from '@material-ui/core';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
-
-import { Reactions, CommentBubble, CommentForm } from './components';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import ForumOutlinedIcon from '@material-ui/icons/ForumOutlined';
-import { NoDisplayData } from 'components/NoDisplayData';
 import { useStyles } from './styles/postCard';
-import { useSelector } from 'react-redux';
-import { getReplies } from 'redux/actions/forum';
-import { httpSocket } from 'utils/http';
-import { notifier } from 'utils/notifier';
 
 const PostCard = props => {
   const { post, className, ...rest } = props;
 
   const classes = useStyles();
-  const [expanded, setExpanded] = useState(true);
-  const [postReplies, setPostReplies] = useState([]);
-  const [newReplies, setNewReplies] = useState([]);
-  const {
-    replyAdd: { loading },
-    repliesGet: { loading: posting, loaded, replies },
-    auth: { user }
-  } = useSelector(({ replyAdd, repliesGet, auth }) => ({
-    repliesGet,
-    replyAdd,
-    auth
-  }));
-
-  const expandQuestion = qtnId => {
-    if (!expanded) {
-      getReplies(qtnId, {});
-    }
-    setExpanded(!expanded);
-  };
-
-  useEffect(() => {
-    if (loaded) {
-      setPostReplies(replies);
-    }
-  }, [loaded]);
-
-  useEffect(() => {
-    getReplies(post.id, {});
-    const name = `${user.firstName} ${user.lastName}`;
-    httpSocket.emit('join', { userId: user.id, name }, () => {});
-  }, []);
-
-  useEffect(() => {
-    httpSocket.on('new-reply', replyContent => {
-      if (replyContent.discussionId === post.id) {
-        setNewReplies(rplies => [...rplies, replyContent]);
-        setPostReplies(currReplies => [replyContent, ...currReplies]);
-      }
-      notifier.success(`New update from ${replyContent.userNames}`);
-    });
-  }, []);
 
   return (
-    <Grid>
+    <Grid component={RouterLink} to={`/forum/q/${post.id}`}>
       <div className={classes.category}>
         <Button
           className={classes.popCategory}
@@ -137,29 +88,14 @@ const PostCard = props => {
           </IconButton>
           <Button
             className={classes.expand}
-            onClick={() => expandQuestion(post.id)}
+            component={RouterLink}
             size="small"
             startIcon={<ForumOutlinedIcon />}
+            to={`/forum/q/${post.id}`}
             variant="contained">
-            {`Replies(${post.replies.length + newReplies.length})`}
+            {`Replies(${post.replies.length})`}
           </Button>
         </CardActions>
-        <Collapse in={expanded} timeout="auto" unmountOnExit>
-          <Divider className={classes.divider} />
-          <Grid className={classes.replies}>
-            <CommentForm loading={loading} postId={post.id} user={user} />
-            <Divider className={classes.divider} />
-            {postReplies.length ? (
-              <div className={classes.comments}>
-                {postReplies.map((comment, commentIdx) => (
-                  <CommentBubble comment={comment} key={commentIdx} />
-                ))}
-              </div>
-            ) : (
-              <NoDisplayData message="Be the first to comment on the post" />
-            )}
-          </Grid>
-        </Collapse>
       </Card>
     </Grid>
   );

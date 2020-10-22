@@ -64,11 +64,13 @@ const AddPost = props => {
   const {
     categoryGet: { categories }
   } = useSelector(({ categoryGet }) => ({ categoryGet }));
+
   useEffect(() => {
     if (done) {
       setPostValue(initialValue);
     }
   }, [done]);
+
   const handleChange = ({ target: { name, value, checked } }) => {
     const inputValue = name === 'anonymous' ? checked : value;
     setPostValue({ ...postValue, [name]: inputValue });

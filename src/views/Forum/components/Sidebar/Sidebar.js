@@ -1,17 +1,7 @@
-import React, { useState, forwardRef } from 'react';
-
-//material-UI
+import React, { forwardRef } from 'react';
 import HomeIcon from '@material-ui/icons/Home';
-import SearchIcon from '@material-ui/icons/Search';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import MailOutlineIcon from '@material-ui/icons/MailOutline';
-import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
-import ListAltIcon from '@material-ui/icons/ListAlt';
-import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
-import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import { makeStyles } from '@material-ui/core/styles';
-import { Link, NavLink as RouterLink } from 'react-router-dom';
-import ForumIcon from '@material-ui/icons/Forum';
+import { NavLink as RouterLink } from 'react-router-dom';
 import ForumOutlinedIcon from '@material-ui/icons/ForumOutlined';
 import {
   ListItem,
@@ -76,25 +66,6 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const menu = [
-  {
-    Icon: HomeIcon,
-    text: 'Home'
-  },
-  {
-    Icon: ListAltIcon,
-    text: 'Lists'
-  },
-  {
-    Icon: BookmarkBorderIcon,
-    text: 'Bookmarked'
-  },
-  {
-    Icon: MailOutlineIcon,
-    text: 'Messages'
-  }
-];
-
 const Sidebar = ({ categories }) => {
   const style = {
     paddingLeft: 8
@@ -117,16 +88,16 @@ const Sidebar = ({ categories }) => {
           </Button>
         </ListItem>
         <Divider />
-        {categories.map(({ Icon, name }) => (
+        {categories.map(({ Icon, name, id }) => (
           <>
             <ListItem className={classes.itemLeaf} disableGutters key={name}>
               <Button
                 activeClassName={classes.active}
                 className={classes.buttonLeaf}
-                component={Link}
+                component={CustomRouterLink}
                 exact
                 style={style}
-                to={'#'}>
+                to={`/forum/c/${id}`}>
                 {Icon ? (
                   <Icon className={classes.icon} />
                 ) : (

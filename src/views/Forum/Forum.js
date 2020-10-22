@@ -1,11 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, Suspense } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Page } from 'components';
-import { Grid, Paper, Hidden } from '@material-ui/core';
-import Feed from './Feed';
+import { Grid, Hidden } from '@material-ui/core';
 import Sidebar from './components/Sidebar/Sidebar';
 import { useSelector } from 'react-redux';
 import { getCategories } from 'redux/actions/category';
+import { LinearProgress } from '@material-ui/core';
+import { renderRoutes } from 'react-router-config';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -28,12 +29,12 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Forum = () => {
+const Forum = (props) => {
+  const { route, t } = props;
   const classes = useStyles();
   const {
-    categoryGet: { loaded, categories },
-    auth: { user }
-  } = useSelector(({ categoryGet, auth }) => ({ categoryGet, auth }));
+    categoryGet: { loaded, categories }
+  } = useSelector(({ categoryGet }) => ({ categoryGet }));
 
   useEffect(() => {
     getCategories();
@@ -53,7 +54,9 @@ const Forum = () => {
             </Grid>
           </Hidden>
           <Grid className={classes.scrollable} md={10} sm={12}>
-            <Feed user={user} />
+            <Suspense fallback={<LinearProgress />}>
+              {renderRoutes(route.routes, { t })}
+            </Suspense>
           </Grid>
         </Grid>
       </Grid>

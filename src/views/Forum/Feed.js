@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-
-import axios from 'utils/axios';
-import { Page, PostCard, AddPost, SearchBar } from 'components';
+import { Page, AddPost, SearchBar, Questions } from 'components';
 import { Header } from './components';
 import { useSelector } from 'react-redux';
 import { Loading } from 'components/Loading';
 import { NoDisplayData } from 'components/NoDisplayData';
 import { getQuestions } from 'redux/actions/forum';
+import useRouter from 'utils/useRouter';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -30,26 +29,38 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Feed = ({ user }) => {
+const Feed = () => {
   const classes = useStyles();
   const {
     qtnsGet: { loading, questions },
-    qtnAdd: { loading: sending, loaded }
-  } = useSelector(({ qtnsGet, qtnAdd }) => ({ qtnsGet, qtnAdd }));
-  const [posts, setPosts] = useState([]);
+    qtnAdd: { loading: sending, loaded },
+    auth: { user }
+  } = useSelector(({ qtnsGet, qtnAdd, auth }) => ({ qtnsGet, qtnAdd, auth }));
+
+  const { match } = useRouter();
+  console.log('+++++', match);
+  const {
+    params: { id },
+    path
+  } = match;
+
   useEffect(() => {
-    getQuestions({});
-  }, []);
+    const categoryId = id || '';
+    getQuestions({ category: categoryId });
+  }, [id]);
+
   useEffect(() => {
     if (loaded) {
       getQuestions({});
     }
   }, [loaded]);
+
   const handleFilter = () => {};
   const handleSearch = () => {};
 
   return (
     <Page className={classes.root} title="Social Feed">
+      {path === '/forum/q/:qId' && <p>Love you</p>}
       <Header />
       <SearchBar
         className={classes.search}
@@ -58,8 +69,8 @@ const Feed = ({ user }) => {
       />
       <AddPost
         className={classes.newPost}
-        loading={sending}
         done={loaded}
+        loading={sending}
         user={user}
       />
       <div className={classes.posts}>
@@ -67,7 +78,7 @@ const Feed = ({ user }) => {
           <Loading />
         ) : questions.length ? (
           questions.map((post, postIdx) => (
-            <PostCard className={classes.post} key={postIdx} post={post} />
+            <Questions className={classes.post} key={postIdx} post={post} />
           ))
         ) : (
           <NoDisplayData />
