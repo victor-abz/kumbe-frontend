@@ -177,6 +177,11 @@ const routes = [
         component: lazy(() => import('views/ViewBlogs'))
       },
       {
+        path: '/blogs/category/:id',
+        exact: true,
+        component: lazy(() => import('views/ViewBlogs'))
+      },
+      {
         path: '/blogs/:id',
         exact: true,
         component: lazy(() => import('views/Blog'))

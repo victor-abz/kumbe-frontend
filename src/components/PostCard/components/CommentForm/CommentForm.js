@@ -2,17 +2,8 @@ import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
-import {
-  Avatar,
-  Divider,
-  IconButton,
-  Input,
-  Paper,
-  Tooltip
-} from '@material-ui/core';
+import { Avatar, IconButton, Input, Paper, Tooltip } from '@material-ui/core';
 import SendIcon from '@material-ui/icons/Send';
-import AddPhotoIcon from '@material-ui/icons/AddPhotoAlternate';
-import AttachFileIcon from '@material-ui/icons/AttachFile';
 import { addReply } from 'redux/actions/forum';
 
 const useStyles = makeStyles(theme => ({
@@ -38,7 +29,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const CommentForm = props => {
-  const { className, postId, ...rest } = props;
+  const { className, postId, loading, user, ...rest } = props;
 
   const classes = useStyles();
 
@@ -50,23 +41,18 @@ const CommentForm = props => {
     type: 'question'
   });
 
-  const sender = {
-    avatar: '/images/avatars/avatar_11.png'
-  };
-
   const handleChange = event => {
     event.persist();
 
     setValue({ ...value, content: event.target.value });
   };
 
-  const handleAttach = () => {
-    fileInputRef.current.click();
-  };
-
   return (
     <div {...rest} className={clsx(classes.root, className)}>
-      <Avatar alt="Person" src={sender.avatar} />{' '}
+      <Avatar
+        alt="User"
+        src={`${process.env.REACT_APP_API_URL}/api/res/profiles/${user.profilePic}`}
+      />{' '}
       <Paper className={classes.paper} elevation={1}>
         <Input
           className={classes.input}
@@ -77,20 +63,10 @@ const CommentForm = props => {
       </Paper>
       <Tooltip title="Send">
         <IconButton
-          onClick={() => addReply(postId, value)}
-          color={value.length > 0 ? 'primary' : 'default'}>
+          color={value.content.length > 0 ? 'primary' : 'default'}
+          disabled={!value.content || loading}
+          onClick={() => addReply(postId, value)}>
           <SendIcon />
-        </IconButton>
-      </Tooltip>
-      <Divider className={classes.divider} />
-      <Tooltip title="Attach image">
-        <IconButton edge="end" onClick={handleAttach}>
-          <AddPhotoIcon />
-        </IconButton>
-      </Tooltip>
-      <Tooltip title="Attach file">
-        <IconButton edge="end" onClick={handleAttach}>
-          <AttachFileIcon />
         </IconButton>
       </Tooltip>
       <input className={classes.fileInput} ref={fileInputRef} type="file" />

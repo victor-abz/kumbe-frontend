@@ -7,8 +7,6 @@ import {
   Card,
   CardHeader,
   CardContent,
-  CardActionArea,
-  CardMedia,
   Avatar,
   Link,
   Typography,
@@ -20,12 +18,10 @@ import {
   Collapse
 } from '@material-ui/core';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 import { Reactions, CommentBubble, CommentForm } from './components';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ForumOutlinedIcon from '@material-ui/icons/ForumOutlined';
 import { NoDisplayData } from 'components/NoDisplayData';
 import { useStyles } from './styles/postCard';
@@ -98,8 +94,11 @@ const PostCard = props => {
               alt="Person"
               className={classes.avatar}
               component={RouterLink}
-              src={post.author.profilePic}
-              to="/profile/1/timeline"
+              src={
+                post.anonymous
+                  ? `${process.env.REACT_APP_API_URL}/api/res/profiles/${post.author.profilePic}`
+                  : null
+              }
             />
           }
           disableTypography
@@ -115,9 +114,11 @@ const PostCard = props => {
             <Link
               color="textPrimary"
               component={RouterLink}
-              to="/profile/1/timeline"
+              to="#"
               variant="h6">
-              {`${post.author.firstName} ${post.author.lastName}`}
+              {post.anonymous
+                ? `${post.author.firstName} ${post.author.lastName}`
+                : 'Name Hidden(For Privacy)'}
             </Link>
           }
         />
@@ -136,9 +137,8 @@ const PostCard = props => {
           </IconButton>
           <Button
             className={classes.expand}
-            // color="light"
             onClick={() => expandQuestion(post.id)}
-            // size="small"
+            size="small"
             startIcon={<ForumOutlinedIcon />}
             variant="contained">
             {`Replies(${post.replies.length + newReplies.length})`}
@@ -146,9 +146,8 @@ const PostCard = props => {
         </CardActions>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <Divider className={classes.divider} />
-          {/* <Reactions className={classes.reactions} post={post} /> */}
           <Grid className={classes.replies}>
-            <CommentForm postId={post.id} />
+            <CommentForm loading={loading} postId={post.id} user={user} />
             <Divider className={classes.divider} />
             {postReplies.length ? (
               <div className={classes.comments}>

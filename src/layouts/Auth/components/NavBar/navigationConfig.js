@@ -1,6 +1,7 @@
 
 import LockOpenIcon from '@material-ui/icons/LockOpenOutlined';
 import PersonIcon from '@material-ui/icons/PersonOutlined';
+import ForumOutlinedIcon from '@material-ui/icons/ForumOutlined';
 export const navigationConfig = t => [
   {
     title: 'Pages',
@@ -40,6 +41,11 @@ export const navigationConfig = t => [
   {
     title: 'Auth',
     pages: [
+      {
+        title: t('top_bar:forum'),
+        href: '/forum',
+        icon: ForumOutlinedIcon,
+      },
       {
         title: 'Login',
         href: '/login',

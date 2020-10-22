@@ -5,8 +5,6 @@ import clsx from 'clsx';
 import moment from 'moment';
 import { makeStyles } from '@material-ui/core/styles';
 import { Avatar, Link, Typography, IconButton } from '@material-ui/core';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
 import ThumbDownAltIcon from '@material-ui/icons/ThumbDownAlt';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 
@@ -48,16 +46,12 @@ const CommentBubble = props => {
       <Avatar
         alt="Person"
         component={RouterLink}
-        src={comment.author.avatar}
-        to="/profile/1/timeline"
+        src={`${process.env.REACT_APP_API_URL}/api/res/profiles/${comment.author.profilePic}`}
+        to="#"
       />
       <div className={classes.bubble}>
         <div className={classes.header}>
-          <Link
-            color="textPrimary"
-            component={RouterLink}
-            to="/profile/1/timeline"
-            variant="h6">
+          <Link color="textPrimary" component={RouterLink} to="#" variant="h6">
             {`${comment.author.firstName} ${comment.author.lastName}`}
           </Link>
           <Typography className={classes.time} variant="body2">

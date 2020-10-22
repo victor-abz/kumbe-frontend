@@ -84,13 +84,13 @@ const useStyles = makeStyles(theme => ({
 
 const BlogCard = React.memo(function PostCard({
   color,
-  cover,
+  coverImage,
   content,
-  userImage,
+  usrImage,
   slug,
   title,
   author,
-  date
+  createdAt
 }) {
   const cardStyles = useStyles({ color });
   const mediaStyles = useWideCardMediaStyles();
@@ -112,7 +112,7 @@ const BlogCard = React.memo(function PostCard({
       <CardMedia
         classes={mediaStyles}
         component={Link}
-        image={`${process.env.REACT_APP_API_URL}/api/res/blogs/${cover}`}
+        image={`${process.env.REACT_APP_API_URL}/api/res/blogs/${coverImage}`}
         to={`/blogs/${slug}`}
       />
       <CardContent className={cardStyles.content}>
@@ -127,12 +127,12 @@ const BlogCard = React.memo(function PostCard({
             <Row>
               <Avatar
                 className={cardStyles.avatar}
-                src={userImage}
+                src={usrImage}
                 variant={'rounded'}
               />
               <Info useStyles={useNewsInfoStyles}>
                 <InfoCaption>{`${author.firstName} ${author.lastName}`}</InfoCaption>
-                {/* <InfoSubtitle>{moment(date).fromNow()}</InfoSubtitle> */}
+                {/* <InfoSubtitle>{moment(createdAt).fromNow()}</InfoSubtitle> */}
               </Info>
             </Row>
             <Row component={Link} to={`/blogs/${slug}`}>

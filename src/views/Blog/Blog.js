@@ -62,18 +62,7 @@ const Blog = props => {
                   blogs.map((blog, index) => {
                     return (
                       <Grid className={classes.otherBlogs} key={index}>
-                        <BlogCard
-                          color={blog.color}
-                          content={blog.content}
-                          cover={blog.coverImage}
-                          date={blog.createdAt}
-                          description={blog.description}
-                          editor={blog.editor}
-                          id={blog.id}
-                          slug={blog.slug}
-                          title={blog.title}
-                          userImage={blog.usrImage}
-                        />
+                        <BlogCard {...blog} />
                       </Grid>
                     );
                   })}

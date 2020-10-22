@@ -36,6 +36,7 @@ import useRouter from 'utils/useRouter';
 import { navigationConfig } from '../NavBar/navigationConfig';
 import { withStyles } from '@material-ui/core/styles';
 import { useSelector } from 'react-redux';
+import ForumOutlinedIcon from '@material-ui/icons/ForumOutlined';
 
 const StyledMenu = withStyles({
   paper: {
@@ -216,13 +217,14 @@ const TopBar = props => {
         </Hidden>
         <div className={classes.flexGrow} />
         <Hidden smDown>
-          {/* <Button
+          <Button
             className={classes.forumButton}
             variant="contained"
-          >
-            <LockIcon className={classes.forumIcon} />
-            {t('top_bar:title')}
-          </Button> */}
+            component={Link}
+            to={'/forum'}>
+            <ForumOutlinedIcon className={classes.forumIcon} />
+            {t('top_bar:forum')}
+          </Button>
           <Button
             className={classes.loginButton}
             color="inherit"
