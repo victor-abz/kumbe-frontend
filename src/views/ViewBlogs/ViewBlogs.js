@@ -14,8 +14,7 @@ const ViewBlogs = ({ match }) => {
   const { t } = useTranslation();
   const [rowsPerPage] = useState(10);
   const [page] = useState(0);
-
-  console.log(match);
+  
   const {
     params: { id }
   } = match;

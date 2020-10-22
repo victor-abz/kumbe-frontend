@@ -117,16 +117,16 @@ const Sidebar = ({ categories }) => {
           </Button>
         </ListItem>
         <Divider />
-        {categories.map(({ Icon, name }) => (
+        {categories.map(({ Icon, name, id }) => (
           <>
             <ListItem className={classes.itemLeaf} disableGutters key={name}>
               <Button
                 activeClassName={classes.active}
                 className={classes.buttonLeaf}
-                component={Link}
+                component={CustomRouterLink}
                 exact
                 style={style}
-                to={'#'}>
+                to={`/forum/categories/${id}`}>
                 {Icon ? (
                   <Icon className={classes.icon} />
                 ) : (

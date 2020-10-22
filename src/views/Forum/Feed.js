@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import { Loading } from 'components/Loading';
 import { NoDisplayData } from 'components/NoDisplayData';
 import { getQuestions } from 'redux/actions/forum';
+import useRouter from 'utils/useRouter';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -37,14 +38,24 @@ const Feed = ({ user }) => {
     qtnAdd: { loading: sending, loaded }
   } = useSelector(({ qtnsGet, qtnAdd }) => ({ qtnsGet, qtnAdd }));
   const [posts, setPosts] = useState([]);
+
+  const { match } = useRouter();
+
+  const {
+    params: { id }
+  } = match;
+
   useEffect(() => {
-    getQuestions({});
-  }, []);
+    const categoryId = id || '';
+    getQuestions({ category: categoryId });
+  }, [id]);
+
   useEffect(() => {
     if (loaded) {
       getQuestions({});
     }
   }, [loaded]);
+
   const handleFilter = () => {};
   const handleSearch = () => {};
 
@@ -58,8 +69,8 @@ const Feed = ({ user }) => {
       />
       <AddPost
         className={classes.newPost}
-        loading={sending}
         done={loaded}
+        loading={sending}
         user={user}
       />
       <div className={classes.posts}>

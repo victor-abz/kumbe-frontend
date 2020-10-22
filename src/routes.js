@@ -177,7 +177,7 @@ const routes = [
         component: lazy(() => import('views/ViewBlogs'))
       },
       {
-        path: '/blogs/category/:id',
+        path: '/blogs/categories/:id',
         exact: true,
         component: lazy(() => import('views/ViewBlogs'))
       },
@@ -218,6 +218,11 @@ const routes = [
       },
       {
         path: '/forum',
+        exact: true,
+        component: lazy(() => import('views/Forum'))
+      },
+      {
+        path: '/forum/categories/:id',
         exact: true,
         component: lazy(() => import('views/Forum'))
       },
