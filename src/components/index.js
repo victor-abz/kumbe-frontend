@@ -29,3 +29,4 @@ export { default as AudioPlayer } from './AudioPlayer';
 export { default as BlogCard } from './BlogCard';
 export { default as Share } from './Share';
 export { default as Product } from './Product';
+export { default as Questions } from './Questions';

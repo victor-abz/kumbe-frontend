@@ -40,3 +40,4 @@ export const CREATE_QUESTION = 'CREATE_QUESTION';
 export const GET_QUESTIONS = 'GET_QUESTIONS';
 export const CREATE_REPLY = 'CREATE_REPLY';
 export const GET_REPLIES = 'GET_REPLIES';
+export const GET_QUESTION = 'GET_QUESTION';

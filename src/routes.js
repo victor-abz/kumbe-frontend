@@ -8,6 +8,7 @@ import DashboardLayout from './layouts/Dashboard';
 import DashboardAnalyticsView from './views/DashboardAnalytics';
 import DashboardDefaultView from './views/DashboardDefault';
 import PresentationView from './views/Home';
+import Forum from './views/Forum/Forum';
 
 const routes = [
   {
@@ -216,15 +217,41 @@ const routes = [
         exact: true,
         component: lazy(() => import('views/Listen'))
       },
+      // {
+      //   path: '/forum',
+      //   exact: true,
+      //   component: lazy(() => import('views/Forum'))
+      // },
+      // {
+      //   path: '/forum/c/:id/',
+      //   exact: true,
+      //   component: lazy(() => import('views/Forum'))
+      // },
+      // {
+      //   path: '/forum/q/:qId',
+      //   exact: true,
+      //   component: lazy(() => import('views/Forum'))
+      // },
       {
         path: '/forum',
-        exact: true,
-        component: lazy(() => import('views/Forum'))
-      },
-      {
-        path: '/forum/categories/:id',
-        exact: true,
-        component: lazy(() => import('views/Forum'))
+        component: Forum,
+        routes: [
+          {
+            path: '/forum',
+            exact: true,
+            component: lazy(() => import('views/Forum/Feed'))
+          },
+          {
+            path: '/forum/c/:id/',
+            exact: true,
+            component: lazy(() => import('views/Forum/Feed'))
+          },
+          {
+            path: '/forum/q/:qId',
+            exact: true,
+            component: lazy(() => import('views/Forum/Question'))
+          }
+        ]
       },
       {
         component: () => <Redirect to="/errors/error-404" />

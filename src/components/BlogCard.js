@@ -127,7 +127,7 @@ const BlogCard = React.memo(function PostCard({
             <Row>
               <Avatar
                 className={cardStyles.avatar}
-                src={usrImage}
+                src={`${process.env.REACT_APP_API_URL}/api/res/profiles/${author.profilePic}`}
                 variant={'rounded'}
               />
               <Info useStyles={useNewsInfoStyles}>

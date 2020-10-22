@@ -4,7 +4,8 @@ import {
   CREATE_QUESTION,
   CREATE_REPLY,
   GET_QUESTIONS,
-  GET_REPLIES
+  GET_REPLIES,
+  GET_QUESTION
 } from './actionTypes';
 
 export const addQuestion = (newQuestion = {}) => {
@@ -23,6 +24,12 @@ export const getQuestions = ({
   store.dispatch({
     type: GET_QUESTIONS,
     payload: http.get(`/questions?${qtnParams}`)
+  });
+};
+export const getQuestion = ({ questionId = '' }) => {
+  store.dispatch({
+    type: GET_QUESTION,
+    payload: http.get(`/questions/${questionId}`)
   });
 };
 export const addReply = (questionId, newReply = {}) => {

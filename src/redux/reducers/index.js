@@ -33,6 +33,7 @@ import {
 import {
   qtnAddReducer,
   qtnsGetReducer,
+  qtnGetReducer,
   repliesGetReducer,
   replyAddReducer
 } from './forumReducers';
@@ -64,6 +65,7 @@ export default combineReducers({
   commentAdd: commentAddReducer,
   qtnAdd: qtnAddReducer,
   qtnsGet: qtnsGetReducer,
+  qtnGet: qtnGetReducer,
   replyAdd: replyAddReducer,
   repliesGet: repliesGetReducer
 });

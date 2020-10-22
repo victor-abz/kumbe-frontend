@@ -2,7 +2,8 @@ import {
   CREATE_QUESTION,
   CREATE_REPLY,
   GET_QUESTIONS,
-  GET_REPLIES
+  GET_REPLIES,
+  GET_QUESTION
 } from 'redux/actions/actionTypes';
 import { baseState, fulfilled, pending, rejected } from 'redux/utils';
 
@@ -45,6 +46,29 @@ export const qtnsGetReducer = (state = baseState('questions', []), action) => {
         questions: action.payload.data.data
       };
     case rejected(GET_QUESTIONS):
+    default:
+      return {
+        ...state,
+        loading: false
+      };
+  }
+};
+export const qtnGetReducer = (state = baseState('question', []), action) => {
+  switch (action.type) {
+    case pending(GET_QUESTION):
+      return {
+        ...state,
+        loaded: false,
+        loading: true
+      };
+    case fulfilled(GET_QUESTION):
+      return {
+        ...state,
+        loading: false,
+        loaded: true,
+        question: action.payload.data.data
+      };
+    case rejected(GET_QUESTION):
     default:
       return {
         ...state,
