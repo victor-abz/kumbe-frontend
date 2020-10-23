@@ -6,7 +6,7 @@ let token = localStorage.getItem(AUTH_TOKEN);
 const language = localStorage.language;
 
 export const http = axios.create({
-  baseURL: `${process.env.REACT_APP_API_URL}/api`,
+  baseURL: `${process.env.REACT_APP_API_URL}/api/v1`,
   withCredentials: true,
   headers: {
     Authorization: token || '',
