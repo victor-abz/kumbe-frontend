@@ -21,6 +21,7 @@ export const fileReducer = (state = initialState, action) => {
         fileName: action.payload.data.data
       };
     case RESET_UPLOADED_FILE:
+      localStorage.removeItem(UPLOADED_FILE_NAME);
       return {
         ...state,
         fileName: null

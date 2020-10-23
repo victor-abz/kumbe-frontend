@@ -6,7 +6,8 @@ import SettingsIcon from '@material-ui/icons/SettingsOutlined';
 import {
   CommentOutlined,
   FolderOutlined as FolderIcon,
-  PermMediaOutlined
+  PermMediaOutlined,
+  LocalLaundryService
 } from '@material-ui/icons';
 
 // import BarChartIcon from '@material-ui/icons/BarChart';
@@ -109,6 +110,11 @@ export const navigationConfig = t => [
         title: t('comment:page_header'),
         href: '/admin/comments',
         icon: CommentOutlined
+      },
+      {
+        title: t('settings:page_header'),
+        href: '/admin/products',
+        icon: LocalLaundryService
       }
 
       // {

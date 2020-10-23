@@ -69,7 +69,8 @@ const App = () => {
     'blog',
     'media',
     'settings',
-    'comment'
+    'comment',
+    'product'
   ]);
   return (
     <Root scheme={scheme}>

@@ -7,5 +7,7 @@
   "profile_settings_title": "Profile Settings",
   "account_title": "Change account information",
   "sub_title": "Settings",
-  "profile": "Profile"
+  "profile": "Profile",
+  "page_header":"Products & Services",
+  "add_btn":"Add new product"
 }

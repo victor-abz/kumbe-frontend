@@ -1,0 +1,6 @@
+{
+  "dialog_description":"Type a name of a product and upload its photo",
+  "input_name":"Product name",
+  "page_header":"Products & Services",
+  "add_btn":"Add new product"
+}

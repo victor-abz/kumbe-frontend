@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Grid } from '@material-ui/core';
 import { Product } from 'components';
+import { useSelector } from 'react-redux';
+import { getProducts } from 'redux/actions/product';
 
 const useStyles = makeStyles(({ spacing, breakpoints }) => ({
   root: {
@@ -29,9 +31,11 @@ const useStyles = makeStyles(({ spacing, breakpoints }) => ({
 
 const Products = props => {
   const { className, ...rest } = props;
-
   const classes = useStyles();
-
+  const { products } = useSelector(({ productsGet }) => productsGet);
+  useEffect(() => {
+    getProducts();
+  }, []);
   return (
     <div {...rest} className={clsx(classes.root, className)}>
       <div className={classes.inner}>
@@ -64,8 +68,8 @@ const Products = props => {
             justify="center"
             sm={12}
             spacing={2}>
-            {[1, 2, 3, 4, 5, 6, 7, 8].map(i => (
-              <Product key={i} />
+            {products.map((prod, prodIdx) => (
+              <Product key={prodIdx} {...prod} />
             ))}
           </Grid>
         </Grid>

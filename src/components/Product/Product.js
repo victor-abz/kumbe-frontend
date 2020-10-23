@@ -1,13 +1,13 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import { Grid, Box } from '@material-ui/core';
+import {
+  Card,
+  CardActionArea,
+  CardMedia,
+  Typography,
+  Grid,
+  Box
+} from '@material-ui/core';
 
 const useStyles = makeStyles(({ spacing, palette }) => ({
   root: {
@@ -25,7 +25,8 @@ const useStyles = makeStyles(({ spacing, palette }) => ({
   }
 }));
 
-export default function Product() {
+const coverImagePath = `${process.env.REACT_APP_API_URL}/api/res/images`;
+const Product = ({ name, coverImage }) => {
   const classes = useStyles();
 
   return (
@@ -34,8 +35,8 @@ export default function Product() {
         <CardActionArea>
           <CardMedia
             className={classes.media}
-            image="/images/posts/post_1.jpg"
-            title="Contemplative Reptile"
+            image={`${process.env.REACT_APP_API_URL}/api/res/images/${coverImage}`}
+            title={name}
           />
           <Box className={classes.wave}>
             <Typography
@@ -43,11 +44,12 @@ export default function Product() {
               gutterBottom
               style={{ textAlign: 'center', color: '#fff' }}
               variant="h5">
-              Lizard
+              {name}
             </Typography>
           </Box>
         </CardActionArea>
       </Card>
     </Grid>
   );
-}
+};
+export default Product;
