@@ -29,6 +29,7 @@ import { useSelector } from 'react-redux';
 import { getReplies } from 'redux/actions/forum';
 import { httpSocket } from 'utils/http';
 import { notifier } from 'utils/notifier';
+import { Share } from 'components';
 
 const PostCard = props => {
   const { post, className, ...rest } = props;
@@ -38,7 +39,7 @@ const PostCard = props => {
   const [postReplies, setPostReplies] = useState([]);
   const [newReplies, setNewReplies] = useState([]);
   const {
-    replyAdd: { loading },
+    replyAdd: { loading, loaded: added },
     repliesGet: { loading: posting, loaded, replies },
     auth: { user }
   } = useSelector(({ replyAdd, repliesGet, auth }) => ({
@@ -133,7 +134,7 @@ const PostCard = props => {
             <FavoriteIcon />
           </IconButton>
           <IconButton aria-label="share">
-            <ShareIcon />
+            <Share href={`forum/q/${post.id}`} onShare={() => {}} />
           </IconButton>
           <Button
             className={classes.expand}
@@ -147,7 +148,12 @@ const PostCard = props => {
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <Divider className={classes.divider} />
           <Grid className={classes.replies}>
-            <CommentForm loading={loading} postId={post.id} user={user} />
+            <CommentForm
+              loading={loading}
+              added={added}
+              postId={post.id}
+              user={user}
+            />
             <Divider className={classes.divider} />
             {postReplies.length ? (
               <div className={classes.comments}>

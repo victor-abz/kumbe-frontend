@@ -18,9 +18,9 @@ import {
 } from '@material-ui/core';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
 import ForumOutlinedIcon from '@material-ui/icons/ForumOutlined';
 import { useStyles } from './styles/postCard';
+import { Share } from 'components';
 
 const PostCard = props => {
   const { post, className, ...rest } = props;
@@ -28,7 +28,7 @@ const PostCard = props => {
   const classes = useStyles();
 
   return (
-    <Grid component={RouterLink} to={`/forum/q/${post.id}`}>
+    <Grid>
       <div className={classes.category}>
         <Button
           className={classes.popCategory}
@@ -74,7 +74,11 @@ const PostCard = props => {
           }
         />
         <CardContent className={classes.content}>
-          <Typography className={classes.message} variant="body1">
+          <Typography
+            className={classes.message}
+            variant="body1"
+            component={RouterLink}
+            to={`/forum/q/${post.id}`}>
             {post.content}
           </Typography>
         </CardContent>
@@ -84,7 +88,7 @@ const PostCard = props => {
             <FavoriteIcon />
           </IconButton>
           <IconButton aria-label="share">
-            <ShareIcon />
+            <Share href={`forum/q/${post.id}`} onShare={() => {}} />
           </IconButton>
           <Button
             className={classes.expand}

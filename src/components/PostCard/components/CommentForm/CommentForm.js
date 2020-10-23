@@ -1,8 +1,19 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
-import { Avatar, IconButton, Input, Paper, Tooltip } from '@material-ui/core';
+import {
+  Avatar,
+  FormControl,
+  FormLabel,
+  Grid,
+  IconButton,
+  Input,
+  Paper,
+  Switch,
+  Tooltip,
+  Typography
+} from '@material-ui/core';
 import SendIcon from '@material-ui/icons/Send';
 import { addReply } from 'redux/actions/forum';
 
@@ -28,23 +39,24 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+const initialValue = {
+  content: '',
+  anonymous: false,
+  type: 'question'
+};
 const CommentForm = props => {
-  const { className, postId, loading, user, ...rest } = props;
+  const { className, postId, loading, added, user, ...rest } = props;
 
   const classes = useStyles();
-
-  const fileInputRef = useRef(null);
-
-  const [value, setValue] = useState({
-    content: '',
-    anonymous: true,
-    type: 'question'
-  });
-
-  const handleChange = event => {
-    event.persist();
-
-    setValue({ ...value, content: event.target.value });
+  const [value, setValue] = useState(initialValue);
+  useEffect(() => {
+    if (added) {
+      setValue(initialValue);
+    }
+  }, [added]);
+  const handleChange = ({ target: { name, checked, value: iValue } }) => {
+    const inputValue = name === 'anonymous' ? checked : iValue;
+    setValue({ ...value, [name]: inputValue });
   };
 
   return (
@@ -58,9 +70,30 @@ const CommentForm = props => {
           className={classes.input}
           disableUnderline
           onChange={handleChange}
+          name="content"
+          value={value.content}
           placeholder="Leave a message"
         />
       </Paper>
+      <FormControl
+        className={classes.formControl}
+        component="fieldset"
+        size="small">
+        <FormLabel component="legend">Is Anonymous?</FormLabel>
+        <Typography component="div">
+          <Grid alignItems="center" component="label" container spacing={1}>
+            <Grid item>No</Grid>
+            <Grid item>
+              <Switch
+                checked={value.anonymous}
+                name="anonymous"
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item>Yes</Grid>
+          </Grid>
+        </Typography>
+      </FormControl>
       <Tooltip title="Send">
         <IconButton
           color={value.content.length > 0 ? 'primary' : 'default'}
@@ -69,7 +102,6 @@ const CommentForm = props => {
           <SendIcon />
         </IconButton>
       </Tooltip>
-      <input className={classes.fileInput} ref={fileInputRef} type="file" />
     </div>
   );
 };

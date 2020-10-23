@@ -31,18 +31,7 @@ export const HighlightCardDemo = React.memo(function HighlightCard() {
         blogs.map((blog, index) => {
           return (
             <Grid item key={index} md={3} sm={12}>
-              <BlogCard
-                color={blog.color}
-                content={blog.content}
-                cover={blog.coverImage}
-                date={blog.createdAt}
-                description={blog.description}
-                author={blog.author}
-                id={blog.id}
-                slug={blog.slug}
-                title={blog.title}
-                userImage={blog.usrImage}
-              />
+              <BlogCard {...blog} />
             </Grid>
           );
         })}

@@ -46,13 +46,19 @@ const CommentBubble = props => {
       <Avatar
         alt="Person"
         component={RouterLink}
-        src={`${process.env.REACT_APP_API_URL}/api/res/profiles/${comment.author.profilePic}`}
+        src={
+          comment.anonymous
+            ? null
+            : `${process.env.REACT_APP_API_URL}/api/res/profiles/${comment.author.profilePic}`
+        }
         to="#"
       />
       <div className={classes.bubble}>
         <div className={classes.header}>
           <Link color="textPrimary" component={RouterLink} to="#" variant="h6">
-            {`${comment.author.firstName} ${comment.author.lastName}`}
+            {comment.anonymous
+              ? 'Name Hidden(For Privacy)'
+              : `${comment.author.firstName} ${comment.author.lastName}`}
           </Link>
           <Typography className={classes.time} variant="body2">
             {moment(comment.createdAt).fromNow()}

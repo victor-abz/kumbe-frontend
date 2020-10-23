@@ -15,7 +15,6 @@ import {
 } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import FavoriteBorderRounded from '@material-ui/icons/FavoriteBorderRounded';
-import Share from '@material-ui/icons/Share';
 import { useWideCardMediaStyles } from '@mui-treasury/styles/cardMedia/wide';
 import TextInfoContent from '@mui-treasury/components/content/textInfo';
 import { Column, Row } from '@mui-treasury/components/flex';
@@ -28,6 +27,8 @@ import Color from 'color';
 import moment from 'moment';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import Share from './Share';
+import { shareBlog } from 'redux/actions/blog';
 
 const useStyles = makeStyles(theme => ({
   color: ({ color }) => ({
@@ -86,7 +87,7 @@ const BlogCard = React.memo(function PostCard({
   color,
   coverImage,
   content,
-  usrImage,
+  shares,
   slug,
   title,
   author,
@@ -157,7 +158,11 @@ const BlogCard = React.memo(function PostCard({
       </CardContent>
       <CardActions style={{ height: 50, backgroundColor: '#F1F1F1' }}>
         <IconButton>
-          <Share />
+          <Share
+            shareCount={shares.length}
+            href={`blogs/${slug}`}
+            onShare={() => shareBlog(slug)}
+          />
         </IconButton>
         <IconButton>
           <FavoriteBorderRounded />

@@ -73,7 +73,9 @@ const Share = ({ shareCount = 0, href = '', onShare }) => {
     <div>
       <IconButton onClick={handleClick}>
         <ShareIcon />
-        <Typography variant="body2">{shareCount}</Typography>
+        {shareCount ? (
+          <Typography variant="body2">{shareCount}</Typography>
+        ) : null}
       </IconButton>
       <StyledMenu
         id="share-menu"
