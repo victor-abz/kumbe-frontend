@@ -7,7 +7,8 @@ import { useSelector } from 'react-redux';
 import { Loading } from 'components/Loading';
 import { NoDisplayData } from 'components/NoDisplayData';
 import { AddProductDialog } from './AddProductDialog';
-import { getProducts } from 'redux/actions/product';
+import { deleteProduct, getProducts } from 'redux/actions/product';
+import { AlertConfirm } from 'components/AlertConfirm';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -35,21 +36,52 @@ const ProductSercices = () => {
   const classes = useStyles();
   const { t } = useTranslation();
   const [openAddProduct, setOpenAddProduct] = useState(false);
+  const [confirmDel, setConfirmDel] = useState(false);
+  const [currentProd, setCurrentProd] = useState(null);
   const {
-    productsGet: { loading, products }
-  } = useSelector(({ productsGet }) => ({
-    productsGet
+    productsGet: { loading, products },
+    productRm: { loading: deleting, loaded }
+  } = useSelector(({ productsGet, productRm }) => ({
+    productsGet,
+    productRm
   }));
   useEffect(() => {
     getProducts();
   }, []);
+  useEffect(() => {
+    if (loaded) {
+      setConfirmDel(false);
+      setCurrentProd(null);
+      getProducts();
+    }
+  }, [loaded]);
   const handleFilter = () => {};
   const handleSearch = () => {};
+  const onProductClick = (prod, action) => {
+    setCurrentProd(prod);
+    if (action === 'rm') {
+      setConfirmDel(true);
+    }
+    if (action === 'edit') {
+      setOpenAddProduct(true);
+    }
+  };
   return (
     <Page className={classes.root} title={t('settings:page_header')}>
       <AddProductDialog
         open={openAddProduct}
-        setOpen={() => setOpenAddProduct(false)}
+        currentProduct={currentProd}
+        setOpen={() => {
+          setCurrentProd(null);
+          setOpenAddProduct(false);
+        }}
+      />
+      <AlertConfirm
+        open={confirmDel}
+        setOpen={() => setConfirmDel(false)}
+        message={t('product:alert_del')}
+        loading={deleting}
+        onConfirmYes={() => deleteProduct(currentProd.id)}
       />
       <Grid alignItems="flex-end" container justify="space-between" spacing={3}>
         <Grid item>
@@ -82,7 +114,13 @@ const ProductSercices = () => {
               <Loading />
             ) : products.length ? (
               products.map((product, productIdx) => (
-                <Product key={productIdx} {...product} />
+                <Product
+                  key={productIdx}
+                  forAdmin
+                  onDelete={() => onProductClick(product, 'rm')}
+                  onEdit={() => onProductClick(product, 'edit')}
+                  {...product}
+                />
               ))
             ) : (
               <NoDisplayData />

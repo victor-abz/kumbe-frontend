@@ -6,7 +6,9 @@ import {
   CardMedia,
   Typography,
   Grid,
-  Box
+  Box,
+  CardActions,
+  Button
 } from '@material-ui/core';
 
 const useStyles = makeStyles(({ spacing, palette }) => ({
@@ -26,7 +28,7 @@ const useStyles = makeStyles(({ spacing, palette }) => ({
 }));
 
 const coverImagePath = `${process.env.REACT_APP_API_URL}/api/res/images`;
-const Product = ({ name, coverImage }) => {
+const Product = ({ name, coverImage, forAdmin = false, onEdit, onDelete }) => {
   const classes = useStyles();
 
   return (
@@ -48,6 +50,16 @@ const Product = ({ name, coverImage }) => {
             </Typography>
           </Box>
         </CardActionArea>
+        {forAdmin ? (
+          <CardActions>
+            <Button size="small" color="primary" onClick={onEdit}>
+              Edit
+            </Button>
+            <Button size="small" color="secondary" onClick={onDelete}>
+              Delete
+            </Button>
+          </CardActions>
+        ) : null}
       </Card>
     </Grid>
   );

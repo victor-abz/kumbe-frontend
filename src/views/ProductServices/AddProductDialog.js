@@ -13,28 +13,36 @@ import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { resetUploadedFile } from 'redux/actions/file';
 import { FilesDropzone } from 'components';
-import { addProduct, getProducts } from 'redux/actions/product';
+import { addProduct, editProduct, getProducts } from 'redux/actions/product';
 
 const initialState = { name: '', coverImage: '' };
-export const AddProductDialog = ({ open, setOpen }) => {
+export const AddProductDialog = ({ open, setOpen, currentProduct = null }) => {
   const [values, setValues] = useState(initialState);
   const { t } = useTranslation();
   const {
     productAdd: { loading, loaded },
+    productEdit: { loading: updating, loaded: updated },
     fileUpload: { loaded: done, fileName }
-  } = useSelector(({ productAdd, fileUpload }) => ({
+  } = useSelector(({ productAdd, productEdit, fileUpload }) => ({
     productAdd,
+    productEdit,
     fileUpload
   }));
   useEffect(() => {
-    if (loaded) {
+    if (loaded || updated) {
       setValues(initialState);
       getProducts();
       resetUploadedFile();
       setOpen();
     }
     // eslint-disable-next-line
-  }, [loaded]);
+  }, [loaded, updated]);
+  useEffect(() => {
+    if (currentProduct) {
+      const { name, coverImage } = currentProduct;
+      setValues({ name, coverImage });
+    }
+  }, [currentProduct]);
   useEffect(() => {
     if (done && fileName) {
       setValues({ ...values, coverImage: fileName });
@@ -45,7 +53,11 @@ export const AddProductDialog = ({ open, setOpen }) => {
   };
   return (
     <Dialog aria-labelledby="cat-dialog-title" onClose={setOpen} open={open}>
-      <DialogTitle id="cat-dialog-title">{t('product:add_btn')}</DialogTitle>
+      <DialogTitle id="cat-dialog-title">
+        {currentProduct
+          ? t('product:edit_btn') + currentProduct.name
+          : t('product:add_btn')}
+      </DialogTitle>
       <DialogContent>
         <DialogContentText>{t('product:dialog_description')}</DialogContentText>
         <Grid container spacing={3}>
@@ -64,6 +76,7 @@ export const AddProductDialog = ({ open, setOpen }) => {
             <FilesDropzone
               acceptedFiles="image/jpeg, image/png"
               fileType="image"
+              currentFile={currentProduct ? currentProduct.coverImage : null}
             />
           </Grid>
         </Grid>
@@ -72,12 +85,21 @@ export const AddProductDialog = ({ open, setOpen }) => {
         <Button color="primary" onClick={setOpen}>
           {t('media:btn_cancel')}
         </Button>
-        <Button
-          color="primary"
-          disabled={loading}
-          onClick={() => addProduct(values)}>
-          {loading ? t('blog:btn_loading') : t('media:btn_save')}
-        </Button>
+        {currentProduct ? (
+          <Button
+            color="secondary"
+            disabled={updating}
+            onClick={() => editProduct(currentProduct.id, values)}>
+            {updating ? t('blog:btn_loading') : `Update ${currentProduct.name}`}
+          </Button>
+        ) : (
+          <Button
+            color="primary"
+            disabled={loading}
+            onClick={() => addProduct(values)}>
+            {loading ? t('blog:btn_loading') : t('media:btn_save')}
+          </Button>
+        )}
       </DialogActions>
     </Dialog>
   );

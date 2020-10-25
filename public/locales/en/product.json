@@ -2,5 +2,7 @@
   "dialog_description":"Type a name of a product and upload its photo",
   "input_name":"Product name",
   "page_header":"Products & Services",
-  "add_btn":"Add new product"
+  "add_btn":"Add new product",
+  "edit_btn":"Edit the product: ",
+  "alert_del":"Are you sure, you want to delete the product"
 }

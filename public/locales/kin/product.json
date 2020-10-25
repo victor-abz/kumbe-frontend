@@ -2,5 +2,7 @@
   "dialog_description":"Andika izina ya produwi unashyireho ifoto yayo",
   "input_name":"Izina rya produwi",
   "page_header":"Produwi na serivise",
-  "add_btn":"Shyiraho produwi nshya"
+  "add_btn":"Shyiraho produwi nshya",
+  "edit_btn":"Hindura iyi produwi: ",
+  "alert_del":"Mbese koko urakomeje ushaka gusiba iyi produwi"
 }
