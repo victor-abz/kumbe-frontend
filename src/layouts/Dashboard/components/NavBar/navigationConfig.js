@@ -107,14 +107,19 @@ export const navigationConfig = t => [
         ]
       },
       {
-        title: t('comment:page_header'),
+        title: t('comment:comments'),
         href: '/admin/comments',
         icon: CommentOutlined
       },
       {
-        title: t('settings:page_header'),
+        title: t('settings:products'),
         href: '/admin/products',
         icon: LocalLaundryService
+      },
+      {
+        title: t('settings:partners'),
+        href: '/admin/partners',
+        icon: PeopleIcon
       }
 
       // {

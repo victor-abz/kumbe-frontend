@@ -119,10 +119,15 @@ const routes = [
         path: '/admin/settings/:tab',
         exact: true,
         component: lazy(() => import('views/Settings'))
+      },
+      {
+        path: '/admin/partners',
+        exact: true,
+        component: lazy(() => import('views/Partners'))
+      },
+      {
+        component: () => <Redirect to="/errors/error-404" />
       }
-      // {
-      //   component: () => <Redirect to="/errors/error-404" />
-      // }
     ]
   },
   {

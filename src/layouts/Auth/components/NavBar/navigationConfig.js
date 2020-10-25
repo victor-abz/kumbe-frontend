@@ -1,5 +1,3 @@
-import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import LockOpenIcon from '@material-ui/icons/LockOpenOutlined';
 import PersonIcon from '@material-ui/icons/PersonOutlined';
 import ForumOutlinedIcon from '@material-ui/icons/ForumOutlined';

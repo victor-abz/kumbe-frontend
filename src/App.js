@@ -72,7 +72,8 @@ const App = () => {
     'media',
     'settings',
     'comment',
-    'product'
+    'product',
+    'partner'
   ]);
   return (
     <Root scheme={scheme}>

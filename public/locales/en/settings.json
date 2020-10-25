@@ -8,6 +8,10 @@
   "account_title": "Change account information",
   "sub_title": "Settings",
   "profile": "Profile",
-  "page_header":"Products & Services",
-  "add_btn":"Add new product"
+  "page_header": "Products & Services",
+  "add_btn": "Add new product",
+  "products": "Products & Services",
+  "comments": "Blog Comments",
+  "partners": "Partners",
+  "add_partner": "Add Partner"
 }
