@@ -97,17 +97,17 @@ const TopBar = props => {
     window.location.reload();
   };
 
-  // const {
-  //   categoryGet: { loaded, categories }
-  // } = useSelector(({ categoryGet }) => ({
-  //   categoryGet
-  // }));
+  const {
+    categoryGet: { loaded, categories }
+  } = useSelector(({ categoryGet }) => ({
+    categoryGet
+  }));
 
   const { location } = useRouter();
 
   useEffect(() => {
     let mounted = true;
-    // getCategories();
+    getCategories();
 
     const fetchLanguages = () => {
       axios.get('/api/languages').then(response => {
@@ -167,7 +167,7 @@ const TopBar = props => {
         <Hidden smDown>
           <div style={{ alignItems: 'center' }}>
             <Row gutter={1} className={classes.middle}>
-              {navigationConfig(t)
+              {navigationConfig(t, categories)
                 .filter(p => p.title === 'Pages')[0]
                 .pages.map((menu, index) =>
                   menu.children ? (
