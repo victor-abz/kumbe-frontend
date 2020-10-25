@@ -1,25 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import { getCategories } from 'redux/actions/category';
+import { getProducts } from 'redux/actions/product';
 import { useSelector } from 'react-redux';
-import {
-  makeStyles,
-  ThemeProvider,
-  createMuiTheme
-} from '@material-ui/core/styles';
-// import { FontProvider, Typography } from 'website/src/components/Typography';
+import { Link as RouterLink } from 'react-router-dom';
+import { makeStyles } from '@material-ui/core/styles';
 
 import { ColumnToRow, Item } from '@mui-treasury/components/flex';
 import { NavMenu, NavItem } from '@mui-treasury/components/menu/navigation';
-import {
-  EmailSubscribe,
-  EmailTextInput,
-  SubmitButton
-} from '@mui-treasury/components/EmailSubscribe';
 import {
   CategoryProvider,
   CategoryTitle,
@@ -32,11 +24,10 @@ import {
 
 import { useMagCategoryMenuStyles } from '@mui-treasury/styles/categoryMenu/mag';
 import { usePoofSocialLinkStyles } from '@mui-treasury/styles/socialLink/poof';
-import { useReadyEmailSubscribeStyles } from '@mui-treasury/styles/emailSubscribe/ready';
 import { usePlainNavigationMenuStyles } from '@mui-treasury/styles/navigationMenu/plain';
 import { useTranslation } from 'react-i18next';
-
-const darkTheme = createMuiTheme({ palette: { type: 'dark' } });
+import { Loading } from 'components/Loading';
+import { NoDisplayData } from 'components/NoDisplayData';
 
 const useStyles = makeStyles(({ palette, typography }) => ({
   top: {
@@ -95,47 +86,21 @@ const useStyles = makeStyles(({ palette, typography }) => ({
 const Footer = React.memo(function ArcAppFooter() {
   const { t } = useTranslation();
   const classes = useStyles();
-  const { categories } = useSelector(({ categoryGet }) => categoryGet);
+  const {
+    categoryGet: { loading: categoryLoad, categories },
+    productsGet: { loading, products }
+  } = useSelector(({ categoryGet, productsGet }) => ({
+    categoryGet,
+    productsGet
+  }));
+
   useEffect(() => {
     getCategories();
+    getProducts();
   }, []);
+
   return (
     <Box width={'100%'}>
-      <Box className={classes.top} position={'relative'} px={2} py={6}>
-        <div className={classes.overlay}>
-          <img
-            alt={''}
-            src={
-              'https://images.unsplash.com/photo-1487017159836-4e23ece2e4cf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2251&q=80'
-            }
-          />
-        </div>
-        <ThemeProvider theme={darkTheme}>
-          <ColumnToRow
-            at={'sm'}
-            columnStyle={{ alignItems: 'center', textAlign: 'center' }}
-            cssPosition={'relative'}
-            gap={{ xs: 2, sm: 3, md: 4 }}
-            rowStyle={{ justifyContent: 'center' }}
-            wrap>
-            <Item>
-              <Typography className={classes.newsletterText}>
-                <Typography>{t('top_bar:newsletterSubscribe')}</Typography>
-              </Typography>
-            </Item>
-            <Item>
-              <EmailSubscribe
-                className={classes.form}
-                inputClearedAfterSubmit
-                onSubmit={email => alert(`Your email is ${email}.`)}
-                useStyles={useReadyEmailSubscribeStyles}>
-                <EmailTextInput placeholder={t('top_bar:emailPrompt')} />
-                <SubmitButton>{t('top_bar:subscribe')}</SubmitButton>
-              </EmailSubscribe>
-            </Item>
-          </ColumnToRow>
-        </ThemeProvider>
-      </Box>
       <Box className={classes.middle} px={2} py={10}>
         <Container disableGutters>
           <Grid container spacing={4}>
@@ -166,12 +131,17 @@ const Footer = React.memo(function ArcAppFooter() {
                     <CategoryTitle>
                       <Typography>{t('top_bar:services')}</Typography>
                     </CategoryTitle>
-                    <CategoryItem>
-                      <Typography index={1}>Counselling</Typography>
-                    </CategoryItem>
-                    <CategoryItem>
-                      <Typography index={1}>Condoms</Typography>
-                    </CategoryItem>
+                    {loading ? (
+                      <Loading />
+                    ) : products.length ? (
+                      products.map(({ name, id }) => (
+                        <CategoryItem index={id}>
+                          <Typography>{name}</Typography>
+                        </CategoryItem>
+                      ))
+                    ) : (
+                      <NoDisplayData />
+                    )}
                   </CategoryProvider>
                 </Grid>
                 <Grid item sm={4} xs={6}>
@@ -179,11 +149,21 @@ const Footer = React.memo(function ArcAppFooter() {
                     <CategoryTitle>
                       <Typography>{t('top_bar:popularcategories')}</Typography>
                     </CategoryTitle>
-                    {categories.map(({ name }, index) => (
-                      <CategoryItem index={index}>
-                        <Typography index={1}>{name}</Typography>
-                      </CategoryItem>
-                    ))}
+                    {categoryLoad ? (
+                      <Loading />
+                    ) : categories.length ? (
+                      categories.map(({ name, id }) => (
+                        <CategoryItem index={id}>
+                          <Typography
+                            component={RouterLink}
+                            to={`/blogs/categories/${id}`}>
+                            {name}
+                          </Typography>
+                        </CategoryItem>
+                      ))
+                    ) : (
+                      <NoDisplayData />
+                    )}
                   </CategoryProvider>
                 </Grid>
                 <Grid item sm={4} xs={6}>
@@ -192,10 +172,14 @@ const Footer = React.memo(function ArcAppFooter() {
                       <Typography>{t('top_bar:infotitle')}</Typography>
                     </CategoryTitle>
                     <CategoryItem>
-                      <Typography index={1}>{t('top_bar:about')}</Typography>
+                      <Typography component={RouterLink} to={'/about'}>
+                        {t('top_bar:about')}
+                      </Typography>
                     </CategoryItem>
                     <CategoryItem>
-                      <Typography index={1}>{t('top_bar:faq')}</Typography>
+                      <Typography component={RouterLink} to={'/faq'}>
+                        {t('top_bar:faq')}
+                      </Typography>
                     </CategoryItem>
                   </CategoryProvider>
                 </Grid>
@@ -204,14 +188,12 @@ const Footer = React.memo(function ArcAppFooter() {
             <Grid item lg={3} md={8} style={{ marginLeft: 'auto' }} xs={12}>
               <CategoryProvider useStyles={useMagCategoryMenuStyles}>
                 <CategoryTitle>
-                  <Typography>{t('top_bar:subscribe')}</Typography>
+                  <Typography>{t('top_bar:follow_social_media')}</Typography>
                 </CategoryTitle>
               </CategoryProvider>
               <SocialProvider useStyles={usePoofSocialLinkStyles}>
-                <SocialLink brand={'Envelope'} />
-                <SocialLink brand={'GooglePlus'} />
-                <SocialLink brand={'Pinterest'} />
-                <SocialLink brand={'Dribbble'} />
+                <SocialLink brand={'Facebook'} />
+                <SocialLink brand={'Twitter'} />
               </SocialProvider>
             </Grid>
           </Grid>

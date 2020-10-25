@@ -7,6 +7,8 @@ import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { useStyles } from '../../styles';
 import Color from 'color';
+import { getCategories } from 'redux/actions/category';
+import { getProducts } from 'redux/actions/product';
 
 import {
   AppBar,
@@ -95,10 +97,17 @@ const TopBar = props => {
     window.location.reload();
   };
 
+  // const {
+  //   categoryGet: { loaded, categories }
+  // } = useSelector(({ categoryGet }) => ({
+  //   categoryGet
+  // }));
+
   const { location } = useRouter();
 
   useEffect(() => {
     let mounted = true;
+    // getCategories();
 
     const fetchLanguages = () => {
       axios.get('/api/languages').then(response => {
