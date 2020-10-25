@@ -5,7 +5,8 @@ import {
   CREATE_REPLY,
   GET_QUESTIONS,
   GET_REPLIES,
-  GET_QUESTION
+  GET_QUESTION,
+  LIKE_QUESTION
 } from './actionTypes';
 
 export const addQuestion = (newQuestion = {}) => {
@@ -43,5 +44,11 @@ export const getReplies = (questionId, { pageNumber = 1, pageSize = 10 }) => {
   store.dispatch({
     type: GET_REPLIES,
     payload: http.get(`/questions/${questionId}/replies?${replyParams}`)
+  });
+};
+export const likeQuestion = questionId => {
+  store.dispatch({
+    type: LIKE_QUESTION,
+    payload: http.patch(`/questions/${questionId}/like`, {})
   });
 };

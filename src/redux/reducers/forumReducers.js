@@ -3,7 +3,8 @@ import {
   CREATE_REPLY,
   GET_QUESTIONS,
   GET_REPLIES,
-  GET_QUESTION
+  GET_QUESTION,
+  LIKE_QUESTION
 } from 'redux/actions/actionTypes';
 import { baseState, fulfilled, pending, rejected } from 'redux/utils';
 
@@ -115,6 +116,29 @@ export const repliesGetReducer = (state = baseState('replies', []), action) => {
         replies: action.payload.data.data
       };
     case rejected(GET_REPLIES):
+    default:
+      return {
+        ...state,
+        loading: false
+      };
+  }
+};
+export const qtnLikeReducer = (state = baseState('like', {}), action) => {
+  switch (action.type) {
+    case pending(LIKE_QUESTION):
+      return {
+        ...state,
+        loaded: false,
+        loading: true
+      };
+    case fulfilled(LIKE_QUESTION):
+      return {
+        ...state,
+        loading: false,
+        loaded: true,
+        like: action.payload.data.data
+      };
+    case rejected(LIKE_QUESTION):
     default:
       return {
         ...state,
