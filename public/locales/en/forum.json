@@ -1,0 +1,15 @@
+{
+  "form_placeholder": "Ask us any question regarding SRHR",
+  "question_category": "Category",
+  "anonymity": "want to hide your identity?",
+  "anonymity_no": "No",
+  "anonymity_yes": "Yes",
+  "post_question": "Ask Question",
+  "post_question_wait": "Sending....",
+  "reply": "Reply to this question",
+  "send_reply": "Send answer",
+  "replies": "Replies",
+  "no_questions": "No questions yet!",
+  "hidden_names": "Name Hidden(For Privacy)",
+  "first_comment": "Be the first to answer on the question"
+}

@@ -16,6 +16,7 @@ import {
 } from '@material-ui/core';
 import SendIcon from '@material-ui/icons/Send';
 import { addReply } from 'redux/actions/forum';
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -58,6 +59,7 @@ const CommentForm = props => {
     const inputValue = name === 'anonymous' ? checked : iValue;
     setValue({ ...value, [name]: inputValue });
   };
+  const { t } = useTranslation();
 
   return (
     <div {...rest} className={clsx(classes.root, className)}>
@@ -69,32 +71,13 @@ const CommentForm = props => {
         <Input
           className={classes.input}
           disableUnderline
-          onChange={handleChange}
           name="content"
+          onChange={handleChange}
+          placeholder={t('forum:reply')}
           value={value.content}
-          placeholder="Leave a message"
         />
       </Paper>
-      <FormControl
-        className={classes.formControl}
-        component="fieldset"
-        size="small">
-        <FormLabel component="legend">Is Anonymous?</FormLabel>
-        <Typography component="div">
-          <Grid alignItems="center" component="label" container spacing={1}>
-            <Grid item>No</Grid>
-            <Grid item>
-              <Switch
-                checked={value.anonymous}
-                name="anonymous"
-                onChange={handleChange}
-              />
-            </Grid>
-            <Grid item>Yes</Grid>
-          </Grid>
-        </Typography>
-      </FormControl>
-      <Tooltip title="Send">
+      <Tooltip title={t('forum:send_reply')}>
         <IconButton
           color={value.content.length > 0 ? 'primary' : 'default'}
           disabled={!value.content || loading}

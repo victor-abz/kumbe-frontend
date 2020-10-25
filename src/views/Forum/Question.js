@@ -6,6 +6,7 @@ import { Loading } from 'components/Loading';
 import { NoDisplayData } from 'components/NoDisplayData';
 import { getQuestion } from 'redux/actions/forum';
 import useRouter from 'utils/useRouter';
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -23,6 +24,7 @@ const useStyles = makeStyles(theme => ({
 
 const Question = () => {
   const classes = useStyles();
+  const { t } = useTranslation();
   const {
     qtnGet: { loading, question, loaded }
   } = useSelector(({ qtnGet }) => ({ qtnGet }));
@@ -45,7 +47,7 @@ const Question = () => {
         ) : loaded ? (
           <PostCard className={classes.post} post={question} />
         ) : (
-          <NoDisplayData />
+          <NoDisplayData message={t('forum:no_questions')} />
         )}
       </div>
     </Page>

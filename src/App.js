@@ -65,6 +65,8 @@ const App = () => {
   const { t } = useTranslation([
     'top_bar',
     'auth',
+    'home',
+    'forum',
     'error',
     'blog',
     'media',

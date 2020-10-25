@@ -24,12 +24,15 @@ import { Share } from 'components';
 import { likeQuestion } from 'redux/actions/forum';
 import { httpSocket } from 'utils/http';
 import { notifier } from 'utils/notifier';
+import { useTranslation } from 'react-i18next';
 
 const PostCard = props => {
   const { post, className, ...rest } = props;
   const [newLikes, setNewLikes] = useState(0);
   const [newReplies, setNewReplies] = useState(0);
   const classes = useStyles();
+  const { t } = useTranslation();
+
   useEffect(() => {
     httpSocket.on('new-question-like', newLike => {
       if (newLike.discussionId === post.id) {
@@ -48,8 +51,10 @@ const PostCard = props => {
       <div className={classes.category}>
         <Button
           className={classes.popCategory}
+          component={RouterLink}
           size="small"
           style={{ backgroundColor: '#CC6101', color: '#fff' }}
+          to={`/forum/c/${post.category.id}`}
           variant="contained">
           {post.category.name}
         </Button>
@@ -85,16 +90,16 @@ const PostCard = props => {
               variant="h6">
               {post.anonymous
                 ? `${post.author.firstName} ${post.author.lastName}`
-                : 'Name Hidden(For Privacy)'}
+                : t('forum:hidden_names')}
             </Link>
           }
         />
         <CardContent className={classes.content}>
           <Typography
             className={classes.message}
-            variant="body1"
             component={RouterLink}
-            to={`/forum/q/${post.id}`}>
+            to={`/forum/q/${post.id}`}
+            variant="body1">
             {post.content}
           </Typography>
         </CardContent>
@@ -118,7 +123,7 @@ const PostCard = props => {
             startIcon={<ForumOutlinedIcon />}
             to={`/forum/q/${post.id}`}
             variant="contained">
-            {`Replies(${post.replies.length + newReplies})`}
+            {`${t('forum:replies')}s(${post.replies.length + newReplies})`}
           </Button>
         </CardActions>
       </Card>

@@ -21,6 +21,7 @@ import {
 import SendIcon from '@material-ui/icons/Send';
 import { useSelector } from 'react-redux';
 import { addQuestion } from 'redux/actions/forum';
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -60,6 +61,8 @@ const AddPost = props => {
   const { className, user, loading, done = false, ...rest } = props;
 
   const classes = useStyles();
+  const { t } = useTranslation();
+
   const [postValue, setPostValue] = useState(initialValue);
   const {
     categoryGet: { categories }
@@ -88,7 +91,7 @@ const AddPost = props => {
             onChange={handleChange}
             placeholder={
               user
-                ? `${user.lastName}, Ask us any question regarding SRHR`
+                ? `${user.lastName}, ${t('forum:form_placeholder')}`
                 : 'Login to post question,'
             }
             rows={3}
@@ -100,13 +103,13 @@ const AddPost = props => {
             className={classes.formControl}
             size="small"
             variant="outlined">
-            <InputLabel id="category">Category</InputLabel>
+            <InputLabel id="category">{t('forum:question_category')}</InputLabel>
             <Select
               name="categoryId"
               onChange={handleChange}
               value={postValue.categoryId}>
               <MenuItem value="">
-                <em>Select category</em>
+                <em>{t('forum:question_category')}</em>
               </MenuItem>
               {categories.map((category, categoryIdx) => (
                 <MenuItem key={categoryIdx} value={category.id}>
@@ -119,10 +122,10 @@ const AddPost = props => {
             className={classes.formControl}
             component="fieldset"
             size="small">
-            <FormLabel component="legend">Is Anonymous?</FormLabel>
+            <FormLabel component="legend">{t('forum:anonymity')}</FormLabel>
             <Typography component="div">
               <Grid alignItems="center" component="label" container spacing={1}>
-                <Grid item>No</Grid>
+                <Grid item>{t('forum:anonymity_no')}</Grid>
                 <Grid item>
                   <Switch
                     checked={postValue.anonymous}
@@ -130,19 +133,19 @@ const AddPost = props => {
                     onChange={handleChange}
                   />
                 </Grid>
-                <Grid item>Yes</Grid>
+                <Grid item>{t('forum:anonymity_yes')}</Grid>
               </Grid>
             </Typography>
           </FormControl>
-          <Tooltip title="Post Question">
+          <Tooltip title={t('forum:post_question')}>
             <Button
               className={classes.button}
               color="secondary"
               disabled={!postValue.content || !postValue.categoryId || loading}
-              endIcon={<SendIcon>Post Question</SendIcon>}
+              endIcon={<SendIcon>{t('forum:post_question')}</SendIcon>}
               onClick={() => addQuestion(postValue)}
               variant="contained">
-              {loading ? 'Posting,...' : 'Post Question'}
+              {loading ? t('forum:post_question_wait') : t('forum:post_question')}
             </Button>
           </Tooltip>
         </div>

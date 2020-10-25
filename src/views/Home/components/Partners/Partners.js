@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Grid } from '@material-ui/core';
-import { Product } from 'components';
 import { useSelector } from 'react-redux';
 import { getProducts } from 'redux/actions/product';
+import PartnerCarousel from './LogoCarousel';
 import { useTranslation } from 'react-i18next';
 
-const useStyles = makeStyles(({ spacing, breakpoints }) => ({
+const useStyles = makeStyles(({ spacing, breakpoints, palette }) => ({
   root: {
-    backgroundImage: 'linear-gradient(to top,#7900EC 35%, #CC0DF9 )'
+    backgroundImage: palette.background.default
   },
   inner: {
     maxWidth: '100%',
@@ -30,9 +30,55 @@ const useStyles = makeStyles(({ spacing, breakpoints }) => ({
   }
 }));
 
-const Products = props => {
+const partners = [
+  {
+    imgUrl: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/1.png'
+  },
+  {
+    imgUrl: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/2.png'
+  },
+  {
+    imgUrl: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/3.png'
+  },
+  {
+    imgUrl: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/4.png'
+  },
+  {
+    imgUrl: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/5.png'
+  },
+  {
+    imgUrl: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/6.png'
+  },
+  {
+    imgUrl: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/7.png'
+  },
+  {
+    imgUrl: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/1.png'
+  },
+  {
+    imgUrl: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/2.png'
+  },
+  {
+    imgUrl: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/3.png'
+  },
+  {
+    imgUrl: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/4.png'
+  },
+  {
+    imgUrl: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/5.png'
+  },
+  {
+    imgUrl: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/6.png'
+  },
+  {
+    imgUrl: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/7.png'
+  }
+];
+
+const Partners = props => {
   const { className, ...rest } = props;
-  const { t } = useTranslation();
+  const { t } = useTranslation()
+
   const classes = useStyles();
   const { products } = useSelector(({ productsGet }) => productsGet);
   useEffect(() => {
@@ -50,16 +96,10 @@ const Products = props => {
             xs={12}>
             <Typography
               align="center"
+              color="textPrimary"
               gutterBottom
-              style={{ color: 'white' }}
               variant="h2">
-              {t('home:products_title')}
-            </Typography>
-            <Typography
-              align="center"
-              style={{ color: 'white' }}
-              variant="subtitle2">
-              {t('home:products_sub_title')}
+              {t('home:partners_title')}
             </Typography>
           </Grid>
           <Grid
@@ -71,9 +111,7 @@ const Products = props => {
             justify="center"
             sm={12}
             spacing={2}>
-            {products.map((prod, prodIdx) => (
-              <Product key={prodIdx} {...prod} />
-            ))}
+            <PartnerCarousel logos={partners} />
           </Grid>
         </Grid>
       </div>
@@ -81,8 +119,8 @@ const Products = props => {
   );
 };
 
-Products.propTypes = {
+Partners.propTypes = {
   className: PropTypes.string
 };
 
-export default Products;
+export default Partners;

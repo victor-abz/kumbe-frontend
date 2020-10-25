@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { Page } from 'components';
-import { Banner, Products, Blogs, Slider } from './components';
+import { Banner, Products, Blogs, Slider, Partners } from './components';
 
 const useStyles = makeStyles(() => ({
   root: {}
@@ -17,6 +17,7 @@ const Home = () => {
       <Banner />
       <Blogs />
       <Products />
+      <Partners />
     </Page>
   );
 };
