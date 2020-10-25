@@ -152,13 +152,7 @@ const TopBar = props => {
       <Toolbar>
         <div className={classes.left}>
           <RouterLink to="/">
-            <Typography className={classes.title} variant="h2">
-              Kumbe!
-            </Typography>
-            {/* <img
-            alt="Logo"
-            src="/images/logos/logo--white.svg"
-          /> */}
+            <img alt="Logo" src="/images/logos/logo--white.svg" />
           </RouterLink>
         </div>
         <Hidden smDown>
