@@ -42,6 +42,7 @@ export const CREATE_REPLY = 'CREATE_REPLY';
 export const GET_REPLIES = 'GET_REPLIES';
 export const GET_QUESTION = 'GET_QUESTION';
 export const LIKE_QUESTION = 'LIKE_QUESTION';
+export const REACT_TO_REPLY = 'REACT_TO_REPLY';
 
 export const CREATE_PRODUCT = 'CREATE_PRODUCT';
 export const UPDATE_PRODUCT = 'UPDATE_PRODUCT';

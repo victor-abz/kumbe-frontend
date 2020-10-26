@@ -19,14 +19,13 @@ import {
 } from '@material-ui/core';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 
-import { Reactions, CommentBubble, CommentForm } from './components';
+import { CommentBubble, CommentForm } from './components';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
 import ForumOutlinedIcon from '@material-ui/icons/ForumOutlined';
 import { NoDisplayData } from 'components/NoDisplayData';
 import { useStyles } from './styles/postCard';
 import { useSelector } from 'react-redux';
-import { getReplies } from 'redux/actions/forum';
+import { getReplies, likeQuestion } from 'redux/actions/forum';
 import { httpSocket } from 'utils/http';
 import { notifier } from 'utils/notifier';
 import { Share } from 'components';
@@ -38,6 +37,7 @@ const PostCard = props => {
   const [expanded, setExpanded] = useState(true);
   const [postReplies, setPostReplies] = useState([]);
   const [newReplies, setNewReplies] = useState([]);
+  const [newLikes, setNewLikes] = useState(0);
   const {
     replyAdd: { loading, loaded: added },
     repliesGet: { loading: posting, loaded, replies },
@@ -63,8 +63,6 @@ const PostCard = props => {
 
   useEffect(() => {
     getReplies(post.id, {});
-    const name = `${user.firstName} ${user.lastName}`;
-    httpSocket.emit('join', { userId: user.id, name }, () => {});
   }, []);
 
   useEffect(() => {
@@ -75,8 +73,12 @@ const PostCard = props => {
       }
       notifier.success(`New update from ${replyContent.userNames}`);
     });
+    httpSocket.on('new-question-like', newLike => {
+      if (newLike.discussionId === post.id) {
+        setNewLikes(theLikes => theLikes + newLike.like);
+      }
+    });
   }, []);
-
   return (
     <Grid>
       <div className={classes.category}>
@@ -130,8 +132,13 @@ const PostCard = props => {
         </CardContent>
         <Divider className={classes.divider} />
         <CardActions className={classes.actions} disableSpacing>
-          <IconButton aria-label="add to favorites">
+          <IconButton
+            aria-label="add to favorites"
+            onClick={() => likeQuestion(post.id)}>
             <FavoriteIcon />
+            <Typography variant="body2">
+              {post.likes.length + newLikes}
+            </Typography>
           </IconButton>
           <IconButton aria-label="share">
             <Share href={`forum/q/${post.id}`} onShare={() => {}} />

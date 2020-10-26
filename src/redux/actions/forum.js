@@ -6,7 +6,8 @@ import {
   GET_QUESTIONS,
   GET_REPLIES,
   GET_QUESTION,
-  LIKE_QUESTION
+  LIKE_QUESTION,
+  REACT_TO_REPLY
 } from './actionTypes';
 
 export const addQuestion = (newQuestion = {}) => {
@@ -46,9 +47,16 @@ export const getReplies = (questionId, { pageNumber = 1, pageSize = 10 }) => {
     payload: http.get(`/questions/${questionId}/replies?${replyParams}`)
   });
 };
-export const likeQuestion = questionId => {
+export const likeQuestion = (questionId = '') => {
   store.dispatch({
     type: LIKE_QUESTION,
     payload: http.patch(`/questions/${questionId}/like`, {})
+  });
+};
+export const reactReply = (replyId = '', type = '') => {
+  const likeUrl = `questions/${replyId}/reply-react/${type}`;
+  store.dispatch({
+    type: REACT_TO_REPLY,
+    payload: http.patch(`/${likeUrl}?type=reply`, {})
   });
 };

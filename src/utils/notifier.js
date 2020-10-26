@@ -11,7 +11,7 @@ export const notifier = {
   success: msg =>
     toast(msg, {
       type: toast.TYPE.DEFAULT,
-      position: toast.POSITION.TOP_RIGHT,
+      position: toast.POSITION.BOTTOM_LEFT,
       toastId: messageId
     })
 };

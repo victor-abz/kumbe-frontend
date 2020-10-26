@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux';
 import {
   makeStyles,
   ThemeProvider,
-  createMuiTheme,
+  createMuiTheme
 } from '@material-ui/core/styles';
 // import { FontProvider, Typography } from 'website/src/components/Typography';
 
@@ -18,16 +18,16 @@ import { NavMenu, NavItem } from '@mui-treasury/components/menu/navigation';
 import {
   EmailSubscribe,
   EmailTextInput,
-  SubmitButton,
+  SubmitButton
 } from '@mui-treasury/components/EmailSubscribe';
 import {
   CategoryProvider,
   CategoryTitle,
-  CategoryItem,
+  CategoryItem
 } from '@mui-treasury/components/menu/category';
 import {
   SocialProvider,
-  SocialLink,
+  SocialLink
 } from '@mui-treasury/components/socialLink';
 
 import { useMagCategoryMenuStyles } from '@mui-treasury/styles/categoryMenu/mag';
@@ -41,24 +41,24 @@ const darkTheme = createMuiTheme({ palette: { type: 'dark' } });
 const useStyles = makeStyles(({ palette, typography }) => ({
   top: {
     backgroundSize: 'cover',
-    overflow: 'hidden',
+    overflow: 'hidden'
   },
   middle: {
-    backgroundColor: palette.type === 'dark' ? '#192D36' : palette.action.hover,
+    backgroundColor: palette.type === 'dark' ? '#192D36' : palette.action.hover
   },
   bottom: {
     backgroundColor:
-      palette.type === 'dark' ? '#0F2128' : palette.action.selected,
+      palette.type === 'dark' ? '#0F2128' : palette.action.selected
   },
   newsletterText: {
     color: '#fff',
     fontSize: '0.875rem',
-    textTransform: 'uppercase',
+    textTransform: 'uppercase'
   },
   form: {
     margin: 0,
     minWidth: 343,
-    fontSize: '0.875rem',
+    fontSize: '0.875rem'
   },
   legalLink: {
     textTransform: 'uppercase',
@@ -66,11 +66,11 @@ const useStyles = makeStyles(({ palette, typography }) => ({
     fontSize: '0.75rem',
     justifyContent: 'center',
     color: palette.text.hint,
-    letterSpacing: '0.5px',
+    letterSpacing: '0.5px'
   },
   divider: {
     height: 2,
-    margin: '-1px 0',
+    margin: '-1px 0'
   },
   overlay: {
     position: 'absolute',
@@ -82,24 +82,23 @@ const useStyles = makeStyles(({ palette, typography }) => ({
     '& img': {
       width: '100%',
       height: '100%',
-      objectFit: 'cover',
-    },
+      objectFit: 'cover'
+    }
   },
   info: {
     ...typography.caption,
     color: palette.text.hint,
-    marginTop: 8,
+    marginTop: 8
   }
 }));
 
 const Footer = React.memo(function ArcAppFooter() {
   const { t } = useTranslation();
   const classes = useStyles();
-  const { categories } = useSelector(({ categoryGet }) => categoryGet );
+  const { categories } = useSelector(({ categoryGet }) => categoryGet);
   useEffect(() => {
     getCategories();
   }, []);
-  console.log(categories);
   return (
     <Box width={'100%'}>
       <Box className={classes.top} position={'relative'} px={2} py={6}>
@@ -118,8 +117,7 @@ const Footer = React.memo(function ArcAppFooter() {
             cssPosition={'relative'}
             gap={{ xs: 2, sm: 3, md: 4 }}
             rowStyle={{ justifyContent: 'center' }}
-            wrap
-          >
+            wrap>
             <Item>
               <Typography className={classes.newsletterText}>
                 <Typography>{t('top_bar:newsletterSubscribe')}</Typography>
@@ -130,8 +128,7 @@ const Footer = React.memo(function ArcAppFooter() {
                 className={classes.form}
                 inputClearedAfterSubmit
                 onSubmit={email => alert(`Your email is ${email}.`)}
-                useStyles={useReadyEmailSubscribeStyles}
-              >
+                useStyles={useReadyEmailSubscribeStyles}>
                 <EmailTextInput placeholder={t('top_bar:emailPrompt')} />
                 <SubmitButton>{t('top_bar:subscribe')}</SubmitButton>
               </EmailSubscribe>
@@ -154,14 +151,12 @@ const Footer = React.memo(function ArcAppFooter() {
               />
               <Typography className={classes.info}>
                 <Typography index={1}>
-                    Kicukiro, KN xxx, 3530, Kigali Rwanda
+                  Kicukiro, KN xxx, 3530, Kigali Rwanda
                 </Typography>
               </Typography>
 
               <Typography className={classes.info}>
-                <Typography index={1}>
-                    admin@kumbe.rw
-                </Typography>
+                <Typography index={1}>admin@kumbe.rw</Typography>
               </Typography>
             </Grid>
             <Grid item lg={6} md={8} xs={12}>
@@ -184,14 +179,11 @@ const Footer = React.memo(function ArcAppFooter() {
                     <CategoryTitle>
                       <Typography>{t('top_bar:popularcategories')}</Typography>
                     </CategoryTitle>
-                    {
-                      categories.map(({ name }, index)=> (
-                        <CategoryItem index={index}>
-                          <Typography index={1}>{name}</Typography>
-                        </CategoryItem>
-
-                      ))
-                    }
+                    {categories.map(({ name }, index) => (
+                      <CategoryItem index={index}>
+                        <Typography index={1}>{name}</Typography>
+                      </CategoryItem>
+                    ))}
                   </CategoryProvider>
                 </Grid>
                 <Grid item sm={4} xs={6}>
@@ -233,8 +225,7 @@ const Footer = React.memo(function ArcAppFooter() {
           <ColumnToRow
             at={'md'}
             columnStyle={{ alignItems: 'center' }}
-            rowStyle={{ alignItems: 'unset' }}
-          >
+            rowStyle={{ alignItems: 'unset' }}>
             <Item grow ml={-2} shrink={0}>
               <NavMenu useStyles={usePlainNavigationMenuStyles}>
                 <ColumnToRow at={'sm'}>
@@ -252,8 +243,7 @@ const Footer = React.memo(function ArcAppFooter() {
                 <Typography
                   color={'textSecondary'}
                   component={'p'}
-                  variant={'caption'}
-                >
+                  variant={'caption'}>
                   <Typography index={1}>
                     © HDI Rwanda 2020 {t('top_bar:copyright')}
                   </Typography>

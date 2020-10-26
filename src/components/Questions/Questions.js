@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
@@ -21,12 +21,28 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import ForumOutlinedIcon from '@material-ui/icons/ForumOutlined';
 import { useStyles } from './styles/postCard';
 import { Share } from 'components';
+import { likeQuestion } from 'redux/actions/forum';
+import { httpSocket } from 'utils/http';
+import { notifier } from 'utils/notifier';
 
 const PostCard = props => {
   const { post, className, ...rest } = props;
-
+  const [newLikes, setNewLikes] = useState(0);
+  const [newReplies, setNewReplies] = useState(0);
   const classes = useStyles();
-
+  useEffect(() => {
+    httpSocket.on('new-question-like', newLike => {
+      if (newLike.discussionId === post.id) {
+        setNewLikes(theLikes => theLikes + newLike.like);
+      }
+    });
+    httpSocket.on('new-reply', replyContent => {
+      if (replyContent.discussionId === post.id) {
+        setNewReplies(rplies => rplies + 1);
+      }
+      notifier.success(`New update from ${replyContent.userNames}`);
+    });
+  }, []);
   return (
     <Grid>
       <div className={classes.category}>
@@ -84,8 +100,13 @@ const PostCard = props => {
         </CardContent>
         <Divider className={classes.divider} />
         <CardActions className={classes.actions} disableSpacing>
-          <IconButton aria-label="add to favorites">
+          <IconButton
+            aria-label="add to favorites"
+            onClick={() => likeQuestion(post.id)}>
             <FavoriteIcon />
+            <Typography variant="body2">
+              {post.likes.length + newLikes}
+            </Typography>
           </IconButton>
           <IconButton aria-label="share">
             <Share href={`forum/q/${post.id}`} onShare={() => {}} />
@@ -97,7 +118,7 @@ const PostCard = props => {
             startIcon={<ForumOutlinedIcon />}
             to={`/forum/q/${post.id}`}
             variant="contained">
-            {`Replies(${post.replies.length})`}
+            {`Replies(${post.replies.length + newReplies})`}
           </Button>
         </CardActions>
       </Card>

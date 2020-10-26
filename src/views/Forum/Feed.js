@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Page, AddPost, SearchBar, Questions } from 'components';
 import { Header } from './components';
@@ -7,6 +7,7 @@ import { Loading } from 'components/Loading';
 import { NoDisplayData } from 'components/NoDisplayData';
 import { getQuestions } from 'redux/actions/forum';
 import useRouter from 'utils/useRouter';
+import { httpSocket } from 'utils/http';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -38,7 +39,6 @@ const Feed = () => {
   } = useSelector(({ qtnsGet, qtnAdd, auth }) => ({ qtnsGet, qtnAdd, auth }));
 
   const { match } = useRouter();
-  console.log('+++++', match);
   const {
     params: { id },
     path
@@ -54,7 +54,6 @@ const Feed = () => {
       getQuestions({});
     }
   }, [loaded]);
-
   const handleFilter = () => {};
   const handleSearch = () => {};
 

@@ -36,7 +36,8 @@ import {
   qtnGetReducer,
   repliesGetReducer,
   replyAddReducer,
-  qtnLikeReducer
+  qtnLikeReducer,
+  replyReactReducer
 } from './forumReducers';
 import {
   productAddReducer,
@@ -79,5 +80,6 @@ export default combineReducers({
   productsGet: productsGetReducer,
   productEdit: productEditReducer,
   productRm: productDeleteReducer,
-  qtnLike: qtnLikeReducer
+  qtnLike: qtnLikeReducer,
+  replyReact: replyReactReducer
 });

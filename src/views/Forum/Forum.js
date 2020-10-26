@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 import { getCategories } from 'redux/actions/category';
 import { LinearProgress } from '@material-ui/core';
 import { renderRoutes } from 'react-router-config';
+import { httpSocket } from 'utils/http';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -29,17 +30,21 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Forum = (props) => {
+const Forum = props => {
   const { route, t } = props;
   const classes = useStyles();
   const {
-    categoryGet: { loaded, categories }
-  } = useSelector(({ categoryGet }) => ({ categoryGet }));
+    categoryGet: { loaded, categories },
+    auth: { user }
+  } = useSelector(({ categoryGet, auth }) => ({ categoryGet, auth }));
 
   useEffect(() => {
     getCategories();
   }, []);
-
+  useEffect(() => {
+    const name = `${user.firstName} ${user.lastName}`;
+    httpSocket.emit('join', { userId: user.id, name }, () => {});
+  }, []);
   return (
     <Page style={{ height: '100vh' }} title="Social Feed">
       <Grid className={classes.root} container>
