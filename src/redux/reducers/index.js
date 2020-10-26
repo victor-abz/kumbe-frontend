@@ -88,6 +88,6 @@ export default combineReducers({
   qtnLike: qtnLikeReducer,
   replyReact: replyReactReducer,
   partnerAdd: partnerAddReducer,
-  partnersGet: partnerDeleteReducer,
-  partnerRm: partnersGetReducer
+  partnersGet: partnersGetReducer,
+  partnerRm: partnerDeleteReducer
 });

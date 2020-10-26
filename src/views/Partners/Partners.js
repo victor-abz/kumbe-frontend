@@ -36,9 +36,9 @@ const PartnerSercices = () => {
   const { t } = useTranslation();
   const [openAddPartner, setOpenAddPartner] = useState(false);
   const {
-    productsGet: { loading, products }
-  } = useSelector(({ productsGet }) => ({
-    productsGet
+    partnersGet: { loading, partners }
+  } = useSelector(({ partnersGet }) => ({
+    partnersGet
   }));
   useEffect(() => {
     getPartners();
@@ -71,7 +71,6 @@ const PartnerSercices = () => {
         <Grid alignItems="center" container justify="space-between" spacing={1}>
           <Grid
             alignItems="center"
-            className={classes.header}
             container
             direction="row"
             item
@@ -80,8 +79,8 @@ const PartnerSercices = () => {
             spacing={2}>
             {loading ? (
               <Loading />
-            ) : products.length ? (
-              products.map((product, productIdx) => (
+            ) : partners.length ? (
+              partners.map((product, productIdx) => (
                 <Partner key={productIdx} {...product} />
               ))
             ) : (

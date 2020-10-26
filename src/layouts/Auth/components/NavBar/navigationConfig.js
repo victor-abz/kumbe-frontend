@@ -2,7 +2,7 @@ import LockOpenIcon from '@material-ui/icons/LockOpenOutlined';
 import PersonIcon from '@material-ui/icons/PersonOutlined';
 import ForumOutlinedIcon from '@material-ui/icons/ForumOutlined';
 
-export const navigationConfig = (t, categories) => {
+export const navigationConfig = (t, categories = []) => {
   const blogSubmenu = categories.map(category => {
     return { title: category.name, href: `/blogs/categories/${category.id}` };
   });
