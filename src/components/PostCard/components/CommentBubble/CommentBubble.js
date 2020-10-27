@@ -9,6 +9,7 @@ import ThumbDownAltIcon from '@material-ui/icons/ThumbDownAlt';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import { reactReply } from 'redux/actions/forum';
 import { httpSocket } from 'utils/http';
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -40,6 +41,8 @@ const useStyles = makeStyles(theme => ({
 
 const CommentBubble = props => {
   const { comment, className, ...rest } = props;
+  const { t } = useTranslation();
+
   const classes = useStyles();
   const [newReacts, setNewReacts] = useState({ likes: 0, dislikes: 0 });
   useEffect(() => {
@@ -70,7 +73,7 @@ const CommentBubble = props => {
         <div className={classes.header}>
           <Link color="textPrimary" component={RouterLink} to="#" variant="h6">
             {comment.anonymous
-              ? 'Name Hidden(For Privacy)'
+              ? t('forum:hidden_names')
               : `${comment.author.firstName} ${comment.author.lastName}`}
           </Link>
           <Typography className={classes.time} variant="body2">
@@ -83,8 +86,8 @@ const CommentBubble = props => {
         <div className={classes.reactions}>
           <IconButton
             aria-label="add to favorites"
-            size="small"
-            onClick={() => reactReply(comment.id, 'like')}>
+            onClick={() => reactReply(comment.id, 'like')}
+            size="small">
             <ThumbUpIcon />
             <Typography color="textSecondary" variant="h6">
               {comment.likes.length + newReacts.likes}
@@ -92,8 +95,8 @@ const CommentBubble = props => {
           </IconButton>
           <IconButton
             aria-label="share"
-            size="small"
-            onClick={() => reactReply(comment.id, 'dislike')}>
+            onClick={() => reactReply(comment.id, 'dislike')}
+            size="small">
             <ThumbDownAltIcon />
             <Typography color="textSecondary" variant="h6">
               {comment.dislikes.length + newReacts.dislikes}

@@ -238,13 +238,7 @@ const TopBar = props => {
     <AppBar {...rest} className={clsx(classes.root, className)} color="primary">
       <Toolbar>
         <RouterLink to="/">
-          <Typography className={classes.title} variant="h2">
-            Kumbe!
-          </Typography>
-          {/* <img
-            alt="Logo"
-            src="/images/logos/logo--white.svg"
-          /> */}
+          <img alt="Logo" src="/images/logos/logo--white.svg" />
         </RouterLink>
         <div className={classes.flexGrow} />
         <Hidden smDown>
@@ -313,10 +307,10 @@ const TopBar = props => {
         </Hidden>
         <FormControl>
           <Select
-            IconComponent={iconComponent}
-            MenuProps={menuProps}
             classes={{ root: classes.select }}
             disableUnderline
+            IconComponent={iconComponent}
+            MenuProps={menuProps}
             onChange={handleChange}
             value={language}>
             {languages.map((option, index) => (

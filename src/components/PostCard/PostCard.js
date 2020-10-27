@@ -29,11 +29,14 @@ import { getReplies, likeQuestion } from 'redux/actions/forum';
 import { httpSocket } from 'utils/http';
 import { notifier } from 'utils/notifier';
 import { Share } from 'components';
+import { useTranslation } from 'react-i18next';
 
 const PostCard = props => {
   const { post, className, ...rest } = props;
 
   const classes = useStyles();
+  const { t } = useTranslation();
+
   const [expanded, setExpanded] = useState(true);
   const [postReplies, setPostReplies] = useState([]);
   const [newReplies, setNewReplies] = useState([]);
@@ -121,7 +124,7 @@ const PostCard = props => {
               variant="h6">
               {post.anonymous
                 ? `${post.author.firstName} ${post.author.lastName}`
-                : 'Name Hidden(For Privacy)'}
+                : t('forum:hidden_names')}
             </Link>
           }
         />
@@ -156,8 +159,8 @@ const PostCard = props => {
           <Divider className={classes.divider} />
           <Grid className={classes.replies}>
             <CommentForm
-              loading={loading}
               added={added}
+              loading={loading}
               postId={post.id}
               user={user}
             />
@@ -169,7 +172,7 @@ const PostCard = props => {
                 ))}
               </div>
             ) : (
-              <NoDisplayData message="Be the first to comment on the post" />
+              <NoDisplayData message={t('forum:first_comment')} />
             )}
           </Grid>
         </Collapse>

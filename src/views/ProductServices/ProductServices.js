@@ -92,8 +92,8 @@ const ProductSercices = () => {
         <Grid item>
           <Button
             color="primary"
-            variant="contained"
-            onClick={() => setOpenAddProduct(true)}>
+            onClick={() => setOpenAddProduct(true)}
+            variant="contained">
             {t('settings:add_btn')}
           </Button>
         </Grid>

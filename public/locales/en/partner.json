@@ -1,0 +1,6 @@
+{
+    "dialog_description":"Type a name of a partner and upload logo",
+    "input_name":"Partner name",
+    "page_header":"Partner",
+    "add_btn":"Add new partner"
+}

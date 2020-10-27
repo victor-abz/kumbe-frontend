@@ -7,6 +7,8 @@ import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { useStyles } from '../../styles';
 import Color from 'color';
+import { getCategories } from 'redux/actions/category';
+import { getProducts } from 'redux/actions/product';
 
 import {
   AppBar,
@@ -95,10 +97,17 @@ const TopBar = props => {
     window.location.reload();
   };
 
+  const {
+    categoryGet: { loaded, categories }
+  } = useSelector(({ categoryGet }) => ({
+    categoryGet
+  }));
+
   const { location } = useRouter();
 
   useEffect(() => {
     let mounted = true;
+    getCategories();
 
     const fetchLanguages = () => {
       axios.get('/api/languages').then(response => {
@@ -152,19 +161,13 @@ const TopBar = props => {
       <Toolbar>
         <div className={classes.left}>
           <RouterLink to="/">
-            <Typography className={classes.title} variant="h2">
-              Kumbe!
-            </Typography>
-            {/* <img
-            alt="Logo"
-            src="/images/logos/logo--white.svg"
-          /> */}
+            <img alt="Logo" src="/images/logos/logo--white.svg" />
           </RouterLink>
         </div>
         <Hidden smDown>
           <div style={{ alignItems: 'center' }}>
             <Row gutter={1} className={classes.middle}>
-              {navigationConfig(t)
+              {navigationConfig(t, categories)
                 .filter(p => p.title === 'Pages')[0]
                 .pages.map((menu, index) =>
                   menu.children ? (

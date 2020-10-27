@@ -45,6 +45,11 @@ import {
   productEditReducer,
   productsGetReducer
 } from './productReducer';
+import {
+  partnerAddReducer,
+  partnerDeleteReducer,
+  partnersGetReducer
+} from './partnerReducer';
 
 export default combineReducers({
   login: loginReducer,
@@ -81,5 +86,8 @@ export default combineReducers({
   productEdit: productEditReducer,
   productRm: productDeleteReducer,
   qtnLike: qtnLikeReducer,
-  replyReact: replyReactReducer
+  replyReact: replyReactReducer,
+  partnerAdd: partnerAddReducer,
+  partnersGet: partnersGetReducer,
+  partnerRm: partnerDeleteReducer
 });

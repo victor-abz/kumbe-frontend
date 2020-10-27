@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Page, AddPost, SearchBar, Questions } from 'components';
-import { Header } from './components';
 import { useSelector } from 'react-redux';
 import { Loading } from 'components/Loading';
 import { NoDisplayData } from 'components/NoDisplayData';
 import { getQuestions } from 'redux/actions/forum';
 import useRouter from 'utils/useRouter';
-import { httpSocket } from 'utils/http';
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -39,9 +38,9 @@ const Feed = () => {
   } = useSelector(({ qtnsGet, qtnAdd, auth }) => ({ qtnsGet, qtnAdd, auth }));
 
   const { match } = useRouter();
+  const { t } = useTranslation();
   const {
-    params: { id },
-    path
+    params: { id }
   } = match;
 
   useEffect(() => {
@@ -59,8 +58,7 @@ const Feed = () => {
 
   return (
     <Page className={classes.root} title="Social Feed">
-      {path === '/forum/q/:qId' && <p>Love you</p>}
-      <Header />
+      {/* <Header /> */}
       <SearchBar
         className={classes.search}
         onFilter={handleFilter}
@@ -80,7 +78,7 @@ const Feed = () => {
             <Questions className={classes.post} key={postIdx} post={post} />
           ))
         ) : (
-          <NoDisplayData />
+          <NoDisplayData message={t('forum:no_questions')} />
         )}
       </div>
     </Page>
