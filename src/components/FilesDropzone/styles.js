@@ -5,7 +5,7 @@ export const useStyles = makeStyles(theme => ({
   root: {},
   dropZone: {
     border: `1px dashed ${theme.palette.divider}`,
-    padding: theme.spacing(6),
+    padding: theme.spacing(1),
     outline: 'none',
     display: 'flex',
     justifyContent: 'center',

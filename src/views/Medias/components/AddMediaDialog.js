@@ -26,13 +26,14 @@ import { getTags } from 'redux/actions/tag';
 import { FilesDropzone } from 'components';
 
 const types = ['audio', 'video', 'image'];
-
+const imageTypes = ['Comic', 'Fact Factory'];
 const initialState = {
   title: '',
   description: '',
   type: '',
   tags: [],
-  mediaLink: ''
+  mediaLink: '',
+  imageType: null
 };
 export const AddMediaDialog = ({ open, setOpen }) => {
   const classes = useStyles();
@@ -116,6 +117,27 @@ export const AddMediaDialog = ({ open, setOpen }) => {
               </Select>
             </FormControl>
           </Grid>
+          {values.type === 'image' ? (
+            <Grid item md={6} xs={12}>
+              <FormControl fullWidth>
+                <InputLabel id="media-type">
+                  {t('media:input_img_type')}
+                </InputLabel>
+                <Select
+                  labelId="media-type"
+                  name="imageType"
+                  onChange={onHandleChange}
+                  value={values.imageType}>
+                  <MenuItem value="">---</MenuItem>
+                  {imageTypes.map((imgType, imgTypeIdx) => (
+                    <MenuItem key={imgTypeIdx} value={imgType}>
+                      {imgType.toUpperCase()}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
+          ) : null}
           {values.type !== 'image' ? (
             <Grid item md={12} xs={12}>
               <TextField

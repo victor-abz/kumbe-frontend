@@ -12,6 +12,9 @@ export const addMedia = (newMedia = {}) => {
   if (newMedia.type === 'image') {
     mediaObj = { ...newMedia, title: 'Image', description: 'Image' };
   }
+  if (newMedia.type !== 'image') {
+    delete mediaObj.imageType;
+  }
   store.dispatch({
     type: ADD_NEW_MEDIA,
     payload: http.post('/medias', mediaObj)

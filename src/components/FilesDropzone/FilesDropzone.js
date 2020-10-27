@@ -52,7 +52,7 @@ const FilesDropzone = ({
   });
   const handleUploadFile = () => {
     const formData = new FormData();
-    const prevFile = currentFile !== ''&&!fileName ? currentFile : fileName;
+    const prevFile = currentFile !== '' && !fileName ? currentFile : fileName;
     formData.append('file', file);
     uploadFile(formData, fileType, prevFile);
   };
@@ -70,16 +70,16 @@ const FilesDropzone = ({
           })}
           {...getRootProps()}>
           <input {...getInputProps()} />
-          <div>
-            <img
-              alt={t('blog:upload_title')}
-              className={classes.image}
-              src="/images/undraw_add_file2_gvbb.svg"
-            />
-          </div>
+          <img
+            alt={t('blog:upload_title')}
+            className={classes.image}
+            src="/images/undraw_add_file2_gvbb.svg"
+          />
           <div>
             <Typography gutterBottom variant="h3">
-              {currentFile?t('blog:upload_title_edit'): t('blog:upload_title')}
+              {currentFile
+                ? t('blog:upload_title_edit')
+                : t('blog:upload_title')}
             </Typography>
             <Typography
               className={classes.info}
@@ -91,26 +91,22 @@ const FilesDropzone = ({
         </div>
       )}
       {file !== null && (
-        <Fragment>
-          <PerfectScrollbar options={{ suppressScrollX: true }}>
-            <List className={classes.list}>
-              <ListItem key={uuid()}>
-                <ListItemIcon>
-                  <FileCopyIcon />
-                </ListItemIcon>
-                <ListItemText
-                  primary={file.name}
-                  primaryTypographyProps={{ variant: 'h5' }}
-                  secondary={bytesToSize(file.size)}
-                />
-                <Tooltip title="More options">
-                  <IconButton edge="end">
-                    <MoreIcon />
-                  </IconButton>
-                </Tooltip>
-              </ListItem>
-            </List>
-          </PerfectScrollbar>
+        <>
+          <ListItem key={uuid()}>
+            <ListItemIcon>
+              <FileCopyIcon />
+            </ListItemIcon>
+            <ListItemText
+              primary={file.name}
+              primaryTypographyProps={{ variant: 'h5' }}
+              secondary={bytesToSize(file.size)}
+            />
+            <Tooltip title="More options">
+              <IconButton edge="end">
+                <MoreIcon />
+              </IconButton>
+            </Tooltip>
+          </ListItem>
           <div className={classes.actions}>
             <Button onClick={handleRemoveAll} size="small">
               {t('blog:btn_remove_uploaded')}
@@ -124,11 +120,11 @@ const FilesDropzone = ({
               {loading
                 ? t('blog:btn_loading')
                 : fileName
-                  ? t('blog:btn_uploaded_success')
-                  : t('blog:btn_upload')}
+                ? t('blog:btn_uploaded_success')
+                : t('blog:btn_upload')}
             </Button>
           </div>
-        </Fragment>
+        </>
       )}
     </div>
   );

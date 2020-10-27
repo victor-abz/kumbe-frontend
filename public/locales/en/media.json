@@ -20,5 +20,6 @@
   "upload_sub_title": "Drop your image or click to browse from your machine",
   "add_thumb_title": "Add a thumbnail to this media:",
   "placeholder_tags": "Media tags",
-  "btn_save": "Save"
+  "btn_save": "Save",
+  "input_img_type":"Select the photo type"
 }
