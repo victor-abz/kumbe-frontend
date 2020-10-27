@@ -70,7 +70,7 @@ const Share = ({ shareCount = 0, href = '', onShare }) => {
   };
   const urlShare = `${process.env.REACT_APP_FE_URL}/${href}`;
   return (
-    <div>
+    <>
       <IconButton onClick={handleClick}>
         <ShareIcon />
         {shareCount ? (
@@ -117,7 +117,7 @@ const Share = ({ shareCount = 0, href = '', onShare }) => {
           </TwitterShareButton>
         </StyledMenuItem>
       </StyledMenu>
-    </div>
+    </>
   );
 };
 export default Share;
