@@ -41,6 +41,7 @@ const PostCard = props => {
   const [postReplies, setPostReplies] = useState([]);
   const [newReplies, setNewReplies] = useState([]);
   const [newLikes, setNewLikes] = useState(0);
+  const [didLike, setDidLike] = useState(false);
   const {
     replyAdd: { loading, loaded: added },
     repliesGet: { loading: posting, loaded, replies },
@@ -79,9 +80,16 @@ const PostCard = props => {
     httpSocket.on('new-question-like', newLike => {
       if (newLike.discussionId === post.id) {
         setNewLikes(theLikes => theLikes + newLike.like);
+        if (newLike.userId === user.id) {
+          setDidLike(newLike.like === 1);
+        }
       }
     });
   }, []);
+  useEffect(() => {
+    const liked = post.likes.some(like => like.userId.includes(user.id));
+    setDidLike(liked);
+  }, [post.likes]);
   return (
     <Grid>
       <div className={classes.category}>
@@ -137,6 +145,7 @@ const PostCard = props => {
         <CardActions className={classes.actions} disableSpacing>
           <IconButton
             aria-label="add to favorites"
+            color={didLike ? 'secondary' : ''}
             onClick={() => likeQuestion(post.id)}>
             <FavoriteIcon />
             <Typography variant="body2">
@@ -168,7 +177,11 @@ const PostCard = props => {
             {postReplies.length ? (
               <div className={classes.comments}>
                 {postReplies.map((comment, commentIdx) => (
-                  <CommentBubble comment={comment} key={commentIdx} />
+                  <CommentBubble
+                    comment={comment}
+                    key={commentIdx}
+                    user={user}
+                  />
                 ))}
               </div>
             ) : (

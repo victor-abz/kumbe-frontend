@@ -25,18 +25,23 @@ import { likeQuestion } from 'redux/actions/forum';
 import { httpSocket } from 'utils/http';
 import { notifier } from 'utils/notifier';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 
 const PostCard = props => {
   const { post, className, ...rest } = props;
   const [newLikes, setNewLikes] = useState(0);
   const [newReplies, setNewReplies] = useState(0);
+  const [didLike, setDidLike] = useState(false);
   const classes = useStyles();
   const { t } = useTranslation();
-
+  const { user } = useSelector(({ auth }) => auth);
   useEffect(() => {
     httpSocket.on('new-question-like', newLike => {
       if (newLike.discussionId === post.id) {
         setNewLikes(theLikes => theLikes + newLike.like);
+        if (newLike.userId === user.id) {
+          setDidLike(newLike.like === 1);
+        }
       }
     });
     httpSocket.on('new-reply', replyContent => {
@@ -46,6 +51,10 @@ const PostCard = props => {
       notifier.success(`New update from ${replyContent.userNames}`);
     });
   }, []);
+  useEffect(() => {
+    const liked = post.likes.some(like => like.userId.includes(user.id));
+    setDidLike(liked);
+  }, [post.likes]);
   return (
     <Grid>
       <div className={classes.category}>
@@ -107,6 +116,7 @@ const PostCard = props => {
         <CardActions className={classes.actions} disableSpacing>
           <IconButton
             aria-label="add to favorites"
+            color={didLike ? 'secondary' : ''}
             onClick={() => likeQuestion(post.id)}>
             <FavoriteIcon />
             <Typography variant="body2">

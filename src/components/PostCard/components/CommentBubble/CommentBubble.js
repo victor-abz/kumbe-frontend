@@ -40,23 +40,38 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const CommentBubble = props => {
-  const { comment, className, ...rest } = props;
+  const { comment, className, user, ...rest } = props;
   const { t } = useTranslation();
 
   const classes = useStyles();
   const [newReacts, setNewReacts] = useState({ likes: 0, dislikes: 0 });
+  const [didReact, setDidReact] = useState({
+    didLike: false,
+    didDisLike: false
+  });
   useEffect(() => {
     httpSocket.on('new-reply-react', newReact => {
       if (newReact.replyId === comment.id) {
-        setNewReacts(({ likes, dislikes }) => {
-          return {
-            likes: likes + newReact.like,
-            dislikes: dislikes + newReact.dislike
-          };
-        });
+        setNewReacts(({ likes, dislikes }) => ({
+          likes: likes + newReact.like,
+          dislikes: dislikes + newReact.dislike
+        }));
+        if (newReact.userId === user.id) {
+          setDidReact({
+            didLike: newReact.like === 1,
+            didDisLike: newReact.dislike === 1
+          });
+        }
       }
     });
   }, []);
+  useEffect(() => {
+    const liked = comment.likes.some(like => like.userId.includes(user.id));
+    const disLiked = comment.dislikes.some(like =>
+      like.userId.includes(user.id)
+    );
+    setDidReact({ didLike: liked, didDisLike: disLiked });
+  }, [comment.likes, comment.dislikes]);
   return (
     <div {...rest} className={clsx(classes.root, className)}>
       <Avatar
@@ -87,6 +102,7 @@ const CommentBubble = props => {
           <IconButton
             aria-label="add to favorites"
             onClick={() => reactReply(comment.id, 'like')}
+            color={didReact.didLike ? 'secondary' : ''}
             size="small">
             <ThumbUpIcon />
             <Typography color="textSecondary" variant="h6">
@@ -95,6 +111,7 @@ const CommentBubble = props => {
           </IconButton>
           <IconButton
             aria-label="share"
+            color={didReact.didDisLike ? 'secondary' : ''}
             onClick={() => reactReply(comment.id, 'dislike')}
             size="small">
             <ThumbDownAltIcon />
