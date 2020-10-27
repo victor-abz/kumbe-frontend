@@ -1,11 +1,11 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { Card, CardMedia } from '@material-ui/core';
 
-const useStyles = makeStyles(({ palette }) => ({
-  // Animation
+const useStyles = makeStyles(({ palette, spacing }) => ({
   '@keyframes scroll': {
     '0%': { transform: 'translateX(0)' },
-    '100%': { transform: 'translateX(calc(-250px * 7))' }
+    '100%': { transform: 'translateX(-50%)' }
   },
 
   slider: {
@@ -39,25 +39,39 @@ const useStyles = makeStyles(({ palette }) => ({
   slideTrack: {
     animation: '$scroll 40s linear infinite',
     display: 'flex',
-    width: 'calc(250px * 14)'
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    position: 'absolute'
   },
 
-  slide: {
-    height: '100px',
-    width: '250px'
+  logoContainer: {
+    height: 100,
+    width: 250,
+    padding: spacing(2)
+  },
+  media: {
+    height: '100%',
+    width: 'auto',
+    backgroundSize: 'contain',
+    objectFit: 'contain'
   }
 }));
 
 const PartnerCarousel = ({ logos }) => {
   const classes = useStyles();
+  const slides = logos.concat(logos);
 
   return (
     <div className={classes.slider}>
       <div className={classes.slideTrack}>
-        {logos.map(({ imgUrl }, index) => (
-          <div className={classes.slide} key={index}>
-            <img alt="" height="100" src={imgUrl} width="250" />
-          </div>
+        {slides.map(({ name, coverImage }, index) => (
+          <Card className={classes.logoContainer} elevation={0} key={index}>
+            <CardMedia
+              className={classes.media}
+              image={`${process.env.REACT_APP_API_URL}/api/res/images/${coverImage}`}
+              title={name}
+            />
+          </Card>
         ))}
       </div>
     </div>

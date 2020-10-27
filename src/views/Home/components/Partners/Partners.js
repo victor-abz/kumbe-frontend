@@ -4,9 +4,11 @@ import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Grid } from '@material-ui/core';
 import { useSelector } from 'react-redux';
-import { getProducts } from 'redux/actions/product';
+import { getPartners } from 'redux/actions/partner';
 import PartnerCarousel from './LogoCarousel';
 import { useTranslation } from 'react-i18next';
+import { Loading } from 'components/Loading';
+import { NoDisplayData } from 'components/NoDisplayData';
 
 const useStyles = makeStyles(({ spacing, breakpoints, palette }) => ({
   root: {
@@ -30,60 +32,16 @@ const useStyles = makeStyles(({ spacing, breakpoints, palette }) => ({
   }
 }));
 
-const partners = [
-  {
-    imgUrl: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/1.png'
-  },
-  {
-    imgUrl: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/2.png'
-  },
-  {
-    imgUrl: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/3.png'
-  },
-  {
-    imgUrl: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/4.png'
-  },
-  {
-    imgUrl: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/5.png'
-  },
-  {
-    imgUrl: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/6.png'
-  },
-  {
-    imgUrl: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/7.png'
-  },
-  {
-    imgUrl: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/1.png'
-  },
-  {
-    imgUrl: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/2.png'
-  },
-  {
-    imgUrl: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/3.png'
-  },
-  {
-    imgUrl: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/4.png'
-  },
-  {
-    imgUrl: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/5.png'
-  },
-  {
-    imgUrl: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/6.png'
-  },
-  {
-    imgUrl: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/7.png'
-  }
-];
-
 const Partners = props => {
   const { className, ...rest } = props;
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const classes = useStyles();
-  const { products } = useSelector(({ productsGet }) => productsGet);
+  const { partners, loading } = useSelector(({ partnersGet }) => partnersGet);
   useEffect(() => {
-    getProducts();
+    getPartners();
   }, []);
+
   return (
     <div {...rest} className={clsx(classes.root, className)}>
       <div className={classes.inner}>
@@ -111,7 +69,13 @@ const Partners = props => {
             justify="center"
             sm={12}
             spacing={2}>
-            <PartnerCarousel logos={partners} />
+            {loading ? (
+              <Loading />
+            ) : partners.length ? (
+              <PartnerCarousel logos={partners} />
+            ) : (
+              <NoDisplayData />
+            )}
           </Grid>
         </Grid>
       </div>
