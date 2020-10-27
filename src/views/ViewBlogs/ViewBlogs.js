@@ -14,7 +14,7 @@ const ViewBlogs = ({ match }) => {
   const { t } = useTranslation();
   const [rowsPerPage] = useState(10);
   const [page] = useState(0);
-  
+
   const {
     params: { id }
   } = match;
@@ -24,7 +24,7 @@ const ViewBlogs = ({ match }) => {
   } = useSelector(({ blogsGet }) => ({ blogsGet }));
 
   useEffect(() => {
-    const categoryId = id || null;
+    const categoryId = id || '';
     getBlogs({ category: categoryId });
   }, [id]);
 

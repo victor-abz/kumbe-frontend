@@ -126,8 +126,8 @@ const TopBar = props => {
 
   const [anchorEl, setAnchorEl] = useState(null);
 
-  const handleClick = event => {
-    setAnchorEl(event.currentTarget);
+  const handleClick = (index, event) => {
+    setAnchorEl({ [index]: event.currentTarget });
   };
 
   const handleClose = () => {
@@ -173,12 +173,12 @@ const TopBar = props => {
                   menu.children ? (
                     <>
                       <RouterLink
-                        aria-controls="popup-menu"
+                        aria-controls={`popup-${menu.href}`}
                         key={index}
-                        onClick={handleClick}>
+                        onClick={e => handleClick(index, e)}>
                         <Item
                           className={
-                            Boolean(anchorEl)
+                            anchorEl && Boolean(anchorEl[index])
                               ? classes.itemActive
                               : classes.item
                           }>
@@ -188,10 +188,10 @@ const TopBar = props => {
                         </Item>
                       </RouterLink>
                       <StyledMenu
-                        id="customized-menu"
-                        anchorEl={anchorEl}
+                        id={`popup-${menu.href}`}
+                        anchorEl={anchorEl && anchorEl[index]}
                         keepMounted
-                        open={Boolean(anchorEl)}
+                        open={anchorEl && Boolean(anchorEl[index])}
                         onClose={handleClose}>
                         {menu.children.map((child, index) => (
                           <RouterLink key={index} to={child.href}>

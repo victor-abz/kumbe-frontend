@@ -6,6 +6,7 @@ export const navigationConfig = (t, categories = []) => {
   const blogSubmenu = categories.map(category => {
     return { title: category.name, href: `/blogs/categories/${category.id}` };
   });
+  blogSubmenu.unshift({ title: 'All Blogs', href: '/blogs/' });
   return [
     {
       title: 'Pages',

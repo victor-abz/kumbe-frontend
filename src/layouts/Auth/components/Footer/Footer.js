@@ -9,7 +9,6 @@ import { getProducts } from 'redux/actions/product';
 import { useSelector } from 'react-redux';
 import { Link as RouterLink } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-
 import { ColumnToRow, Item } from '@mui-treasury/components/flex';
 import { NavMenu, NavItem } from '@mui-treasury/components/menu/navigation';
 import {
@@ -21,7 +20,6 @@ import {
   SocialProvider,
   SocialLink
 } from '@mui-treasury/components/socialLink';
-
 import { useMagCategoryMenuStyles } from '@mui-treasury/styles/categoryMenu/mag';
 import { usePoofSocialLinkStyles } from '@mui-treasury/styles/socialLink/poof';
 import { usePlainNavigationMenuStyles } from '@mui-treasury/styles/navigationMenu/plain';
@@ -188,12 +186,41 @@ const Footer = React.memo(function ArcAppFooter() {
             <Grid item lg={3} md={8} style={{ marginLeft: 'auto' }} xs={12}>
               <CategoryProvider useStyles={useMagCategoryMenuStyles}>
                 <CategoryTitle>
-                  <Typography>{t('top_bar:follow_social_media')}</Typography>
+                  <Typography>
+                    {t('top_bar:follow_social_media')} - Kumbe
+                  </Typography>
                 </CategoryTitle>
               </CategoryProvider>
               <SocialProvider useStyles={usePoofSocialLinkStyles}>
-                <SocialLink brand={'Facebook'} />
-                <SocialLink brand={'Twitter'} />
+                <SocialLink
+                  brand={'Facebook'}
+                  href={'https://www.facebook.com/Kumbe-Youth-101650741749626'}
+                />
+                <SocialLink
+                  brand={'Instagram'}
+                  href={'https://www.instagram.com/kumbe_youth/'}
+                />
+              </SocialProvider>
+              <CategoryProvider useStyles={useMagCategoryMenuStyles}>
+                <CategoryTitle>
+                  <Typography>
+                    {t('top_bar:follow_social_media')} - HDI
+                  </Typography>
+                </CategoryTitle>
+              </CategoryProvider>
+              <SocialProvider useStyles={usePoofSocialLinkStyles}>
+                <SocialLink
+                  brand={'Facebook'}
+                  href={'https://www.facebook.com/HDIRwanda'}
+                />
+                <SocialLink
+                  brand={'Instagram'}
+                  href={'https://www.instagram.com/hdirwanda/'}
+                />
+                <SocialLink
+                  brand={'Twitter'}
+                  href={'https://twitter.com/HDIRwanda'}
+                />
               </SocialProvider>
             </Grid>
           </Grid>
