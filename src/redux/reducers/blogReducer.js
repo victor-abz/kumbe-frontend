@@ -47,7 +47,8 @@ export const blogsGetReducer = (state = baseState('blogs', []), action) => {
         ...state,
         loading: false,
         loaded: true,
-        blogs: action.payload.data.data
+        blogs: action.payload.data.data,
+        totalItems: action.payload.data.totalItems
       };
     case rejected(GET_BLOGS):
     default:

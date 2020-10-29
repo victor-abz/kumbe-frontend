@@ -12,33 +12,35 @@ import { useTranslation } from 'react-i18next';
 const ViewBlogs = ({ match }) => {
   const classes = useStyles();
   const { t } = useTranslation();
-  const [rowsPerPage] = useState(10);
-  const [page] = useState(0);
+  const [paginator, setPaginator] = useState({ pageSize: 20, pageNumber: 1 });
 
   const {
     params: { id }
   } = match;
 
   const {
-    blogsGet: { loading, blogs }
+    blogsGet: { loading, blogs, totalItems }
   } = useSelector(({ blogsGet }) => ({ blogsGet }));
 
   useEffect(() => {
     const categoryId = id || '';
-    getBlogs({ category: categoryId });
-  }, [id]);
+    const { pageNumber, pageSize } = paginator;
+    getBlogs({ category: categoryId, pageSize, pageNumber });
+  }, [id, paginator.pageNumber]);
 
   const handleFilter = () => {};
   const handleSearch = () => {};
-
+  const onPageChage = ({ selected }) => {
+    setPaginator({ ...paginator, pageNumber: selected + 1 });
+  };
   return (
     <Page className={classes.root} title={t('blog:blog_browse')}>
       <Header />
       <SearchBar onFilter={handleFilter} onSearch={handleSearch} />
       <div className={classes.results}>
         <Typography color="textSecondary" gutterBottom variant="body2">
-          {blogs.length} Records found. Page {page + 1} of{' '}
-          {Math.ceil(blogs.length / rowsPerPage)}
+          {totalItems} Records found. Page {paginator.pageNumber} of{' '}
+          {Math.ceil(totalItems / paginator.pageSize)}
         </Typography>
         <Grid container spacing={3}>
           {loading ? (
@@ -53,7 +55,12 @@ const ViewBlogs = ({ match }) => {
         </Grid>
       </div>
       <div className={classes.paginate}>
-        <Paginate pageCount={1} />
+        <Paginate
+          pageCount={Math.ceil(totalItems / paginator.pageSize)}
+          pageRangeDisplayed={1}
+          marginPagesDisplayed={2}
+          onPageChange={onPageChage}
+        />
       </div>
     </Page>
   );

@@ -45,7 +45,8 @@ export const qtnsGetReducer = (state = baseState('questions', []), action) => {
         ...state,
         loading: false,
         loaded: true,
-        questions: action.payload.data.data
+        questions: action.payload.data.data,
+        totalItems: action.payload.data.totalItems
       };
     case rejected(GET_QUESTIONS):
     default:

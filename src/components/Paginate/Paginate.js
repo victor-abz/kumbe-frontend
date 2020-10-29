@@ -64,15 +64,14 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Paginate = props => {
-  const {
-    pageCount,
-    pageRangeDisplayed,
-    onPageChange,
-    className,
-    ...rest
-  } = props;
-
+const Paginate = ({
+  pageCount,
+  pageRangeDisplayed = 2,
+  marginPagesDisplayed = 1,
+  onPageChange,
+  className,
+  ...rest
+}) => {
   const classes = useStyles();
 
   return (
@@ -84,7 +83,7 @@ const Paginate = props => {
       breakLinkClassName={classes.breakLink}
       containerClassName={clsx(classes.root, className)}
       disabledClassName={classes.disabled}
-      marginPagesDisplayed={2}
+      marginPagesDisplayed={marginPagesDisplayed}
       nextClassName={classes.next}
       nextLabel="next"
       nextLinkClassName={classes.nextLink}

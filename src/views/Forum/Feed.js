@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Page, AddPost, SearchBar, Questions } from 'components';
+import { Page, AddPost, SearchBar, Questions, Paginate } from 'components';
 import { useSelector } from 'react-redux';
 import { Loading } from 'components/Loading';
 import { NoDisplayData } from 'components/NoDisplayData';
@@ -26,13 +26,19 @@ const useStyles = makeStyles(theme => ({
   },
   search: {
     marginTop: theme.spacing(1)
+  },
+  paginate: {
+    marginTop: theme.spacing(3),
+    display: 'flex',
+    justifyContent: 'center'
   }
 }));
 
 const Feed = () => {
   const classes = useStyles();
+  const [paginator, setPaginator] = useState({ pageSize: 20, pageNumber: 1 });
   const {
-    qtnsGet: { loading, questions },
+    qtnsGet: { loading, questions, totalItems },
     qtnAdd: { loading: sending, loaded },
     auth: { user }
   } = useSelector(({ qtnsGet, qtnAdd, auth }) => ({ qtnsGet, qtnAdd, auth }));
@@ -45,20 +51,22 @@ const Feed = () => {
 
   useEffect(() => {
     const categoryId = id || '';
-    getQuestions({ category: categoryId });
-  }, [id]);
+    const { pageNumber, pageSize } = paginator;
+    getQuestions({ category: categoryId, pageNumber, pageSize });
+  }, [id, paginator.pageNumber]);
 
   useEffect(() => {
     if (loaded) {
-      getQuestions({});
+      getQuestions({ pageNumber: 1, pageSize: 20 });
     }
   }, [loaded]);
   const handleFilter = () => {};
   const handleSearch = () => {};
-
+  const onPageChage = ({ selected }) => {
+    setPaginator({ ...paginator, pageNumber: selected + 1 });
+  };
   return (
     <Page className={classes.root} title="Social Feed">
-      {/* <Header /> */}
       <SearchBar
         className={classes.search}
         onFilter={handleFilter}
@@ -80,6 +88,14 @@ const Feed = () => {
         ) : (
           <NoDisplayData message={t('forum:no_questions')} />
         )}
+      </div>
+      <div className={classes.paginate}>
+        <Paginate
+          pageCount={Math.ceil(totalItems / paginator.pageSize)}
+          pageRangeDisplayed={1}
+          marginPagesDisplayed={2}
+          onPageChange={onPageChage}
+        />
       </div>
     </Page>
   );
