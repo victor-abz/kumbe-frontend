@@ -1,24 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import Layout, {
-  Root,
+import {
   getContent,
   getInsetContainer,
   getInsetSidebar
 } from '@mui-treasury/layout';
 import { BlogContent } from './components';
 import { useStyles } from './styles';
-import CustomCard from '../../components/BlogCard';
-import {
-  Grid,
-  Typography,
-  Divider,
-  Card,
-  CardHeader,
-  CardContent
-} from '@material-ui/core';
+import { Grid, Typography, Divider } from '@material-ui/core';
 import { Column, Row, Item } from '@mui-treasury/components/flex';
-import { getBlogs } from 'redux/actions/blog';
 import { getBlog } from 'redux/actions/blog';
 import { useSelector } from 'react-redux';
 import BlogCard from '../../components/BlogCard';
@@ -30,7 +20,6 @@ const InsetSidebar = getInsetSidebar(styled);
 
 const Blog = props => {
   const classes = useStyles();
-  // const [blog, setBlog] = useState(initialStateValues);
   const { match } = props;
   const { id } = match.params;
 

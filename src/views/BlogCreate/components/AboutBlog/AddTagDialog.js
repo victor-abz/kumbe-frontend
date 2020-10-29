@@ -8,11 +8,7 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-  Grid,
-  Select,
-  MenuItem,
-  FormControl,
-  InputLabel
+  Grid
 } from '@material-ui/core';
 import { addNewTag, getTags } from 'redux/actions/tag';
 import { useSelector } from 'react-redux';

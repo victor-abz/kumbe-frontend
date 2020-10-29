@@ -9,7 +9,6 @@ import {
   IconButton,
   Typography
 } from '@material-ui/core';
-import { red } from '@material-ui/core/colors';
 import {
   Favorite as FavoriteIcon,
   Share as ShareIcon

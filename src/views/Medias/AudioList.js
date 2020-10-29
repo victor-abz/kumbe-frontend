@@ -28,7 +28,7 @@ const AudioList = () => {
   const [currentMedia, setCurrentMedia] = useState({});
   const { loading, medias } = useSelector(({ mediaGet }) => mediaGet);
   useEffect(() => {
-    getMedias();
+    getMedias('all', {});
   }, []);
   const handleFilter = () => {};
   const handleSearch = () => {};

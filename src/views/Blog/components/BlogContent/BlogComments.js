@@ -7,7 +7,6 @@ import {
   CardActions,
   CardContent,
   CardHeader,
-  Divider,
   Grid,
   IconButton,
   Link,
