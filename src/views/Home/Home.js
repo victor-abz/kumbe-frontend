@@ -8,7 +8,8 @@ import {
   Blogs,
   Slider,
   Partners,
-  HomeWidgets
+  HomeWidgets,
+  HomeImages
 } from './components';
 
 const useStyles = makeStyles(() => ({
@@ -23,6 +24,7 @@ const Home = () => {
       <Slider />
       <Banner />
       <Blogs />
+      <HomeImages />
       <HomeWidgets />
       <Products />
       <Partners />

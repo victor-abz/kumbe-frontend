@@ -20,8 +20,12 @@ export const addMedia = (newMedia = {}) => {
     payload: http.post('/medias', mediaObj)
   });
 };
-export const getMedias = (mediaType = 'all') => {
-  const params = `?mediaType=${mediaType}`;
+export const getMedias = (
+  mediaType = 'all',
+  { pageSize = 20, pageNumber = 1 }
+) => {
+  let params = `?mediaType=${mediaType}`;
+  params += `&pageSize=${pageSize}&page=${pageNumber}`;
   store.dispatch({
     type: GET_MEDIAS,
     payload: http.get(`/medias${params}`)
