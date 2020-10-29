@@ -12,7 +12,7 @@ import {
 
 // import BarChartIcon from '@material-ui/icons/BarChart';
 // import ChatIcon from '@material-ui/icons/ChatOutlined';
-// import DashboardIcon from '@material-ui/icons/DashboardOutlined';
+import DashboardIcon from '@material-ui/icons/DashboardOutlined';
 // import ErrorIcon from '@material-ui/icons/ErrorOutline';
 // import LockOpenIcon from '@material-ui/icons/LockOpenOutlined';
 // import PresentToAllIcon from '@material-ui/icons/PresentToAll';
@@ -24,21 +24,11 @@ export const navigationConfig = t => [
   {
     title: 'Pages',
     pages: [
-      // {
-      //   title: 'Dashboards',
-      //   href: '/dashboards',
-      //   icon: DashboardIcon,
-      //   children: [
-      //     {
-      //       title: 'Default',
-      //       href: '/dashboards/default'
-      //     },
-      //     {
-      //       title: 'Analytics',
-      //       href: '/dashboards/analytics'
-      //     }
-      //   ]
-      // },
+      {
+        title: 'Dashboards',
+        href: '/admin/dashboard',
+        icon: DashboardIcon
+      },
       // {
       //   title: 'Management',
       //   href: '/management',

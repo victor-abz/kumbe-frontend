@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
@@ -15,9 +15,10 @@ import {
 } from '@material-ui/core';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
-import axios from 'utils/axios';
 import { GenericMoreButton } from 'components';
-import { TaskItem } from './components';
+import { BlogItem } from './components';
+import { getBlogs } from 'redux/actions/blog';
+import { useSelector } from 'react-redux';
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -35,48 +36,30 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const TeamTasks = props => {
+const LatestBlogs = props => {
   const { className, ...rest } = props;
   const classes = useStyles();
-  const [tasks, setTasks] = useState([]);
+  // const [tasks, setTasks] = useState([]);
+  const { loading, blogs } = useSelector(({ blogsGet }) => blogsGet);
 
   useEffect(() => {
-    let mounted = true;
-
-    const fetchTasks = () => {
-      axios.get('/api/tasks').then(response => {
-        if (mounted) {
-          setTasks(response.data.tasks);
-        }
-      });
-    };
-
-    fetchTasks();
-
-    return () => {
-      mounted = false;
-    };
+    getBlogs({ isAdmin: true, pageSize: 5 });
   }, []);
+  console.log(blogs);
 
   return (
-    <Card
-      {...rest}
-      className={clsx(classes.root, className)}
-    >
-      <CardHeader
-        action={<GenericMoreButton />}
-        title="Team Tasks"
-      />
+    <Card {...rest} className={clsx(classes.root, className)}>
+      <CardHeader action={<GenericMoreButton />} title="Latest BLogs" />
       <Divider />
       <CardContent className={classes.content}>
         <PerfectScrollbar>
           <div className={classes.inner}>
             <List>
-              {tasks.map((task, i) => (
-                <TaskItem
-                  divider={i < tasks.length - 1}
-                  key={task.id}
-                  task={task}
+              {blogs.map((blog, i) => (
+                <BlogItem
+                  blog={blog}
+                  divider={i < blogs.length - 1}
+                  key={blog.id}
                 />
               ))}
             </List>
@@ -90,8 +73,7 @@ const TeamTasks = props => {
           component={RouterLink}
           size="small"
           to="/kanban-board"
-          variant="text"
-        >
+          variant="text">
           See all
           <ArrowForwardIcon className={classes.arrowForwardIcon} />
         </Button>
@@ -100,8 +82,8 @@ const TeamTasks = props => {
   );
 };
 
-TeamTasks.propTypes = {
+LatestBlogs.propTypes = {
   className: PropTypes.string
 };
 
-export default TeamTasks;
+export default LatestBlogs;

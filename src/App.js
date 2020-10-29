@@ -19,8 +19,7 @@ import { store } from './redux/store';
 import routes from './routes';
 import {
   ScrollReset,
-  GoogleAnalytics,
-  CookiesNotification
+  GoogleAnalytics
 } from './components';
 import './mixins/chartjs';
 import './mixins/moment';
@@ -84,7 +83,6 @@ const App = () => {
               <ToastContainer />
               <ScrollReset />
               <GoogleAnalytics />
-              <CookiesNotification />
               {renderRoutes(routes, { t })}
             </Router>
           </MuiPickersUtilsProvider>

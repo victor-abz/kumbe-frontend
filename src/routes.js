@@ -30,13 +30,13 @@ const routes = [
         exact: true,
         component: lazy(() => import('views/Chat'))
       },
+      // {
+      //   path: '/admin/dashboards/analytics',
+      //   exact: true,
+      //   component: DashboardAnalyticsView
+      // },
       {
-        path: '/admin/dashboards/analytics',
-        exact: true,
-        component: DashboardAnalyticsView
-      },
-      {
-        path: 'admin/dashboards/default',
+        path: '/admin/dashboard',
         exact: true,
         component: DashboardDefaultView
       },

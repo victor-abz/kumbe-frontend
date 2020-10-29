@@ -9,17 +9,18 @@ import {
   ListItemText,
   IconButton,
   Tooltip,
-  colors
+  colors,
+  Avatar
 } from '@material-ui/core';
 import OpenInNewIcon from '@material-ui/icons/OpenInNew';
 
-import { StackAvatars } from 'components';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
   root: {},
-  critical: {
+  published: {
     '& $indicator': {
-      borderColor: colors.red[600]
+      borderColor: colors.green[600]
     }
   },
   indicator: {
@@ -32,55 +33,52 @@ const useStyles = makeStyles(theme => ({
   },
   viewButton: {
     marginLeft: theme.spacing(2)
+  },
+  avatar: {
+    width: 50,
+    height: 50,
+    border: '2px solid #fff',
+    borderRadius: '50%',
+    '& > img': {
+      margin: 0
+    }
   }
 }));
 
-const TaskItem = props => {
-  const { task, className, ...rest } = props;
+const BlogItem = props => {
+  const { blog, className, ...rest } = props;
 
   const classes = useStyles();
-
-  let deadline = 'N/A';
-  let critical = false;
-
-  if (task.deadline) {
-    const now = moment();
-    const deadlineMoment = moment(task.deadline);
-
-    if (deadlineMoment.isAfter(now) && deadlineMoment.diff(now, 'day') < 3) {
-      deadline = deadlineMoment.diff(now, 'day') + ' days remaining';
-      critical = true;
-    }
-  }
 
   return (
     <ListItem
       {...rest}
       className={clsx(
         classes.root,
-        { [classes.critical]: critical },
+        { [classes.published]: blog.isPublished },
         className
-      )}
-    >
+      )}>
       <ListItemIcon>
         <span className={classes.indicator} />
       </ListItemIcon>
       <ListItemText
         className={classes.listItemText}
-        primary={task.title}
+        primary={blog.title}
         primaryTypographyProps={{ variant: 'h6', noWrap: true }}
-        secondary={deadline}
+        secondary={moment(blog.createdAt).fromNow()}
       />
-      <StackAvatars
-        avatars={task.members}
-        limit={3}
+      <Avatar
+        className={classes.avatar}
+        src={`${process.env.REACT_APP_API_URL}/api/res/profiles/${blog.author.profilePic}`}
+        variant={'rounded'}
       />
-      <Tooltip title="View task">
+      <Tooltip title="View Blog">
         <IconButton
           className={classes.viewButton}
+          component={Link}
           edge="end"
           size="small"
-        >
+          to={`/blogs/${blog.slug}`}>
           <OpenInNewIcon />
         </IconButton>
       </Tooltip>
@@ -88,9 +86,9 @@ const TaskItem = props => {
   );
 };
 
-TaskItem.propTypes = {
+BlogItem.propTypes = {
   className: PropTypes.string,
-  task: PropTypes.object.isRequired
+  blog: PropTypes.object.isRequired
 };
 
-export default TaskItem;
+export default BlogItem;
