@@ -13,7 +13,8 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(3),
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    backgroundColor: theme.palette.primary.light
   },
   details: {
     display: 'flex',
@@ -42,17 +43,10 @@ const TodaysMoney = props => {
   };
 
   return (
-    <Card
-      {...rest}
-      className={clsx(classes.root, className)}
-    >
+    <Card {...rest} className={clsx(classes.root, className)}>
       <div>
-        <Typography
-          component="h3"
-          gutterBottom
-          variant="overline"
-        >
-          Todays money
+        <Typography component="h3" gutterBottom variant="overline">
+          Question without answers
         </Typography>
         <div className={classes.details}>
           <Typography variant="h3">
@@ -62,8 +56,7 @@ const TodaysMoney = props => {
           <Label
             className={classes.label}
             color={colors.green[600]}
-            variant="outlined"
-          >
+            variant="outlined">
             {data.difference}
           </Label>
         </div>

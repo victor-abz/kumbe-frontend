@@ -41,25 +41,17 @@ const NewProjects = props => {
   };
 
   return (
-    <Card
-      {...rest}
-      className={clsx(classes.root, className)}
-    >
+    <Card {...rest} className={clsx(classes.root, className)}>
       <div>
-        <Typography
-          component="h3"
-          gutterBottom
-          variant="overline"
-        >
-          New projects
+        <Typography component="h3" gutterBottom variant="overline">
+          Average Time on Page
         </Typography>
         <div className={classes.details}>
           <Typography variant="h3">{data.value}</Typography>
           <Label
             className={classes.label}
             color={colors.red[600]}
-            variant="outlined"
-          >
+            variant="outlined">
             {data.difference}
           </Label>
         </div>

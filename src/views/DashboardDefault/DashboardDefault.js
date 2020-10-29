@@ -4,6 +4,7 @@ import { Grid } from '@material-ui/core';
 
 import { Page } from 'components';
 import {
+  CustomerActivity,
   Header,
   LatestProjects,
   NewProjects,
@@ -32,13 +33,13 @@ const DashboardDefault = () => {
       <Header />
       <Grid className={classes.container} container spacing={3}>
         <Grid item lg={3} sm={6} xs={12}>
-          <TodaysMoney />
-        </Grid>
-        <Grid item lg={3} sm={6} xs={12}>
           <NewProjects />
         </Grid>
         <Grid item lg={3} sm={6} xs={12}>
           <SystemHealth />
+        </Grid>
+        <Grid item lg={3} sm={6} xs={12}>
+          <TodaysMoney />
         </Grid>
         <Grid item lg={3} sm={6} xs={12}>
           <RoiPerCustomer />
@@ -53,8 +54,11 @@ const DashboardDefault = () => {
           <LatestBlogs />
         </Grid>
         <Grid item lg={7} xl={8} xs={12}>
-          <LatestProjects />
+          <CustomerActivity />
         </Grid>
+        {/* <Grid item lg={7} xl={8} xs={12}>
+          <LatestProjects />
+        </Grid> */}
       </Grid>
     </Page>
   );

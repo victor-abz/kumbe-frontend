@@ -43,17 +43,10 @@ const SystemHealth = props => {
   };
 
   return (
-    <Card
-      {...rest}
-      className={clsx(classes.root, className)}
-    >
+    <Card {...rest} className={clsx(classes.root, className)}>
       <div className={classes.content}>
-        <Typography
-          component="h3"
-          gutterBottom
-          variant="overline"
-        >
-          System Health
+        <Typography component="h3" gutterBottom variant="overline">
+          Bounce Rate
         </Typography>
         <div className={classes.details}>
           <Typography variant="h3">{data.value}%</Typography>

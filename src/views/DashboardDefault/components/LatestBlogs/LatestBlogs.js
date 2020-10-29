@@ -40,12 +40,11 @@ const LatestBlogs = props => {
   const { className, ...rest } = props;
   const classes = useStyles();
   // const [tasks, setTasks] = useState([]);
-  const { loading, blogs } = useSelector(({ blogsGet }) => blogsGet);
+  const { blogs } = useSelector(({ blogsGet }) => blogsGet);
 
   useEffect(() => {
     getBlogs({ isAdmin: true, pageSize: 5 });
   }, []);
-  console.log(blogs);
 
   return (
     <Card {...rest} className={clsx(classes.root, className)}>
@@ -72,7 +71,7 @@ const LatestBlogs = props => {
           color="primary"
           component={RouterLink}
           size="small"
-          to="/kanban-board"
+          to="/admin/blogs"
           variant="text">
           See all
           <ArrowForwardIcon className={classes.arrowForwardIcon} />
