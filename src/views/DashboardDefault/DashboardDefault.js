@@ -4,7 +4,6 @@ import { Grid } from '@material-ui/core';
 
 import { Page } from 'components';
 import {
-  CustomerActivity,
   Header,
   NewProjects,
   RealTime,
@@ -12,7 +11,8 @@ import {
   LatestBlogs,
   TodaysMoney,
   SystemHealth,
-  PerformanceOverTime
+  PerformanceOverTime,
+  UsersList
 } from './components';
 
 const useStyles = makeStyles(theme => ({
@@ -53,7 +53,7 @@ const DashboardDefault = () => {
           <LatestBlogs />
         </Grid>
         <Grid item lg={7} xl={8} xs={12}>
-          <CustomerActivity />
+          <UsersList />
         </Grid>
         {/* <Grid item lg={7} xl={8} xs={12}>
           <LatestProjects />
