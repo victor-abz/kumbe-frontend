@@ -1,21 +1,12 @@
-/* eslint-disable react/no-multi-comp */
-/* eslint-disable react/display-name */
 import React from 'react';
 import { colors } from '@material-ui/core';
-import SettingsIcon from '@material-ui/icons/SettingsOutlined';
 import {
   CommentOutlined,
   FolderOutlined as FolderIcon,
   PermMediaOutlined,
   LocalLaundryService
 } from '@material-ui/icons';
-
-// import BarChartIcon from '@material-ui/icons/BarChart';
-// import ChatIcon from '@material-ui/icons/ChatOutlined';
 import DashboardIcon from '@material-ui/icons/DashboardOutlined';
-// import ErrorIcon from '@material-ui/icons/ErrorOutline';
-// import LockOpenIcon from '@material-ui/icons/LockOpenOutlined';
-// import PresentToAllIcon from '@material-ui/icons/PresentToAll';
 import PeopleIcon from '@material-ui/icons/PeopleOutlined';
 import PersonIcon from '@material-ui/icons/PersonOutlined';
 
@@ -97,7 +88,7 @@ export const navigationConfig = t => [
         ]
       },
       {
-        title: t('comment:comments'),
+        title: t('comment:name'),
         href: '/admin/comments',
         icon: CommentOutlined
       },

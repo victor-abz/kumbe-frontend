@@ -1,13 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { 
-  IconButton, 
+import {
+  IconButton,
   Card,
-  Slider, 
-  Grid, 
-  CardActions, 
-  Box, 
+  Slider,
+  Grid,
+  CardActions,
+  Box,
   Hidden,
-  Typography } from '@material-ui/core';
+  Typography
+} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
 import SkipNextIcon from '@material-ui/icons/SkipNext';
@@ -34,24 +35,24 @@ const formWaveSurferOptions = ref => ({
   // If true, normalize by the maximum peak instead of 1.0.
   normalize: true,
   // Use the PeakCache to improve rendering speed of large waveforms.
-  partialRender: true,
+  partialRender: true
 });
 
 const useStyles = makeStyles(theme => ({
-  root: { 
-    backgroundColor: 'black', 
+  root: {
+    backgroundColor: 'black',
     opacity: '80%'
   },
   actions: {
     transform: 'rotate(0deg)',
     marginLeft: 'auto',
     transition: theme.transitions.create('transform', {
-      duration: theme.transitions.duration.shortest,
+      duration: theme.transitions.duration.shortest
     }),
     maxWidth: '60%',
     [theme.breakpoints.down('sm')]: {
-      maxWidth: '100%',
-    },
+      maxWidth: '100%'
+    }
   },
   card: {
     zIndex: 1,
@@ -60,14 +61,14 @@ const useStyles = makeStyles(theme => ({
     boxShadow: '0 6px 20px 0 #dbdbe8',
     backgroundColor: '#fff',
     transition: '0.4s',
-    height: '100%',
+    height: '100%'
   },
-  white:{
+  white: {
     color: '#fff'
   },
   timer: {
     fontWeight: '900',
-    marginLeft : 14
+    marginLeft: 14
   },
   header: {
     padding: theme.spacing(3),
@@ -122,6 +123,7 @@ export default function AudioPlayer({ track, playing, setPlay }) {
     // Removes events, elements and disconnects Web Audio nodes.
     // when component unmount
     return () => wavesurfer.current.destroy();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [track]);
 
   const handlePlayPause = () => {
@@ -159,17 +161,16 @@ export default function AudioPlayer({ track, playing, setPlay }) {
     <Card className={classes.root} elevation={2}>
       <Grid
         alignItems="center"
-        className = {classes.header}
+        className={classes.header}
         container
         direction="row"
-        justify="center"
-      >
+        justify="center">
         <Hidden smDown>
           <Grid item md={6} sm={12}>
             <Typography className={classes.white} component="h2" variant="h5">
               {track.title}
             </Typography>
-            <Typography  color="textSecondary" noWrap	>
+            <Typography color="textSecondary" noWrap>
               {track.description}
             </Typography>
           </Grid>
@@ -179,26 +180,33 @@ export default function AudioPlayer({ track, playing, setPlay }) {
             <Typography className={classes.white} component="h2" variant="h5">
               {track.title}
             </Typography>
-            <Typography  color="textSecondary" noWrap	>
+            <Typography color="textSecondary" noWrap>
               {track.description}
             </Typography>
           </Grid>
         </Hidden>
-        
+
         <Grid
           className={cx(flexStyles.rightChild, flexStyles.parent)}
           m={1}
           p={1}>
-          
           <div className={classes.controls}>
             <IconButton aria-label="previous">
               <SkipPreviousIcon className={classes.white} />
             </IconButton>
             <IconButton aria-label="play/pause">
               {!playing ? (
-                <PlayCircleFilledIcon className={classes.white} fontSize="large" onClick={handlePlayPause} />
+                <PlayCircleFilledIcon
+                  className={classes.white}
+                  fontSize="large"
+                  onClick={handlePlayPause}
+                />
               ) : (
-                <PauseCircleFilledIcon className={classes.white} fontSize="large" onClick={handlePlayPause} />
+                <PauseCircleFilledIcon
+                  className={classes.white}
+                  fontSize="large"
+                  onClick={handlePlayPause}
+                />
               )}
             </IconButton>
             <IconButton aria-label="next">
@@ -210,34 +218,36 @@ export default function AudioPlayer({ track, playing, setPlay }) {
 
       <Box className={classes.wave} id="waveform" ref={waveformRef} />
       <CardActions disableSpacing>
-        <Grid 
-          alignItems="center" 
-          className={classes.actions} 
+        <Grid
+          alignItems="center"
+          className={classes.actions}
           container
           direction="row"
           justify="center"
-          spacing={2}
-        >
+          spacing={2}>
           <Grid item>
             <VolumeDown className={classes.white} />
           </Grid>
           <Grid item xs>
-            <Slider 
-              aria-labelledby="continuous-slider" 
-              defaultValue={volume} 
+            <Slider
+              aria-labelledby="continuous-slider"
+              defaultValue={volume}
               max={1}
               // waveSurfer recognize value of `0` same as `1`
               //  so we need to set some zero-ish value for silence
               min={0.01}
               name="volume"
               onChange={onVolumeChange}
-              step={.025}
+              step={0.025}
             />
           </Grid>
           <Grid item>
             <VolumeUp className={classes.white} />
           </Grid>
-          <Grid className={cx(classes.timer, classes.white)} id="waveform-time-indicator" item>
+          <Grid
+            className={cx(classes.timer, classes.white)}
+            id="waveform-time-indicator"
+            item>
             {'00:00:00'}
           </Grid>
         </Grid>

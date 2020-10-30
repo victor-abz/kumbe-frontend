@@ -53,7 +53,7 @@ const Feed = () => {
     const categoryId = id || '';
     const { pageNumber, pageSize } = paginator;
     getQuestions({ category: categoryId, pageNumber, pageSize });
-  }, [id, paginator.pageNumber]);
+  }, [id, paginator]);
 
   useEffect(() => {
     if (loaded) {

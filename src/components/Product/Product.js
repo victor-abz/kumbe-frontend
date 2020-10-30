@@ -27,7 +27,6 @@ const useStyles = makeStyles(({ spacing, palette }) => ({
   }
 }));
 
-const coverImagePath = `${process.env.REACT_APP_API_URL}/api/res/images`;
 const Product = ({ name, coverImage, forAdmin = false, onEdit, onDelete }) => {
   const classes = useStyles();
 

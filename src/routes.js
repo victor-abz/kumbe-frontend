@@ -5,7 +5,7 @@ import { Redirect } from 'react-router-dom';
 
 import AuthLayout from './layouts/Auth';
 import DashboardLayout from './layouts/Dashboard';
-import DashboardAnalyticsView from './views/DashboardAnalytics';
+// import DashboardAnalyticsView from './views/DashboardAnalytics';
 import DashboardDefaultView from './views/DashboardDefault';
 import PresentationView from './views/Home';
 import Forum from './views/Forum/Forum';

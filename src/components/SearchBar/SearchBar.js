@@ -1,12 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Button } from '@material-ui/core';
-import FilterListIcon from '@material-ui/icons/FilterList';
+import { Grid } from '@material-ui/core';
 
-import { Search, Filter } from './components';
-import { useTranslation } from 'react-i18next';
+import { Search } from './components';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -32,16 +30,6 @@ const SearchBar = props => {
   const { onFilter, onSearch, className, ...rest } = props;
 
   const classes = useStyles();
-  const { t } = useTranslation();
-  const [openFilter, setOpenFilter] = useState(false);
-
-  const handleFilterOpen = () => {
-    setOpenFilter(true);
-  };
-
-  const handleFilterClose = () => {
-    setOpenFilter(false);
-  };
 
   return (
     <Grid

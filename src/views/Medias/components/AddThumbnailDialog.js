@@ -29,6 +29,7 @@ export const AddThumbnailDialog = ({ open, setOpen, media }) => {
       notifier.success(message);
       setOpen();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [updated]);
   const saveThumbnail = () => {
     if (fileName) {

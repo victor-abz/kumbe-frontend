@@ -26,7 +26,7 @@ const ViewBlogs = ({ match }) => {
     const categoryId = id || '';
     const { pageNumber, pageSize } = paginator;
     getBlogs({ category: categoryId, pageSize, pageNumber });
-  }, [id, paginator.pageNumber]);
+  }, [id, paginator]);
 
   const handleFilter = () => {};
   const handleSearch = () => {};

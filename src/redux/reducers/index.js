@@ -50,6 +50,7 @@ import {
   partnerDeleteReducer,
   partnersGetReducer
 } from './partnerReducer';
+import { usersGetReducer } from './userReducers';
 
 export default combineReducers({
   login: loginReducer,
@@ -89,5 +90,6 @@ export default combineReducers({
   replyReact: replyReactReducer,
   partnerAdd: partnerAddReducer,
   partnersGet: partnersGetReducer,
-  partnerRm: partnerDeleteReducer
+  partnerRm: partnerDeleteReducer,
+  usersGet: usersGetReducer
 });

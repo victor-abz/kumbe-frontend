@@ -64,6 +64,7 @@ const CommentBubble = props => {
         }
       }
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
     const liked = comment.likes.some(like => like.userId.includes(user.id));
@@ -71,6 +72,7 @@ const CommentBubble = props => {
       like.userId.includes(user.id)
     );
     setDidReact({ didLike: liked, didDisLike: disLiked });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [comment.likes, comment.dislikes]);
   return (
     <div {...rest} className={clsx(classes.root, className)}>

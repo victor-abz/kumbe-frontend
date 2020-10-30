@@ -51,6 +51,7 @@ const Results = props => {
       setPublish({ ...publish, open: false });
       getBlogs({ isAdmin: true });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loaded]);
   const handleSelectAll = ({ target: { checked } }) => {
     const selectedBlogs = checked ? blogs.map(blog => blog.id) : [];

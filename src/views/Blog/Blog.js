@@ -8,7 +8,7 @@ import {
 import { BlogContent } from './components';
 import { useStyles } from './styles';
 import { Grid, Typography, Divider } from '@material-ui/core';
-import { Column, Row, Item } from '@mui-treasury/components/flex';
+import { Column, Item } from '@mui-treasury/components/flex';
 import { getBlog } from 'redux/actions/blog';
 import { useSelector } from 'react-redux';
 import BlogCard from '../../components/BlogCard';

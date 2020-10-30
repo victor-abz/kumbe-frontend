@@ -13,32 +13,18 @@ import {
   Input,
   Paper,
   Tooltip,
-  Button,
-  Grid
+  Button
 } from '@material-ui/core';
 import cx from 'clsx';
 import { useWideCardMediaStyles } from '@mui-treasury/styles/cardMedia/wide';
 import { useLightTopShadowStyles } from '@mui-treasury/styles/shadow/lightTop';
 import { Column, Row, Item } from '@mui-treasury/components/flex';
 import HtmlParser from 'react-html-parser';
-import {
-  Info,
-  InfoSubtitle,
-  InfoTitle,
-  InfoCaption
-} from '@mui-treasury/components/info';
-import TextInfoContent from '@mui-treasury/components/content/textInfo';
+import { Info, InfoCaption } from '@mui-treasury/components/info';
 import { useNewsInfoStyles } from '@mui-treasury/styles/info/news';
-import { useBlogTextInfoContentStyles } from '@mui-treasury/styles/textInfoContent/blog';
 import IconButton from '@material-ui/core/IconButton';
-import {
-  FavoriteBorderRounded,
-  CommentRounded,
-  Favorite
-} from '@material-ui/icons';
-import moment from 'moment';
+import { FavoriteBorderRounded, CommentRounded } from '@material-ui/icons';
 import { Share } from 'components';
-import { LinkedInSquare } from '@mui-treasury/components/socialLink';
 import { useSelector } from 'react-redux';
 import {
   addComment,
@@ -106,11 +92,13 @@ const MediaCard = props => {
     if (loaded) {
       setLikes(likes + count);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loaded]);
   useEffect(() => {
     if (shared) {
       setShares(shares + 1);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [shared]);
   useEffect(() => {
     if (done) {
@@ -118,6 +106,7 @@ const MediaCard = props => {
       resetAddComment();
       notifier.success(t('comment:comment_success'));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [done]);
   const onSendComment = () => {
     if (commentValue.length > 20) {

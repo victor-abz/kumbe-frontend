@@ -1,18 +1,11 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import { Tabs, Tab, Divider, colors } from '@material-ui/core';
+import { Divider, colors } from '@material-ui/core';
 
 import { Page } from 'components';
 import { useTranslation } from 'react-i18next';
-import {
-  Header,
-  General
-  // Subscription,
-  // Notifications,
-  // Security
-} from './components';
+import { Header, General } from './components';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -58,7 +51,7 @@ const Settings = props => {
   // }
 
   return (
-    <Page className={classes.root} title={t('settings:profile_title')}>
+    <Page className={classes.root} title={t('settings:profile_settings_title')}>
       <Header />
       <Divider className={classes.divider} />
       <div className={classes.content}>

@@ -1,16 +1,13 @@
 import React, { Fragment, useEffect } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
-import { Drawer, Divider, Paper, Avatar, Typography } from '@material-ui/core';
+import { Drawer, Divider, Paper, Typography } from '@material-ui/core';
 import { Hidden } from '@material-ui/core';
 
 import useRouter from 'utils/useRouter';
 import { Navigation } from 'components';
 import { navigationConfig } from './navigationConfig';
-import { toUserAccess } from 'utils/constants';
 import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles(theme => ({
@@ -47,7 +44,6 @@ const NavBar = props => {
   const { t } = useTranslation();
   const classes = useStyles();
   const router = useRouter();
-  const { user } = useSelector(({ auth }) => auth);
 
   useEffect(() => {
     if (openMobile) {

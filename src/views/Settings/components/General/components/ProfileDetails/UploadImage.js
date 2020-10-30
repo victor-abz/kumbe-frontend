@@ -18,16 +18,21 @@ import { useTranslation } from 'react-i18next';
 
 export const UploadImage = ({ open, setOpen, profile }) => {
   const initialState = { profilePic: '' };
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   const [values, setValues] = useState(initialState);
-  const { fileUpload: { fileName, loading }, 
-    updateProfile: { loaded: created, message } } = useSelector(({ fileUpload, updateProfile }) => ({ fileUpload, updateProfile }));
+  const {
+    fileUpload: { fileName, loading },
+    updateProfile: { loaded: created, message }
+  } = useSelector(({ fileUpload, updateProfile }) => ({
+    fileUpload,
+    updateProfile
+  }));
 
   useEffect(() => {
     if (fileName) {
       setValues({ profilePic: fileName });
     }
-    // eslint-disable-next-line
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fileName]);
 
   useEffect(() => {
@@ -35,16 +40,19 @@ export const UploadImage = ({ open, setOpen, profile }) => {
       localStorage.removeItem(UPLOADED_FILE_NAME);
       resetUploadedFile();
       notifier.success(message);
-      setOpen(false)
-      getUserProfile()
+      setOpen(false);
+      getUserProfile();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [created]);
-  
+
   return (
     <Dialog aria-labelledby="cat-dialog-title" onClose={setOpen} open={open}>
-      <DialogTitle id="cat-dialog-title">{t('settings:profile_change_title')}</DialogTitle>
+      <DialogTitle id="cat-dialog-title">
+        {t('settings:profile_change_title')}
+      </DialogTitle>
       <DialogContent>
-        <FilesDropzone currentFile={profile.profilePic} fileType="profile"/>
+        <FilesDropzone currentFile={profile.profilePic} fileType="profile" />
       </DialogContent>
       <DialogActions>
         <Button color="primary" onClick={setOpen}>

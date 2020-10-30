@@ -42,70 +42,6 @@ import { logoutUser } from 'redux/actions';
 import { AUTH_TOKEN } from 'utils/constants';
 import { notifier } from 'utils/notifier';
 
-// const useStyles = makeStyles(theme => ({
-//   root: {
-//     boxShadow: 'none'
-//   },
-//   flexGrow: {
-//     flexGrow: 1
-//   },
-//   search: {
-//     backgroundColor: 'rgba(255,255,255, 0.1)',
-//     borderRadius: 4,
-//     flexBasis: 300,
-//     height: 36,
-//     padding: theme.spacing(0, 2),
-//     display: 'flex',
-//     alignItems: 'center'
-//   },
-//   searchIcon: {
-//     marginRight: theme.spacing(2),
-//     color: 'inherit'
-//   },
-//   searchInput: {
-//     flexGrow: 1,
-//     color: 'inherit',
-//     '& input::placeholder': {
-//       opacity: 1,
-//       color: 'inherit'
-//     }
-//   },
-//   searchPopper: {
-//     zIndex: theme.zIndex.appBar + 100
-//   },
-//   searchPopperContent: {
-//     marginTop: theme.spacing(1)
-//   },
-//   trialButton: {
-//     marginLeft: theme.spacing(2),
-//     color: theme.palette.white,
-//     backgroundColor: colors.purple['A400'],
-//     '&:hover': {
-//       backgroundColor: colors.purple['A700']
-//     }
-//   },
-//   trialIcon: {
-//     marginRight: theme.spacing(1)
-//   },
-//   notificationsButton: {
-//     marginLeft: theme.spacing(1)
-//   },
-//   notificationsBadge: {
-//     backgroundColor: colors.orange[600]
-//   },
-//   logoutButton: {
-//     marginLeft: theme.spacing(1)
-//   },
-//   logoutIcon: {
-//     marginRight: theme.spacing(1)
-//   },
-//   title: {
-//     flexGrow: 1,
-//     color: '#ffffff',
-//     fontWeight: 900
-//   }
-// }));
-
 const TopBar = props => {
   const { onOpenNavBarMobile, className, ...rest } = props;
   const { t } = useTranslation();
@@ -169,7 +105,7 @@ const TopBar = props => {
       localStorage.removeItem(AUTH_TOKEN);
       window.location.replace('/');
     }
-  }, [loaded]);
+  }, [loaded, message]);
 
   const handlePricingOpen = () => {
     setPricingModalOpen(true);

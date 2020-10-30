@@ -44,7 +44,7 @@ const PostCard = props => {
   const [didLike, setDidLike] = useState(false);
   const {
     replyAdd: { loading, loaded: added },
-    repliesGet: { loading: posting, loaded, replies },
+    repliesGet: { loaded, replies },
     auth: { user }
   } = useSelector(({ replyAdd, repliesGet, auth }) => ({
     repliesGet,
@@ -63,10 +63,12 @@ const PostCard = props => {
     if (loaded) {
       setPostReplies(replies);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loaded]);
 
   useEffect(() => {
     getReplies(post.id, {});
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -85,10 +87,12 @@ const PostCard = props => {
         }
       }
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
     const liked = post.likes.some(like => like.userId.includes(user.id));
     setDidLike(liked);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [post.likes]);
   return (
     <Grid>

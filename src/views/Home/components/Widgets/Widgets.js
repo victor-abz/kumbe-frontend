@@ -1,10 +1,6 @@
 import React, { useEffect } from 'react';
 import { Grid, Typography } from '@material-ui/core';
-import { VideoList } from 'components';
 import { useStyles } from './style';
-import { getMediaDetail, getMedias } from 'redux/actions/media';
-import { useSelector } from 'react-redux';
-import { Loading } from 'components/Loading';
 import ReactPlayer from 'react-player/lazy';
 import { useTranslation } from 'react-i18next';
 

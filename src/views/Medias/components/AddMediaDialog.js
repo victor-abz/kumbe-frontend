@@ -60,13 +60,14 @@ export const AddMediaDialog = ({ open, setOpen }) => {
       resetUploadedFile();
       setOpen();
     }
-    // eslint-disable-next-line
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loaded]);
   useEffect(() => {
     if (done && fileName) {
       setTheFile(null);
       setValues({ ...values, mediaLink: fileName });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [done, fileName]);
   const onHandleChange = ({ target: { name, value } }) => {
     const inputName = name ? name : 'tags';
@@ -79,6 +80,7 @@ export const AddMediaDialog = ({ open, setOpen }) => {
       formData.append('file', theFile);
       uploadFile(formData, values.type, fileName);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [theFile]);
   return (
     <Dialog aria-labelledby="cat-dialog-title" onClose={setOpen} open={open}>

@@ -1,12 +1,10 @@
-import React, { Fragment, useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import clsx from 'clsx';
 import uuid from 'uuid/v1';
 import { useDropzone } from 'react-dropzone';
-import PerfectScrollbar from 'react-perfect-scrollbar';
 import {
   Button,
   IconButton,
-  List,
   ListItem,
   ListItemIcon,
   ListItemText,

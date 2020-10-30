@@ -35,7 +35,7 @@ export const AddProductDialog = ({ open, setOpen, currentProduct = null }) => {
       resetUploadedFile();
       setOpen();
     }
-    // eslint-disable-next-line
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loaded, updated]);
   useEffect(() => {
     if (currentProduct) {
@@ -47,6 +47,7 @@ export const AddProductDialog = ({ open, setOpen, currentProduct = null }) => {
     if (done && fileName) {
       setValues({ ...values, coverImage: fileName });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [done, fileName]);
   const onHandleChange = ({ target: { name, value } }) => {
     setValues({ ...values, [name]: value });

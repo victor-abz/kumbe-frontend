@@ -50,10 +50,12 @@ const PostCard = props => {
       }
       notifier.success(`New update from ${replyContent.userNames}`);
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
     const liked = post.likes.some(like => like.userId.includes(user.id));
     setDidLike(liked);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [post.likes]);
   return (
     <Grid>

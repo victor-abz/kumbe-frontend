@@ -7,20 +7,12 @@ import { Provider as StoreProvider } from 'react-redux';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import { renderRoutes } from 'react-router-config';
-import Layout, {
-  Root,
-  getContent,
-  getInsetContainer,
-  getInsetSidebar
-} from '@mui-treasury/layout';
+import Layout, { Root } from '@mui-treasury/layout';
 
 import theme from './theme';
 import { store } from './redux/store';
 import routes from './routes';
-import {
-  ScrollReset,
-  GoogleAnalytics
-} from './components';
+import { ScrollReset, GoogleAnalytics } from './components';
 import './mixins/chartjs';
 import './mixins/moment';
 import './mixins/validate';

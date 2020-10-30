@@ -33,12 +33,13 @@ const useStyles = makeStyles(theme => ({
 
 const GeneralSettings = props => {
   const { profile, className, ...rest } = props;
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const classes = useStyles();
 
-  const {  
-    updateProfile: { loaded: created, message } } = useSelector(({ updateProfile }) => ({ updateProfile }));
+  const {
+    updateProfile: { loaded: created, message }
+  } = useSelector(({ updateProfile }) => ({ updateProfile }));
   const [formState, setFormState] = useState({
     isValid: false,
     values: {
@@ -69,8 +70,6 @@ const GeneralSettings = props => {
       }
     }));
   };
-  
-
 
   useEffect(() => {
     const errors = validate(formState.values, schema);
@@ -80,23 +79,20 @@ const GeneralSettings = props => {
       isValid: errors ? false : true,
       errors: errors || {}
     }));
-    // eslint-disable-next-line
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formState.values]);
-
-
-
 
   useEffect(() => {
     if (created) {
       notifier.success(message);
-      getUserProfile()
+      getUserProfile();
     }
-  }, [created]);
+  }, [created, message]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    updateProfile(formState.values)
-  }
+  const handleSubmit = e => {
+    e.preventDefault();
+    updateProfile(formState.values);
+  };
 
   const schema = {
     username: {
@@ -122,35 +118,26 @@ const GeneralSettings = props => {
       length: {
         maximum: 128
       }
-    },
+    }
   };
 
   const hasError = field =>
     formState.touched[field] && formState.errors[field] ? true : false;
 
   return (
-    <Card
-      {...rest}
-      className={clsx(classes.root, className)}
-    >
+    <Card {...rest} className={clsx(classes.root, className)}>
       <form onSubmit={handleSubmit}>
-        <CardHeader title= {t('auth:profile')} />
+        <CardHeader title={t('auth:profile')} />
         <Divider />
         <CardContent>
-          <Grid
-            container
-            spacing={4}
-          >
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
+          <Grid container spacing={4}>
+            <Grid item md={6} xs={12}>
               <TextField
                 error={hasError('firstName')}
                 fullWidth
                 helperText={
-                  hasError('firstName') ? t('auth:firstName_helper') : null}
+                  hasError('firstName') ? t('auth:firstName_helper') : null
+                }
                 label={t('auth:firstName')}
                 name="firstName"
                 onChange={handleChange}
@@ -159,15 +146,13 @@ const GeneralSettings = props => {
                 variant="outlined"
               />
             </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
+            <Grid item md={6} xs={12}>
               <TextField
                 error={hasError('lastName')}
                 fullWidth
-                helperText={hasError('lastName') ?  t('auth:lastName_helper') : null}
+                helperText={
+                  hasError('lastName') ? t('auth:lastName_helper') : null
+                }
                 label={t('auth:lastName')}
                 name="lastName"
                 onChange={handleChange}
@@ -176,11 +161,7 @@ const GeneralSettings = props => {
                 variant="outlined"
               />
             </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
+            <Grid item md={6} xs={12}>
               <TextField
                 error={hasError('email')}
                 fullWidth
@@ -193,15 +174,11 @@ const GeneralSettings = props => {
                 variant="outlined"
               />
             </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
+            <Grid item md={6} xs={12}>
               <TextField
                 error={hasError('phone')}
                 fullWidth
-                helperText={hasError('phone') ? t('auth:phone_helper'): null}
+                helperText={hasError('phone') ? t('auth:phone_helper') : null}
                 label={t('auth:phone')}
                 name="phone"
                 onChange={handleChange}
@@ -235,10 +212,11 @@ const GeneralSettings = props => {
         <CardActions>
           <Button
             color={'primary'}
-            disabled={!formState.isValid || Object.keys(formState.touched).length === 0}
+            disabled={
+              !formState.isValid || Object.keys(formState.touched).length === 0
+            }
             type="submit"
-            variant="contained"
-          >
+            variant="contained">
             {t('auth:save_changes')}
           </Button>
         </CardActions>

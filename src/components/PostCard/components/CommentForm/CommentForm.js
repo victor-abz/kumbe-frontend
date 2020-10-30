@@ -1,19 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
-import {
-  Avatar,
-  FormControl,
-  FormLabel,
-  Grid,
-  IconButton,
-  Input,
-  Paper,
-  Switch,
-  Tooltip,
-  Typography
-} from '@material-ui/core';
+import { Avatar, IconButton, Input, Paper, Tooltip } from '@material-ui/core';
 import SendIcon from '@material-ui/icons/Send';
 import { addReply } from 'redux/actions/forum';
 import { useTranslation } from 'react-i18next';

@@ -1,29 +1,21 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import {
-  Button,
   Menu,
   MenuItem,
   ListItemIcon,
-  ListItemText,
   IconButton,
   Typography
 } from '@material-ui/core';
 import {
-  MoveToInbox as InboxIcon,
-  Drafts as DraftsIcon,
-  Send as SendIcon,
   Share as ShareIcon,
   Facebook,
   Twitter,
   WhatsApp
 } from '@material-ui/icons';
 import {
-  FacebookIcon,
   FacebookShareButton,
-  TwitterIcon,
   TwitterShareButton,
-  WhatsappIcon,
   WhatsappShareButton
 } from 'react-share';
 

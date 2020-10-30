@@ -44,6 +44,7 @@ const Forum = props => {
   useEffect(() => {
     const name = `${user.firstName} ${user.lastName}`;
     httpSocket.emit('join', { userId: user.id, name }, () => {});
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <Page style={{ height: '100vh' }} title="Social Feed">

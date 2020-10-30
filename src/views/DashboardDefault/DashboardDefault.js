@@ -6,7 +6,6 @@ import { Page } from 'components';
 import {
   CustomerActivity,
   Header,
-  LatestProjects,
   NewProjects,
   RealTime,
   RoiPerCustomer,

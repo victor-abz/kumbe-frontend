@@ -33,12 +33,13 @@ export const AddPartnerDialog = ({ open, setOpen }) => {
       resetUploadedFile();
       setOpen();
     }
-    // eslint-disable-next-line
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loaded]);
   useEffect(() => {
     if (done && fileName) {
       setValues({ ...values, coverImage: fileName });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [done, fileName]);
   const onHandleChange = ({ target: { name, value } }) => {
     setValues({ ...values, [name]: value });
