@@ -8,7 +8,7 @@ import { Button, TextField } from '@material-ui/core';
 import useRouter from 'utils/useRouter';
 import { notifier } from 'utils/notifier';
 import { useSelector } from 'react-redux';
-import { getUserProfile, loginUser } from 'redux/actions';
+import { loginUser, setUser } from 'redux/actions';
 import { AUTH_TOKEN } from 'utils/constants';
 
 const useStyles = makeStyles(theme => ({
@@ -63,7 +63,7 @@ const LoginForm = props => {
     if (login.loaded) {
       localStorage.setItem(AUTH_TOKEN, login.user.token);
       notifier.success(login.message);
-      getUserProfile();
+      setUser(login.user);
       setTimeout(() => {
         router.history.replace('/admin/blogs');
       }, 5000);

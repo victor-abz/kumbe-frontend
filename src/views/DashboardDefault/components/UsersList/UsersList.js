@@ -21,6 +21,7 @@ import { useSelector } from 'react-redux';
 import { profilePicPath, toUserAccess } from 'utils/constants';
 import { Paginate } from 'components';
 import { Loading } from 'components/Loading';
+import { httpSocket } from 'utils/http';
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -51,6 +52,7 @@ const UsersList = props => {
   const { className, ...rest } = props;
 
   const classes = useStyles();
+  const [onlineUsers, setOnlineUsers] = useState([]);
   const [paginator, setPaginator] = useState({ pageSize: 10, pageNumber: 1 });
   const {
     usersGet: { loading, users, totalItems }
@@ -60,6 +62,11 @@ const UsersList = props => {
     const { pageNumber, pageSize } = paginator;
     getUsers({ pageNumber, pageSize });
   }, [paginator]);
+  useEffect(() => {
+    httpSocket.on('users-list', ({ users }) => {
+      setOnlineUsers(users);
+    });
+  }, []);
   const onPageChage = ({ selected }) => {
     setPaginator({ ...paginator, pageNumber: selected + 1 });
   };
@@ -90,7 +97,7 @@ const UsersList = props => {
             Online
           </Typography>
           <Typography align="center" variant="h3">
-            {totalItems}
+            {onlineUsers.length}
           </Typography>
         </div>
       </div>

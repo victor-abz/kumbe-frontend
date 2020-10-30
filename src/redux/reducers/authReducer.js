@@ -1,9 +1,9 @@
 import { pending, fulfilled, rejected, baseState } from 'redux/utils';
 import {
   LOGIN_USER,
-  GET_USER_PROFILE,
   REGISTER_USER,
-  LOGOUT_USER
+  LOGOUT_USER,
+  SET_AUTH_USER
 } from 'redux/actions/actionTypes';
 
 const initialState = baseState('user', {});
@@ -88,11 +88,11 @@ export const logOutReducer = (state = initialState, action) => {
 };
 export const authReducer = (state = authState, action) => {
   switch (action.type) {
-    case fulfilled(GET_USER_PROFILE):
+    case SET_AUTH_USER:
       return {
         ...state,
         loggedIn: true,
-        user: action.payload.data.data
+        user: action.payload
       };
     default: {
       return state;

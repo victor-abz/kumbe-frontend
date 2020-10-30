@@ -22,7 +22,7 @@ const Login = props => {
 
   const [quote, setQuote] = useState({
     quote:
-      'Hella narvwhal Cosby sweater McSweeney\'s, salvia kitsch before they sold out High Life.',
+      "Hella narvwhal Cosby sweater McSweeney's, salvia kitsch before they sold out High Life.",
     background: '/images/auth.png'
   });
 
@@ -47,13 +47,12 @@ const Login = props => {
   }, []);
   useEffect(() => {
     if (loggedIn) {
-      // history.goBack();
-      history.push('/admin/blogs')
+      history.push('/admin/blogs');
     }
     // eslint-disable-next-line
   }, [loggedIn]);
   return (
-    <Page className={classes.root} style={{ height: '100vh'}} title="Login">
+    <Page className={classes.root} style={{ height: '100vh' }} title="Login">
       <Card className={classes.card}>
         <CardContent className={classes.content}>
           <LockIcon className={classes.icon} />

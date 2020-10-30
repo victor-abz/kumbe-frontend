@@ -1,7 +1,6 @@
 import React from 'react';
 import { Router } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
-import jwtDecode from 'jwt-decode';
 import MomentUtils from '@date-io/moment';
 import { Provider as StoreProvider } from 'react-redux';
 import { ThemeProvider } from '@material-ui/core/styles';
@@ -12,7 +11,7 @@ import Layout, { Root } from '@mui-treasury/layout';
 import theme from './theme';
 import { store } from './redux/store';
 import routes from './routes';
-import { ScrollReset, GoogleAnalytics } from './components';
+import { ScrollReset, GoogleAnalytics, AuthProvider } from './components';
 import './mixins/chartjs';
 import './mixins/moment';
 import './mixins/validate';
@@ -20,8 +19,6 @@ import './mixins/prismjs';
 import './mock';
 import './assets/scss/index.scss';
 import { ToastContainer } from 'react-toastify';
-import { AUTH_TOKEN } from 'utils/constants';
-import { getUserProfile } from 'redux/actions';
 import './i18n';
 import { useTranslation } from 'react-i18next';
 
@@ -43,15 +40,15 @@ scheme.configureInsetSidebar(builder => {
     });
 });
 const history = createBrowserHistory();
-const authToken = localStorage.getItem(AUTH_TOKEN);
-if (authToken) {
-  const tokenInfo = jwtDecode(authToken);
-  const currentTime = Date.now() / 1000;
-  getUserProfile();
-  if (tokenInfo.exp < currentTime) {
-    localStorage.removeItem('token');
-  }
-}
+// const authToken = localStorage.getItem(AUTH_TOKEN);
+// if (authToken) {
+//   const tokenInfo = jwtDecode(authToken);
+//   const currentTime = Date.now() / 1000;
+//   getUserProfile();
+//   if (tokenInfo.exp < currentTime) {
+//     localStorage.removeItem('token');
+//   }
+// }
 const App = () => {
   const { t } = useTranslation([
     'top_bar',
@@ -72,10 +69,12 @@ const App = () => {
         <ThemeProvider theme={theme}>
           <MuiPickersUtilsProvider utils={MomentUtils}>
             <Router history={history}>
-              <ToastContainer />
-              <ScrollReset />
-              <GoogleAnalytics />
-              {renderRoutes(routes, { t })}
+              <AuthProvider>
+                <ToastContainer />
+                <ScrollReset />
+                <GoogleAnalytics />
+                {renderRoutes(routes, { t })}
+              </AuthProvider>
             </Router>
           </MuiPickersUtilsProvider>
         </ThemeProvider>

@@ -32,3 +32,4 @@ export { default as Product } from './Product';
 export { default as Questions } from './Questions';
 export { default as Partner } from './Partner';
 export { default as ImageCard } from './ImageCard';
+export { AuthProvider } from './AuthGuard/AuthProvider';
