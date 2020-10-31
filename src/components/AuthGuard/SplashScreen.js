@@ -31,8 +31,8 @@ export const SplashScreen = ({ message }) => {
       <Box display="flex" justifyContent="center" mb={6}>
         <img
           alt="Logo"
-          src="/images/logos/logo--white.svg"
           className={classes.logo}
+          src="/images/logos/logo--normal.svg"
         />
       </Box>
       {message === '' && <CircularProgress />}

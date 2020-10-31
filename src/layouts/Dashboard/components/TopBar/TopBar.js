@@ -220,7 +220,7 @@ const TopBar = props => {
           </Button> */}
         </Hidden>
         <Hidden mdDown>
-          <IconButton
+          {/* <IconButton
             className={classes.notificationsButton}
             color="inherit"
             onClick={handleNotificationsOpen}
@@ -231,7 +231,7 @@ const TopBar = props => {
               variant="dot">
               <NotificationsIcon />
             </Badge>
-          </IconButton>
+          </IconButton> */}
           <Button
             className={classes.logoutButton}
             color="inherit"

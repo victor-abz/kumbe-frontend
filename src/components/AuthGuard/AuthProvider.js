@@ -24,7 +24,7 @@ export const AuthProvider = ({ children }) => {
           httpSocket.emit('join', { userId: user.id, name }, () => {});
         })
         .catch(error => {
-          setErrorMessage('Something went wrong check it out');
+          setErrorMessage('Ooops, Something went wrong. Please contact site admin');
         });
     } else {
       setLoading(false);
