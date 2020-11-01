@@ -10,6 +10,7 @@ import { notifier } from 'utils/notifier';
 import { useSelector } from 'react-redux';
 import { loginUser, setUser } from 'redux/actions';
 import { AUTH_TOKEN } from 'utils/constants';
+import { httpSocket } from 'utils/http';
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -64,6 +65,8 @@ const LoginForm = props => {
       localStorage.setItem(AUTH_TOKEN, login.user.token);
       notifier.success(login.message);
       setUser(login.user);
+      const name = `${login.user.firstName} ${login.user.lastName}`;
+      httpSocket.emit('join', { userId: login.user.id, name }, () => {});
       setTimeout(() => {
         router.history.replace('/admin/blogs');
       }, 5000);

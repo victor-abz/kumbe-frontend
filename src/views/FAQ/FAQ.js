@@ -11,7 +11,7 @@ import {
   ListItemIcon,
   ListItemText
 } from '@material-ui/core';
-import ContactSupportIcon from '@material-ui/icons/ContactSupportOutlined';
+import { ContactSupportOutlined as ContactSupportIcon } from '@material-ui/icons';
 
 const useStyles = makeStyles(theme => ({
   root: {
