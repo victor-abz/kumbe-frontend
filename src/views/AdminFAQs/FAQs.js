@@ -6,10 +6,12 @@ import {
   Button,
   ButtonGroup,
   Grid,
+  IconButton,
   List,
   ListItem,
   ListItemIcon,
   ListItemText,
+  Tooltip,
   Typography
 } from '@material-ui/core';
 import { useSelector } from 'react-redux';
@@ -118,12 +120,20 @@ const AdminFAQs = () => {
                   secondaryTypographyProps={{ variant: 'body1' }}
                 />
                 <ButtonGroup variant="outlined">
-                  <ListItemIcon onClick={() => onQuestionClick(faq, 'edit')}>
-                    <EditIcon />
-                  </ListItemIcon>
-                  <ListItemIcon onClick={() => onQuestionClick(faq, 'rm')}>
-                    <DeleteIcon />
-                  </ListItemIcon>
+                  <Tooltip title="Edit">
+                    <IconButton
+                      aria-label="Edit"
+                      onClick={() => onQuestionClick(faq, 'edit')}>
+                      <EditIcon />
+                    </IconButton>
+                  </Tooltip>
+                  <Tooltip title="Edit">
+                    <IconButton
+                      aria-label="Edit"
+                      onClick={() => onQuestionClick(faq, 'rm')}>
+                      <DeleteIcon />
+                    </IconButton>
+                  </Tooltip>
                 </ButtonGroup>
               </ListItem>
             ))
