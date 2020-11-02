@@ -126,6 +126,11 @@ const routes = [
         component: lazy(() => import('views/Partners'))
       },
       {
+        path: '/admin/faqs',
+        exact: true,
+        component: lazy(() => import('views/AdminFAQs'))
+      },
+      {
         component: () => <Redirect to="/errors/error-404" />
       }
     ]

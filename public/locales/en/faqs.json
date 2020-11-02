@@ -1,0 +1,10 @@
+{
+  "page_header":"FAQs",
+  "dialog_description":"Type a question here and its associated answer",
+  "input_question":"Type question",
+  "input_answer":"Type the answer",
+  "add_btn":"Add new question",
+  "edit_btn":"Edit this question: ",
+  "alert_del":"Are you sure, you want to delete the question?",
+  "no_data":"No FA Question added yet"
+}

@@ -61,7 +61,8 @@ const App = () => {
     'settings',
     'comment',
     'product',
-    'partner'
+    'partner',
+    'faqs'
   ]);
   return (
     <Root scheme={scheme}>

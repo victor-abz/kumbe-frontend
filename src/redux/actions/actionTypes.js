@@ -54,3 +54,8 @@ export const CREATE_PARTNER = 'CREATE_PARTNER';
 export const UPDATE_PARTNER = 'UPDATE_PARTNER';
 export const DELETE_PARTNER = 'DELETE_PARTNER';
 export const GET_PARTNERS = 'GET_PARTNERS';
+
+export const GET_FAQS = 'GET_FAQS';
+export const CREATE_FAQ = 'CREATE_FAQ';
+export const EDIT_FAQ = 'EDIT_FAQ';
+export const DELETE_FAQ = 'DELETE_FAQ';

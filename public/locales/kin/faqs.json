@@ -1,0 +1,10 @@
+{
+  "page_header":"FAQs",
+  "dialog_description":"Andika ikibazo ndetse unashyireho igisubizo",
+  "input_question":"Ikibazo",
+  "input_answer":"Igisubizo k ikibazo",
+  "add_btn":"Shyiraho ikibazo gishya",
+  "edit_btn":"Hindura iki kibazo: ",
+  "alert_del":"Mbese koko urakomeje ushaka gusiba iki kibazo?",
+  "no_data":"Nta bibazo birashyirwaho"
+}

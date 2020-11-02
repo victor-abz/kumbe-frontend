@@ -51,6 +51,12 @@ import {
   partnersGetReducer
 } from './partnerReducer';
 import { usersGetReducer } from './userReducers';
+import {
+  faqAddReducer,
+  faqEditReducer,
+  faqRmReducer,
+  faqsGetReducer
+} from './faqsReducer';
 
 export default combineReducers({
   login: loginReducer,
@@ -91,5 +97,9 @@ export default combineReducers({
   partnerAdd: partnerAddReducer,
   partnersGet: partnersGetReducer,
   partnerRm: partnerDeleteReducer,
-  usersGet: usersGetReducer
+  usersGet: usersGetReducer,
+  faqsGet: faqsGetReducer,
+  faqAdd: faqAddReducer,
+  faqEdit: faqEditReducer,
+  faqRm: faqRmReducer
 });

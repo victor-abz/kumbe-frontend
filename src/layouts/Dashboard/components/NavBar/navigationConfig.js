@@ -4,11 +4,12 @@ import {
   CommentOutlined,
   FolderOutlined as FolderIcon,
   PermMediaOutlined,
-  LocalLaundryService
+  LocalLaundryService,
+  DashboardOutlined as DashboardIcon,
+  PeopleOutlined as PeopleIcon,
+  PersonOutlined as PersonIcon,
+  QuestionAnswerOutlined as FAQIcon
 } from '@material-ui/icons';
-import DashboardIcon from '@material-ui/icons/DashboardOutlined';
-import PeopleIcon from '@material-ui/icons/PeopleOutlined';
-import PersonIcon from '@material-ui/icons/PersonOutlined';
 
 import { Label } from 'components';
 export const navigationConfig = t => [
@@ -101,6 +102,11 @@ export const navigationConfig = t => [
         title: t('settings:partners'),
         href: '/admin/partners',
         icon: PeopleIcon
+      },
+      {
+        title: t('faqs:page_header'),
+        href: '/admin/faqs',
+        icon: FAQIcon
       }
 
       // {
