@@ -25,7 +25,7 @@ const AudioGallery = () => {
   }, [loaded]);
 
   useEffect(() => {
-    getMedias('audio');
+    getMedias('audio', {});
   }, []);
 
   return (

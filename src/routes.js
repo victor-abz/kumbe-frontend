@@ -233,6 +233,11 @@ const routes = [
         component: lazy(() => import('views/Listen'))
       },
       {
+        path: '/photos',
+        exact: true,
+        component: lazy(() => import('views/ImagesGallery'))
+      },
+      {
         path: '/forum',
         component: Forum,
         routes: [

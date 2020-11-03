@@ -21,7 +21,7 @@ const WatchVideo = ({ match }) => {
     getMediaDetail(videoId);
   }, [videoId]);
   useEffect(() => {
-    getMedias('video');
+    getMedias('video', {});
   }, []);
   return (
     <Grid className={classes.root} container>

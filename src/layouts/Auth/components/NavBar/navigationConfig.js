@@ -26,6 +26,10 @@ export const navigationConfig = (t, categories = []) => {
             {
               title: t('top_bar:audios'),
               href: '/listen'
+            },
+            {
+              title: 'Gallery',
+              href: '/photos'
             }
           ]
         },

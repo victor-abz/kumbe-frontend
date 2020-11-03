@@ -42,7 +42,8 @@ export const mediaGetReducer = (state = baseState('medias', []), action) => {
         ...state,
         loading: false,
         loaded: true,
-        medias: action.payload.data.data
+        medias: action.payload.data.data,
+        totalItems: action.payload.data.totalItems
       };
     case rejected(GET_MEDIAS):
     default:

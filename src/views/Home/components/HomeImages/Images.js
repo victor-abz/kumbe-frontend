@@ -40,8 +40,8 @@ export const HomeImages = React.memo(function HighlightCard() {
           );
         })
       )}
-      {medias.length === 40 ? (
-        <Button color="primary" component={Link} to="/blogs">
+      {medias.length === 4 ? (
+        <Button color="primary" component={Link} to="/photos">
           View more
         </Button>
       ) : null}

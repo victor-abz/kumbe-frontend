@@ -56,7 +56,7 @@ export const AddMediaDialog = ({ open, setOpen }) => {
   useEffect(() => {
     if (loaded) {
       setValues(initialState);
-      getMedias();
+      getMedias('all', {});
       resetUploadedFile();
       setOpen();
     }

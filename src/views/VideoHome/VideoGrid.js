@@ -8,14 +8,14 @@ import { Loading } from 'components/Loading';
 import { Page, Paginate, SearchBar } from 'components';
 import { Header } from './components';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     width: '100%',
-    padding: theme.spacing(3, 10),
+    padding: theme.spacing(3, 10)
   },
   title: {
     marginBottom: theme.spacing(3),
-    fontWeight: theme.typography.fontWeightBold,
+    fontWeight: theme.typography.fontWeightBold
   },
   results: {
     marginTop: theme.spacing(3)
@@ -37,42 +37,35 @@ const VideoGrid = () => {
   } = useSelector(({ mediaGet }) => ({ mediaGet }));
 
   useEffect(() => {
-    getMedias('video');
+    getMedias('video', {});
   }, []);
 
   const handleFilter = () => {};
   const handleSearch = () => {};
 
   return (
-    <Page
-      className={classes.root}
-      title="Watch Videos"
-    >
+    <Page className={classes.root} title="Watch Videos">
       <Header />
-      <SearchBar
-        onFilter={handleFilter}
-        onSearch={handleSearch}
-      />
+      <SearchBar onFilter={handleFilter} onSearch={handleSearch} />
       <div className={classes.results}>
-        <Typography
-          color="textSecondary"
-          gutterBottom
-          variant="body2"
-        >
-          {medias.length} Records found. Page {page + 1} of {' '} 
+        <Typography color="textSecondary" gutterBottom variant="body2">
+          {medias.length} Records found. Page {page + 1} of{' '}
           {Math.ceil(medias.length / rowsPerPage)}
         </Typography>
         <Grid container spacing={3}>
-          {mediasLoading ? <Loading /> : 
-            medias.length > 0 &&
-          <>
-            {medias.map((item) => (
-              <Grid item key={item.id} lg={3} md={4} sm={6} xs={12}>
-                <VideoGridItem {...item} />
-              </Grid>
-            ))}
-          </>
-          }
+          {mediasLoading ? (
+            <Loading />
+          ) : (
+            medias.length > 0 && (
+              <>
+                {medias.map(item => (
+                  <Grid item key={item.id} lg={3} md={4} sm={6} xs={12}>
+                    <VideoGridItem {...item} />
+                  </Grid>
+                ))}
+              </>
+            )
+          )}
         </Grid>
       </div>
       <div className={classes.paginate}>

@@ -14,3 +14,4 @@ export const toUserAccess = accessLevel => {
 export const UPLOADED_FILE_NAME = 'file-name';
 export const audiosPath = `${process.env.REACT_APP_API_URL}/api/res/audios`;
 export const profilePicPath = `${process.env.REACT_APP_API_URL}/api/res/profiles`;
+export const imagesPath = `${process.env.REACT_APP_API_URL}/api/res/images`;
