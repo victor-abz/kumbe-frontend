@@ -46,7 +46,7 @@ const Blogs = ({ className }) => {
     message: '',
     blog: {}
   });
-  const [paginator, setPaginator] = useState({ pageSize: 20, pageNumber: 1 });
+  const [paginator, setPaginator] = useState({ pageSize: 10, pageNumber: 1 });
   const {
     blogPublish: { loading: publishing, loaded },
     blogsGet: { loading, blogs, totalItems }

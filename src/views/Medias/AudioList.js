@@ -24,16 +24,23 @@ const AudioList = () => {
   const { t } = useTranslation();
   const router = useRouter();
   const [openAddMedia, setOpenAddMedia] = useState(false);
-  const { loading, medias } = useSelector(({ mediaGet }) => mediaGet);
+  const [paginator, setPaginator] = useState({ pageSize: 10, pageNumber: 1 });
+  const { loading, medias, totalItems } = useSelector(
+    ({ mediaGet }) => mediaGet
+  );
   useEffect(() => {
-    getMedias('all', {});
-  }, []);
+    const { pageNumber, pageSize } = paginator;
+    getMedias('all', { pageSize, pageNumber });
+  }, [paginator]);
   const handleFilter = () => {};
   const handleSearch = () => {};
   const viewMedia = media => {
     const mediaRoute =
       media.type === 'video' ? `/watch/${media.id}` : '/listen';
     router.history.push(mediaRoute);
+  };
+  const onPageChage = ({ selected }) => {
+    setPaginator({ ...paginator, pageNumber: selected + 1 });
   };
   return (
     <Page className={classes.root} title={t('media:name')}>
@@ -49,7 +56,10 @@ const AudioList = () => {
             className={classes.results}
             columns={mediaColumns(t, viewMedia)}
             data={medias}
-            dataCount={medias.length}
+            dataCount={totalItems}
+            page={paginator.pageNumber}
+            pageCount={Math.ceil(totalItems / paginator.pageSize)}
+            handlePageChange={onPageChage}
             loading={loading}
             tableTitle={t('media:table_title')}
           />

@@ -21,24 +21,23 @@ import { useTableStyles } from './styles';
 import { Loading } from 'components/Loading';
 import { NoDisplayData } from 'components/NoDisplayData';
 import { GenericMoreButton } from 'components';
+import Paginate from 'components/Paginate';
 
 export const CustomisedTable = ({
   className,
   data = [],
   tableTitle = '',
   dataCount = 0,
+  pageCount = 0,
   page = 1,
   columns = [],
   selectedData = [],
-  rowsPerPage = 10,
-  pageOptions = [5, 10, 20],
   withSelect = false,
   loading = false,
   withPagination = true,
   handleSelectOne,
   handlePageChange,
   handleSelectAll,
-  handleRowsPerPageChange,
   size = 'medium'
 }) => {
   const classes = useTableStyles();
@@ -49,7 +48,7 @@ export const CustomisedTable = ({
   return (
     <div className={clsx(classes.root, className)}>
       <Typography color="textSecondary" gutterBottom variant="body2">
-        {data.length} Records found. Page {page} of {dataCount}
+        {dataCount} Records found. Page {page} of {pageCount}
       </Typography>
       <Card>
         <CardHeader action={<GenericMoreButton />} title={tableTitle} />
@@ -111,16 +110,13 @@ export const CustomisedTable = ({
             <NoDisplayData />
           )}
         </CardContent>
-        {data.length !== 0 && withPagination && (
+        {pageCount !== 0 && withPagination && (
           <CardActions className={classes.actions}>
-            <TablePagination
-              component="div"
-              count={dataCount}
-              onChangePage={handlePageChange}
-              onChangeRowsPerPage={handleRowsPerPageChange}
-              page={page}
-              rowsPerPage={rowsPerPage}
-              rowsPerPageOptions={pageOptions}
+            <Paginate
+              pageCount={pageCount}
+              pageRangeDisplayed={1}
+              marginPagesDisplayed={2}
+              onPageChange={handlePageChange}
             />
           </CardActions>
         )}
