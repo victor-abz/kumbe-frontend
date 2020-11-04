@@ -35,16 +35,18 @@ const BlogComments = () => {
     message: '',
     comment: {}
   });
+  const [paginator, setPaginator] = useState({ pageSize: 10, pageNumber: 1 });
   const {
-    commentsGet: { loading: fetching, comments },
+    commentsGet: { loading: fetching, comments, totalItems },
     commentApprove: { loading, loaded }
   } = useSelector(({ commentsGet, commentApprove }) => ({
     commentsGet,
     commentApprove
   }));
   useEffect(() => {
-    getComments({}, true);
-  }, []);
+    const { pageNumber, pageSize } = paginator;
+    getComments({ pageNumber, pageSize }, true);
+  }, [paginator]);
   useEffect(() => {
     if (loaded) {
       setCurrent({ open: false, message: '', comment: {} });
@@ -61,6 +63,9 @@ const BlogComments = () => {
       } comment from ${comment.user.username.toUpperCase()}`,
       comment
     });
+  };
+  const onPageChage = ({ selected }) => {
+    setPaginator({ ...paginator, pageNumber: selected + 1 });
   };
   const { id, approved } = current.comment;
   return (
@@ -86,7 +91,10 @@ const BlogComments = () => {
             className={classes.results}
             columns={commentsColumns(t, classes, onOpenCurrent)}
             data={comments}
-            dataCount={comments.length}
+            dataCount={totalItems}
+            page={paginator.pageNumber}
+            pageCount={Math.ceil(totalItems / paginator.pageSize)}
+            handlePageChange={onPageChage}
             loading={fetching}
             tableTitle={t('comment:view_title')}
           />

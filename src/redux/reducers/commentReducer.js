@@ -22,7 +22,8 @@ export const commentGetReducer = (
         ...state,
         loading: false,
         loaded: true,
-        comments: action.payload.data.data
+        comments: action.payload.data.data,
+        totalItems: action.payload.data.totalItems
       };
     case rejected(GET_COMMENTS):
     default:
