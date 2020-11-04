@@ -11,7 +11,6 @@ import {
   TableCell,
   TableHead,
   TableRow,
-  TablePagination,
   Typography,
   CardHeader,
   Divider
