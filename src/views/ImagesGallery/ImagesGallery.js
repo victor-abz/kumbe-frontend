@@ -3,7 +3,6 @@ import { getMedias } from 'redux/actions/media';
 import { useSelector } from 'react-redux';
 import { Loading } from 'components/Loading';
 import { imagesPath } from 'utils/constants';
-import 'react-image-gallery/styles/css/image-gallery.css';
 import { Page, Paginate } from 'components';
 import { useStyles } from './styles';
 import {

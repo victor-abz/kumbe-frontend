@@ -20,5 +20,10 @@ export const useStyles = makeStyles(theme => ({
   actions: {
     padding: theme.spacing(1),
     justifyContent: 'flex-end'
+  },
+  paginate: {
+    marginTop: theme.spacing(3),
+    display: 'flex',
+    justifyContent: 'center'
   }
 }));

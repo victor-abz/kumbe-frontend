@@ -1,9 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Page, SearchBar } from 'components';
-import { Header, Results } from './components';
-import { useSelector } from 'react-redux';
-import { getBlogs } from 'redux/actions/blog';
+import { Header, AdminBlogs } from './components';
 import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles(theme => ({
@@ -18,10 +16,6 @@ const useStyles = makeStyles(theme => ({
 const BlogManagementList = () => {
   const classes = useStyles();
   const { t } = useTranslation();
-  const { loading, blogs } = useSelector(({ blogsGet }) => blogsGet);
-  useEffect(() => {
-    getBlogs({ isAdmin: true });
-  }, []);
   const handleFilter = () => {};
   const handleSearch = () => {};
 
@@ -29,7 +23,7 @@ const BlogManagementList = () => {
     <Page className={classes.root} title={t('blog:view_title')}>
       <Header />
       <SearchBar onFilter={handleFilter} onSearch={handleSearch} />
-      <Results blogs={blogs} className={classes.results} loading={loading} />
+      <AdminBlogs className={classes.results} />
     </Page>
   );
 };

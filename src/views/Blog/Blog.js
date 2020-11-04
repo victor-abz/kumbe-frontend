@@ -33,8 +33,9 @@ const Blog = props => {
   }, [id]);
   useEffect(() => {
     if (loaded && blog.tags) {
-      const tagIds = blog.tags.map(tag => tag.id).toString();
-      getBlogs({ search: tagIds });
+      // const tagIds = blog.tags.map(tag => tag.id).toString();
+      // getBlogs({ search: tagIds });
+      getBlogs({ category: blog.categoryId });
     }
   }, [loaded, blog]);
   console.log('Blogs', blogs);
