@@ -259,6 +259,11 @@ const routes = [
         ]
       },
       {
+        path: '/about',
+        exact: true,
+        component: lazy(() => import('views/AboutUs'))
+      },
+      {
         component: () => <Redirect to="/errors/error-404" />
       }
     ]

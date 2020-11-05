@@ -48,7 +48,7 @@ export const navigationConfig = (t, categories = []) => {
         },
         {
           title: t('top_bar:about'),
-          href: '/#'
+          href: '/about'
         }
       ]
     },
