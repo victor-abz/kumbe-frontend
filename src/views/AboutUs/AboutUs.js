@@ -2,7 +2,6 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Page as AppPaper } from 'components';
 import { Grid, Paper, Typography } from '@material-ui/core';
-import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -31,7 +30,6 @@ const useStyles = makeStyles(theme => ({
 
 const AboutUs = () => {
   const classes = useStyles();
-  const { t } = useTranslation();
   return (
     <AppPaper className={classes.root} title="FAQ">
       <div className={classes.inner}>
