@@ -3,18 +3,18 @@ import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import { Card, Typography, Avatar, colors } from '@material-ui/core';
-import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
+import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
 
 import { Label } from 'components';
 import gradients from 'utils/gradients';
+import { useSelector } from 'react-redux';
 
 const useStyles = makeStyles(theme => ({
   root: {
     padding: theme.spacing(3),
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    backgroundColor: theme.palette.primary.light
+    justifyContent: 'space-between'
   },
   details: {
     display: 'flex',
@@ -25,51 +25,46 @@ const useStyles = makeStyles(theme => ({
     marginLeft: theme.spacing(1)
   },
   avatar: {
-    backgroundImage: gradients.green,
+    backgroundImage: gradients.blue,
     height: 48,
     width: 48
   }
 }));
 
-const TodaysMoney = props => {
+const NewProjects = props => {
   const { className, ...rest } = props;
 
   const classes = useStyles();
 
-  const data = {
-    value: '24,000',
-    currency: '$',
-    difference: '+4.5%'
-  };
+  const {
+    blogsGet: { totalItems }
+  } = useSelector(({ blogsGet }) => ({ blogsGet }));
 
   return (
     <Card {...rest} className={clsx(classes.root, className)}>
       <div>
         <Typography component="h3" gutterBottom variant="overline">
-          Question without answers
+          Total Blogs
         </Typography>
         <div className={classes.details}>
-          <Typography variant="h3">
-            {data.currency}
-            {data.value}
-          </Typography>
+          <Typography variant="h3">{totalItems}</Typography>
           <Label
             className={classes.label}
             color={colors.green[600]}
             variant="outlined">
-            {data.difference}
+            {'published'}
           </Label>
         </div>
       </div>
       <Avatar className={classes.avatar}>
-        <AttachMoneyIcon />
+        <LibraryBooksIcon />
       </Avatar>
     </Card>
   );
 };
 
-TodaysMoney.propTypes = {
+NewProjects.propTypes = {
   className: PropTypes.string
 };
 
-export default TodaysMoney;
+export default NewProjects;

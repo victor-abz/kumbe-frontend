@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import { Card, Typography, Avatar } from '@material-ui/core';
-import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
+import { Card, Typography, Avatar, colors } from '@material-ui/core';
+import ForumIcon from '@material-ui/icons/Forum';
+import { useSelector } from 'react-redux';
+import { getQuestions } from 'redux/actions/forum';
+import { Label } from 'components';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -24,6 +27,9 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.primary.main,
     height: 48,
     width: 48
+  },
+  label: {
+    marginLeft: theme.spacing(1)
   }
 }));
 
@@ -32,10 +38,13 @@ const RoiPerCustomer = props => {
 
   const classes = useStyles();
 
-  const data = {
-    value: '25.50',
-    currency: '$'
-  };
+  const {
+    qtnsGet: { totalItems }
+  } = useSelector(({ qtnsGet }) => ({ qtnsGet }));
+
+  useEffect(() => {
+    getQuestions({ pageNumber: 1, pageSize: 20 });
+  }, []);
 
   return (
     <Card {...rest} className={clsx(classes.root, className)}>
@@ -45,17 +54,22 @@ const RoiPerCustomer = props => {
           component="h3"
           gutterBottom
           variant="overline">
-          Questions Asked
+          All Questions
         </Typography>
         <div className={classes.details}>
           <Typography color="inherit" variant="h3">
-            {data.currency}
-            {data.value}
+            {totalItems}
           </Typography>
+          <Label
+            className={classes.label}
+            color={colors.purple[50]}
+            variant="outlined">
+            {'Total'}
+          </Label>
         </div>
       </div>
       <Avatar className={classes.avatar} color="inherit">
-        <AttachMoneyIcon />
+        <ForumIcon />
       </Avatar>
     </Card>
   );

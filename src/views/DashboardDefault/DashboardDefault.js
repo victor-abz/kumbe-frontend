@@ -5,12 +5,12 @@ import { Grid } from '@material-ui/core';
 import { Page } from 'components';
 import {
   Header,
-  NewProjects,
+  TotalBlogs,
   RealTime,
-  RoiPerCustomer,
+  TotalQuestions,
   LatestBlogs,
-  TodaysMoney,
-  SystemHealth,
+  QnWithNoAnswers,
+  TotalPartners,
   PerformanceOverTime,
   UsersList
 } from './components';
@@ -32,16 +32,16 @@ const DashboardDefault = () => {
       <Header />
       <Grid className={classes.container} container spacing={3}>
         <Grid item lg={3} sm={6} xs={12}>
-          <NewProjects />
+          <TotalBlogs />
         </Grid>
         <Grid item lg={3} sm={6} xs={12}>
-          <SystemHealth />
+          <TotalPartners />
         </Grid>
         <Grid item lg={3} sm={6} xs={12}>
-          <TodaysMoney />
+          <QnWithNoAnswers />
         </Grid>
         <Grid item lg={3} sm={6} xs={12}>
-          <RoiPerCustomer />
+          <TotalQuestions />
         </Grid>
         <Grid item lg={3} xs={12}>
           <RealTime />
