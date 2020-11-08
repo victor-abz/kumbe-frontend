@@ -28,56 +28,28 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const PerformanceOverTime = props => {
-  const { className, ...rest } = props;
+  const { className, pageviews, ...rest } = props;
 
+  let labels = [],
+    values = [];
+  if (pageviews.length > 0) {
+    const vals = pageviews[0][Object.keys(pageviews[0])[0]];
+    labels = vals.rows.map(val => val[0]);
+    values = vals.rows.map(val => val[1]);
+  }
   const classes = useStyles();
 
-  const data = {
-    thisWeek: {
-      data: [],
-      labels: []
-    },
-    thisMonth: {
-      data: [],
-      labels: []
-    },
-    thisYear: {
-      data: [10, 5, 11, 20, 13, 28, 18, 4, 13, 12, 13, 5],
-      labels: [
-        'Jan',
-        'Feb',
-        'Mar',
-        'Apr',
-        'May',
-        'Jun',
-        'Jul',
-        'Aug',
-        'Sep',
-        'Oct',
-        'Nov',
-        'Dec'
-      ]
-    }
-  };
-
   return (
-    <Card
-      {...rest}
-      className={clsx(classes.root, className)}
-    >
+    <Card {...rest} className={clsx(classes.root, className)}>
       <CardHeader
         action={<GenericMoreButton />}
-        title="Performance Over Time"
+        title="Performance This Month"
       />
       <Divider />
       <CardContent className={classes.content}>
         <PerfectScrollbar>
           <div className={classes.inner}>
-            <Chart
-              className={classes.chart}
-              data={data.thisYear.data}
-              labels={data.thisYear.labels}
-            />
+            <Chart className={classes.chart} data={values} labels={labels} />
           </div>
         </PerfectScrollbar>
       </CardContent>
