@@ -1,23 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Card,
-  CardActions,
   CardContent,
   CardHeader,
-  Button,
   Typography,
   List,
   ListItem,
   ListItemText
 } from '@material-ui/core';
-import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
 import gradients from 'utils/gradients';
-import { Chart } from './components';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -39,134 +35,48 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function getRandomInt(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
 const PageViews = props => {
-  const { className, ...rest } = props;
+  const { className, pageviews, ...rest } = props;
 
   const classes = useStyles();
 
-  const [data, setData] = useState([
-    163,
-    166,
-    161,
-    159,
-    99,
-    163,
-    173,
-    166,
-    167,
-    183,
-    176,
-    172
-  ]);
-
-  useEffect(() => {
-    let mounted = true;
-
-    setInterval(() => {
-      if (mounted) {
-        setData(data => {
-          const newData = [...data];
-
-          newData.shift();
-          newData.push(0);
-
-          return newData;
-        });
-      }
-
-      setTimeout(() => {
-        if (mounted) {
-          setData(data => {
-            const newData = [...data];
-            const random = getRandomInt(100, 200);
-
-            newData.pop();
-            newData.push(random);
-
-            return newData;
-          });
-        }
-      }, 500);
-    }, 2000);
-
-    return () => {
-      mounted = false;
-    };
-  }, []);
-
-  const labels = data.map((value, i) => i);
-
-  const pages = [
-    {
-      pathname: '/projects',
-      views: '24'
-    },
-    {
-      pathname: '/chat',
-      views: '21'
-    },
-    {
-      pathname: '/cart',
-      views: '15'
-    },
-    {
-      pathname: '/cart/checkout',
-      views: '8'
-    }
-  ];
+  let pages = [],
+    allViews;
+  if (pageviews.length > 0) {
+    const vals = pageviews[0][Object.keys(pageviews[0])[0]];
+    pages = vals.rows;
+    allViews = vals.totalsForAllResults['ga:pageviews'];
+  }
 
   return (
     <Card {...rest} className={clsx(classes.root, className)}>
       <CardHeader
         action={
           <Typography color="inherit" gutterBottom variant="h3">
-            {data[data.length - 1] === 0
-              ? data[data.length - 2]
-              : data[data.length - 1]}
+            {allViews}
           </Typography>
         }
+        subheader="Top 10 Most visited pages"
         subheaderTypographyProps={{ color: 'inherit' }}
         title="Total Page Views"
         titleTypographyProps={{ color: 'inherit' }}
       />
       <CardContent className={classes.content}>
-        {/* <Chart
-          data={data}
-          labels={labels}
-        /> */}
         <List>
-          {pages.map(page => (
+          {pages.slice(0, 10).map((page, index) => (
             <ListItem
               classes={{ divider: classes.itemDivider }}
               divider
-              key={page.pathname}>
+              key={`${page[1]} ${index}`}>
               <ListItemText
-                primary={page.pathname}
+                primary={page[1]}
                 primaryTypographyProps={{ color: 'inherit', variant: 'body1' }}
               />
-              <Typography color="inherit">{page.views}</Typography>
+              <Typography color="inherit">{page[2]}</Typography>
             </ListItem>
           ))}
         </List>
       </CardContent>
-      <CardActions className={classes.actions}>
-        <Button
-          color="inherit"
-          component={RouterLink}
-          size="small"
-          to="#"
-          variant="text">
-          See all
-          <ArrowForwardIcon className={classes.arrowForwardIcon} />
-        </Button>
-      </CardActions>
     </Card>
   );
 };
