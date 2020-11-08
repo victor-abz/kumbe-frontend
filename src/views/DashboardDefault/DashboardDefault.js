@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
+import moment from 'moment';
 
 import { Page } from 'components';
 import {
@@ -31,30 +32,52 @@ const useStyles = makeStyles(theme => ({
 const DashboardDefault = () => {
   const classes = useStyles();
 
+  var thirtyDaysAgo = new Date();
+  thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+  const [startDate, setStartDate] = useState(thirtyDaysAgo);
+  const [endDate, setEndDate] = useState(new Date());
+
   const {
     analyticsGet: { loading, loaded, analytics }
   } = useSelector(({ analyticsGet }) => ({ analyticsGet }));
 
+  const formattedDate = date => {
+    console.log('****', date);
+    if (moment.isMoment(date)) {
+      date = moment().toDate(date);
+      console.log('###', date);
+    }
+    return `${date.getFullYear()}-${('0' + (date.getMonth() + 1)).slice(-2)}-${(
+      '0' + date.getDate()
+    ).slice(-2)}`;
+  };
   useEffect(() => {
     let mounted = true;
-
     if (mounted) {
-      getAnalytics({});
+      console.log('>>>????', formattedDate(startDate));
+      getAnalytics({
+        startDate: formattedDate(startDate),
+        endDate: formattedDate(endDate)
+      });
     }
     return () => {
       mounted = false;
     };
-  }, []);
+  }, [startDate, endDate]);
 
   let pageViews = analytics.filter(analytic => analytic['Page Views']);
   let monthlyPageViews = analytics.filter(
     analytic => analytic['Page Views Monthly']
   );
-  console.log('<>>>>>>>>', analytics);
 
   return (
     <Page className={classes.root} title="Default Dashboard">
-      <Header />
+      <Header
+        endDate={endDate}
+        setEndDate={setEndDate}
+        setStartDate={setStartDate}
+        startDate={startDate}
+      />
       <Grid className={classes.container} container spacing={3}>
         <Grid item lg={3} sm={6} xs={12}>
           <TotalBlogs />
