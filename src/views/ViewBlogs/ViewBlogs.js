@@ -12,6 +12,7 @@ import { useTranslation } from 'react-i18next';
 const ViewBlogs = ({ match }) => {
   const classes = useStyles();
   const { t } = useTranslation();
+  const [searchVal, setSearchVal] = useState('');
   const [paginator, setPaginator] = useState({ pageSize: 20, pageNumber: 1 });
 
   const {
@@ -25,18 +26,24 @@ const ViewBlogs = ({ match }) => {
   useEffect(() => {
     const categoryId = id || '';
     const { pageNumber, pageSize } = paginator;
-    getBlogs({ category: categoryId, pageSize, pageNumber });
-  }, [id, paginator]);
+    getBlogs({ category: categoryId, pageSize, pageNumber, search: searchVal });
+  }, [id, paginator, searchVal]);
 
   const handleFilter = () => {};
-  const handleSearch = () => {};
   const onPageChage = ({ selected }) => {
     setPaginator({ ...paginator, pageNumber: selected + 1 });
   };
   return (
     <Page className={classes.root} title={t('blog:blog_browse')}>
       <Header />
-      <SearchBar onFilter={handleFilter} onSearch={handleSearch} />
+      <SearchBar
+        onFilter={handleFilter}
+        onSearch={({ target }) => setSearchVal(target.value)}
+        searchVal={searchVal}
+        data={[]}
+        loading
+        keyItem="name"
+      />
       <div className={classes.results}>
         <Typography color="textSecondary" gutterBottom variant="body2">
           {totalItems} Records found. Page {paginator.pageNumber} of{' '}

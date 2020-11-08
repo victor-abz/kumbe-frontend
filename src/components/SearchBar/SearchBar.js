@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
 
@@ -26,19 +25,13 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const SearchBar = props => {
-  const { onFilter, onSearch, className, ...rest } = props;
-
+const SearchBar = ({ onFilter, onSearch, className, ...rest }) => {
   const classes = useStyles();
 
   return (
-    <Grid
-      {...rest}
-      className={clsx(classes.root, className)}
-      container
-      spacing={3}>
+    <Grid className={classes.root} container spacing={3}>
       <Grid item>
-        <Search className={classes.search} onSearch={onSearch} />
+        <Search {...rest} className={classes.search} onSearch={onSearch} />
       </Grid>
       {/* <Grid item>
         <Button
