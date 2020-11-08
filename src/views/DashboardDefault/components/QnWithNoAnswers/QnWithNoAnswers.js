@@ -1,41 +1,53 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import { Card, Typography, Avatar } from '@material-ui/core';
-import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
+import { Card, Typography, Avatar, colors } from '@material-ui/core';
+import ContactSupportIcon from '@material-ui/icons/ContactSupport';
+
+import { useSelector } from 'react-redux';
+import { getQuestions } from 'redux/actions/forum';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    color: theme.palette.white,
-    backgroundColor: theme.palette.primary.main,
     padding: theme.spacing(3),
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    backgroundColor: colors.red[300]
   },
   details: {
     display: 'flex',
     alignItems: 'center',
     flexWrap: 'wrap'
   },
+  label: {
+    marginLeft: theme.spacing(1)
+  },
   avatar: {
     backgroundColor: theme.palette.white,
-    color: theme.palette.primary.main,
+    color: colors.red[300],
     height: 48,
     width: 48
   }
 }));
 
-const RoiPerCustomer = props => {
+const QnWithNoAnswers = props => {
   const { className, ...rest } = props;
 
   const classes = useStyles();
 
-  const data = {
-    value: '25.50',
-    currency: '$'
-  };
+  const {
+    qtnsGet: { questions }
+  } = useSelector(({ qtnsGet }) => ({ qtnsGet }));
+
+  useEffect(() => {
+    getQuestions({ pageNumber: 1, pageSize: 20 });
+  }, []);
+
+  const no_answer = questions.filter(question => {
+    return question.replies.length == 0;
+  });
 
   return (
     <Card {...rest} className={clsx(classes.root, className)}>
@@ -45,24 +57,23 @@ const RoiPerCustomer = props => {
           component="h3"
           gutterBottom
           variant="overline">
-          Questions Asked
+          Question without answers
         </Typography>
         <div className={classes.details}>
           <Typography color="inherit" variant="h3">
-            {data.currency}
-            {data.value}
+            {no_answer ? no_answer.length : 0}
           </Typography>
         </div>
       </div>
       <Avatar className={classes.avatar} color="inherit">
-        <AttachMoneyIcon />
+        <ContactSupportIcon />
       </Avatar>
     </Card>
   );
 };
 
-RoiPerCustomer.propTypes = {
+QnWithNoAnswers.propTypes = {
   className: PropTypes.string
 };
 
-export default RoiPerCustomer;
+export default QnWithNoAnswers;

@@ -21,7 +21,8 @@ export const partnersGetReducer = (
         ...state,
         loading: false,
         loaded: true,
-        partners: action.payload.data.data
+        partners: action.payload.data.data,
+        totalItems: action.payload.data.totalItems
       };
     case rejected(GET_PARTNERS):
     default:

@@ -58,6 +58,8 @@ import {
   faqsGetReducer
 } from './faqsReducer';
 
+import { analyticsReducer } from './analyticsReducer'; // Get analytics
+
 export default combineReducers({
   login: loginReducer,
   auth: authReducer,
@@ -101,5 +103,6 @@ export default combineReducers({
   faqsGet: faqsGetReducer,
   faqAdd: faqAddReducer,
   faqEdit: faqEditReducer,
-  faqRm: faqRmReducer
+  faqRm: faqRmReducer,
+  analyticsGet: analyticsReducer
 });

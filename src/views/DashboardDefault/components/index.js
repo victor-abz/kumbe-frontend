@@ -1,10 +1,11 @@
 export { default as Header } from './Header';
 export { default as LatestProjects } from './LatestProjects';
-export { default as NewProjects } from './NewProjects';
-export { default as RoiPerCustomer } from './RoiPerCustomer';
+export { default as TotalBlogs } from './TotalBlogs';
+export { default as TotalQuestions } from './TotalQuestions';
 export { default as LatestBlogs } from './LatestBlogs';
-export { default as TodaysMoney } from './TodaysMoney';
-export { default as SystemHealth } from './SystemHealth';
-export { default as RealTime } from './RealTime';
+export { default as QnWithNoAnswers } from './QnWithNoAnswers';
+export { default as TotalPartners } from './TotalPartners';
+export { default as PageViews } from './PageViews';
 export { default as PerformanceOverTime } from './PerformanceOverTime';
 export { default as UsersList } from './UsersList';
+export { default as DashboardCard } from './DashboardCard';
