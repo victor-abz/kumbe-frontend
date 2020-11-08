@@ -40,7 +40,7 @@ export const blogsGetReducer = (state = baseState('blogs', []), action) => {
     case pending(GET_BLOGS):
       return {
         ...state,
-        loading: false
+        loading: true
       };
     case fulfilled(GET_BLOGS):
       return {

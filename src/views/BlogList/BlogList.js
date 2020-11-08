@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Page, SearchBar } from 'components';
 import { Header, AdminBlogs } from './components';
@@ -16,14 +16,18 @@ const useStyles = makeStyles(theme => ({
 const BlogManagementList = () => {
   const classes = useStyles();
   const { t } = useTranslation();
+  const [searchVal, setSearchVal] = useState('');
   const handleFilter = () => {};
-  const handleSearch = () => {};
 
   return (
     <Page className={classes.root} title={t('blog:view_title')}>
       <Header />
-      <SearchBar onFilter={handleFilter} onSearch={handleSearch} />
-      <AdminBlogs className={classes.results} />
+      <SearchBar
+        onFilter={handleFilter}
+        onSearch={({ target }) => setSearchVal(target.value)}
+        searchVal={searchVal}
+      />
+      <AdminBlogs className={classes.results} searchVal={searchVal} />
     </Page>
   );
 };

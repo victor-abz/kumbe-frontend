@@ -37,7 +37,7 @@ import { getBlogs, publishBlog } from 'redux/actions/blog';
 import { Loading } from 'components/Loading';
 import { NoDisplayData } from 'components/NoDisplayData';
 
-const Blogs = ({ className }) => {
+const Blogs = ({ className, searchVal }) => {
   const classes = useStyles();
   const { t } = useTranslation();
   const [selectedBlogs, setSelectedBlogs] = useState([]);
@@ -55,9 +55,9 @@ const Blogs = ({ className }) => {
   useEffect(() => {
     const { pageNumber, pageSize } = paginator;
     setPublish({ ...publish, open: false });
-    getBlogs({ isAdmin: true, pageNumber, pageSize });
+    getBlogs({ isAdmin: true, pageNumber, pageSize, search: searchVal });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loaded, paginator]);
+  }, [loaded, paginator, searchVal]);
   const handleSelectAll = ({ target: { checked } }) => {
     const selectedBlogs = checked ? blogs.map(blog => blog.id) : [];
 
