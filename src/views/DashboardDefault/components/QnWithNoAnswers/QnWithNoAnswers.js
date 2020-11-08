@@ -5,8 +5,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Card, Typography, Avatar, colors } from '@material-ui/core';
 import ContactSupportIcon from '@material-ui/icons/ContactSupport';
 
-import { Label } from 'components';
-import gradients from 'utils/gradients';
 import { useSelector } from 'react-redux';
 import { getQuestions } from 'redux/actions/forum';
 
@@ -39,12 +37,6 @@ const QnWithNoAnswers = props => {
 
   const classes = useStyles();
 
-  const data = {
-    value: '24,000',
-    currency: '$',
-    difference: '+4.5%'
-  };
-
   const {
     qtnsGet: { questions }
   } = useSelector(({ qtnsGet }) => ({ qtnsGet }));
@@ -56,7 +48,6 @@ const QnWithNoAnswers = props => {
   const no_answer = questions.filter(question => {
     return question.replies.length == 0;
   });
-  console.log('<<<<<####', questions, no_answer);
 
   return (
     <Card {...rest} className={clsx(classes.root, className)}>

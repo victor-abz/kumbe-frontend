@@ -5,7 +5,7 @@ export { default as TotalQuestions } from './TotalQuestions';
 export { default as LatestBlogs } from './LatestBlogs';
 export { default as QnWithNoAnswers } from './QnWithNoAnswers';
 export { default as TotalPartners } from './TotalPartners';
-export { default as RealTime } from './RealTime';
+export { default as PageViews } from './PageViews';
 export { default as PerformanceOverTime } from './PerformanceOverTime';
 export { default as UsersList } from './UsersList';
 export { default as DashboardCard } from './DashboardCard';

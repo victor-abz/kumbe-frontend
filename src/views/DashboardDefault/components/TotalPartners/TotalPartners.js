@@ -5,7 +5,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Card, Typography, Avatar, colors } from '@material-ui/core';
 import BusinessIcon from '@material-ui/icons/Business';
 
-import gradients from 'utils/gradients';
 import { useSelector } from 'react-redux';
 import { Label } from 'components';
 import { Loading } from 'components/Loading';

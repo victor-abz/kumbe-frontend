@@ -138,10 +138,10 @@ const UsersList = props => {
         </List>
         <div className={classes.paginate}>
           <Paginate
-            pageCount={Math.ceil(totalItems / paginator.pageSize)}
-            pageRangeDisplayed={1}
             marginPagesDisplayed={2}
             onPageChange={onPageChage}
+            pageCount={Math.ceil(totalItems / paginator.pageSize)}
+            pageRangeDisplayed={1}
           />
         </div>
       </CardContent>

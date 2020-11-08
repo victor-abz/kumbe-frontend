@@ -59,3 +59,5 @@ export const GET_FAQS = 'GET_FAQS';
 export const CREATE_FAQ = 'CREATE_FAQ';
 export const EDIT_FAQ = 'EDIT_FAQ';
 export const DELETE_FAQ = 'DELETE_FAQ';
+
+export const GET_ANALYTICS = 'GET_ANALYTICS';

@@ -46,7 +46,7 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-const RealTime = props => {
+const PageViews = props => {
   const { className, ...rest } = props;
 
   const classes = useStyles();
@@ -123,39 +123,30 @@ const RealTime = props => {
   ];
 
   return (
-    <Card
-      {...rest}
-      className={clsx(classes.root, className)}
-    >
+    <Card {...rest} className={clsx(classes.root, className)}>
       <CardHeader
         action={
-          <Typography
-            color="inherit"
-            gutterBottom
-            variant="h3"
-          >
+          <Typography color="inherit" gutterBottom variant="h3">
             {data[data.length - 1] === 0
               ? data[data.length - 2]
               : data[data.length - 1]}
           </Typography>
         }
-        subheader="Page views per second"
         subheaderTypographyProps={{ color: 'inherit' }}
-        title="Active users"
+        title="Total Page Views"
         titleTypographyProps={{ color: 'inherit' }}
       />
       <CardContent className={classes.content}>
-        <Chart
+        {/* <Chart
           data={data}
           labels={labels}
-        />
+        /> */}
         <List>
           {pages.map(page => (
             <ListItem
               classes={{ divider: classes.itemDivider }}
               divider
-              key={page.pathname}
-            >
+              key={page.pathname}>
               <ListItemText
                 primary={page.pathname}
                 primaryTypographyProps={{ color: 'inherit', variant: 'body1' }}
@@ -171,8 +162,7 @@ const RealTime = props => {
           component={RouterLink}
           size="small"
           to="#"
-          variant="text"
-        >
+          variant="text">
           See all
           <ArrowForwardIcon className={classes.arrowForwardIcon} />
         </Button>
@@ -181,8 +171,8 @@ const RealTime = props => {
   );
 };
 
-RealTime.propTypes = {
+PageViews.propTypes = {
   className: PropTypes.string
 };
 
-export default RealTime;
+export default PageViews;

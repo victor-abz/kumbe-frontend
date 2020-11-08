@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
 
@@ -6,7 +6,7 @@ import { Page } from 'components';
 import {
   Header,
   TotalBlogs,
-  RealTime,
+  PageViews,
   TotalQuestions,
   LatestBlogs,
   QnWithNoAnswers,
@@ -14,6 +14,9 @@ import {
   PerformanceOverTime,
   UsersList
 } from './components';
+import { getAnalytics } from 'redux/actions/analytics';
+import { useSelector } from 'react-redux';
+import { Loading } from 'components/Loading';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -26,6 +29,16 @@ const useStyles = makeStyles(theme => ({
 
 const DashboardDefault = () => {
   const classes = useStyles();
+
+  const {
+    analyticsGet: { loading, loaded, analytics }
+  } = useSelector(({ analyticsGet }) => ({ analyticsGet }));
+
+  useEffect(() => {
+    getAnalytics({});
+  }, []);
+
+  console.log('<>>>>>>>>', analytics, loading, loaded);
 
   return (
     <Page className={classes.root} title="Default Dashboard">
@@ -43,12 +56,18 @@ const DashboardDefault = () => {
         <Grid item lg={3} sm={6} xs={12}>
           <TotalQuestions />
         </Grid>
-        <Grid item lg={3} xs={12}>
-          <RealTime />
-        </Grid>
-        <Grid item lg={9} xs={12}>
-          <PerformanceOverTime />
-        </Grid>
+        {loading ? (
+          <Loading />
+        ) : (
+          <>
+            <Grid item lg={3} xs={12}>
+              <PageViews />
+            </Grid>
+            <Grid item lg={9} xs={12}>
+              <PerformanceOverTime />
+            </Grid>
+          </>
+        )}
         <Grid item lg={5} xl={4} xs={12}>
           <LatestBlogs />
         </Grid>
@@ -56,8 +75,8 @@ const DashboardDefault = () => {
           <UsersList />
         </Grid>
         {/* <Grid item lg={7} xl={8} xs={12}>
-          <LatestProjects />
-        </Grid> */}
+              <LatestProjects />
+            </Grid> */}
       </Grid>
     </Page>
   );
