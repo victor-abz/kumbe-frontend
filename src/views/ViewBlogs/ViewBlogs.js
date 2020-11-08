@@ -40,9 +40,6 @@ const ViewBlogs = ({ match }) => {
         onFilter={handleFilter}
         onSearch={({ target }) => setSearchVal(target.value)}
         searchVal={searchVal}
-        data={[]}
-        loading
-        keyItem="name"
       />
       <div className={classes.results}>
         <Typography color="textSecondary" gutterBottom variant="body2">

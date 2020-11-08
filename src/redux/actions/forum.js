@@ -22,7 +22,8 @@ export const getQuestions = ({
   search = '',
   category = ''
 }) => {
-  let qtnParams = `category=${category}&search=${search}&pageSize=${pageSize}&page=${pageNumber}`;
+  let qtnParams = `category=${category}&search=${search}`;
+  qtnParams += `&pageSize=${pageSize}&page=${pageNumber}`;
   store.dispatch({
     type: GET_QUESTIONS,
     payload: http.get(`/questions?${qtnParams}`)

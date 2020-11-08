@@ -27,6 +27,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+const initialPaginate = { pageSize: 10, pageNumber: 1 };
 const BlogComments = () => {
   const classes = useStyles();
   const { t } = useTranslation();
@@ -35,7 +36,8 @@ const BlogComments = () => {
     message: '',
     comment: {}
   });
-  const [paginator, setPaginator] = useState({ pageSize: 10, pageNumber: 1 });
+  const [paginator, setPaginator] = useState(initialPaginate);
+  const [searchVal, setSearchVal] = useState('');
   const {
     commentsGet: { loading: fetching, comments, totalItems },
     commentApprove: { loading, loaded }
@@ -45,8 +47,8 @@ const BlogComments = () => {
   }));
   useEffect(() => {
     const { pageNumber, pageSize } = paginator;
-    getComments({ pageNumber, pageSize }, true);
-  }, [paginator]);
+    getComments({ pageNumber, pageSize, search: searchVal }, true);
+  }, [paginator, searchVal]);
   useEffect(() => {
     if (loaded) {
       setCurrent({ open: false, message: '', comment: {} });
@@ -54,7 +56,6 @@ const BlogComments = () => {
     }
   }, [loaded]);
   const handleFilter = () => {};
-  const handleSearch = () => {};
   const onOpenCurrent = comment => {
     setCurrent({
       open: true,
@@ -63,6 +64,10 @@ const BlogComments = () => {
       } comment from ${comment.user.username.toUpperCase()}`,
       comment
     });
+  };
+  const handleSearch = ({ target: { value } }) => {
+    setPaginator(() => initialPaginate);
+    setSearchVal(value);
   };
   const onPageChage = ({ selected }) => {
     setPaginator({ ...paginator, pageNumber: selected + 1 });
@@ -84,7 +89,11 @@ const BlogComments = () => {
           </Typography>
         </Grid>
       </Grid>
-      <SearchBar onFilter={handleFilter} onSearch={handleSearch} />
+      <SearchBar
+        onFilter={handleFilter}
+        onSearch={handleSearch}
+        searchVal={searchVal}
+      />
       <Grid container>
         <Grid item md={12} xs={12}>
           <CustomisedTable

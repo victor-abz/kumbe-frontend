@@ -22,10 +22,11 @@ export const addMedia = (newMedia = {}) => {
 };
 export const getMedias = (
   mediaType = 'all',
-  { pageSize = 20, pageNumber = 1 }
+  { pageSize = 20, pageNumber = 1, search = '' }
 ) => {
   let params = `?mediaType=${mediaType}`;
   params += `&pageSize=${pageSize}&page=${pageNumber}`;
+  params += `&search=${search}`;
   store.dispatch({
     type: GET_MEDIAS,
     payload: http.get(`/medias${params}`)

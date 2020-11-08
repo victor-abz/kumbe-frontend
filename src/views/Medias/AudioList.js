@@ -19,21 +19,22 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+const initialPaginate = { pageSize: 10, pageNumber: 1 };
 const AudioList = () => {
   const classes = useStyles();
   const { t } = useTranslation();
   const router = useRouter();
   const [openAddMedia, setOpenAddMedia] = useState(false);
-  const [paginator, setPaginator] = useState({ pageSize: 10, pageNumber: 1 });
+  const [searchVal, setSearchVal] = useState('');
+  const [paginator, setPaginator] = useState(initialPaginate);
   const { loading, medias, totalItems } = useSelector(
     ({ mediaGet }) => mediaGet
   );
   useEffect(() => {
     const { pageNumber, pageSize } = paginator;
-    getMedias('all', { pageSize, pageNumber });
-  }, [paginator]);
+    getMedias('all', { pageSize, pageNumber, search: searchVal });
+  }, [paginator, searchVal]);
   const handleFilter = () => {};
-  const handleSearch = () => {};
   const viewMedia = media => {
     const mediaRoute =
       media.type === 'video' ? `/watch/${media.id}` : '/listen';
@@ -42,6 +43,10 @@ const AudioList = () => {
   const onPageChage = ({ selected }) => {
     setPaginator({ ...paginator, pageNumber: selected + 1 });
   };
+  const onHandleSearch = ({ target: { value } }) => {
+    setPaginator(() => initialPaginate);
+    setSearchVal(value);
+  };
   return (
     <Page className={classes.root} title={t('media:name')}>
       <AddMediaDialog
@@ -49,7 +54,11 @@ const AudioList = () => {
         setOpen={() => setOpenAddMedia(false)}
       />
       <Header setOpenAddMedia={() => setOpenAddMedia(true)} />
-      <SearchBar onFilter={handleFilter} onSearch={handleSearch} />
+      <SearchBar
+        onFilter={handleFilter}
+        onSearch={onHandleSearch}
+        searchVal={searchVal}
+      />
       <Grid container>
         <Grid item md={12} xs={12}>
           <CustomisedTable

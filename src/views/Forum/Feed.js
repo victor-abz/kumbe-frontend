@@ -34,9 +34,11 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+const initialPaginate = { pageSize: 20, pageNumber: 1 };
 const Feed = () => {
   const classes = useStyles();
-  const [paginator, setPaginator] = useState({ pageSize: 20, pageNumber: 1 });
+  const [paginator, setPaginator] = useState(initialPaginate);
+  const [searchVal, setSearchVal] = useState('');
   const {
     qtnsGet: { loading, questions, totalItems },
     qtnAdd: { loading: sending, loaded },
@@ -52,16 +54,23 @@ const Feed = () => {
   useEffect(() => {
     const categoryId = id || '';
     const { pageNumber, pageSize } = paginator;
-    getQuestions({ category: categoryId, pageNumber, pageSize });
-  }, [id, paginator]);
+    getQuestions({
+      category: categoryId,
+      pageNumber,
+      pageSize,
+      search: searchVal
+    });
+  }, [id, paginator, searchVal]);
 
   useEffect(() => {
     if (loaded) {
-      getQuestions({ pageNumber: 1, pageSize: 20 });
+      getQuestions(initialPaginate);
     }
   }, [loaded]);
-  const handleFilter = () => {};
-  const handleSearch = () => {};
+  const handleSearch = ({ target: { value } }) => {
+    setPaginator(() => initialPaginate);
+    setSearchVal(value);
+  };
   const onPageChage = ({ selected }) => {
     setPaginator({ ...paginator, pageNumber: selected + 1 });
   };
@@ -69,8 +78,8 @@ const Feed = () => {
     <Page className={classes.root} title="Social Feed">
       <SearchBar
         className={classes.search}
-        onFilter={handleFilter}
         onSearch={handleSearch}
+        searchVal={searchVal}
       />
       <AddPost
         className={classes.newPost}
