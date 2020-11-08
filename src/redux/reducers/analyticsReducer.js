@@ -15,17 +15,16 @@ export const analyticsReducer = (
     case fulfilled(GET_ANALYTICS):
       return {
         ...state,
-        analyticLoading: false,
         loading: false,
         loaded: true,
         analytics: action.payload.data.data
       };
     case rejected(GET_ANALYTICS):
-    default:
       return {
         ...state,
-        loading: false,
-        analyticLoading: false
+        loading: false
       };
+    default:
+      return state;
   }
 };

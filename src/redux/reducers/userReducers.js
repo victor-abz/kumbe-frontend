@@ -20,9 +20,6 @@ export const usersGetReducer = (state = usersState, action) => {
       };
     case rejected(GET_USERS):
     default:
-      return {
-        ...state,
-        loading: false
-      };
+      return state;
   }
 };
