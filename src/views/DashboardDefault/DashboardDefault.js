@@ -17,7 +17,6 @@ import {
 } from './components';
 import { getAnalytics } from 'redux/actions/analytics';
 import { useSelector } from 'react-redux';
-import { Loading } from 'components/Loading';
 import Skeleton from '@material-ui/lab/Skeleton';
 
 const useStyles = makeStyles(theme => ({
@@ -38,14 +37,12 @@ const DashboardDefault = () => {
   const [endDate, setEndDate] = useState(new Date());
 
   const {
-    analyticsGet: { loading, loaded, analytics }
+    analyticsGet: { loading, analytics }
   } = useSelector(({ analyticsGet }) => ({ analyticsGet }));
 
   const formattedDate = date => {
-    console.log('****', date);
     if (moment.isMoment(date)) {
       date = moment().toDate(date);
-      console.log('###', date);
     }
     return `${date.getFullYear()}-${('0' + (date.getMonth() + 1)).slice(-2)}-${(
       '0' + date.getDate()
@@ -54,7 +51,6 @@ const DashboardDefault = () => {
   useEffect(() => {
     let mounted = true;
     if (mounted) {
-      console.log('>>>????', formattedDate(startDate));
       getAnalytics({
         startDate: formattedDate(startDate),
         endDate: formattedDate(endDate)
@@ -92,7 +88,6 @@ const DashboardDefault = () => {
           <TotalQuestions />
         </Grid>
         {loading ? (
-          //   <Loading />
           <>
             <Grid item lg={4} xs={12}>
               <Skeleton animation="wave" width="80%" />
@@ -121,9 +116,6 @@ const DashboardDefault = () => {
         <Grid item lg={7} xl={8} xs={12}>
           <UsersList />
         </Grid>
-        {/* <Grid item lg={7} xl={8} xs={12}>
-              <LatestProjects />
-            </Grid> */}
       </Grid>
     </Page>
   );

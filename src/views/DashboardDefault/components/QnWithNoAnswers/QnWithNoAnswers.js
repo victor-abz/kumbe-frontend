@@ -46,7 +46,7 @@ const QnWithNoAnswers = props => {
   }, []);
 
   const no_answer = questions.filter(question => {
-    return question.replies.length == 0;
+    return question.replies.length === 0;
   });
 
   return (

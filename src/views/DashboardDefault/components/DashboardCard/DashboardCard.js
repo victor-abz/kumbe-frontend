@@ -42,9 +42,6 @@ const SystemHealth = props => {
 
   const classes = useStyles();
 
-  const data = {
-    value: 97
-  };
   const {
     partnersGet: { totalItems, loading }
   } = useSelector(({ partnersGet }) => ({ partnersGet }));

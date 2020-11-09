@@ -1,14 +1,9 @@
-/* eslint-disable no-extra-boolean-cast */
-/* eslint-disable react/jsx-sort-props */
-/* eslint-disable no-unused-vars */
-import React, { useState, useRef, useEffect } from 'react';
-import { Link, Link as RouterLink, NavLink } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, Link as RouterLink } from 'react-router-dom';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { useStyles } from '../../styles';
-import Color from 'color';
 import { getCategories } from 'redux/actions/category';
-import { getProducts } from 'redux/actions/product';
 
 import {
   AppBar,
@@ -24,10 +19,8 @@ import {
   MenuItem,
   Menu
 } from '@material-ui/core';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
 import InputIcon from '@material-ui/icons/Input';
-import { Column, Row, Item } from '@mui-treasury/components/flex';
-import LockIcon from '@material-ui/icons/LockOutlined';
+import { Row, Item } from '@mui-treasury/components/flex';
 import MenuIcon from '@material-ui/icons/Menu';
 import TranslateIcon from '@material-ui/icons/Translate';
 
@@ -98,7 +91,7 @@ const TopBar = props => {
   };
 
   const {
-    categoryGet: { loaded, categories }
+    categoryGet: { categories }
   } = useSelector(({ categoryGet }) => ({
     categoryGet
   }));
@@ -175,6 +168,7 @@ const TopBar = props => {
                       <RouterLink
                         aria-controls={`popup-${menu.href}`}
                         key={index}
+                        to="#"
                         onClick={e => handleClick(index, e)}>
                         <Item
                           className={
