@@ -39,10 +39,6 @@ export const navigationConfig = (t, categories = []) => {
           children: blogSubmenu
         },
         {
-          title: t('top_bar:mix'),
-          href: '/#'
-        },
-        {
           title: t('top_bar:faq'),
           href: '/faq'
         },
