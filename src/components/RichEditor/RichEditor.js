@@ -44,11 +44,12 @@ const useStyles = makeStyles(theme => ({
   },
   editor: {
     padding: theme.spacing(2),
+    height: 300,
     color: theme.palette.text.primary
   }
 }));
 
-function DraftEditor({ className, ...rest }) {
+const DraftEditor = ({ className, setEditorState, editorState }) => {
   const classes = useStyles();
   const [prevFile, setPrevFile] = useState('');
 
@@ -82,20 +83,23 @@ function DraftEditor({ className, ...rest }) {
       wrapperClassName={clsx(classes.root, className)}
       toolbarClassName={classes.toolbar}
       editorClassName={classes.editor}
+      onEditorStateChange={setEditorState}
+      editorState={editorState}
       toolbar={{
-        inline: { inDropdown: false },
+        inline: { inDropdown: true },
         list: { inDropdown: true },
         textAlign: { inDropdown: true },
         link: { inDropdown: true },
-        history: { inDropdown: false },
+        history: { inDropdown: true },
         image: {
           uploadCallback: onImageUpload,
-          alt: { present: true, mandatory: true }
+          alt: { present: true, mandatory: true },
+          defaultSize: { height: 300, width: 500 }
         }
       }}
     />
   );
-}
+};
 
 DraftEditor.propTypes = {
   className: PropTypes.string

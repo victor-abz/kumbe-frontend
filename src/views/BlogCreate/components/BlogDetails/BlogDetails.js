@@ -8,10 +8,9 @@ import { RichEditor } from 'components';
 import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles(theme => ({
-  root: { minHeight: '100%' },
   editorContainer: {
     backgroundColor: theme.palette.background.dark,
-    minHeight: '100%',
+    minHeight: '200%',
     paddingTop: theme.spacing(3),
     paddingBottom: theme.spacing(3)
   }
