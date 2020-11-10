@@ -1,130 +1,104 @@
-import React, { useRef } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
-import {
-  Editor,
-  EditorState,
-  RichUtils,
-  Modifier,
-  getDefaultKeyBinding
-} from 'draft-js';
-import { Divider } from '@material-ui/core';
+import { Editor } from 'react-draft-wysiwyg';
+import { makeStyles } from '@material-ui/core';
+import { http } from 'utils/http';
+import { notifier } from 'utils/notifier';
+import { imagesPath } from 'utils/constants';
 
-import { EditorToolbar } from './components';
-import { blockRenderMap } from './utils';
-import { useStyles } from './styles';
-
-const capitalize = string => string.charAt(0).toUpperCase() + string.slice(1);
-
-const RichEditor = props => {
-  const {
-    placeholder,
-    editorState,
-    setEditorState,
-    className,
-    ...rest
-  } = props;
-
-  const classes = useStyles();
-
-  const editorRef = useRef(null);
-
-  const handleContainerClick = () => {
-    editorRef.current.focus();
-  };
-
-  const handleToolbarToggle = (type, value) => {
-    if (type === 'blockType') {
-      if (['left', 'center', 'right', 'justify'].includes(value)) {
-        const newContentState = Modifier.setBlockData(
-          editorState.getCurrentContent(),
-          editorState.getSelection(),
-          { 'text-align': value }
-        );
-
-        const newEditorState = EditorState.push(
-          editorState,
-          newContentState,
-          'change-block-data'
-        );
-
-        setEditorState(newEditorState);
-        return;
+const useStyles = makeStyles(theme => ({
+  root: {
+    fontFamily: theme.typography.fontFamily,
+    '& .rdw-option-wrapper': {
+      background: 'transparent',
+      border: 'none',
+      minWidth: 26,
+      padding: 6,
+      '&:hover': {
+        boxShadow: 'none',
+        backgroundColor: theme.palette.action.hover
       }
-
-      setEditorState(RichUtils.toggleBlockType(editorState, value));
-    } else {
-      setEditorState(RichUtils.toggleInlineStyle(editorState, value));
+    },
+    '& .rdw-option-active': {
+      boxShadow: 'none',
+      backgroundColor: theme.palette.action.selected
+    },
+    '& .rdw-dropdown-wrapper': {
+      boxShadow: 'none',
+      background: 'transparent'
+    },
+    '& .rdw-dropdown-optionwrapper': {
+      overflowY: 'auto',
+      boxShadow: theme.shadows[10],
+      padding: theme.spacing(1)
     }
-  };
-
-  const handleEditorChange = editorState => {
-    setEditorState(editorState);
-  };
-
-  const handleKeyCommand = (command, editorState) => {
-    const newState = RichUtils.handleKeyCommand(editorState, command);
-
-    if (newState) {
-      handleEditorChange(newState);
-      return true;
-    }
-
-    return false;
-  };
-
-  const mapKeyToEditorCommand = event => {
-    if (event.keyCode === 9) {
-      const newEditorState = RichUtils.onTab(event, editorState, 4);
-
-      if (newEditorState !== editorState) {
-        handleEditorChange(newEditorState);
-      }
-
-      return;
-    }
-
-    return getDefaultKeyBinding(event);
-  };
-
-  function blockStyleFn(contentBlock) {
-    const textAlign = contentBlock.getData().get('text-align');
-
-    if (textAlign) {
-      const className = `textAlign${capitalize(textAlign)}`;
-
-      return classes[className];
-    }
-
-    return '';
+  },
+  toolbar: {
+    marginBottom: 0,
+    borderLeft: 'none',
+    borderTop: 'none',
+    borderRight: 'none',
+    borderBottom: `1px solid ${theme.palette.divider}`,
+    background: 'transparent'
+  },
+  editor: {
+    padding: theme.spacing(2),
+    color: theme.palette.text.primary
   }
+}));
 
+function DraftEditor({ className, ...rest }) {
+  const classes = useStyles();
+  const [prevFile, setPrevFile] = useState('');
+
+  const onImageUpload = file => {
+    return new Promise((resolve, reject) => {
+      const formData = new FormData();
+      formData.append('file', file);
+      const params = prevFile ? `image?prevFile=${prevFile}` : 'image';
+      http
+        .post(`/upload/${params}`, formData)
+        .then(res => {
+          const fileName = res.data.data;
+          setPrevFile(fileName);
+          resolve({ data: { url: `${imagesPath}/${fileName}` } });
+        })
+        .catch(error => {
+          let errorMessage = '';
+          if (error.response) {
+            const { error: apiError, message } = error.response.data;
+            errorMessage = apiError || message;
+          } else {
+            errorMessage = error.message;
+          }
+          notifier.error(errorMessage);
+          reject(errorMessage);
+        });
+    });
+  };
   return (
-    <div {...rest} className={clsx(classes.root, className)}>
-      <EditorToolbar editorState={editorState} onToggle={handleToolbarToggle} />
-      <Divider />
-      <div className={classes.editorContainer} onClick={handleContainerClick}>
-        <Editor
-          blockRenderMap={blockRenderMap}
-          blockStyleFn={blockStyleFn}
-          editorState={editorState}
-          handleKeyCommand={handleKeyCommand}
-          keyBindingFn={mapKeyToEditorCommand}
-          onChange={handleEditorChange}
-          placeholder={placeholder}
-          ref={editorRef}
-          spellCheck
-        />
-      </div>
-    </div>
+    <Editor
+      wrapperClassName={clsx(classes.root, className)}
+      toolbarClassName={classes.toolbar}
+      editorClassName={classes.editor}
+      toolbar={{
+        inline: { inDropdown: false },
+        list: { inDropdown: true },
+        textAlign: { inDropdown: true },
+        link: { inDropdown: true },
+        history: { inDropdown: false },
+        image: {
+          uploadCallback: onImageUpload,
+          alt: { present: true, mandatory: true }
+        }
+      }}
+    />
   );
+}
+
+DraftEditor.propTypes = {
+  className: PropTypes.string
 };
 
-RichEditor.propTypes = {
-  className: PropTypes.string,
-  editorState: PropTypes.object,
-  placeholder: PropTypes.string,
-  setEditorState: PropTypes.func
-};
-
-export default RichEditor;
+export default DraftEditor;

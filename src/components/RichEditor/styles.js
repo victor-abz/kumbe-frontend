@@ -1,67 +1,56 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles(theme => ({
-  root: {},
-  editorContainer: {
-    padding: theme.spacing(2),
-    minHeight: 400,
-    '& .public-DraftEditorPlaceholder-root': {
-      ...theme.typography.body2
-    },
-    '& .public-DraftEditorPlaceholder-hasFocus': {
-      display: 'none'
-    },
-    '& .public-DraftEditor-content': {
-      '& p': {
-        ...theme.typography.body1
-      },
-      '& h1': {
-        ...theme.typography.h1
-      },
-      '& h2': {
-        ...theme.typography.h2
-      },
-      '& h3': {
-        ...theme.typography.h3
-      },
-      '& h4': {
-        ...theme.typography.h4
-      },
-      '& h5': {
-        ...theme.typography.h5
-      },
-      '& h6': {
-        ...theme.typography.h6
-      },
-      '& blockquote': {
-        ...theme.typography.subtitle1
-      },
-      '& ul': {
-        ...theme.typography.body1,
-        marginLeft: theme.spacing(4)
-      },
-      '& ol': {
-        ...theme.typography.body1,
-        marginLeft: theme.spacing(4)
-      },
-      '& pre': {
-        backgroundColor: 'rgba(0, 0, 0, 0.05)',
-        fontFamily: '"Inconsolata", "Menlo", "Consolas", monospace',
-        fontSize: 16,
-        padding: 2
+  root: {
+    fontFamily: theme.typography.fontFamily,
+    '& .rdw-option-wrapper': {
+      background: 'transparent',
+      border: 'none',
+      minWidth: 26,
+      padding: 6,
+      '&:hover': {
+        boxShadow: 'none',
+        backgroundColor: theme.palette.action.hover
       }
+    },
+    '& .rdw-option-active': {
+      boxShadow: 'none',
+      backgroundColor: theme.palette.action.selected
+    },
+    '& .rdw-dropdown-wrapper': {
+      boxShadow: 'none',
+      background: 'transparent'
+    },
+    '& .rdw-dropdown-optionwrapper': {
+      overflowY: 'auto',
+      boxShadow: theme.shadows[10],
+      padding: theme.spacing(1)
     }
   },
-  textAlignLeft: {
-    textAlign: 'left'
+  toolbar: {
+    marginBottom: 0,
+    borderLeft: 'none',
+    borderTop: 'none',
+    borderRight: 'none',
+    borderBottom: `1px solid ${theme.palette.divider}`,
+    background: 'transparent'
   },
-  textAlignCenter: {
-    textAlign: 'center'
-  },
-  textAlignRight: {
-    textAlign: 'right'
-  },
-  textAlignJustify: {
-    textAlign: 'justify'
+  editor: {
+    padding: theme.spacing(2),
+    color: theme.palette.text.primary
   }
 }));
+// const onImageUpload = file => {
+//   return new Promise((resolve, reject) => {
+//     const data = new FormData();
+//     data.append('file', file);
+//     http
+//       .post('/upload', file)
+//       .then(res => {
+//         resolve({ data: { url: res.data.data } });
+//       })
+//       .catch(error => {
+//         reject(error.data.data);
+//       });
+//   });
+// };
