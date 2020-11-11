@@ -94,6 +94,7 @@ const ProjectCreate = ({ match }) => {
     setBlogTags(selectedTags);
     setBlog({ ...blog, tags: selectedTags.map(({ id }) => id) });
   };
+  const onChangeEditor = eState => setEditorState(eState);
   const onSaveBlog = () => {
     blog.content = stateToHTML(editorState.getCurrentContent());
     if (blogSlug) {
@@ -119,7 +120,7 @@ const ProjectCreate = ({ match }) => {
       <BlogDetails
         className={classes.projectDetails}
         editorState={editorState}
-        setEditorState={setEditorState}
+        setEditorState={onChangeEditor}
       />
       {/* <Preferences className={classes.preferences} /> */}
       <div className={classes.actions}>

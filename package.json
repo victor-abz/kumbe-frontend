@@ -74,6 +74,7 @@
     "react-big-calendar": "^0.22.0",
     "react-chartjs-2": "^2.7.4",
     "react-dom": "^16.8.6",
+    "react-draft-wysiwyg": "^1.14.5",
     "react-dropzone": "^10.1.5",
     "react-feather": "^2.0.8",
     "react-google-font-loader": "^1.1.0",
