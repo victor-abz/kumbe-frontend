@@ -86,11 +86,19 @@ const DraftEditor = ({ className, setEditorState, editorState }) => {
       onEditorStateChange={setEditorState}
       editorState={editorState}
       toolbar={{
+        options: [
+          'inline',
+          'blockType',
+          'fontSize',
+          'fontFamily',
+          'list',
+          'textAlign',
+          'image',
+          'history'
+        ],
         inline: { inDropdown: true },
         list: { inDropdown: true },
         textAlign: { inDropdown: true },
-        link: { inDropdown: true },
-        history: { inDropdown: true },
         image: {
           uploadCallback: onImageUpload,
           alt: { present: true, mandatory: true },
