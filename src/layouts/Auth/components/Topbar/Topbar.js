@@ -169,7 +169,8 @@ const TopBar = props => {
                         aria-controls={`popup-${menu.href}`}
                         key={index}
                         to="#"
-                        onClick={e => handleClick(index, e)}>
+                        onClick={e => handleClick(index, e)}
+                        onMouseEnter={e => handleClick(index, e)}>
                         <Item
                           className={
                             anchorEl && Boolean(anchorEl[index])
@@ -184,14 +185,15 @@ const TopBar = props => {
                       <StyledMenu
                         id={`popup-${menu.href}`}
                         anchorEl={anchorEl && anchorEl[index]}
-                        keepMounted
                         open={anchorEl && Boolean(anchorEl[index])}
                         onClose={handleClose}>
-                        {menu.children.map((child, index) => (
-                          <RouterLink key={index} to={child.href}>
-                            <StyledMenuItem>{child.title}</StyledMenuItem>
-                          </RouterLink>
-                        ))}
+                        <div onMouseLeave={handleClose} onClick={handleClose}>
+                          {menu.children.map((child, index) => (
+                            <RouterLink key={index} to={child.href}>
+                              <StyledMenuItem>{child.title}</StyledMenuItem>
+                            </RouterLink>
+                          ))}
+                        </div>
                       </StyledMenu>
                     </>
                   ) : (
