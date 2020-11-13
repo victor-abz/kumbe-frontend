@@ -11,11 +11,9 @@ import {
   Button
 } from '@material-ui/core';
 
-const Banner = props => {
+const Banner = ({ contentPosition: ctPostion, item }) => {
   const classes = useStyles();
-  const contentPosition = props.contentPosition
-    ? props.contentPosition
-    : 'left';
+  const contentPosition = ctPostion ? ctPostion : 'left';
 
   let items = [];
   const content = (
@@ -24,19 +22,19 @@ const Banner = props => {
       item
       key="content"
       md={6}
-      style={{ background: `${props.item.backgroundColor}` }}
+      style={{ background: `${item.backgroundColor}` }}
       xs={12}>
       <CardContent className={classes.bannerText}>
         <Typography
           className={classes.title}
-          style={{ color: `${props.item.titleColor}` }}>
-          {props.item.Name}
+          style={{ color: `${item.titleColor}` }}>
+          {item.Name}
         </Typography>
 
         <Typography
           className={classes.caption}
-          style={{ color: `${props.item.captionColor}` }}>
-          {props.item.Caption}
+          style={{ color: `${item.captionColor}` }}>
+          {item.Caption}
         </Typography>
 
         <Button
@@ -47,7 +45,7 @@ const Banner = props => {
           type="submit"
           variant="contained"
           to="/blogs">
-          View More
+          {item.btnText}
         </Button>
       </CardContent>
     </Grid>
@@ -55,7 +53,7 @@ const Banner = props => {
 
   const media = (
     <Grid item md={6} xs={12}>
-      <CardMedia className={classes.media} image={props.item.image} />
+      <CardMedia className={classes.media} image={item.image} />
     </Grid>
   );
 
