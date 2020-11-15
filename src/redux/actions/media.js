@@ -10,7 +10,7 @@ import {
 export const addMedia = (newMedia = {}) => {
   let mediaObj = newMedia;
   if (newMedia.type === 'image') {
-    mediaObj = { ...newMedia, title: 'Image', description: 'Image' };
+    mediaObj = { ...newMedia, description: 'Image' };
   }
   if (newMedia.type !== 'image') {
     delete mediaObj.imageType;
@@ -22,11 +22,14 @@ export const addMedia = (newMedia = {}) => {
 };
 export const getMedias = (
   mediaType = 'all',
-  { pageSize = 20, pageNumber = 1, search = '' }
+  { pageSize = 20, pageNumber = 1, search = '', byLanguage = null }
 ) => {
   let params = `?mediaType=${mediaType}`;
   params += `&pageSize=${pageSize}&page=${pageNumber}`;
   params += `&search=${search}`;
+  if (byLanguage) {
+    params += `&byLanguage=${byLanguage}`;
+  }
   store.dispatch({
     type: GET_MEDIAS,
     payload: http.get(`/medias${params}`)

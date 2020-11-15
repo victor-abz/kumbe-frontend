@@ -89,19 +89,17 @@ export const AddMediaDialog = ({ open, setOpen }) => {
       <DialogContent>
         <DialogContentText>{t('media:dialog_description')}</DialogContentText>
         <Grid container spacing={3}>
-          {values.type !== 'image' ? (
-            <Grid item md={6} xs={12}>
-              <TextField
-                autoFocus
-                fullWidth
-                label={t('media:input_title')}
-                margin="dense"
-                name="title"
-                onChange={onHandleChange}
-                value={values.name}
-              />
-            </Grid>
-          ) : null}
+          <Grid item md={6} xs={12}>
+            <TextField
+              autoFocus
+              fullWidth
+              label={t('media:input_title')}
+              margin="dense"
+              name="title"
+              onChange={onHandleChange}
+              value={values.name}
+            />
+          </Grid>
           <Grid item md={6} xs={12}>
             <FormControl fullWidth>
               <InputLabel id="media-type">{t('media:input_type')}</InputLabel>

@@ -25,7 +25,7 @@ export const HomeImages = React.memo(function HighlightCard() {
   const gridStyles = useGridStyles();
   const { medias, loading } = useSelector(({ mediaGet }) => mediaGet);
   useEffect(() => {
-    getMedias('image', { pageSize: 4 });
+    getMedias('image', { pageSize: 4, byLanguage: 'yes' });
   }, []);
   return (
     <Grid classes={gridStyles} container spacing={2}>
