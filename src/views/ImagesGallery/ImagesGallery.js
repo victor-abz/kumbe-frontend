@@ -27,7 +27,7 @@ const ImagesGallery = () => {
 
   useEffect(() => {
     const { pageNumber, pageSize } = paginator;
-    getMedias('image', { pageNumber, pageSize });
+    getMedias('image', { pageNumber, pageSize, byLanguage: 'yes' });
   }, [paginator]);
 
   const onPageChage = ({ selected }) => {

@@ -31,7 +31,7 @@ const useStyles = makeStyles(theme => ({
 const AboutUs = () => {
   const classes = useStyles();
   return (
-    <AppPaper className={classes.root} title="FAQ">
+    <AppPaper className={classes.root} title="About us">
       <div className={classes.inner}>
         <Typography align="center" variant="h3">
           About Us
