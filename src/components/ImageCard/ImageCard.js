@@ -14,7 +14,6 @@ import {
   Share as ShareIcon
 } from '@material-ui/icons';
 import { ViewImage } from 'views/ImagesGallery/ViewImage';
-import { tr } from 'date-fns/locale';
 
 const useStyles = makeStyles(theme => ({
   root: {
