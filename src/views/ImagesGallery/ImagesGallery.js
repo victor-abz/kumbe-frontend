@@ -6,6 +6,7 @@ import { imagesPath } from 'utils/constants';
 import { Page, Paginate } from 'components';
 import { useStyles } from './styles';
 import {
+  Grid,
   GridList,
   GridListTile,
   GridListTileBar,
@@ -40,8 +41,18 @@ const ImagesGallery = () => {
         setOpen={() => setViewImg(initials)}
         {...viewImg.img}
       />
-      <GridList cellHeight={180} className={classes.gridList} cols={4}>
-        <GridListTile key="Subheader" cols={4} style={{ height: 'auto' }}>
+      <GridList
+        cellHeight={180}
+        className={classes.gridList}
+        cols={4}
+        component={Grid}
+        container>
+        <GridListTile
+          key="Subheader"
+          cols={4}
+          style={{ height: 'auto' }}
+          component={Grid}
+          item>
           <ListSubheader component="div">
             Comics and Fact Factories
           </ListSubheader>
@@ -50,7 +61,13 @@ const ImagesGallery = () => {
           <Loading />
         ) : medias.length ? (
           medias.map((image, imageIdx) => (
-            <GridListTile key={imageIdx}>
+            <GridListTile
+              key={imageIdx}
+              component={Grid}
+              item
+              md={3}
+              ls={6}
+              xs={12}>
               <img
                 src={`${imagesPath}/${image.mediaLink}`}
                 alt={image.title}

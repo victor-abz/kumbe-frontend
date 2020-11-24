@@ -11,7 +11,7 @@ export const useStyles = makeStyles(theme => ({
     justifyContent: 'space-around',
     overflow: 'hidden',
     width: '100%',
-    padding: theme.spacing(3, 10),
+    padding: theme.spacing(1, 10),
     backgroundColor: theme.palette.background.paper
   },
   title: {
