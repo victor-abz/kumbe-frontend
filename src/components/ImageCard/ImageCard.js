@@ -17,7 +17,7 @@ import { ViewImage } from 'views/ImagesGallery/ViewImage';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    maxWidth: 345
+    // maxWidth: 345
   },
   media: {
     height: 0,
