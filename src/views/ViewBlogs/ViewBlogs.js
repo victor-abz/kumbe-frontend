@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Grid, Typography } from '@material-ui/core';
-import { BlogCard } from 'components';
+import { BlogCard, BlogsLoading } from 'components';
 import { useSelector } from 'react-redux';
-import { Loading } from 'components/Loading';
 import { Page, Paginate, SearchBar } from 'components';
 import { Header } from './components';
 import { useStyles } from './styles';
@@ -42,13 +41,15 @@ const ViewBlogs = ({ match }) => {
         searchVal={searchVal}
       />
       <div className={classes.results}>
-        <Typography color="textSecondary" gutterBottom variant="body2">
-          {totalItems} Records found. Page {paginator.pageNumber} of{' '}
-          {Math.ceil(totalItems / paginator.pageSize)}
-        </Typography>
+        {blogs.length > 0 && (
+          <Typography color="textSecondary" gutterBottom variant="body2">
+            {totalItems} Records found. Page {paginator.pageNumber} of{' '}
+            {Math.ceil(totalItems / paginator.pageSize)}
+          </Typography>
+        )}
         <Grid container spacing={3}>
           {loading ? (
-            <Loading />
+            <BlogsLoading xl={12} sm={12} md={3} lg={3} />
           ) : blogs.length > 0 && blogs ? (
             blogs.map(blog => (
               <Grid item key={blog.id} lg={3} md={4} sm={6} xs={12}>

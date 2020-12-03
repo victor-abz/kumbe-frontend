@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getMedias } from 'redux/actions/media';
 import { useSelector } from 'react-redux';
-import { Loading } from 'components/Loading';
 import { imagesPath } from 'utils/constants';
 import { Page, Paginate } from 'components';
 import { useStyles } from './styles';
@@ -16,6 +15,7 @@ import {
 import { InfoOutlined as InfoIcon } from '@material-ui/icons';
 import { NoDisplayData } from 'components/NoDisplayData';
 import { ViewImage } from './ViewImage';
+import { Skeleton } from '@material-ui/lab';
 
 const initials = { open: false, img: {} };
 const ImagesGallery = () => {
@@ -58,7 +58,14 @@ const ImagesGallery = () => {
           </ListSubheader>
         </GridListTile>
         {loading ? (
-          <Loading />
+          <Grid container xl={12} sm={12} md={12} lg={12}>
+            {[1, 2, 3, 4].map(item => (
+              <Grid key={item} item md={3} ls={6} xs={12}>
+                <Skeleton animation="wave" height={120} width="90%" />
+                <Skeleton animation="wave" height={20} width="90%" />
+              </Grid>
+            ))}
+          </Grid>
         ) : medias.length ? (
           medias.map((image, imageIdx) => (
             <GridListTile

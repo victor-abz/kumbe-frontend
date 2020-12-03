@@ -65,7 +65,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Paginate = ({
-  pageCount,
+  pageCount = 0,
   pageRangeDisplayed = 2,
   marginPagesDisplayed = 1,
   onPageChange,
@@ -75,29 +75,31 @@ const Paginate = ({
   const classes = useStyles();
 
   return (
-    <ReactPaginate
-      activeClassName={classes.active}
-      activeLinkClassName={classes.activeLink}
-      breakClassName={classes.break}
-      breakLabel="..."
-      breakLinkClassName={classes.breakLink}
-      containerClassName={clsx(classes.root, className)}
-      disabledClassName={classes.disabled}
-      marginPagesDisplayed={marginPagesDisplayed}
-      nextClassName={classes.next}
-      nextLabel="next"
-      nextLinkClassName={classes.nextLink}
-      onPageChange={onPageChange}
-      pageClassName={classes.page}
-      pageCount={pageCount}
-      pageLinkClassName={classes.pageLink}
-      pageRangeDisplayed={pageRangeDisplayed}
-      previousClassName={classes.previous}
-      previousLabel="previous"
-      previousLinkClassName={classes.previousLink}
-      subContainerClassName="pages pagination"
-      {...rest}
-    />
+    pageCount > 0 && (
+      <ReactPaginate
+        activeClassName={classes.active}
+        activeLinkClassName={classes.activeLink}
+        breakClassName={classes.break}
+        breakLabel="..."
+        breakLinkClassName={classes.breakLink}
+        containerClassName={clsx(classes.root, className)}
+        disabledClassName={classes.disabled}
+        marginPagesDisplayed={marginPagesDisplayed}
+        nextClassName={classes.next}
+        nextLabel="next"
+        nextLinkClassName={classes.nextLink}
+        onPageChange={onPageChange}
+        pageClassName={classes.page}
+        pageCount={pageCount}
+        pageLinkClassName={classes.pageLink}
+        pageRangeDisplayed={pageRangeDisplayed}
+        previousClassName={classes.previous}
+        previousLabel="previous"
+        previousLinkClassName={classes.previousLink}
+        subContainerClassName="pages pagination"
+        {...rest}
+      />
+    )
   );
 };
 

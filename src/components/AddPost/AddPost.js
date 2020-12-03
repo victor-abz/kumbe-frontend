@@ -90,7 +90,7 @@ const AddPost = props => {
             name="content"
             onChange={handleChange}
             placeholder={
-              user
+              user.lastName
                 ? `${user.lastName}, ${t('forum:form_placeholder')}`
                 : 'Login to post question,'
             }
@@ -103,7 +103,9 @@ const AddPost = props => {
             className={classes.formControl}
             size="small"
             variant="outlined">
-            <InputLabel id="category">{t('forum:question_category')}</InputLabel>
+            <InputLabel id="category">
+              {t('forum:question_category')}
+            </InputLabel>
             <Select
               name="categoryId"
               onChange={handleChange}
@@ -145,7 +147,9 @@ const AddPost = props => {
               endIcon={<SendIcon>{t('forum:post_question')}</SendIcon>}
               onClick={() => addQuestion(postValue)}
               variant="contained">
-              {loading ? t('forum:post_question_wait') : t('forum:post_question')}
+              {loading
+                ? t('forum:post_question_wait')
+                : t('forum:post_question')}
             </Button>
           </Tooltip>
         </div>

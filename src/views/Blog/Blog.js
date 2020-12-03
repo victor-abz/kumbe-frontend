@@ -12,7 +12,8 @@ import { Column, Item } from '@mui-treasury/components/flex';
 import { getBlog, getBlogs } from 'redux/actions/blog';
 import { useSelector } from 'react-redux';
 import BlogCard from '../../components/BlogCard';
-import { Loading } from 'components/Loading';
+import { BlogsLoading } from 'components';
+import { Skeleton } from '@material-ui/lab';
 
 const Content = getContent(styled);
 const InsetContainer = getInsetContainer(styled);
@@ -38,7 +39,6 @@ const Blog = props => {
       getBlogs({ category: blog.categoryId });
     }
   }, [loaded, blog]);
-  console.log('Blogs', blogs);
   return (
     <Content>
       <InsetContainer
@@ -55,7 +55,7 @@ const Blog = props => {
                 <Divider className={classes.divider} />
                 <Item>
                   {fetchingBlogs ? (
-                    <Loading />
+                    <BlogsLoading md={12} ls={12} xs={12} />
                   ) : (
                     blogs.map((blog, index) => (
                       <Grid className={classes.otherBlogs} key={index}>
@@ -69,7 +69,18 @@ const Blog = props => {
           )
         }>
         {loading ? (
-          <Loading />
+          <Grid item lg={12}>
+            <Skeleton animation="wave" height={600} width="90%" />
+            <Skeleton animation="wave" height={15} width="90%" />
+            <Skeleton
+              animation="wave"
+              variant="circle"
+              width={40}
+              height={40}
+            />
+            <Skeleton animation="wave" height={10} width="80%" />
+            <Skeleton animation="wave" height={10} width="80%" />
+          </Grid>
         ) : (
           loaded && <BlogContent blog={blog} className={classes.blogView} />
         )}
