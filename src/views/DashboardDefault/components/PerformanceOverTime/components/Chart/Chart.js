@@ -104,11 +104,7 @@ const Chart = props => {
       callbacks: {
         title: () => {},
         label: tooltipItem => {
-          let label = `Income: ${tooltipItem.yLabel}`;
-
-          if (tooltipItem.yLabel > 0) {
-            label += 'K';
-          }
+          let label = `Page Views: ${tooltipItem.yLabel}`;
 
           return label;
         }
@@ -117,10 +113,7 @@ const Chart = props => {
   };
 
   return (
-    <div
-      {...rest}
-      className={clsx(classes.root, className)}
-    >
+    <div {...rest} className={clsx(classes.root, className)}>
       <Line
         data={data}
         options={options}

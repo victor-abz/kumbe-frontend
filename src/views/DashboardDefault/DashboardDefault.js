@@ -88,7 +88,7 @@ const DashboardDefault = () => {
           <TotalQuestions />
         </Grid>
         {loading ? (
-          <>
+          <React.Fragment>
             <Grid item lg={4} xs={12}>
               <Skeleton animation="wave" width="80%" />
               <Skeleton animation="wave" height={10} width="40%" />
@@ -99,16 +99,16 @@ const DashboardDefault = () => {
               <Skeleton animation="wave" height={10} width="40%" />
               <Skeleton animation="wave" height={120} />
             </Grid>
-          </>
+          </React.Fragment>
         ) : (
-          <>
+          <React.Fragment>
             <Grid item lg={4} xs={12}>
               <PageViews pageviews={pageViews} />
             </Grid>
             <Grid item lg={8} xs={12}>
               <PerformanceOverTime pageviews={monthlyPageViews} />
             </Grid>
-          </>
+          </React.Fragment>
         )}
         <Grid item lg={5} xl={4} xs={12}>
           <LatestBlogs />
