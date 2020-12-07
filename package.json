@@ -9,6 +9,7 @@
     "dev": "react-scripts start",
     "build": "react-scripts build",
     "build-prod": "npm run build && npm run mv-build",
+    "build-prod-staging": "npm run build && npm run mv-build-staging",
     "mv-build": "rm -rf ../kumbeApi/build && mv build ../kumbeApi/build",
     "mv-build-staging": "rm -rf ../kumbeApiStaging/build && mv build ../kumbeApiStaging/build",
     "test": "react-scripts test",
