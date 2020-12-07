@@ -10,8 +10,6 @@ import {
   Typography
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
-import SkipNextIcon from '@material-ui/icons/SkipNext';
 import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled';
 import PauseCircleFilledIcon from '@material-ui/icons/PauseCircleFilled';
 import VolumeDown from '@material-ui/icons/VolumeDown';
@@ -28,14 +26,15 @@ const formWaveSurferOptions = ref => ({
   progressColor: 'purple',
   cursorColor: 'purple',
   //   cursorColor: 'transparent',
-  barWidth: 3,
+  barWidth: 2,
   barRadius: 3,
   responsive: true,
   height: 90,
   // If true, normalize by the maximum peak instead of 1.0.
   normalize: true,
   // Use the PeakCache to improve rendering speed of large waveforms.
-  partialRender: true
+  partialRender: true,
+  fillParent: true
 });
 
 const useStyles = makeStyles(theme => ({
@@ -191,9 +190,6 @@ export default function AudioPlayer({ track, playing, setPlay }) {
           m={1}
           p={1}>
           <div className={classes.controls}>
-            <IconButton aria-label="previous">
-              <SkipPreviousIcon className={classes.white} />
-            </IconButton>
             <IconButton aria-label="play/pause">
               {!playing ? (
                 <PlayCircleFilledIcon
@@ -208,9 +204,6 @@ export default function AudioPlayer({ track, playing, setPlay }) {
                   onClick={handlePlayPause}
                 />
               )}
-            </IconButton>
-            <IconButton aria-label="next">
-              <SkipNextIcon className={classes.white} />
             </IconButton>
           </div>
         </Grid>
