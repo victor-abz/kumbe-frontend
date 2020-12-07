@@ -113,9 +113,7 @@ const Footer = React.memo(function ArcAppFooter() {
                 width={120}
               />
               <Typography className={classes.info}>
-                <Typography index={1}>
-                  Kicukiro, KN xxx, 3530, Kigali Rwanda
-                </Typography>
+                <Typography index={1}>Kicukiro, 3530, Kigali Rwanda</Typography>
               </Typography>
 
               <Typography className={classes.info}>
