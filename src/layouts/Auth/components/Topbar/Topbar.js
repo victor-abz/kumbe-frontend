@@ -4,7 +4,6 @@ import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { useStyles } from '../../styles';
 import { getCategories } from 'redux/actions/category';
-
 import {
   AppBar,
   Button,
@@ -12,26 +11,19 @@ import {
   Toolbar,
   Hidden,
   colors,
-  ListItemIcon,
   Typography,
-  FormControl,
-  Select,
   MenuItem,
   Menu
 } from '@material-ui/core';
 import InputIcon from '@material-ui/icons/Input';
 import { Row, Item } from '@mui-treasury/components/flex';
 import MenuIcon from '@material-ui/icons/Menu';
-import TranslateIcon from '@material-ui/icons/Translate';
-
-import ExpandMoreRoundedIcon from '@material-ui/icons/ExpandMoreRounded';
-import axios from 'utils/axios';
-import { useTranslation } from 'react-i18next';
 import useRouter from 'utils/useRouter';
 import { navigationConfig } from '../NavBar/navigationConfig';
 import { withStyles } from '@material-ui/core/styles';
 import { useSelector } from 'react-redux';
 import ForumOutlinedIcon from '@material-ui/icons/ForumOutlined';
+import { SystemLanguages } from 'components';
 
 const StyledMenu = withStyles({
   paper: {
@@ -68,27 +60,8 @@ const StyledMenuItem = withStyles(theme => ({
 
 const TopBar = props => {
   const { onOpenNavBarMobile, className, t, ...rest } = props;
-
-  const { i18n } = useTranslation();
-
   const classes = useStyles();
-
-  const defaultLng = 'en';
-  let lng = defaultLng;
-
-  const storageLanguage = localStorage.getItem('language');
-  lng = storageLanguage;
-
-  const [language, setLanguage] = useState(lng);
-  const [languages, setLanguages] = useState(['en', 'kin']);
   const { loggedIn, user } = useSelector(({ auth }) => auth);
-
-  const handleChange = event => {
-    setLanguage(event.target.value);
-    localStorage.setItem('language', event.target.value);
-    i18n.changeLanguage(event.target.value);
-    window.location.reload();
-  };
 
   const {
     categoryGet: { categories }
@@ -99,22 +72,7 @@ const TopBar = props => {
   const { location } = useRouter();
 
   useEffect(() => {
-    let mounted = true;
     getCategories();
-
-    const fetchLanguages = () => {
-      axios.get('/api/languages').then(response => {
-        if (mounted) {
-          setLanguages(response.data.languages);
-        }
-      });
-    };
-
-    fetchLanguages();
-
-    return () => {
-      mounted = false;
-    };
   }, []);
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -125,29 +83,6 @@ const TopBar = props => {
 
   const handleClose = () => {
     setAnchorEl(null);
-  };
-
-  // eslint-disable-next-line react/no-multi-comp
-  const iconComponent = props => {
-    return (
-      <ExpandMoreRoundedIcon className={props.className + ' ' + classes.icon} />
-    );
-  };
-
-  const menuProps = {
-    classes: {
-      paper: classes.paper,
-      list: classes.list
-    },
-    anchorOrigin: {
-      vertical: 'bottom',
-      horizontal: 'left'
-    },
-    transformOrigin: {
-      vertical: 'top',
-      horizontal: 'left'
-    },
-    getContentAnchorEl: null
   };
   return (
     <AppBar {...rest} className={clsx(classes.root, className)} color="primary">
@@ -234,24 +169,7 @@ const TopBar = props => {
             {loggedIn ? user.firstName : t('top_bar:login')}
           </Button>
         </Hidden>
-        <FormControl>
-          <Select
-            classes={{ root: classes.select }}
-            disableUnderline
-            IconComponent={iconComponent}
-            MenuProps={menuProps}
-            onChange={handleChange}
-            value={language}>
-            {languages.map((option, index) => (
-              <MenuItem key={index} value={option.shortName}>
-                <ListItemIcon classes={{ root: classes.listIcon }}>
-                  <TranslateIcon />
-                </ListItemIcon>
-                <span style={{ marginTop: 3 }}>{option.name}</span>
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+        <SystemLanguages />
         <Hidden lgUp>
           <IconButton color="inherit" onClick={onOpenNavBarMobile}>
             <MenuIcon />

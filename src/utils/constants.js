@@ -1,3 +1,4 @@
+import uuid from 'uuid/v1';
 /**
  *
  * @param {*} accessLevel System users access
@@ -22,3 +23,16 @@ export const UPLOADED_FILE_NAME = 'file-name';
 export const audiosPath = `${process.env.REACT_APP_API_URL}/api/res/audios`;
 export const profilePicPath = `${process.env.REACT_APP_API_URL}/api/res/profiles`;
 export const imagesPath = `${process.env.REACT_APP_API_URL}/api/res/images`;
+
+export const systemLanguages = [
+  {
+    id: uuid(),
+    name: 'English',
+    shortName: 'en'
+  },
+  {
+    id: uuid(),
+    name: 'Kinyarwanda',
+    shortName: 'kin'
+  }
+];
