@@ -7,7 +7,6 @@ import {
   Products,
   Blogs,
   Slider,
-  Partners,
   HomeWidgets,
   HomeImages
 } from './components';
@@ -27,7 +26,7 @@ const Home = () => {
       <HomeImages />
       <HomeWidgets />
       <Products />
-      <Partners />
+      <Banner />
     </Page>
   );
 };
