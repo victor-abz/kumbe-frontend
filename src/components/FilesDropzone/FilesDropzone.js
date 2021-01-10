@@ -118,8 +118,8 @@ const FilesDropzone = ({
               {loading
                 ? t('blog:btn_loading')
                 : fileName
-                ? t('blog:btn_uploaded_success')
-                : t('blog:btn_upload')}
+                  ? t('blog:btn_uploaded_success')
+                  : t('blog:btn_upload')}
             </Button>
           </div>
         </>

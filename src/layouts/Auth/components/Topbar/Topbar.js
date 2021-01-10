@@ -34,12 +34,12 @@ const StyledMenu = withStyles({
   }
 })(props => (
   <Menu
-    elevation={0}
-    getContentAnchorEl={null}
     anchorOrigin={{
       vertical: 'bottom',
       horizontal: 'center'
     }}
+    elevation={0}
+    getContentAnchorEl={null}
     transformOrigin={{
       vertical: 'top',
       horizontal: 'center'
@@ -94,7 +94,7 @@ const TopBar = props => {
         </div>
         <Hidden smDown>
           <div style={{ alignItems: 'center' }}>
-            <Row gutter={1} className={classes.middle}>
+            <Row className={classes.middle} gutter={1}>
               {navigationConfig(t, categories)
                 .filter(p => p.title === 'Pages')[0]
                 .pages.map((menu, index) =>
@@ -103,26 +103,26 @@ const TopBar = props => {
                       <RouterLink
                         aria-controls={`popup-${menu.href}`}
                         key={index}
-                        to="#"
                         onClick={e => handleClick(index, e)}
-                        onMouseEnter={e => handleClick(index, e)}>
+                        onMouseEnter={e => handleClick(index, e)}
+                        to="#">
                         <Item
                           className={
                             anchorEl && Boolean(anchorEl[index])
                               ? classes.itemActive
                               : classes.item
                           }>
-                          <Typography variant="h6" className={classes.white}>
+                          <Typography className={classes.white} variant="h6">
                             {menu.title}
                           </Typography>
                         </Item>
                       </RouterLink>
                       <StyledMenu
-                        id={`popup-${menu.href}`}
                         anchorEl={anchorEl && anchorEl[index]}
-                        open={anchorEl && Boolean(anchorEl[index])}
-                        onClose={handleClose}>
-                        <div onMouseLeave={handleClose} onClick={handleClose}>
+                        id={`popup-${menu.href}`}
+                        onClose={handleClose}
+                        open={anchorEl && Boolean(anchorEl[index])}>
+                        <div onClick={handleClose} onMouseLeave={handleClose}>
                           {menu.children.map((child, index) => (
                             <RouterLink key={index} to={child.href}>
                               <StyledMenuItem>{child.title}</StyledMenuItem>
@@ -139,7 +139,7 @@ const TopBar = props => {
                             ? classes.itemActive
                             : classes.item
                         }>
-                        <Typography variant="h6" className={classes.white}>
+                        <Typography className={classes.white} variant="h6">
                           {menu.title}
                         </Typography>
                       </Item>
@@ -153,18 +153,18 @@ const TopBar = props => {
         <Hidden smDown>
           <Button
             className={classes.forumButton}
-            variant="contained"
             component={Link}
-            to={'/forum'}>
+            to={'/forum'}
+            variant="contained">
             <ForumOutlinedIcon className={classes.forumIcon} />
             {t('top_bar:forum')}
           </Button>
           <Button
             className={classes.loginButton}
             color="inherit"
-            variant="contained"
             component={Link}
-            to={loggedIn ? '/admin/blogs' : '/login'}>
+            to={loggedIn ? '/admin/blogs' : '/login'}
+            variant="contained">
             <InputIcon className={classes.loginIcon} />
             {loggedIn ? user.firstName : t('top_bar:login')}
           </Button>

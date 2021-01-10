@@ -51,10 +51,10 @@ const Product = ({ name, coverImage, forAdmin = false, onEdit, onDelete }) => {
         </CardActionArea>
         {forAdmin ? (
           <CardActions>
-            <Button size="small" color="primary" onClick={onEdit}>
+            <Button color="primary" onClick={onEdit} size="small">
               Edit
             </Button>
-            <Button size="small" color="secondary" onClick={onDelete}>
+            <Button color="secondary" onClick={onDelete} size="small">
               Delete
             </Button>
           </CardActions>

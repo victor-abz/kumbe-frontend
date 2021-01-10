@@ -101,10 +101,10 @@ const BlogComments = () => {
             columns={commentsColumns(t, classes, onOpenCurrent)}
             data={comments}
             dataCount={totalItems}
-            page={paginator.pageNumber}
-            pageCount={Math.ceil(totalItems / paginator.pageSize)}
             handlePageChange={onPageChage}
             loading={fetching}
+            page={paginator.pageNumber}
+            pageCount={Math.ceil(totalItems / paginator.pageSize)}
             tableTitle={t('comment:view_title')}
           />
         </Grid>

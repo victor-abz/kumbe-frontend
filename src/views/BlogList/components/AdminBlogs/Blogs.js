@@ -203,19 +203,19 @@ const Blogs = ({ className, searchVal }) => {
                           <ButtonGroup variant="outlined">
                             <Tooltip title={t('blog:btn_view')}>
                               <IconButton
+                                aria-label={t('blog:btn_view')}
                                 color="primary"
                                 component={RouterLink}
-                                to={`/blogs/${blog.slug}`}
-                                aria-label={t('blog:btn_view')}>
+                                to={`/blogs/${blog.slug}`}>
                                 <ViewIcon />
                               </IconButton>
                             </Tooltip>
                             <Tooltip title={t('blog:btn_edit')}>
                               <IconButton
+                                aria-label={t('blog:btn_edit')}
                                 color="secondary"
                                 component={RouterLink}
-                                to={`/admin/blogs/edit/${blog.slug}`}
-                                aria-label={t('blog:btn_edit')}>
+                                to={`/admin/blogs/edit/${blog.slug}`}>
                                 <EditIcon />
                               </IconButton>
                             </Tooltip>
@@ -224,11 +224,11 @@ const Blogs = ({ className, searchVal }) => {
                                 blog.isPublished ? 'Unpublish' : 'Publish'
                               }>
                               <IconButton
-                                color="default"
-                                onClick={() => onOpenPublish(blog)}
                                 aria-label={
                                   blog.isPublished ? 'Unpublish' : 'Publish'
-                                }>
+                                }
+                                color="default"
+                                onClick={() => onOpenPublish(blog)}>
                                 <PublishIcon />
                               </IconButton>
                             </Tooltip>
@@ -243,10 +243,10 @@ const Blogs = ({ className, searchVal }) => {
           </CardContent>
           <CardActions className={classes.paginate}>
             <Paginate
-              pageCount={Math.ceil(totalItems / paginator.pageSize)}
-              pageRangeDisplayed={1}
               marginPagesDisplayed={2}
               onPageChange={onPageChage}
+              pageCount={Math.ceil(totalItems / paginator.pageSize)}
+              pageRangeDisplayed={1}
             />
           </CardActions>
         </Card>

@@ -170,9 +170,9 @@ const MediaCard = props => {
       </CardContent>
       <CardActions style={{ backgroundColor: '#F1F1F1' }}>
         <Share
-          shareCount={shares}
           href={`blogs/${blog.slug}`}
           onShare={() => shareBlog(blog.slug)}
+          shareCount={shares}
         />
         <IconButton onClick={() => likeBlog(blog.slug)}>
           <FavoriteBorderRounded />
@@ -201,8 +201,8 @@ const MediaCard = props => {
               className={cardStyles.button}
               color="secondary"
               disabled={loading}
-              onClick={() => onSendComment()}
               endIcon={<SendIcon>{t('comment:btn_send')}</SendIcon>}
+              onClick={() => onSendComment()}
               variant="contained">
               {t('comment:btn_send')}
             </Button>

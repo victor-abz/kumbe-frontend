@@ -34,7 +34,7 @@ export const HomeImages = React.memo(function HighlightCard() {
       ) : (
         medias.map((pic, picIdx) => {
           return (
-            <Grid item key={picIdx} md={3} xs={12} sm={12}>
+            <Grid item key={picIdx} md={3} sm={12} xs={12}>
               <ImageCard {...pic} />
             </Grid>
           );

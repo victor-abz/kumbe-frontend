@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const SearchBar = ({ onFilter, onSearch, className, ...rest }) => {
+const SearchBar = ({ onSearch, ...rest }) => {
   const classes = useStyles();
 
   return (

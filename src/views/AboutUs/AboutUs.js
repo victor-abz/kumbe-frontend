@@ -36,13 +36,13 @@ const AboutUs = () => {
         <Typography align="center" variant="h3">
           About Us
         </Typography>
-        <Grid container spacing={5} className={classes.mainGrid}>
-          <Grid item md={8} lg={9} sm={8} xs={12}>
-            <Paper elevation={0} className={classes.sidebarAboutBox}>
-              <Typography variant="h5" gutterBottom>
+        <Grid className={classes.mainGrid} container spacing={5}>
+          <Grid item lg={9} md={8} sm={8} xs={12}>
+            <Paper className={classes.sidebarAboutBox} elevation={0}>
+              <Typography gutterBottom variant="h5">
                 History
               </Typography>
-              <Typography variant="subtitle1" gutterBottom>
+              <Typography gutterBottom variant="subtitle1">
                 Health Development Initiative-Rwanda (HDI) is an independent,
                 non-governmental, non-profit organization based in Kigali and
                 registered with the Rwandan government. HDI strives to improve
@@ -57,7 +57,7 @@ const AboutUs = () => {
                 public health, and community development to bridge the gap
                 between communities and the healthcare system.
               </Typography>
-              <Typography variant="subtitle1" gutterBottom>
+              <Typography gutterBottom variant="subtitle1">
                 HDI believes that health outcomes can be improved through
                 parallel development of the community and the medical
                 profession’s capacity to support prevention, care and treatment
@@ -67,15 +67,15 @@ const AboutUs = () => {
                 so that all Rwandans may lead healthy lives, free from
                 preventable disease and premature mortality.
               </Typography>
-              <Typography variant="h5" gutterBottom>
+              <Typography gutterBottom variant="h5">
                 Vision
               </Typography>
-              <Typography variant="subtitle1" gutterBottom>
+              <Typography gutterBottom variant="subtitle1">
                 A society in which everyone has the opportunity to enjoy the
                 highest attainable standard of health and well-being, regardless
                 of social, cultural, economic or any other status.
               </Typography>
-              <Typography variant="h5" gutterBottom>
+              <Typography gutterBottom variant="h5">
                 Mission
               </Typography>
               <Typography variant="subtitle1">
@@ -88,7 +88,7 @@ const AboutUs = () => {
               </Typography>
             </Paper>
           </Grid>
-          <Grid item md={4} lg={3} sm={4} xs={12}>
+          <Grid item lg={3} md={4} sm={4} xs={12}>
             <Typography variant="h1">Kumbe! Photo</Typography>
           </Grid>
         </Grid>

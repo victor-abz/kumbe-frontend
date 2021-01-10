@@ -80,7 +80,7 @@ export const AddQuestionDialog = ({ open, setOpen, currentItem = null }) => {
             color="secondary"
             disabled={updating}
             onClick={() => editFAQ(currentItem.id, values)}>
-            {updating ? t('blog:btn_loading') : `Update`}
+            {updating ? t('blog:btn_loading') : 'Update'}
           </Button>
         ) : (
           <Button

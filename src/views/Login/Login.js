@@ -22,7 +22,7 @@ const Login = props => {
 
   const [quote, setQuote] = useState({
     quote:
-      "Hella narvwhal Cosby sweater McSweeney's, salvia kitsch before they sold out High Life.",
+      'Hella narvwhal Cosby sweater McSweeney\'s, salvia kitsch before they sold out High Life.',
     background: '/images/auth.png'
   });
 

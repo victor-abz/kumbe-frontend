@@ -25,12 +25,12 @@ const StyledMenu = withStyles({
   }
 })(props => (
   <Menu
-    elevation={0}
-    getContentAnchorEl={null}
     anchorOrigin={{
       vertical: 'bottom',
       horizontal: 'center'
     }}
+    elevation={0}
+    getContentAnchorEl={null}
     transformOrigin={{
       vertical: 'top',
       horizontal: 'center'
@@ -70,17 +70,17 @@ const Share = ({ shareCount = 0, href = '', onShare }) => {
         ) : null}
       </IconButton>
       <StyledMenu
-        id="share-menu"
         anchorEl={anchorEl}
+        id="share-menu"
         keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleClose}>
+        onClose={handleClose}
+        open={Boolean(anchorEl)}>
         <StyledMenuItem>
           <FacebookShareButton
-            url={urlShare}
-            quote={'Quote'}
+            hashtag="#programing joke"
             onClick={onShare}
-            hashtag="#programing joke">
+            quote={'Quote'}
+            url={urlShare}>
             <ListItemIcon>
               <Facebook fontSize="small" />
             </ListItemIcon>
@@ -88,10 +88,10 @@ const Share = ({ shareCount = 0, href = '', onShare }) => {
         </StyledMenuItem>
         <StyledMenuItem>
           <WhatsappShareButton
-            url={urlShare}
-            quote={'Quote'}
+            hashtag="#programing joke"
             onClick={onShare}
-            hashtag="#programing joke">
+            quote={'Quote'}
+            url={urlShare}>
             <ListItemIcon>
               <WhatsApp fontSize="small" />
             </ListItemIcon>
@@ -99,10 +99,10 @@ const Share = ({ shareCount = 0, href = '', onShare }) => {
         </StyledMenuItem>
         <StyledMenuItem>
           <TwitterShareButton
-            url={urlShare}
-            quote={'Quote'}
+            hashtag="#kumbe"
             onClick={onShare}
-            hashtag="#kumbe">
+            quote={'Quote'}
+            url={urlShare}>
             <ListItemIcon>
               <Twitter fontSize="small" />
             </ListItemIcon>

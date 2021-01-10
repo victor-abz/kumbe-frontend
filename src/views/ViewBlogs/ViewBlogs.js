@@ -49,7 +49,7 @@ const ViewBlogs = ({ match }) => {
         )}
         <Grid container spacing={3}>
           {loading ? (
-            <BlogsLoading xl={12} sm={12} md={3} lg={3} />
+            <BlogsLoading lg={3} md={3} sm={12} xl={12} />
           ) : blogs.length > 0 && blogs ? (
             blogs.map(blog => (
               <Grid item key={blog.id} lg={3} md={4} sm={6} xs={12}>
@@ -61,10 +61,10 @@ const ViewBlogs = ({ match }) => {
       </div>
       <div className={classes.paginate}>
         <Paginate
-          pageCount={Math.ceil(totalItems / paginator.pageSize)}
-          pageRangeDisplayed={1}
           marginPagesDisplayed={2}
           onPageChange={onPageChage}
+          pageCount={Math.ceil(totalItems / paginator.pageSize)}
+          pageRangeDisplayed={1}
         />
       </div>
     </Page>

@@ -48,19 +48,19 @@ const ImagesGallery = () => {
         component={Grid}
         container>
         <GridListTile
-          key="Subheader"
           cols={4}
-          style={{ height: 'auto' }}
           component={Grid}
-          item>
+          item
+          key="Subheader"
+          style={{ height: 'auto' }}>
           <ListSubheader component="div">
             Comics and Fact Factories
           </ListSubheader>
         </GridListTile>
         {loading ? (
-          <Grid container xl={12} sm={12} md={12} lg={12}>
+          <Grid container lg={12} md={12} sm={12} xl={12}>
             {[1, 2, 3, 4].map(item => (
-              <Grid key={item} item md={3} ls={6} xs={12}>
+              <Grid item key={item} ls={6} md={3} xs={12}>
                 <Skeleton animation="wave" height={120} width="90%" />
                 <Skeleton animation="wave" height={20} width="90%" />
               </Grid>
@@ -69,20 +69,18 @@ const ImagesGallery = () => {
         ) : medias.length ? (
           medias.map((image, imageIdx) => (
             <GridListTile
-              key={imageIdx}
               component={Grid}
               item
-              md={3}
+              key={imageIdx}
               ls={6}
+              md={3}
               xs={12}>
               <img
-                src={`${imagesPath}/${image.mediaLink}`}
                 alt={image.title}
                 onClick={() => setViewImg({ open: true, img: image })}
+                src={`${imagesPath}/${image.mediaLink}`}
               />
               <GridListTileBar
-                title={image.imageType}
-                subtitle={<span>{image.title}</span>}
                 actionIcon={
                   <IconButton
                     aria-label={`info about ${image.type}`}
@@ -90,6 +88,8 @@ const ImagesGallery = () => {
                     <InfoIcon />
                   </IconButton>
                 }
+                subtitle={<span>{image.title}</span>}
+                title={image.imageType}
               />
             </GridListTile>
           ))
@@ -99,10 +99,10 @@ const ImagesGallery = () => {
       </GridList>
       <div className={classes.paginate}>
         <Paginate
-          pageCount={Math.ceil(totalItems / paginator.pageSize)}
-          pageRangeDisplayed={1}
           marginPagesDisplayed={2}
           onPageChange={onPageChage}
+          pageCount={Math.ceil(totalItems / paginator.pageSize)}
+          pageRangeDisplayed={1}
         />
       </div>
     </Page>

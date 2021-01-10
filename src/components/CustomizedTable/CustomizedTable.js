@@ -112,10 +112,10 @@ export const CustomisedTable = ({
         {pageCount !== 0 && withPagination && (
           <CardActions className={classes.actions}>
             <Paginate
-              pageCount={pageCount}
-              pageRangeDisplayed={1}
               marginPagesDisplayed={2}
               onPageChange={handlePageChange}
+              pageCount={pageCount}
+              pageRangeDisplayed={1}
             />
           </CardActions>
         )}

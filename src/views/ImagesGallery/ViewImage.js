@@ -1,18 +1,8 @@
-import React, { forwardRef } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import {
-  Button,
-  CardMedia,
-  Dialog,
-  DialogActions,
-  Slide,
-  Modal
-} from '@material-ui/core';
+import { Modal } from '@material-ui/core';
 import { imagesPath } from 'utils/constants';
 
-const Transition = forwardRef(function Transition(props, ref) {
-  return <Slide direction="up" ref={ref} {...props} />;
-});
 const useStyles = makeStyles(() => ({
   media: {
     // height: '100%'

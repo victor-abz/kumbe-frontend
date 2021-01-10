@@ -76,8 +76,8 @@ export const AddProductDialog = ({ open, setOpen, currentProduct = null }) => {
           <Grid item md={12} xs={12}>
             <FilesDropzone
               acceptedFiles="image/jpeg, image/png"
-              fileType="image"
               currentFile={currentProduct ? currentProduct.coverImage : null}
+              fileType="image"
             />
           </Grid>
         </Grid>
