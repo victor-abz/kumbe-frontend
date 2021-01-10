@@ -8,7 +8,6 @@ import {
   CardActions,
   CardContent,
   CardHeader,
-  Checkbox,
   Divider,
   Link,
   Table,
@@ -28,7 +27,7 @@ import {
 } from '@material-ui/icons';
 import moment from 'moment';
 import getInitials from 'utils/getInitials';
-import { GenericMoreButton, Paginate, TableEditBar } from 'components';
+import { GenericMoreButton, Paginate } from 'components';
 import { useStyles } from './stayles';
 import { useTranslation } from 'react-i18next';
 import { AlertConfirm } from 'components/AlertConfirm';
