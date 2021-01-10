@@ -21,7 +21,9 @@ import {
   mediaAddReducer,
   mediaDetailReducer,
   mediaEditReducer,
-  mediaGetReducer
+  mediaGetReducer,
+  comicGetReducer,
+  dyknowGetReducer
 } from './mediaReducers';
 import { tagAddReducer, tagGetReducer } from './tagReducer';
 import { updateProfileReducer } from './profileReducer';
@@ -74,6 +76,8 @@ export default combineReducers({
   blogGet: blogGetReducer,
   mediaAdd: mediaAddReducer,
   mediaGet: mediaGetReducer,
+  comicGet: comicGetReducer,
+  didYouknowGet: dyknowGetReducer,
   mediaEdit: mediaEditReducer,
   mediaDetail: mediaDetailReducer,
   logOut: logOutReducer,

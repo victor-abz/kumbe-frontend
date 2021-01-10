@@ -1,12 +1,12 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import { ImageCard } from 'components';
-import { useSelector } from 'react-redux';
-import { getMedias } from 'redux/actions/media';
 import { Loading } from 'components/Loading';
 import { Button } from '@material-ui/core';
 import { Link } from 'react-router-dom';
+import Title from 'components/ComponentTitle';
+import { useTranslation } from 'react-i18next';
 
 const useGridStyles = makeStyles(({ breakpoints, spacing }) => ({
   root: {
@@ -21,14 +21,22 @@ const useGridStyles = makeStyles(({ breakpoints, spacing }) => ({
   }
 }));
 
-export const HomeImages = React.memo(function HighlightCard() {
+export const HomeImages = React.memo(function HighlightCard({
+  title,
+  loading,
+  medias,
+  background
+}) {
   const gridStyles = useGridStyles();
-  const { medias, loading } = useSelector(({ mediaGet }) => mediaGet);
-  useEffect(() => {
-    getMedias('image', { pageSize: 4, byLanguage: 'yes' });
-  }, []);
+  const { t } = useTranslation();
+
   return (
-    <Grid classes={gridStyles} container spacing={2}>
+    <Grid
+      classes={gridStyles}
+      container
+      spacing={2}
+      style={{ backgroundColor: background }}>
+      <Title title={title} />
       {loading ? (
         <Loading />
       ) : (
@@ -41,8 +49,13 @@ export const HomeImages = React.memo(function HighlightCard() {
         })
       )}
       {medias.length === 4 ? (
-        <Button color="primary" component={Link} to="/photos">
-          View more
+        <Button
+          color="primary"
+          component={Link}
+          style={{ marginBottom: 10 }}
+          to="/photos"
+          variant={'contained'}>
+          {t('home:view_more')}
         </Button>
       ) : null}
     </Grid>
