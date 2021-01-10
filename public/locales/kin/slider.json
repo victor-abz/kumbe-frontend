@@ -1,0 +1,17 @@
+{
+  "page_header":"Sliders",
+  "dialog_description":"Andika ibirango bya slider izajya igaragara kuri homepage",
+
+  "input_title": "Umutwe wa slider",
+  "input_caption": "Agace gato",
+  "input_position": "Icyerekezo(Iburyo, ibumoso)",
+  "input_titleColor": "Ibara rya slider",
+  "input_bgColor": "Ibara rya background",
+  "input_captionColor": "Ibara rya caption",
+  "input_clickText": "Ijambo rya txt",
+  "input_categoryId": "Ikiciro cy inkuru",
+  "add_btn":"Shyiraho slider nshya",
+  "edit_btn":"Hindura iyi slider: ",
+  "alert_del":"Mbese koko urakomeje ushaka gusiba iyi slider?",
+  "no_data":"Nta sliders zirashyirwaho"
+}

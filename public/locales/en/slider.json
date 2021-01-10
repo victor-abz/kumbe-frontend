@@ -1,0 +1,16 @@
+{
+  "page_header":"Sliders",
+  "dialog_description":"Type all contents for homepage sliders",
+  "input_title": "Slider title",
+  "input_caption": "Slider caption",
+  "input_position": "Position(Right, left)",
+  "input_titleColor": "Title color",
+  "input_bgColor": "Background color",
+  "input_captionColor": "Caption color",
+  "input_clickText": "Click text",
+  "input_categoryId": "Blog category",
+  "add_btn":"Add a new slider",
+  "edit_btn":"Edit this slider: ",
+  "alert_del":"Are you sure you want to delete this slider?",
+  "no_data":"No slider has been added yet"
+}
