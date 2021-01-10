@@ -2,28 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { Page, SearchBar } from 'components';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
-import {
-  Button,
-  ButtonGroup,
-  Grid,
-  IconButton,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Tooltip,
-  Typography
-} from '@material-ui/core';
+import { Button, Grid, Typography } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 import { Loading } from 'components/Loading';
 import { NoDisplayData } from 'components/NoDisplayData';
-import { deleteFAQ, getFAQs } from 'redux/actions/faqs';
+import { deleteFAQ } from 'redux/actions/faqs';
 import { AlertConfirm } from 'components/AlertConfirm';
-import {
-  ContactSupportOutlined as ContactSupportIcon,
-  EditRounded as EditIcon,
-  DeleteForever as DeleteIcon
-} from '@material-ui/icons';
 import { AddSliderDialog } from './AddSliderDialog';
 import { SliderCard } from './SliderCard';
 import { getSliders } from 'redux/actions/slider';
