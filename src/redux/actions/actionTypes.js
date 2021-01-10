@@ -61,3 +61,6 @@ export const EDIT_FAQ = 'EDIT_FAQ';
 export const DELETE_FAQ = 'DELETE_FAQ';
 
 export const GET_ANALYTICS = 'GET_ANALYTICS';
+
+export const CREATE_SLIDER = 'CREATE_SLIDER';
+export const GET_SLIDERS = 'GET_SLIDERS';

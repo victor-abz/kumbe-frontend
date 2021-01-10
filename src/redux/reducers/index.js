@@ -59,6 +59,7 @@ import {
 } from './faqsReducer';
 
 import { analyticsReducer } from './analyticsReducer'; // Get analytics
+import { sliderAddReducer, slidersGetReducer } from './sliderReducer';
 
 export default combineReducers({
   login: loginReducer,
@@ -104,5 +105,7 @@ export default combineReducers({
   faqAdd: faqAddReducer,
   faqEdit: faqEditReducer,
   faqRm: faqRmReducer,
-  analyticsGet: analyticsReducer
+  analyticsGet: analyticsReducer,
+  sliderAdd: sliderAddReducer,
+  slidersGet: slidersGetReducer
 });
