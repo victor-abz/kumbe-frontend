@@ -89,8 +89,7 @@ const BlogCard = React.memo(function PostCard({
   shares,
   slug,
   title,
-  author,
-  createdAt
+  author
 }) {
   const cardStyles = useStyles({ color });
   const mediaStyles = useWideCardMediaStyles();
@@ -137,7 +136,7 @@ const BlogCard = React.memo(function PostCard({
             </Row>
             <Row component={Link} to={`/blogs/${slug}`}>
               <TextInfoContent
-                body={truncate(content.replace(/<[^>]+>/g, ''), 80)}
+                body={truncate(content.replace(/<[^>]+>|&nbsp;/g, ''), 80)}
                 classes={textCardContentStyles}
               />
             </Row>
@@ -158,9 +157,9 @@ const BlogCard = React.memo(function PostCard({
       <CardActions style={{ height: 50, backgroundColor: '#F1F1F1' }}>
         <IconButton>
           <Share
-            shareCount={shares.length}
             href={`blogs/${slug}`}
             onShare={() => shareBlog(slug)}
+            shareCount={shares.length}
           />
         </IconButton>
         <IconButton>

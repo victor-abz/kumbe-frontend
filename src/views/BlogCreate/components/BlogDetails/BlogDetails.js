@@ -24,7 +24,7 @@ const BlogDetails = props => {
     <Card {...rest} className={clsx(classes.root, className)}>
       <CardHeader title={t('blog:detail_title')} />
       <CardContent>
-        <Paper component={Box} mt={3} className={classes.editorContainer}>
+        <Paper className={classes.editorContainer} component={Box} mt={3}>
           <RichEditor
             editorState={editorState}
             placeholder={t('blog:placeholder_detail')}

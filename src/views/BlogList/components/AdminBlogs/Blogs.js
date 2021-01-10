@@ -8,7 +8,6 @@ import {
   CardActions,
   CardContent,
   CardHeader,
-  Checkbox,
   Divider,
   Link,
   Table,
@@ -28,7 +27,7 @@ import {
 } from '@material-ui/icons';
 import moment from 'moment';
 import getInitials from 'utils/getInitials';
-import { GenericMoreButton, Paginate, TableEditBar } from 'components';
+import { GenericMoreButton, Paginate } from 'components';
 import { useStyles } from './stayles';
 import { useTranslation } from 'react-i18next';
 import { AlertConfirm } from 'components/AlertConfirm';
@@ -40,7 +39,6 @@ import { NoDisplayData } from 'components/NoDisplayData';
 const Blogs = ({ className, searchVal }) => {
   const classes = useStyles();
   const { t } = useTranslation();
-  const [selectedBlogs, setSelectedBlogs] = useState([]);
   const [publish, setPublish] = useState({
     open: false,
     message: '',
@@ -58,31 +56,7 @@ const Blogs = ({ className, searchVal }) => {
     getBlogs({ isAdmin: true, pageNumber, pageSize, search: searchVal });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loaded, paginator, searchVal]);
-  const handleSelectAll = ({ target: { checked } }) => {
-    const selectedBlogs = checked ? blogs.map(blog => blog.id) : [];
 
-    setSelectedBlogs(selectedBlogs);
-  };
-
-  const handleSelectOne = (event, id) => {
-    const selectedIndex = selectedBlogs.indexOf(id);
-    let newSelectedBlogs = [];
-
-    if (selectedIndex === -1) {
-      newSelectedBlogs = newSelectedBlogs.concat(selectedBlogs, id);
-    } else if (selectedIndex === 0) {
-      newSelectedBlogs = newSelectedBlogs.concat(selectedBlogs.slice(1));
-    } else if (selectedIndex === selectedBlogs.length - 1) {
-      newSelectedBlogs = newSelectedBlogs.concat(selectedBlogs.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelectedBlogs = newSelectedBlogs.concat(
-        selectedBlogs.slice(0, selectedIndex),
-        selectedBlogs.slice(selectedIndex + 1)
-      );
-    }
-
-    setSelectedBlogs(newSelectedBlogs);
-  };
   const onOpenPublish = blog => {
     setPublish({
       open: true,
@@ -124,7 +98,7 @@ const Blogs = ({ className, searchVal }) => {
                 <Table>
                   <TableHead>
                     <TableRow>
-                      <TableCell padding="checkbox">
+                      {/* <TableCell padding="checkbox">
                         <Checkbox
                           checked={selectedBlogs.length === blogs.length}
                           color="primary"
@@ -134,7 +108,7 @@ const Blogs = ({ className, searchVal }) => {
                           }
                           onChange={handleSelectAll}
                         />
-                      </TableCell>
+                      </TableCell> */}
                       <TableCell>{t('blog:col_author')}</TableCell>
                       <TableCell>{t('blog:col_title')}</TableCell>
                       <TableCell>{t('blog:col_category')}</TableCell>
@@ -149,18 +123,7 @@ const Blogs = ({ className, searchVal }) => {
                   </TableHead>
                   <TableBody>
                     {blogs.map(blog => (
-                      <TableRow
-                        hover
-                        key={blog.id}
-                        selected={selectedBlogs.indexOf(blog.id) !== -1}>
-                        <TableCell padding="checkbox">
-                          <Checkbox
-                            checked={selectedBlogs.indexOf(blog.id) !== -1}
-                            color="primary"
-                            onChange={event => handleSelectOne(event, blog.id)}
-                            value={selectedBlogs.indexOf(blog.id) !== -1}
-                          />
-                        </TableCell>
+                      <TableRow hover key={blog.id}>
                         <TableCell>
                           <div className={classes.nameCell}>
                             <Avatar
@@ -203,19 +166,19 @@ const Blogs = ({ className, searchVal }) => {
                           <ButtonGroup variant="outlined">
                             <Tooltip title={t('blog:btn_view')}>
                               <IconButton
+                                aria-label={t('blog:btn_view')}
                                 color="primary"
                                 component={RouterLink}
-                                to={`/blogs/${blog.slug}`}
-                                aria-label={t('blog:btn_view')}>
+                                to={`/blogs/${blog.slug}`}>
                                 <ViewIcon />
                               </IconButton>
                             </Tooltip>
                             <Tooltip title={t('blog:btn_edit')}>
                               <IconButton
+                                aria-label={t('blog:btn_edit')}
                                 color="secondary"
                                 component={RouterLink}
-                                to={`/admin/blogs/edit/${blog.slug}`}
-                                aria-label={t('blog:btn_edit')}>
+                                to={`/admin/blogs/edit/${blog.slug}`}>
                                 <EditIcon />
                               </IconButton>
                             </Tooltip>
@@ -224,11 +187,11 @@ const Blogs = ({ className, searchVal }) => {
                                 blog.isPublished ? 'Unpublish' : 'Publish'
                               }>
                               <IconButton
-                                color="default"
-                                onClick={() => onOpenPublish(blog)}
                                 aria-label={
                                   blog.isPublished ? 'Unpublish' : 'Publish'
-                                }>
+                                }
+                                color="default"
+                                onClick={() => onOpenPublish(blog)}>
                                 <PublishIcon />
                               </IconButton>
                             </Tooltip>
@@ -243,17 +206,16 @@ const Blogs = ({ className, searchVal }) => {
           </CardContent>
           <CardActions className={classes.paginate}>
             <Paginate
-              pageCount={Math.ceil(totalItems / paginator.pageSize)}
-              pageRangeDisplayed={1}
               marginPagesDisplayed={2}
               onPageChange={onPageChage}
+              pageCount={Math.ceil(totalItems / paginator.pageSize)}
+              pageRangeDisplayed={1}
             />
           </CardActions>
         </Card>
       ) : (
         <NoDisplayData message="No blog writen yet click the top right button to add one" />
       )}
-      <TableEditBar selected={selectedBlogs} />
     </div>
   );
 };

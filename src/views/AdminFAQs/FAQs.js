@@ -72,19 +72,19 @@ const AdminFAQs = () => {
   return (
     <Page className={classes.root} title={t('faqs:page_header')}>
       <AddQuestionDialog
-        open={openAddQuestion}
         currentItem={currentQtn}
+        open={openAddQuestion}
         setOpen={() => {
           setCurrentQtn(null);
           setOpenAddQuestion(false);
         }}
       />
       <AlertConfirm
+        loading={deleting}
+        message={t('faqs:alert_del')}
+        onConfirmYes={() => deleteFAQ(currentQtn.id)}
         open={confirmDel}
         setOpen={() => setConfirmDel(false)}
-        message={t('faqs:alert_del')}
-        loading={deleting}
-        onConfirmYes={() => deleteFAQ(currentQtn.id)}
       />
       <Grid alignItems="flex-end" container justify="space-between" spacing={3}>
         <Grid item>
@@ -102,7 +102,7 @@ const AdminFAQs = () => {
         </Grid>
       </Grid>
       <SearchBar onFilter={handleFilter} onSearch={handleSearch} />
-      <Grid item sm={8} md={10} className={classes.content}>
+      <Grid className={classes.content} item md={10} sm={8}>
         <List disablePadding>
           {loading ? (
             <Loading />

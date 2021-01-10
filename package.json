@@ -13,7 +13,9 @@
     "mv-build": "rm -rf ../kumbeApi/build && mv build ../kumbeApi/build",
     "mv-build-staging": "rm -rf ../kumbeApiStaging/build && mv build ../kumbeApiStaging/build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint src --ext .js",
+    "lint:fix": "npm run lint -- --fix"
   },
   "eslintConfig": {
     "extends": "react-app"

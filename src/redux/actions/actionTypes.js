@@ -27,6 +27,8 @@ export const DIS_OR_LIKE_BLOG = 'DIS_OR_LIKE_BLOG';
 
 export const ADD_NEW_MEDIA = 'ADD_NEW_MEDIA';
 export const GET_MEDIAS = 'GET_MEDIAS';
+export const GET_COMICS = 'GET_COMICS';
+export const GET_DID_YOU_KNOW = 'GET_DID_YOU_KNOW';
 export const UPDATE_MEDIA = 'UPDATE_MEDIA';
 export const GET_MEDIA_DETAIL = 'GET_MEDIA_DETAIL';
 

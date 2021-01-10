@@ -76,10 +76,6 @@ const Dashboard = props => {
           </Suspense>
         </main>
       </div>
-      {/* 
-      * Disable chat
-      <ChatBar /> 
-      */}
     </div>
   );
 };

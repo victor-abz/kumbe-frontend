@@ -66,10 +66,10 @@ const AudioList = () => {
             columns={mediaColumns(t, viewMedia)}
             data={medias}
             dataCount={totalItems}
-            page={paginator.pageNumber}
-            pageCount={Math.ceil(totalItems / paginator.pageSize)}
             handlePageChange={onPageChage}
             loading={loading}
+            page={paginator.pageNumber}
+            pageCount={Math.ceil(totalItems / paginator.pageSize)}
             tableTitle={t('media:table_title')}
           />
         </Grid>

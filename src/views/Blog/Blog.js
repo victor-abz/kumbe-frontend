@@ -55,7 +55,7 @@ const Blog = props => {
                 <Divider className={classes.divider} />
                 <Item>
                   {fetchingBlogs ? (
-                    <BlogsLoading md={12} ls={12} xs={12} />
+                    <BlogsLoading ls={12} md={12} xs={12} />
                   ) : (
                     blogs.map((blog, index) => (
                       <Grid className={classes.otherBlogs} key={index}>
@@ -74,9 +74,9 @@ const Blog = props => {
             <Skeleton animation="wave" height={15} width="90%" />
             <Skeleton
               animation="wave"
+              height={40}
               variant="circle"
               width={40}
-              height={40}
             />
             <Skeleton animation="wave" height={10} width="80%" />
             <Skeleton animation="wave" height={10} width="80%" />

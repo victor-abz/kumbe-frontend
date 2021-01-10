@@ -20,7 +20,9 @@ export const AuthProvider = ({ children }) => {
           httpSocket.emit('join', { userId: user.id, name }, () => {});
         })
         .catch(error => {
-          setErrorMessage('Be patient, wait a bit');
+          setErrorMessage(
+            `Be patient, wait a bit. The following error occured: \n ${error}`
+          );
           setTimeout(() => {
             setLoading(false);
           }, 1000);

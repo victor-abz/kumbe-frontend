@@ -47,9 +47,16 @@
     "node": true
   },
   "extends": "eslint:recommended",
-  "ecmaFeatures": {
-    "jsx": true,
-    "experimentalObjectRestSpread": true
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true,
+      "modules": true
+    }
   },
-  "plugins": ["react", "react-hooks"]
+  "plugins": ["react", "react-hooks"],
+  "settings": {
+    "react": {
+      "version": "^16.8.6"
+    }
+  }
 }

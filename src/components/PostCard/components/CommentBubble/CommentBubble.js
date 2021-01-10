@@ -103,8 +103,8 @@ const CommentBubble = props => {
         <div className={classes.reactions}>
           <IconButton
             aria-label="add to favorites"
-            onClick={() => reactReply(comment.id, 'like')}
             color={didReact.didLike ? 'secondary' : ''}
+            onClick={() => reactReply(comment.id, 'like')}
             size="small">
             <ThumbUpIcon />
             <Typography color="textSecondary" variant="h6">

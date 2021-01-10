@@ -80,11 +80,9 @@ const DraftEditor = ({ className, setEditorState, editorState }) => {
   };
   return (
     <Editor
-      wrapperClassName={clsx(classes.root, className)}
-      toolbarClassName={classes.toolbar}
       editorClassName={classes.editor}
-      onEditorStateChange={setEditorState}
       editorState={editorState}
+      onEditorStateChange={setEditorState}
       toolbar={{
         options: [
           'inline',
@@ -105,6 +103,8 @@ const DraftEditor = ({ className, setEditorState, editorState }) => {
           defaultSize: { height: 300, width: 500 }
         }
       }}
+      toolbarClassName={classes.toolbar}
+      wrapperClassName={clsx(classes.root, className)}
     />
   );
 };

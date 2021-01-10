@@ -12,7 +12,7 @@ const useStyles = makeStyles(theme => ({
   stats: {
     backgroundColor: '#06633F',
     color: theme.palette.primary.contrastText,
-    padding: theme.spacing(1)
+    padding: theme.spacing(3)
   },
   banner: {
     width: theme.breakpoints.values.md,
@@ -23,44 +23,35 @@ const useStyles = makeStyles(theme => ({
 
 const Banner = props => {
   const { className, ...rest } = props;
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const classes = useStyles();
 
   return (
-    <div
-      {...rest}
-      className={clsx(classes.root, className)}
-    >     
+    <div {...rest} className={clsx(classes.root, className)}>
       <div className={classes.stats}>
         <Grid
           alignItems="center"
           className={classes.banner}
           container
           justify="center"
-          spacing={1}
-        >
-          <Grid
-            item
-          >
+          spacing={1}>
+          <Grid item>
             <Typography
               color="inherit"
-              style={{ textAlign: 'center'}}
-              variant="h4"
-            >
+              style={{ textAlign: 'center' }}
+              variant="h3">
               {t('top_bar:toll')}
             </Typography>
           </Grid>
           <Grid item>
             <Typography
               color="inherit"
-              style={{ textAlign: 'center', fontWeight: 900}}
-              variant="h2"
-            >
+              style={{ textAlign: 'center', fontWeight: 900 }}
+              variant="h1">
               3530
             </Typography>
           </Grid>
-         
         </Grid>
       </div>
     </div>

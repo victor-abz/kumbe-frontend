@@ -39,12 +39,12 @@ const Banner = ({ contentPosition: ctPostion, item }) => {
 
         <Button
           className={classes.button}
-          component={RouterLink}
           color="secondary"
+          component={RouterLink}
           size="large"
+          to="/blogs"
           type="submit"
-          variant="contained"
-          to="/blogs">
+          variant="contained">
           {item.btnText}
         </Button>
       </CardContent>

@@ -69,19 +69,19 @@ const ProductSercices = () => {
   return (
     <Page className={classes.root} title={t('settings:page_header')}>
       <AddProductDialog
-        open={openAddProduct}
         currentProduct={currentProd}
+        open={openAddProduct}
         setOpen={() => {
           setCurrentProd(null);
           setOpenAddProduct(false);
         }}
       />
       <AlertConfirm
+        loading={deleting}
+        message={t('product:alert_del')}
+        onConfirmYes={() => deleteProduct(currentProd.id)}
         open={confirmDel}
         setOpen={() => setConfirmDel(false)}
-        message={t('product:alert_del')}
-        loading={deleting}
-        onConfirmYes={() => deleteProduct(currentProd.id)}
       />
       <Grid alignItems="flex-end" container justify="space-between" spacing={3}>
         <Grid item>
@@ -115,8 +115,8 @@ const ProductSercices = () => {
             ) : products.length ? (
               products.map((product, productIdx) => (
                 <Product
-                  key={productIdx}
                   forAdmin
+                  key={productIdx}
                   onDelete={() => onProductClick(product, 'rm')}
                   onEdit={() => onProductClick(product, 'edit')}
                   {...product}
