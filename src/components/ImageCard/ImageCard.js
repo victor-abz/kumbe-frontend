@@ -46,7 +46,7 @@ const ImageCard = ({ mediaLink, imageType, createdAt, edit = false }) => {
         />
         <CardContent>
           <Typography variant="subtitle1">{imageType}</Typography>
-          <Typography variant="body2" color="textSecondary">
+          <Typography color="textSecondary" variant="body2">
             {moment(createdAt).format('MMMM DD, YYYY')}
           </Typography>
         </CardContent>
