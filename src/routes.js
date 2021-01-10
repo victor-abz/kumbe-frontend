@@ -71,6 +71,11 @@ const routes = [
         component: lazy(() => import('views/AdminFAQs'))
       },
       {
+        path: '/admin/sliders',
+        exact: true,
+        component: lazy(() => import('views/SliderSetting'))
+      },
+      {
         component: () => <Redirect to="/errors/error-404" />
       }
     ]

@@ -8,7 +8,8 @@ import {
   DashboardOutlined as DashboardIcon,
   PeopleOutlined as PeopleIcon,
   PersonOutlined as PersonIcon,
-  QuestionAnswerOutlined as FAQIcon
+  QuestionAnswerOutlined as FAQIcon,
+  SlideshowOutlined as SliderIcon
 } from '@material-ui/icons';
 
 import { Label } from 'components';
@@ -107,6 +108,11 @@ export const navigationConfig = t => [
         title: t('faqs:page_header'),
         href: '/admin/faqs',
         icon: FAQIcon
+      },
+      {
+        title: t('slider:page_header'),
+        href: '/admin/sliders',
+        icon: SliderIcon
       }
 
       // {
