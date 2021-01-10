@@ -37,7 +37,7 @@ const AboutUs = () => {
           About Us
         </Typography>
         <Grid className={classes.mainGrid} container spacing={5}>
-          <Grid item lg={9} md={8} sm={8} xs={12}>
+          <Grid item xs={12}>
             <Paper className={classes.sidebarAboutBox} elevation={0}>
               <Typography gutterBottom variant="h5">
                 History
@@ -88,9 +88,9 @@ const AboutUs = () => {
               </Typography>
             </Paper>
           </Grid>
-          <Grid item lg={3} md={4} sm={4} xs={12}>
+          {/* <Grid item lg={3} md={4} sm={4} xs={12}>
             <Typography variant="h1">Kumbe! Photo</Typography>
-          </Grid>
+          </Grid> */}
         </Grid>
       </div>
     </AppPaper>
