@@ -10,6 +10,7 @@ import {
   Grid,
   Button
 } from '@material-ui/core';
+import { imagesPath } from 'utils/constants';
 
 const Banner = ({ contentPosition: ctPostion, item }) => {
   const classes = useStyles();
@@ -28,13 +29,13 @@ const Banner = ({ contentPosition: ctPostion, item }) => {
         <Typography
           className={classes.title}
           style={{ color: `${item.titleColor}` }}>
-          {item.Name}
+          {item.title}
         </Typography>
 
         <Typography
           className={classes.caption}
           style={{ color: `${item.captionColor}` }}>
-          {item.Caption}
+          {item.caption}
         </Typography>
 
         <Button
@@ -42,10 +43,10 @@ const Banner = ({ contentPosition: ctPostion, item }) => {
           color="secondary"
           component={RouterLink}
           size="large"
-          to="/blogs"
+          to={`/blogs/categories/${item.categoryId}`}
           type="submit"
           variant="contained">
-          {item.btnText}
+          {item.clickText}
         </Button>
       </CardContent>
     </Grid>
@@ -53,7 +54,10 @@ const Banner = ({ contentPosition: ctPostion, item }) => {
 
   const media = (
     <Grid item md={6} xs={12}>
-      <CardMedia className={classes.media} image={item.image} />
+      <CardMedia
+        className={classes.media}
+        image={imagesPath + '/' + item.imageLink}
+      />
     </Grid>
   );
 
