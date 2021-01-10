@@ -10,7 +10,7 @@ import { useSelector } from 'react-redux';
 import { Link as RouterLink } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { ColumnToRow, Item } from '@mui-treasury/components/flex';
-import { NavMenu, NavItem } from '@mui-treasury/components/menu/navigation';
+// import { NavMenu, NavItem } from '@mui-treasury/components/menu/navigation';
 import {
   CategoryProvider,
   CategoryTitle,
@@ -22,7 +22,7 @@ import {
 } from '@mui-treasury/components/socialLink';
 import { useMagCategoryMenuStyles } from '@mui-treasury/styles/categoryMenu/mag';
 import { usePoofSocialLinkStyles } from '@mui-treasury/styles/socialLink/poof';
-import { usePlainNavigationMenuStyles } from '@mui-treasury/styles/navigationMenu/plain';
+// import { usePlainNavigationMenuStyles } from '@mui-treasury/styles/navigationMenu/plain';
 import { useTranslation } from 'react-i18next';
 import { Loading } from 'components/Loading';
 import { NoDisplayData } from 'components/NoDisplayData';
@@ -233,7 +233,7 @@ const Footer = React.memo(function ArcAppFooter() {
             at={'md'}
             columnStyle={{ alignItems: 'center' }}
             rowStyle={{ alignItems: 'unset' }}>
-            <Item grow ml={-2} shrink={0}>
+            {/* <Item grow ml={-2} shrink={0}>
               <NavMenu useStyles={usePlainNavigationMenuStyles}>
                 <ColumnToRow at={'sm'}>
                   <NavItem className={classes.legalLink}>
@@ -244,7 +244,7 @@ const Footer = React.memo(function ArcAppFooter() {
                   </NavItem>
                 </ColumnToRow>
               </NavMenu>
-            </Item>
+            </Item> */}
             <Item>
               <Box py={1} textAlign={{ xs: 'center', md: 'right' }}>
                 <Typography
