@@ -23,7 +23,6 @@ import { useNewsInfoStyles } from '@mui-treasury/styles/info/news';
 import { useBlogTextInfoContentStyles } from '@mui-treasury/styles/textInfoContent/blog';
 import ChevronRightRounded from '@material-ui/icons/ChevronRightRounded';
 import { useFloatShadowStyles } from '@mui-treasury/styles/shadow/float';
-import HtmlParser from 'react-html-parser';
 import Color from 'color';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
