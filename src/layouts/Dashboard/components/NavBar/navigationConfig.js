@@ -18,6 +18,28 @@ export const navigationConfig = t => [
     title: 'Pages',
     pages: [
       {
+        title: t('faqs:page_header'),
+        href: '/admin/faqs',
+        icon: FAQIcon
+      }
+    ]
+  },
+  {
+    title: 'Settings',
+    pages: [
+      {
+        title: t('settings:profile'),
+        href: '/user/profile',
+        icon: PersonIcon
+      }
+    ]
+  }
+];
+export const navigationAdminConfig = t => [
+  {
+    title: 'Pages',
+    pages: [
+      {
         title: 'Dashboards',
         href: '/admin/dashboard',
         icon: DashboardIcon

@@ -67,8 +67,12 @@ const LoginForm = props => {
       setUser(login.user);
       const name = `${login.user.firstName} ${login.user.lastName}`;
       httpSocket.emit('join', { userId: login.user.id, name }, () => {});
+      const toRoute =
+        Number(login.user.accessLevel) < 4
+          ? '/admin/dashboard'
+          : '/user/profile';
       setTimeout(() => {
-        router.history.replace('/admin/blogs');
+        router.history.replace(toRoute);
       }, 5000);
     }
     // eslint-disable-next-line

@@ -9,7 +9,7 @@ import { Hidden } from '@material-ui/core';
 
 import useRouter from 'utils/useRouter';
 import { Navigation } from 'components';
-import { navigationConfig } from './navigationConfig';
+import { navigationAdminConfig, navigationConfig } from './navigationConfig';
 import { toUserAccess } from 'utils/constants';
 import { useTranslation } from 'react-i18next';
 
@@ -55,18 +55,25 @@ const NavBar = props => {
     }
     // eslint-disable-next-line
   }, [router.location.pathname]);
-
+  const sideNavs =
+    Number(user.accessLevel) < 4
+      ? navigationAdminConfig(t)
+      : navigationConfig(t);
   const navbarContent = (
-    <div className={classes.content} >
+    <div className={classes.content}>
       <div className={classes.profile}>
         <Avatar
           alt="Person"
           className={classes.avatar}
           component={RouterLink}
           src={`${process.env.REACT_APP_API_URL}/api/res/profiles/${user.profilePic}`}
-          to="/user/profile" 
+          to="/user/profile"
         />
-        <Typography className={classes.name} component={RouterLink} to="/user/profile" variant="h4">
+        <Typography
+          className={classes.name}
+          component={RouterLink}
+          to="/user/profile"
+          variant="h4">
           {user.firstName} {user.lastName}
         </Typography>
         <Typography component={RouterLink} to="/user/profile" variant="body2">
@@ -75,7 +82,7 @@ const NavBar = props => {
       </div>
       <Divider className={classes.divider} />
       <nav className={classes.navigation}>
-        {navigationConfig(t).map(list => (
+        {sideNavs.map(list => (
           <Navigation
             component="div"
             key={list.title}

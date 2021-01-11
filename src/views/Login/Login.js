@@ -18,11 +18,11 @@ import { useSelector } from 'react-redux';
 const Login = props => {
   const { t, history } = props;
   const classes = useStyles();
-  const { loggedIn } = useSelector(({ auth }) => auth);
+  const { loggedIn, user } = useSelector(({ auth }) => auth);
 
   const [quote, setQuote] = useState({
     quote:
-      'Hella narvwhal Cosby sweater McSweeney\'s, salvia kitsch before they sold out High Life.',
+      "Hella narvwhal Cosby sweater McSweeney's, salvia kitsch before they sold out High Life.",
     background: '/images/auth.png'
   });
 
@@ -47,7 +47,9 @@ const Login = props => {
   }, []);
   useEffect(() => {
     if (loggedIn) {
-      history.push('/admin/blogs');
+      const toRoute =
+        Number(user.accessLevel) < 4 ? '/admin/dashboard' : '/user/profile';
+      history.push(toRoute);
     }
     // eslint-disable-next-line
   }, [loggedIn]);
