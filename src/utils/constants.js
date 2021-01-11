@@ -10,9 +10,9 @@ export const toUserAccess = accessLevel => {
     case 2:
       return 'Modulator';
     case 3:
-      return 'System user';
+      return 'Editor';
     default:
-      return 'Guest';
+      return 'System User';
   }
 };
 // Local-storaage

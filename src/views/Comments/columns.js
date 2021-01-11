@@ -3,7 +3,7 @@ import moment from 'moment';
 import { Avatar, Button, ButtonGroup, Typography } from '@material-ui/core';
 import getInitials from 'utils/getInitials';
 
-export const commentsColumns = (t, classes, onApprove) => [
+export const commentsColumns = (t, classes, onApprove, user) => [
   {
     label: t('comment:col_user'),
     content: item => (
@@ -37,9 +37,13 @@ export const commentsColumns = (t, classes, onApprove) => [
     label: t('blog:col_actions'),
     content: item => (
       <ButtonGroup aria-label="small outlined button group" size="small">
-        <Button color="primary" onClick={() => onApprove(item)}>
-          {item.approved ? 'Unpublish' : 'Publish'}
-        </Button>
+        {Number(user.accessLevel) < 3 ? (
+          <Button color="primary" onClick={() => onApprove(item)}>
+            {item.approved ? 'Unpublish' : 'Publish'}
+          </Button>
+        ) : (
+          <Typography variant="caption">View</Typography>
+        )}
       </ButtonGroup>
     )
   }

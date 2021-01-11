@@ -40,10 +40,12 @@ const ProductSercices = () => {
   const [currentProd, setCurrentProd] = useState(null);
   const {
     productsGet: { loading, products },
-    productRm: { loading: deleting, loaded }
-  } = useSelector(({ productsGet, productRm }) => ({
+    productRm: { loading: deleting, loaded },
+    auth: { user }
+  } = useSelector(({ productsGet, productRm, auth }) => ({
     productsGet,
-    productRm
+    productRm,
+    auth
   }));
   useEffect(() => {
     getProducts();
@@ -90,12 +92,14 @@ const ProductSercices = () => {
           </Typography>
         </Grid>
         <Grid item>
-          <Button
-            color="primary"
-            onClick={() => setOpenAddProduct(true)}
-            variant="contained">
-            {t('settings:add_btn')}
-          </Button>
+          {Number(user.accessLevel) < 3 ? (
+            <Button
+              color="primary"
+              onClick={() => setOpenAddProduct(true)}
+              variant="contained">
+              {t('settings:add_btn')}
+            </Button>
+          ) : null}
         </Grid>
       </Grid>
       <SearchBar onFilter={handleFilter} onSearch={handleSearch} />
@@ -115,7 +119,7 @@ const ProductSercices = () => {
             ) : products.length ? (
               products.map((product, productIdx) => (
                 <Product
-                  forAdmin
+                  forAdmin={Number(user.accessLevel) < 3}
                   key={productIdx}
                   onDelete={() => onProductClick(product, 'rm')}
                   onEdit={() => onProductClick(product, 'edit')}

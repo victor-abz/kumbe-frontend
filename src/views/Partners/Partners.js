@@ -36,9 +36,11 @@ const PartnerSercices = () => {
   const { t } = useTranslation();
   const [openAddPartner, setOpenAddPartner] = useState(false);
   const {
-    partnersGet: { loading, partners }
-  } = useSelector(({ partnersGet }) => ({
-    partnersGet
+    partnersGet: { loading, partners },
+    auth: { user }
+  } = useSelector(({ partnersGet, auth }) => ({
+    partnersGet,
+    auth
   }));
   useEffect(() => {
     getPartners();
@@ -58,12 +60,14 @@ const PartnerSercices = () => {
           </Typography>
         </Grid>
         <Grid item>
-          <Button
-            color="primary"
-            onClick={() => setOpenAddPartner(true)}
-            variant="contained">
-            {t('settings:add_partner')}
-          </Button>
+          {Number(user.accessLevel) < 3 ? (
+            <Button
+              color="primary"
+              onClick={() => setOpenAddPartner(true)}
+              variant="contained">
+              {t('settings:add_partner')}
+            </Button>
+          ) : null}
         </Grid>
       </Grid>
       <SearchBar onFilter={handleFilter} onSearch={handleSearch} />

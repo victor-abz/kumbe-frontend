@@ -43,10 +43,12 @@ const AdminFAQs = () => {
   const [currentQtn, setCurrentQtn] = useState(null);
   const {
     faqsGet: { loading, faqs },
-    faqRm: { loading: deleting, loaded }
-  } = useSelector(({ faqsGet, faqRm }) => ({
+    faqRm: { loading: deleting, loaded },
+    auth: { user }
+  } = useSelector(({ faqsGet, faqRm, auth }) => ({
     faqsGet,
-    faqRm
+    faqRm,
+    auth
   }));
   useEffect(() => {
     getFAQs();
@@ -93,12 +95,14 @@ const AdminFAQs = () => {
           </Typography>
         </Grid>
         <Grid item>
-          <Button
-            color="primary"
-            onClick={() => setOpenAddQuestion(true)}
-            variant="contained">
-            {t('faqs:add_btn')}
-          </Button>
+          {Number(user.accessLevel) < 3 ? (
+            <Button
+              color="primary"
+              onClick={() => setOpenAddQuestion(true)}
+              variant="contained">
+              {t('faqs:add_btn')}
+            </Button>
+          ) : null}
         </Grid>
       </Grid>
       <SearchBar onFilter={handleFilter} onSearch={handleSearch} />
@@ -119,22 +123,24 @@ const AdminFAQs = () => {
                   secondary={faq.answer}
                   secondaryTypographyProps={{ variant: 'body1' }}
                 />
-                <ButtonGroup variant="outlined">
-                  <Tooltip title="Edit">
-                    <IconButton
-                      aria-label="Edit"
-                      onClick={() => onQuestionClick(faq, 'edit')}>
-                      <EditIcon />
-                    </IconButton>
-                  </Tooltip>
-                  <Tooltip title="Edit">
-                    <IconButton
-                      aria-label="Edit"
-                      onClick={() => onQuestionClick(faq, 'rm')}>
-                      <DeleteIcon />
-                    </IconButton>
-                  </Tooltip>
-                </ButtonGroup>
+                {Number(user.accessLevel) < 3 ? (
+                  <ButtonGroup variant="outlined">
+                    <Tooltip title="Edit">
+                      <IconButton
+                        aria-label="Edit"
+                        onClick={() => onQuestionClick(faq, 'edit')}>
+                        <EditIcon />
+                      </IconButton>
+                    </Tooltip>
+                    <Tooltip title="Edit">
+                      <IconButton
+                        aria-label="Edit"
+                        onClick={() => onQuestionClick(faq, 'rm')}>
+                        <DeleteIcon />
+                      </IconButton>
+                    </Tooltip>
+                  </ButtonGroup>
+                ) : null}
               </ListItem>
             ))
           ) : (

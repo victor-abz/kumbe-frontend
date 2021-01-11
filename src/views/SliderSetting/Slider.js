@@ -28,8 +28,9 @@ const Sliders = () => {
   const [confirmDel, setConfirmDel] = useState(false);
   const [currentQtn, setCurrentQtn] = useState(null);
   const {
-    slidersGet: { sliders, loading }
-  } = useSelector(({ slidersGet }) => ({ slidersGet }));
+    slidersGet: { sliders, loading },
+    auth: { user }
+  } = useSelector(({ slidersGet, auth }) => ({ slidersGet, auth }));
   useEffect(() => {
     getSliders();
   }, []);
@@ -59,12 +60,14 @@ const Sliders = () => {
           </Typography>
         </Grid>
         <Grid item>
-          <Button
-            color="primary"
-            onClick={() => setOpenAddQuestion(true)}
-            variant="contained">
-            {t('slider:add_btn')}
-          </Button>
+          {Number(user.accessLevel) < 3 ? (
+            <Button
+              color="primary"
+              onClick={() => setOpenAddQuestion(true)}
+              variant="contained">
+              {t('slider:add_btn')}
+            </Button>
+          ) : null}
         </Grid>
       </Grid>
       <SearchBar onFilter={handleFilter} onSearch={handleSearch} />

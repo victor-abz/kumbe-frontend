@@ -40,10 +40,12 @@ const BlogComments = () => {
   const [searchVal, setSearchVal] = useState('');
   const {
     commentsGet: { loading: fetching, comments, totalItems },
-    commentApprove: { loading, loaded }
-  } = useSelector(({ commentsGet, commentApprove }) => ({
+    commentApprove: { loading, loaded },
+    auth: { user: authUser }
+  } = useSelector(({ commentsGet, commentApprove, auth }) => ({
     commentsGet,
-    commentApprove
+    commentApprove,
+    auth
   }));
   useEffect(() => {
     const { pageNumber, pageSize } = paginator;
@@ -61,7 +63,7 @@ const BlogComments = () => {
       open: true,
       message: `Are sure you want to ${
         comment.approved ? 'unpublish' : 'publish'
-      } comment from ${comment.user.username.toUpperCase()}`,
+      } comment from ${comment.author.username.toUpperCase()}`,
       comment
     });
   };
@@ -98,7 +100,7 @@ const BlogComments = () => {
         <Grid item md={12} xs={12}>
           <CustomisedTable
             className={classes.results}
-            columns={commentsColumns(t, classes, onOpenCurrent)}
+            columns={commentsColumns(t, classes, onOpenCurrent, authUser)}
             data={comments}
             dataCount={totalItems}
             handlePageChange={onPageChage}

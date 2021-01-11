@@ -4,6 +4,7 @@ export const SET_AUTH_USER = 'SET_AUTH_USER';
 export const GET_USER_PROFILE = 'GET_USER_PROFILE';
 export const LOGOUT_USER = 'LOGOUT_USER';
 export const GET_USERS = 'GET_USERS';
+export const CHANGE_USER_LEVEL = 'CHANGE_USER_LEVEL';
 
 export const ADD_NEW_TAG = 'ADD_NEW_TAG';
 export const GET_TAGS = 'GET_TAGS';

@@ -37,8 +37,9 @@ const DashboardDefault = () => {
   const [endDate, setEndDate] = useState(new Date());
 
   const {
-    analyticsGet: { loading, analytics }
-  } = useSelector(({ analyticsGet }) => ({ analyticsGet }));
+    analyticsGet: { loading, analytics },
+    auth: { user: authUser }
+  } = useSelector(({ analyticsGet, auth }) => ({ analyticsGet, auth }));
 
   const formattedDate = date => {
     if (moment.isMoment(date)) {
@@ -113,9 +114,11 @@ const DashboardDefault = () => {
         <Grid item lg={5} xl={4} xs={12}>
           <LatestBlogs />
         </Grid>
-        <Grid item lg={7} xl={8} xs={12}>
-          <UsersList />
-        </Grid>
+        {Number(authUser.accessLevel) < 3 ? (
+          <Grid item lg={7} xl={8} xs={12}>
+            <UsersList />
+          </Grid>
+        ) : null}
       </Grid>
     </Page>
   );

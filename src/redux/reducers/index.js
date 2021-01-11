@@ -52,7 +52,7 @@ import {
   partnerDeleteReducer,
   partnersGetReducer
 } from './partnerReducer';
-import { usersGetReducer } from './userReducers';
+import { lvlChangeReducer, usersGetReducer } from './userReducers';
 import {
   faqAddReducer,
   faqEditReducer,
@@ -111,5 +111,6 @@ export default combineReducers({
   faqRm: faqRmReducer,
   analyticsGet: analyticsReducer,
   sliderAdd: sliderAddReducer,
-  slidersGet: slidersGetReducer
+  slidersGet: slidersGetReducer,
+  lvlChange: lvlChangeReducer
 });
