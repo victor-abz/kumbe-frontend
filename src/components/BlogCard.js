@@ -123,7 +123,7 @@ const BlogCard = React.memo(function PostCard({
               </Typography>
               <Divider />
             </Row>
-            <Row>
+            {/* <Row>
               <Avatar
                 className={cardStyles.avatar}
                 src={`${process.env.REACT_APP_API_URL}/api/res/profiles/${author.profilePic}`}
@@ -131,9 +131,8 @@ const BlogCard = React.memo(function PostCard({
               />
               <Info useStyles={useNewsInfoStyles}>
                 <InfoCaption>{`${author.firstName} ${author.lastName}`}</InfoCaption>
-                {/* <InfoSubtitle>{moment(createdAt).fromNow()}</InfoSubtitle> */}
               </Info>
-            </Row>
+            </Row> */}
             <Row component={Link} to={`/blogs/${slug}`}>
               <TextInfoContent
                 body={truncate(content.replace(/<[^>]+>|&nbsp;/g, ''), 80)}

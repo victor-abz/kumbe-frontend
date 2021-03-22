@@ -33,7 +33,9 @@ export const HomeBlogs = React.memo(function HighlightCard() {
 
   return (
     <Grid classes={gridStyles} container spacing={2}>
-      <Title title={t('home:blog_section')} />
+      <Grid item sm={12}>
+        <Title title={t('home:blog_section')} />
+      </Grid>
       {loading ? (
         <Loading />
       ) : (
@@ -46,14 +48,22 @@ export const HomeBlogs = React.memo(function HighlightCard() {
         })
       )}
       {blogs.length === 4 ? (
-        <Button
-          color="primary"
-          component={Link}
-          style={{ marginBottom: 10 }}
-          to="/blogs"
-          variant={'contained'}>
-          {t('home:view_more')}
-        </Button>
+        <Grid
+          alignItems="center"
+          container
+          direction="row"
+          item
+          justify="center"
+          sm={12}>
+          <Button
+            color="primary"
+            component={Link}
+            style={{ marginBottom: 10 }}
+            to="/blogs"
+            variant={'contained'}>
+            {t('home:view_more')}
+          </Button>
+        </Grid>
       ) : null}
     </Grid>
   );

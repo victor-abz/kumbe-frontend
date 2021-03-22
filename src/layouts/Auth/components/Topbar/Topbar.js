@@ -99,7 +99,7 @@ const TopBar = props => {
                 .filter(p => p.title === 'Pages')[0]
                 .pages.map((menu, index) =>
                   menu.children ? (
-                    <>
+                    <div key={index}>
                       <RouterLink
                         aria-controls={`popup-${menu.href}`}
                         key={index}
@@ -130,7 +130,7 @@ const TopBar = props => {
                           ))}
                         </div>
                       </StyledMenu>
-                    </>
+                    </div>
                   ) : (
                     <RouterLink key={index} to={menu.href}>
                       <Item

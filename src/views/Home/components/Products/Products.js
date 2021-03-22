@@ -44,6 +44,7 @@ const Products = props => {
         <Grid alignItems="center" container justify="space-between" spacing={2}>
           <Grid
             alignItems="center"
+            container
             direction="row"
             item
             justify="center"

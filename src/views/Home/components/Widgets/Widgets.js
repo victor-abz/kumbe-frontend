@@ -39,7 +39,13 @@ const HomeWidget = () => {
         </Grid>
       </Grid>
       <Grid className={classes.periodCalculator} item md={6} xs={12}>
-        <Grid alignItems="center" direction="row" item justify="center" xs={12}>
+        <Grid
+          alignItems="center"
+          container
+          direction="row"
+          item
+          justify="center"
+          xs={12}>
           <Typography
             align="center"
             color="textPrimary"

@@ -112,13 +112,13 @@ const Footer = React.memo(function ArcAppFooter() {
                 src="/images/HDI_logo.png"
                 width={120}
               />
-              <Typography className={classes.info}>
+              <div className={classes.info}>
                 <Typography index={1}>Kicukiro, 3530, Kigali Rwanda</Typography>
-              </Typography>
+              </div>
 
-              <Typography className={classes.info}>
+              <div className={classes.info}>
                 <Typography index={1}>admin@kumbe.rw</Typography>
-              </Typography>
+              </div>
             </Grid>
             <Grid item lg={6} md={8} xs={12}>
               <Grid container spacing={2}>

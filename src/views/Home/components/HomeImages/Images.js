@@ -36,7 +36,9 @@ export const HomeImages = React.memo(function HighlightCard({
       container
       spacing={2}
       style={{ backgroundColor: background }}>
-      <Title title={title} />
+      <Grid item sm={12}>
+        <Title title={title} />
+      </Grid>
       {loading ? (
         <Loading />
       ) : (
@@ -49,14 +51,22 @@ export const HomeImages = React.memo(function HighlightCard({
         })
       )}
       {medias.length === 4 ? (
-        <Button
-          color="primary"
-          component={Link}
-          style={{ marginBottom: 10 }}
-          to="/photos"
-          variant={'contained'}>
-          {t('home:view_more')}
-        </Button>
+        <Grid
+          alignItems="center"
+          container
+          direction="row"
+          item
+          justify="center"
+          sm={12}>
+          <Button
+            color="primary"
+            component={Link}
+            style={{ marginBottom: 10 }}
+            to="/photos"
+            variant={'contained'}>
+            {t('home:view_more')}
+          </Button>
+        </Grid>
       ) : null}
     </Grid>
   );
