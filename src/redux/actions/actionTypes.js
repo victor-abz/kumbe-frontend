@@ -67,3 +67,5 @@ export const GET_ANALYTICS = 'GET_ANALYTICS';
 
 export const CREATE_SLIDER = 'CREATE_SLIDER';
 export const GET_SLIDERS = 'GET_SLIDERS';
+export const EDIT_SLIDER = 'EDIT_SLIDER';
+export const DELETE_SLIDER = 'DELETE_SLIDER';
