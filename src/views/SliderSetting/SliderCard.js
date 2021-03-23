@@ -8,9 +8,17 @@ import {
   Avatar,
   IconButton,
   Typography,
-  colors
+  colors,
+  CardActions,
+  ButtonGroup,
+  Tooltip
 } from '@material-ui/core';
-import { MoreVert as MoreVertIcon } from '@material-ui/icons';
+import {
+  MoreVert as MoreVertIcon,
+  EditRounded as EditIcon,
+  DeleteForever as DeleteIcon
+} from '@material-ui/icons';
+
 import moment from 'moment';
 import { imagesPath } from 'utils/constants';
 
@@ -37,7 +45,15 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export const SliderCard = ({ title, createdAt, caption, imageLink }) => {
+export const SliderCard = ({
+  title,
+  createdAt,
+  caption,
+  imageLink,
+  onEdit,
+  onDelete,
+  canEdit = false
+}) => {
   const classes = useStyles();
 
   return (
@@ -66,6 +82,24 @@ export const SliderCard = ({ title, createdAt, caption, imageLink }) => {
           {caption}
         </Typography>
       </CardContent>
+      <CardActions>
+        {canEdit && (
+          <ButtonGroup variant="outlined" size="small">
+            <Tooltip title="Edit">
+              <IconButton aria-label="Edit" onClick={onEdit}>
+                <EditIcon />
+                Edit
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Edit">
+              <IconButton aria-label="Edit" onClick={onDelete}>
+                <DeleteIcon />
+                Delete
+              </IconButton>
+            </Tooltip>
+          </ButtonGroup>
+        )}
+      </CardActions>
     </Card>
   );
 };

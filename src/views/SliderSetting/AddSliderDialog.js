@@ -15,7 +15,7 @@ import {
 } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { createSlider, getSliders } from 'redux/actions/slider';
+import { createSlider, getSliders, editSlider } from 'redux/actions/slider';
 import { getCategories } from 'redux/actions/category';
 import ColorPicker from 'material-ui-color-picker';
 import { FilesDropzone } from 'components';
@@ -39,28 +39,37 @@ export const AddSliderDialog = ({ open, setOpen, currentItem = null }) => {
   const {
     categoryGet: { categories },
     fileUpload: { loaded: done, fileName },
-    sliderAdd: { loading, loaded: saved }
-  } = useSelector(({ categoryGet, fileUpload, sliderAdd }) => ({
+    sliderAdd: { loading, loaded: saved },
+    sliderEdit: { loading: updating, loaded: updated }
+  } = useSelector(({ categoryGet, fileUpload, sliderAdd, sliderEdit }) => ({
     categoryGet,
     fileUpload,
-    sliderAdd
+    sliderAdd,
+    sliderEdit
   }));
   useEffect(() => {
     getCategories();
   }, []);
   useEffect(() => {
-    if (saved) {
+    if (saved || updated) {
       localStorage.removeItem(UPLOADED_FILE_NAME);
       setValues(initialState);
       setOpen();
       getSliders();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [saved]);
+  }, [saved, updated]);
   useEffect(() => {
     if (currentItem) {
-      const { question, answer } = currentItem;
-      setValues({ question, answer });
+      let {
+        id,
+        languageId,
+        category,
+        updatedAt,
+        createdAt,
+        ...rest
+      } = currentItem;
+      setValues(rest);
     }
   }, [currentItem]);
   useEffect(() => {
@@ -72,12 +81,11 @@ export const AddSliderDialog = ({ open, setOpen, currentItem = null }) => {
   const onHandleChange = ({ target: { name, value } }) => {
     setValues({ ...values, [name]: value });
   };
-  const updating = false;
   return (
     <Dialog aria-labelledby="cat-dialog-title" onClose={setOpen} open={open}>
       <DialogTitle id="cat-dialog-title">
         {currentItem
-          ? t('slider:edit_btn') + currentItem.question.toUpperCase()
+          ? t('slider:edit_btn') + currentItem.title.toUpperCase()
           : t('slider:add_btn')}
       </DialogTitle>
       <DialogContent>
@@ -183,6 +191,7 @@ export const AddSliderDialog = ({ open, setOpen, currentItem = null }) => {
             <FilesDropzone
               acceptedFiles="image/jpeg, image/png"
               fileType="image"
+              currentFile={currentItem ? currentItem.imageLink : null}
             />
           </Grid>
         </Grid>
@@ -192,7 +201,10 @@ export const AddSliderDialog = ({ open, setOpen, currentItem = null }) => {
           {t('media:btn_cancel')}
         </Button>
         {currentItem ? (
-          <Button color="secondary" disabled={updating}>
+          <Button
+            color="secondary"
+            disabled={updating}
+            onClick={() => editSlider(values, currentItem.id)}>
             {updating ? t('blog:btn_loading') : `Update`}
           </Button>
         ) : (
