@@ -2,7 +2,6 @@ import React from 'react';
 import cx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import {
-  Avatar,
   Button,
   Card,
   colors,
@@ -18,8 +17,8 @@ import FavoriteBorderRounded from '@material-ui/icons/FavoriteBorderRounded';
 import { useWideCardMediaStyles } from '@mui-treasury/styles/cardMedia/wide';
 import TextInfoContent from '@mui-treasury/components/content/textInfo';
 import { Column, Row } from '@mui-treasury/components/flex';
-import { Info, InfoCaption } from '@mui-treasury/components/info';
-import { useNewsInfoStyles } from '@mui-treasury/styles/info/news';
+// import { Info, InfoCaption } from '@mui-treasury/components/info';
+// import { useNewsInfoStyles } from '@mui-treasury/styles/info/news';
 import { useBlogTextInfoContentStyles } from '@mui-treasury/styles/textInfoContent/blog';
 import ChevronRightRounded from '@material-ui/icons/ChevronRightRounded';
 import { useFloatShadowStyles } from '@mui-treasury/styles/shadow/float';
