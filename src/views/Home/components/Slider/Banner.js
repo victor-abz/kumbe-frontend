@@ -17,7 +17,6 @@ const Banner = ({ contentPosition: ctPostion, item, index: key }) => {
   const contentPosition = ctPostion ? ctPostion : 'left';
 
   let items = [];
-  console.log(item);
   const content = (
     <Grid
       className={classes.content}
