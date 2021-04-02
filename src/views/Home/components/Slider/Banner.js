@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { useStyles } from './styles';
 import { Link as RouterLink } from 'react-router-dom';
 import {
@@ -12,7 +11,7 @@ import {
 } from '@material-ui/core';
 import { imagesPath } from 'utils/constants';
 
-const Banner = ({ contentPosition: ctPostion, item }) => {
+const Banner = ({ contentPosition: ctPostion, item, index: key }) => {
   const classes = useStyles();
   const contentPosition = ctPostion ? ctPostion : 'left';
 
@@ -21,7 +20,7 @@ const Banner = ({ contentPosition: ctPostion, item }) => {
     <Grid
       className={classes.content}
       item
-      key="content"
+      key={key}
       md={6}
       style={{ background: `${item.backgroundColor}` }}
       xs={12}>
@@ -53,7 +52,7 @@ const Banner = ({ contentPosition: ctPostion, item }) => {
   );
 
   const media = (
-    <Grid item md={6} xs={12}>
+    <Grid item key={key + imagesPath} md={6} xs={12}>
       <CardMedia
         className={classes.media}
         image={imagesPath + '/' + item.imageLink}
@@ -70,18 +69,12 @@ const Banner = ({ contentPosition: ctPostion, item }) => {
   }
 
   return (
-    <Card className={classes.Banner} raised>
+    <Card className={classes.Banner} key={key} raised>
       <Grid className={classes.BannerGrid} container spacing={0}>
         {items}
       </Grid>
     </Card>
   );
-};
-
-Banner.propTypes = {
-  contentPosition: PropTypes.string,
-  item: PropTypes.object,
-  length: PropTypes.number
 };
 
 export default Banner;

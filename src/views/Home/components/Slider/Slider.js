@@ -29,6 +29,7 @@ const Presentation = () => {
             return (
               <Banner
                 contentPosition={item.position}
+                index={index}
                 item={item}
                 key={index}
                 length={2}

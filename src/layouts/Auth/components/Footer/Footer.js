@@ -131,7 +131,7 @@ const Footer = React.memo(function ArcAppFooter() {
                       <Loading />
                     ) : products.length ? (
                       products.map(({ name, id }) => (
-                        <CategoryItem index={id}>
+                        <CategoryItem key={id}>
                           <Typography>{name}</Typography>
                         </CategoryItem>
                       ))
@@ -148,8 +148,8 @@ const Footer = React.memo(function ArcAppFooter() {
                     {categoryLoad ? (
                       <Loading />
                     ) : categories.length ? (
-                      categories.map(({ name, id }) => (
-                        <CategoryItem index={id}>
+                      categories.map(({ name, id }, index) => (
+                        <CategoryItem as="div" index={id} key={index}>
                           <Typography
                             component={RouterLink}
                             to={`/blogs/categories/${id}`}>
@@ -167,12 +167,12 @@ const Footer = React.memo(function ArcAppFooter() {
                     <CategoryTitle>
                       <Typography>{t('top_bar:infotitle')}</Typography>
                     </CategoryTitle>
-                    <CategoryItem>
+                    <CategoryItem as="div">
                       <Typography component={RouterLink} to={'/about'}>
                         {t('top_bar:about')}
                       </Typography>
                     </CategoryItem>
-                    <CategoryItem>
+                    <CategoryItem as="div">
                       <Typography component={RouterLink} to={'/faq'}>
                         {t('top_bar:faq')}
                       </Typography>
@@ -249,7 +249,7 @@ const Footer = React.memo(function ArcAppFooter() {
               <Box py={1} textAlign={{ xs: 'center', md: 'right' }}>
                 <Typography
                   color={'textSecondary'}
-                  component={'p'}
+                  component={'div'}
                   variant={'caption'}>
                   <Typography index={1}>
                     © HDI Rwanda 2020 {t('top_bar:copyright')}

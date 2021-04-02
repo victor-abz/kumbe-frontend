@@ -63,7 +63,7 @@ const Share = ({ shareCount = 0, href = '', onShare }) => {
   const urlShare = `${process.env.REACT_APP_FE_URL}/${href}`;
   return (
     <>
-      <IconButton onClick={handleClick}>
+      <IconButton component="div" onClick={handleClick}>
         <ShareIcon />
         {shareCount ? (
           <Typography variant="body2">{shareCount}</Typography>

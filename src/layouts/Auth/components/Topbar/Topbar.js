@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, Link as RouterLink } from 'react-router-dom';
 import clsx from 'clsx';
-import PropTypes from 'prop-types';
 import { useStyles } from '../../styles';
 import { getCategories } from 'redux/actions/category';
 import {
@@ -178,12 +177,6 @@ const TopBar = props => {
       </Toolbar>
     </AppBar>
   );
-};
-
-TopBar.propTypes = {
-  className: PropTypes.string,
-  onOpenNavBarMobile: PropTypes.func,
-  t: PropTypes.func
 };
 
 export default TopBar;

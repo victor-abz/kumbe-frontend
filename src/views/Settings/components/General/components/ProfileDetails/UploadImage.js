@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import {
   Button,
   Dialog,
@@ -67,9 +66,4 @@ export const UploadImage = ({ open, setOpen, profile }) => {
       </DialogActions>
     </Dialog>
   );
-};
-UploadImage.propTypes = {
-  categoryType: PropTypes.string,
-  open: PropTypes.bool,
-  setOpen: PropTypes.func
 };

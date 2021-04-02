@@ -132,22 +132,25 @@ const BlogCard = React.memo(function PostCard({
                 <InfoCaption>{`${author.firstName} ${author.lastName}`}</InfoCaption>
               </Info>
             </Row> */}
-            <Row component={Link} to={`/blogs/${slug}`}>
-              <TextInfoContent
-                body={truncate(content.replace(/<[^>]+>|&nbsp;/g, ''), 80)}
-                classes={textCardContentStyles}
-              />
-            </Row>
+            <Link to={`/blogs/${slug}`}>
+              <Row>
+                <TextInfoContent
+                  body={truncate(content.replace(/<[^>]+>|&nbsp;/g, ''), 80)}
+                  classes={textCardContentStyles}
+                />
+              </Row>
+            </Link>
+
             <Row gap={2} p={0}>
-              <Button
-                className={cardStyles.cta}
-                color={'primary'}
-                component={Link}
-                fullWidth
-                to={`/blogs/${slug}`}
-                variant={'contained'}>
-                {t('blog_preview:blogView')} <ChevronRightRounded />
-              </Button>
+              <Link to={`/blogs/${slug}`}>
+                <Button
+                  className={cardStyles.cta}
+                  color={'primary'}
+                  fullWidth
+                  variant={'contained'}>
+                  {t('blog_preview:blogView')} <ChevronRightRounded />
+                </Button>
+              </Link>
             </Row>
           </Column>
         </Box>

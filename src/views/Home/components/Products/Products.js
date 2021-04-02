@@ -56,6 +56,14 @@ const Products = props => {
               variant="h2">
               {t('home:products_title')}
             </Typography>
+          </Grid>
+          <Grid
+            alignItems="center"
+            container
+            direction="row"
+            item
+            justify="center"
+            xs={12}>
             <Typography
               align="center"
               style={{ color: 'white' }}
