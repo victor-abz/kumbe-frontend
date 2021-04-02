@@ -142,7 +142,7 @@ const BlogCard = React.memo(function PostCard({
             </Link>
 
             <Row gap={2} p={0}>
-              <Link to={`/blogs/${slug}`}>
+              <Link style={{ width: '100%' }} to={`/blogs/${slug}`}>
                 <Button
                   className={cardStyles.cta}
                   color={'primary'}

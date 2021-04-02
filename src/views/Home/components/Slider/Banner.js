@@ -10,24 +10,27 @@ import {
   Button
 } from '@material-ui/core';
 import { imagesPath } from 'utils/constants';
+import { convertToObject } from 'typescript';
 
 const Banner = ({ contentPosition: ctPostion, item, index: key }) => {
   const classes = useStyles();
   const contentPosition = ctPostion ? ctPostion : 'left';
 
   let items = [];
+  console.log(item);
   const content = (
     <Grid
       className={classes.content}
       item
       key={key}
       md={6}
-      style={{ background: `${item.backgroundColor}` }}
+      style={{ backgroundColor: `${item.bgColor}` }}
       xs={12}>
       <CardContent className={classes.bannerText}>
         <Typography
-          className={classes.title}
-          style={{ color: `${item.titleColor}` }}>
+          //   className={classes.title}
+          style={{ color: `${item.titleColor}` }}
+          variant="h2">
           {item.title}
         </Typography>
 

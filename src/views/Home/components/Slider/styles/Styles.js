@@ -3,12 +3,11 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles(({ breakpoints, spacing }) => ({
   content: {
     height: '100%',
-    backgroundColor: 'none',
+    // backgroundColor: 'none',
     justifyContent: 'center',
     alignItems: 'center',
-    display: 'flex',
+    display: 'flex'
     // padding: '4%'
-
   },
   bannerText: {
     width: '70%'
@@ -16,12 +15,12 @@ const useStyles = makeStyles(({ breakpoints, spacing }) => ({
   title: {
     fontSize: '40px',
     fontWeight: 500,
-    color: 'white',
+    color: 'white'
   },
   caption: {
-    marginTop:spacing(3),
-    fontSize:'21px',
-    color: '#000000',
+    marginTop: spacing(3),
+    fontSize: '21px',
+    color: '#000000'
   },
   media: {
     backgroundSize: 'cover',
@@ -34,7 +33,7 @@ const useStyles = makeStyles(({ breakpoints, spacing }) => ({
   BannerGrid: {
     height: '100%'
   },
-  Banner:{
+  Banner: {
     [breakpoints.up('sm')]: {
       maxHeight: 350,
       height: 350
