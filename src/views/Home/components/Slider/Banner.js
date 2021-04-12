@@ -10,7 +10,6 @@ import {
   Button
 } from '@material-ui/core';
 import { imagesPath } from 'utils/constants';
-import { convertToObject } from 'typescript';
 
 const Banner = ({ contentPosition: ctPostion, item, index: key }) => {
   const classes = useStyles();

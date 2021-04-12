@@ -6,12 +6,17 @@ import {
   CardMedia,
   CardContent,
   Avatar,
-  IconButton,
-  Typography,
+  Button,
   colors,
   CardActions,
   ButtonGroup,
-  Tooltip
+  Tooltip,
+  TableContainer,
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody
 } from '@material-ui/core';
 import {
   MoreVert as MoreVertIcon,
@@ -23,9 +28,7 @@ import moment from 'moment';
 import { imagesPath } from 'utils/constants';
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    maxWidth: 345
-  },
+  root: {},
   media: {
     height: 0,
     paddingTop: '56.25%' // 16:9
@@ -45,15 +48,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export const SliderCard = ({
-  title,
-  createdAt,
-  caption,
-  imageLink,
-  onEdit,
-  onDelete,
-  canEdit = false
-}) => {
+export const SliderCard = ({ onEdit, onDelete, canEdit = false, ...item }) => {
   const classes = useStyles();
 
   return (
@@ -64,38 +59,59 @@ export const SliderCard = ({
             R
           </Avatar>
         }
-        action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
-        }
-        title={title}
-        subheader={moment(createdAt).format('MMMM DD, YYYY')}
+        action={<MoreVertIcon aria-label="settings" />}
+        title={item.uniqueSign.toUpperCase()}
+        subheader={moment(item.createdAt).format('MMMM DD, YYYY')}
       />
       <CardMedia
         className={classes.media}
-        image={imagesPath + '/' + imageLink}
-        title={title}
+        image={imagesPath + '/' + item.imageLink}
+        title={item.uniqueSign.toUpperCase()}
       />
       <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p">
-          {caption}
-        </Typography>
+        <TableContainer>
+          <Table aria-label="Slider table" backgroundColor={item.bgColor}>
+            <TableHead>
+              <TableRow>
+                <TableCell>Language</TableCell>
+                <TableCell>Title</TableCell>
+                <TableCell>Caption</TableCell>
+                <TableCell>Position</TableCell>
+                <TableCell>Button text</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {item.textContents.map((text, textIdx) => (
+                <TableRow key={textIdx}>
+                  <TableCell component="th" scope="row">
+                    {text.lang}
+                  </TableCell>
+                  <TableCell color={item.titleColor}>{text.title}</TableCell>
+                  <TableCell color={item.captionColor}>
+                    {text.caption}
+                  </TableCell>
+                  <TableCell align={item.position}>{item.position}</TableCell>
+                  <TableCell>{text.clickText}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
       </CardContent>
       <CardActions>
         {canEdit && (
           <ButtonGroup variant="outlined" size="small">
             <Tooltip title="Edit">
-              <IconButton aria-label="Edit" onClick={onEdit}>
+              <Button aria-label="Edit" onClick={onEdit}>
                 <EditIcon />
                 Edit
-              </IconButton>
+              </Button>
             </Tooltip>
-            <Tooltip title="Edit">
-              <IconButton aria-label="Edit" onClick={onDelete}>
+            <Tooltip title="Delete">
+              <Button aria-label="Edit" onClick={onDelete}>
                 <DeleteIcon />
                 Delete
-              </IconButton>
+              </Button>
             </Tooltip>
           </ButtonGroup>
         )}
