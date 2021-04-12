@@ -10,13 +10,14 @@ import { AlertConfirm } from 'components/AlertConfirm';
 import { AddSliderDialog } from './AddSliderDialog';
 import { SliderCard } from './SliderCard';
 import { getSliders, deleteSlider } from 'redux/actions/slider';
+import { mapSliders } from 'utils/constants';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    padding: theme.spacing(3)
+    padding: theme.spacing(2)
   },
   content: {
-    marginTop: theme.spacing(6)
+    marginTop: theme.spacing(2)
   }
 }));
 
@@ -26,6 +27,7 @@ const Sliders = () => {
   const [openAddEditSlider, setOpenAddEditSlider] = useState(false);
   const [confirmDel, setConfirmDel] = useState(false);
   const [currentSlider, setCurrentSlider] = useState(null);
+  const [theSliders, setTheSliders] = useState([]);
   const {
     slidersGet: { sliders, loading },
     auth: { user },
@@ -36,18 +38,25 @@ const Sliders = () => {
     sliderRm
   }));
   useEffect(() => {
-    getSliders();
+    getSliders(true);
   }, []);
   useEffect(() => {
     if (deleted) {
-      getSliders();
+      getSliders(true);
       setConfirmDel(false);
     }
   }, [deleted]);
+  useEffect(() => {
+    if (sliders.length) {
+      let newSliders = mapSliders(sliders);
+
+      setTheSliders(newSliders);
+    }
+  }, [sliders]);
   const handleFilter = () => {};
   const handleSearch = () => {};
   const onSliderClick = (slider, action) => {
-    setCurrentSlider(slider);
+    setCurrentSlider(() => ({ ...slider }));
     if (action === 'rm') {
       setConfirmDel(true);
     }
@@ -61,8 +70,8 @@ const Sliders = () => {
         open={openAddEditSlider}
         currentItem={currentSlider}
         setOpen={() => {
-          setCurrentSlider(null);
           setOpenAddEditSlider(false);
+          setCurrentSlider(null);
         }}
       />
       <AlertConfirm
@@ -94,15 +103,8 @@ const Sliders = () => {
         {loading ? (
           <Loading />
         ) : sliders.length ? (
-          sliders.map((slider, sliderIdx) => (
-            <Grid
-              item
-              xs={12}
-              sm={6}
-              md={6}
-              lg={3}
-              key={sliderIdx}
-              className={classes.content}>
+          theSliders.map((slider, sliderIdx) => (
+            <Grid item key={sliderIdx} className={classes.content}>
               <SliderCard
                 onEdit={() => onSliderClick(slider, 'edit')}
                 onDelete={() => onSliderClick(slider, 'rm')}
