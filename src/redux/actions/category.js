@@ -8,9 +8,13 @@ export const addCategory = (newCategory = {}) => {
     payload: http.post('/categories', newCategory)
   });
 };
-export const getCategories = (type = 'blog') => {
+export const getCategories = (forSlider = false, type = 'blog') => {
+  let categoriesURL = `/categories?categoryType=${type}`;
+  if (forSlider) {
+    categoriesURL += `&forSlider=forSlider`;
+  }
   store.dispatch({
     type: GET_CATEGORIES,
-    payload: http.get(`/categories?categoryType=${type}`)
+    payload: http.get(categoriesURL)
   });
 };

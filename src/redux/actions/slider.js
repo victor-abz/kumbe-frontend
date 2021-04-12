@@ -13,10 +13,14 @@ export const createSlider = (newSlider = {}) => {
     payload: http.post('/manage/sliders', newSlider)
   });
 };
-export const getSliders = () => {
+export const getSliders = (forAdmin = false) => {
+  let slidersURL = `/manage/sliders`;
+  if (forAdmin) {
+    slidersURL += `?forAdmin=forAdmin`;
+  }
   store.dispatch({
     type: GET_SLIDERS,
-    payload: http.get('/manage/sliders')
+    payload: http.get(slidersURL)
   });
 };
 export const editSlider = (sliderBody = {}, sliderId) => {
