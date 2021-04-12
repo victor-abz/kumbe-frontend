@@ -36,3 +36,35 @@ export const systemLanguages = [
     shortName: 'kin'
   }
 ];
+export const mapSliders = (sliders = []) => {
+  let newSliders = [];
+  sliders.map(item => {
+    const sliderIndex = newSliders.findIndex(
+      s => s.uniqueSign === item.uniqueSign
+    );
+    if (sliderIndex < 0) {
+      const texts = sliders
+        .filter(el => el.uniqueSign === item.uniqueSign)
+        .map(it => ({
+          lang: it.language.shortName,
+          title: it.title,
+          caption: it.caption,
+          clickText: it.clickText,
+          categoryId: it.categoryId
+        }));
+      newSliders.push({
+        id: item.id,
+        position: item.position,
+        titleColor: item.titleColor,
+        bgColor: item.bgColor,
+        captionColor: item.captionColor,
+        imageLink: item.imageLink,
+        createdAt: item.createdAt,
+        uniqueSign: item.uniqueSign,
+        textContents: texts
+      });
+    }
+    return null;
+  });
+  return newSliders;
+};
