@@ -78,6 +78,7 @@ export const AddSliderDialog = ({ open, setOpen, currentItem = null }) => {
   }, [saved, updated]);
   useEffect(() => {
     if (currentItem) {
+      // eslint-disable-next-line
       let { createdAt, id, uniqueSign, ...rest } = currentItem;
       setValues(rest);
     }
@@ -247,7 +248,7 @@ export const AddSliderDialog = ({ open, setOpen, currentItem = null }) => {
             color="secondary"
             disabled={updating}
             onClick={() => editSlider(values, currentItem.id)}>
-            {updating ? t('blog:btn_loading') : `Update`}
+            {updating ? t('blog:btn_loading') : 'Update'}
           </Button>
         ) : (
           <Button

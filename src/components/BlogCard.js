@@ -87,8 +87,7 @@ const BlogCard = React.memo(function PostCard({
   content,
   shares,
   slug,
-  title,
-  author
+  title
 }) {
   const cardStyles = useStyles({ color });
   const mediaStyles = useWideCardMediaStyles();

@@ -14,9 +14,9 @@ export const createSlider = (newSlider = {}) => {
   });
 };
 export const getSliders = (forAdmin = false) => {
-  let slidersURL = `/manage/sliders`;
+  let slidersURL = '/manage/sliders';
   if (forAdmin) {
-    slidersURL += `?forAdmin=forAdmin`;
+    slidersURL += '?forAdmin=forAdmin';
   }
   store.dispatch({
     type: GET_SLIDERS,

@@ -15,14 +15,15 @@ import { Page } from 'components';
 import { LoginForm, useStyles } from './components';
 import { useSelector } from 'react-redux';
 
+let initialQuote = 'Hella narvwhal Cosby sweater McSweeney, ';
+initialQuote += 'salvia kitsch before they sold out High Life.';
 const Login = props => {
   const { t, history } = props;
   const classes = useStyles();
   const { loggedIn, user } = useSelector(({ auth }) => auth);
 
   const [quote, setQuote] = useState({
-    quote:
-      "Hella narvwhal Cosby sweater McSweeney's, salvia kitsch before they sold out High Life.",
+    quote: initialQuote,
     background: '/images/auth.png'
   });
 

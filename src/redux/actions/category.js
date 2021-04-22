@@ -11,7 +11,7 @@ export const addCategory = (newCategory = {}) => {
 export const getCategories = (forSlider = false, type = 'blog') => {
   let categoriesURL = `/categories?categoryType=${type}`;
   if (forSlider) {
-    categoriesURL += `&forSlider=forSlider`;
+    categoriesURL += '&forSlider=forSlider';
   }
   store.dispatch({
     type: GET_CATEGORIES,
