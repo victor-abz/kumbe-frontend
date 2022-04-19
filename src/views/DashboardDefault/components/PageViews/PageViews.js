@@ -1,17 +1,16 @@
-import React from 'react';
-import clsx from 'clsx';
-import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
 import {
   Card,
   CardContent,
   CardHeader,
-  Typography,
   List,
   ListItem,
-  ListItemText
+  ListItemText,
+  Typography
 } from '@material-ui/core';
-
+import { makeStyles } from '@material-ui/core/styles';
+import clsx from 'clsx';
+import PropTypes from 'prop-types';
+import React from 'react';
 import gradients from 'utils/gradients';
 
 const useStyles = makeStyles(theme => ({
@@ -62,7 +61,7 @@ const PageViews = props => {
       />
       <CardContent className={classes.content}>
         <List>
-          {pages.slice(0, 10).map((page, index) => (
+          {pages?.slice(0, 10).map((page, index) => (
             <ListItem
               classes={{ divider: classes.itemDivider }}
               divider
